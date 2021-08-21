@@ -1,0 +1,80 @@
+html {
+  --primary-active-color: #0e7be5;
+  --primary-color: #1089ff;
+  --primary-hover-color: #3fa0ff;
+  --primary-lighten3-color: #9fcfff;
+  --primary-lighten5-color: #e7f3ff;
+  --primary-lighten-hover-color: #f3f9ff;
+  --menu-bg-color: #ffffff;
+  --menu-bg-active-color: transparent;
+}
+
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  height: 100%;
+  font-size: 14px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  text-rendering: optimizeLegibility;
+  color: #515a6e;
+}
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+ul li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+a {
+  cursor: pointer;
+  color: getColor();
+  text-decoration: none;
+}
+a:focus, a:hover {
+  color: getHover();
+}
+#app {
+  min-height: 100%;
+}
+
+a:active, a:focus, button, div, span, svg {
+  outline: 0 !important;
+}
+// =================================
+// ==============scrollbar==========
+// =================================
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #b6b7b9;
+}
+
+/* webkit, opera, IE9 */
+::selection {
+  background: getColor();
+  color: #fff;
+}
+/* mozilla firefox */
+::-moz-selection {
+  background: getColor();
+  color: #fff;
+}
