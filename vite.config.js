@@ -1,13 +1,18 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import path from 'path'
+import { resolve } from 'path'
+
+function pathResolve(dir) {
+  return resolve(process.cwd(), '.', dir)
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    vue()
-  ],
+  base: process.env.NODE_ENV === 'production' ? '/bin-datav-schema/' : '/',
+  plugins: [vue()],
   server: {
-    port: 9090,
+    host: '0.0.0.0',
+    port: 8085,
     open: true,
     // proxy: {
     //   '/admin': { target: 'http://localhost:8088/cms' }
@@ -15,7 +20,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src'),
+      '@': pathResolve('./src'),
     },
   },
   optimizeDeps: {
@@ -24,17 +29,39 @@ export default defineConfig({
       'vue',
       'vue-router',
       'vuex',
+      'dayjs',
+      'echarts',
+      'bin-ui-next',
+      'js-cookie',
+      'mockjs',
+      'brace',
     ],
-    //'dayjs','echarts','bin-ui-next','js-cookie','mockjs',
     exclude: [],
   },
   build: {
     sourcemap: false,
-    outDir: 'website',
+    outDir: 'docs',
     rollupOptions: {
       output: {
-        manualChunks: {},
+        chunkFileNames: 'static/js/[name]-[hash].js',
+        entryFileNames: 'static/js/[name]-[hash].js',
+        assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
+        manualChunks(id) {
+          if (id.includes('/node_modules/')) {
+            // 设置需要独立打包的npm包
+            const expansions = ['bin-ui-next', 'brace']
+            const c = expansions.find(exp => id.includes(`/node_modules/${exp}`))
+            if (c) {
+              return `chunk-${c}`
+            } else {
+              return 'vendor'
+            }
+          }
+        },
       },
     },
+    // Turning off brotliSize display can slightly reduce packaging time
+    brotliSize: false,
+    chunkSizeWarningLimit: 2000,
   },
 })

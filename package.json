@@ -1,31 +1,56 @@
 {
   "name": "bin-datav-schema",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "后台管理系统 vue3版本",
+  "homepage": "https://github.com/wangbin3162/bin-datav-schema",
+  "keywords": [
+    "bin-ui-next",
+    "bin-datav-schema",
+    "vue3",
+    "vite"
+  ],
+  "author": "wang bin",
+  "files": [
+    "lib",
+    "src"
+  ],
+  "private": false,
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
-    "axios": "^0.21.1",
-    "bin-ui-next": "^0.9.4",
-    "vue": "^3.0.5",
+    "axios": "^0.21.4",
+    "bin-charts-next": "^1.0.5",
+    "bin-editor-next": "^1.0.5",
+    "bin-ui-next": "^1.0.8",
+    "echarts": "^5.2.1",
+    "good-storage": "^1.1.1",
+    "javascript-natural-sort": "^0.7.1",
+    "js-cookie": "^3.0.1",
+    "lodash-es": "^4.17.21",
+    "many-keys-map": "^1.0.3",
+    "mockjs": "^1.1.0",
+    "thenby": "^1.3.4",
     "vue-router": "^4.0.11",
+    "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
-    "@babel/preset-env": "^7.15.0",
-    "@types/node": "^16.7.1",
-    "@vitejs/plugin-vue": "^1.3.0",
-    "@vue/compiler-sfc": "^3.0.5",
+    "@babel/core": "^7.15.5",
+    "@babel/preset-env": "^7.15.6",
+    "@types/node": "^16.10.1",
+    "@vitejs/plugin-vue": "^1.9.2",
+    "@vue/compiler-sfc": "^3.2.19",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
-    "eslint-plugin-import": "^2.24.1",
-    "eslint-plugin-vue": "^7.16.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-vue": "^7.18.0",
     "rimraf": "^3.0.2",
-    "stylus": "^0.54.8",
-    "vite": "^2.4.4",
-    "vite-plugin-style-import": "^1.1.1"
+    "stylus": "^0.55.0",
+    "vite": "^2.6.2",
+    "vue": "^3.2.19"
   }
 }

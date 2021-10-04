@@ -1,0 +1,69 @@
+<template>
+  <div class="svg-loading-wrapper" :style="loadingStyle">
+    <component :is="name"></component>
+  </div>
+</template>
+
+<script>
+import Loading01 from '@/components/Common/SvgLoading/loading/loading01.vue'
+import Loading02 from '@/components/Common/SvgLoading/loading/loading02.vue'
+import Loading03 from '@/components/Common/SvgLoading/loading/loading03.vue'
+import Loading04 from '@/components/Common/SvgLoading/loading/loading04.vue'
+import Loading05 from '@/components/Common/SvgLoading/loading/loading05.vue'
+import Loading06 from '@/components/Common/SvgLoading/loading/loading06.vue'
+import Loading07 from '@/components/Common/SvgLoading/loading/loading07.vue'
+import Loading08 from '@/components/Common/SvgLoading/loading/loading08.vue'
+import Loading09 from '@/components/Common/SvgLoading/loading/loading09.vue'
+import Loading10 from '@/components/Common/SvgLoading/loading/loading10.vue'
+import Loading11 from '@/components/Common/SvgLoading/loading/loading11.vue'
+import Loading12 from '@/components/Common/SvgLoading/loading/loading12.vue'
+import LoadingText from '@/components/Common/SvgLoading/loading/loading-text.vue'
+
+/**
+ * design by https://loading.io/
+ */
+export default {
+  name: 'SvgLoading',
+  components: {
+    Loading01,
+    Loading02,
+    Loading03,
+    Loading04,
+    Loading05,
+    Loading06,
+    Loading07,
+    Loading08,
+    Loading09,
+    Loading10,
+    Loading11,
+    Loading12,
+    LoadingText,
+  },
+  props: {
+    name: {
+      type: String,
+      required: true,
+    },
+    width: {
+      type: Number,
+      default: 200,
+    },
+    height: {
+      type: Number,
+    },
+    background: {
+      type: String,
+      default: 'transparent',
+    },
+  },
+  computed: {
+    loadingStyle() {
+      return {
+        width: `${this.width}px`,
+        height: `${this.height ? this.height : this.width}px`,
+        background: this.background,
+      }
+    },
+  },
+}
+</script>
