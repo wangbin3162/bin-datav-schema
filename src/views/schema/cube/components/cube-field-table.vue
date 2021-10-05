@@ -239,10 +239,10 @@ export default {
           height: 100%;
           z-index: -1;
           &.dimension {
-            background-color:$color-primary;
+            background-color:var(--bin-color-primary);
           }
           &.measure {
-            background-color: #52c41a;
+            background-color: var(--bin-color-success);
           }
         }
       }
@@ -264,10 +264,10 @@ export default {
       justify-content: space-between;
       align-items: center;
       &.dimension > i {
-        color:$color-primary;
+        color:var(--bin-color-primary);
       }
       &.measure > i {
-        color: #52c41a;
+        color: var(--bin-color-success);
       }
     }
   }

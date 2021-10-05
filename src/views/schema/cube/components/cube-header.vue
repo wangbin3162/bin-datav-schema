@@ -150,7 +150,7 @@ export default {
       padding: 4px 11px;
       outline: none;
       &:focus, &:active, &:focus-visible {
-        border: 1px solid $color-primary;
+        border: 1px solid var(--bin-color-primary);
       }
     }
   }
@@ -164,8 +164,8 @@ export default {
       text-align: center;
       line-height: 26px;
       color: #ffffff;
-      background-color: $color-primary;
-      border: 1px solid $color-primary;
+      background-color: var(--bin-color-primary);
+      border: 1px solid var(--bin-color-primary);
       border-radius: 14px;
       + .primary-btn {
         margin-left: 14px;

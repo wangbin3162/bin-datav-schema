@@ -1,11 +1,11 @@
 import { useRoute, useRouter } from 'vue-router'
 import { onMounted, reactive, watch } from 'vue'
 import { Message } from 'bin-ui-next'
+import useSchemaStore from '@/hooks/schema-store/useSchemaStore'
 
 export default function useCubePage() {
-  const router = useRouter()
   const route = useRoute()
-
+  const { setPageInfo } = useSchemaStore()
   const dashboard = reactive({
     pageId: '',
     workspaceId: '',
@@ -14,16 +14,6 @@ export default function useCubePage() {
     dashboardName: '未命名', // 面板名称
   })
 
-  // 返回
-  const handleBack = (backUrl) => {
-    router.push(backUrl || '/')
-  }
-
-  // 保存
-  const handleSave = () => {
-    Message.success('保存成功')
-  }
-
   const getBaseInfo = () => {
     const { pageId, workspaceId, sourceId, sourceType } = route.query
     dashboard.pageId = pageId
@@ -31,6 +21,8 @@ export default function useCubePage() {
     dashboard.sourceId = sourceId
     dashboard.sourceType = sourceType
     dashboard.dashboardName = dashboard.pageId === 'page-screen-0001' ? '仪表板（空）' : '仪表板'
+
+    setPageInfo(dashboard)
   }
 
   watch(() => route.path, (path) => {
@@ -38,11 +30,6 @@ export default function useCubePage() {
     const { workspaceId } = route.query
     if (workspaceId) {
       getBaseInfo()
-    } else {
-      Message.error({
-        message: '没有请求参数，即将关闭此页面！',
-        onClose: window.close,
-      })
     }
   }, { immediate: true })
 
@@ -52,7 +39,5 @@ export default function useCubePage() {
 
   return {
     dashboard,
-    handleSave,
-    handleBack,
   }
 }

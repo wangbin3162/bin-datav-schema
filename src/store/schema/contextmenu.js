@@ -1,6 +1,6 @@
 export default {
   state: {
-    contextMenuInfo: { x: 0, y: 0, isShow: false }, // 右键菜单
+    contextMenuInfo: { x: 0, y: 0, show: false }, // 右键菜单
   },
   mutations: {
     // 设置右键菜单信息
@@ -10,7 +10,7 @@ export default {
   },
   actions: {
     toggleContextMenu({ commit }, info) {
-      let menuInfo = info ? Object.assign({}, info, { isShow: true }) : { x: 0, y: 0, isShow: false }
+      let menuInfo = info ? Object.assign({}, info, { show: true }) : { x: 0, y: 0, show: false }
       commit('SET_CONTEXT_MENU_INFO', menuInfo)
     },
   },

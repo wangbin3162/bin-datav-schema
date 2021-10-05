@@ -287,7 +287,7 @@ export default {
     padding: 0 10px;
     .field-label {
       > i {
-        color: $color-primary;
+        color: var(--bin-color-primary);
         margin-right: 4px;
       }
     }

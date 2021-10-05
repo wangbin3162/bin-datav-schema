@@ -1,0 +1,42 @@
+.schema-screen-container {
+  min-width: 1200px;
+  width: 100%;
+  height: 100vh;
+  overflow-x: auto;
+  position: relative;
+  font-size: var(--schema-font-size);
+  color: var(--schema-font-color);
+  .full-wrapper {
+    width: 100%;
+    background: var(--schema-color-bg-dark);
+    height: calc(100% - 40px);
+  }
+  .editor-main-wrapper {
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: url('@/assets/images/schema/bg-canvas.png');
+    flex-wrap: nowrap;
+    height: calc(100% - 40px);
+  }
+
+
+  // canvas画布面板
+  .schema-canvas-wrap {
+    width: 100%;
+    height: calc(100% - 45px);
+    .editor-container {
+      height: 100%;
+      position: relative;
+      overflow: auto;
+      .editor-container-main {
+        min-height: 100%;
+        padding: 5px;
+        background: #f0f2f5;
+      }
+    }
+  }
+
+}

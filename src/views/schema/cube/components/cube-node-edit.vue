@@ -125,7 +125,7 @@ export default {
   overflow-y: auto;
   .field-label {
     > i {
-      color: $color-primary;
+      color: var(--bin-color-primary);
       margin-right: 4px;
     }
   }

@@ -93,7 +93,7 @@ import fieldTypeIcon from '@/components/Service/LinkNode/field-type-icon.vue'
 import { Message } from 'bin-ui-next'
 
 export default {
-  name: 'setting-config-panel',
+  name: 'options-config',
   setup() {
     // tab切换
     const curTabIndex = ref(0)
@@ -102,7 +102,7 @@ export default {
         curTabIndex.value = index
       }
     }
-    const Schema = inject('Schema', {})
+    const Schema = inject('Schema', { status: { dimensionTree: {}, measureTree: {} } })
     const dimensionTree = computed(() => Schema.status.dimensionTree)
     const measureTree = computed(() => Schema.status.measureTree)
 

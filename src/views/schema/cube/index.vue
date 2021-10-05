@@ -195,7 +195,7 @@ export default {
           position: relative;
           height: 100%;
           line-height: 48px;
-          color: $color-primary;
+          color: var(--bin-color-primary);
           &.active:after {
             content: '';
             position: absolute;
@@ -203,7 +203,7 @@ export default {
             right: 0;
             bottom: 0;
             height: 2px;
-            background-color: $color-primary;
+            background-color: var(--bin-color-primary);
           }
         }
       }
@@ -242,10 +242,10 @@ export default {
             }
             .bin-tree-render-title {
               .D > i {
-                color: $color-primary;
+                color: var(--bin-color-primary);
               }
               .M > i {
-                color: $color-success;
+                color: var(--bin-color-success);
               }
               &:hover .setting-action {
                 display: block;

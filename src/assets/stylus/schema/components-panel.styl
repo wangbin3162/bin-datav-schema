@@ -1,0 +1,100 @@
+.components-panel-wp {
+  flex: none;
+  z-index: 4;
+  width: var(--schema-comps-width);
+  height: 100%;
+  overflow: hidden;
+  background: var(--schema-color-bg-dark);
+  box-shadow: 1px 0 #000;
+  transition: width .2s ease;
+  .components-panel {
+    z-index: 9;
+    display: flex;
+    width: var(--schema-comps-width);
+    height: 100%;
+    overflow: hidden;
+    transition: .2s ease;
+    flex-direction: column;
+    flex: auto;
+    .panel-title {
+      position: relative;
+      user-select: none;
+      display: flex;
+      height: 30px;
+      padding: 10px;
+      background: var(--schema-color-bg-light);
+      align-items: center;
+      justify-content: space-between;
+    }
+    .comps-action {
+      height: 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: 0.2s;
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+  &.is-hide {
+    width: 45px !important;
+  }
+  .components-panel-content {
+    width: 100%;
+    height: calc(100% - 30px);
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    .components-type {
+      width: 45px;
+      height: 100%;
+      overflow-y: auto;
+      .components-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 8px 4px;
+        cursor: pointer;
+        .com-tab-icon {
+          font-size: 16px;
+          color: #fff;
+        }
+        .com-tab-title {
+          font-size: 12px;
+          width: 100%;
+          line-height: 20px;
+          text-align: center;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: block;
+          font-weight: normal;
+        }
+        &.active {
+          color: var(--bin-color-primary);
+          background: var(--schema-color-bg-deep);
+          .com-tab-icon {
+            color: var(--bin-color-primary);
+          }
+          &:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--bin-color-primary);
+          }
+        }
+      }
+    }
+    .components-list {
+      width: calc(100% - 45px);
+      background: var(--schema-color-bg-deep);
+    }
+  }
+}

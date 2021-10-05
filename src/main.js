@@ -27,5 +27,5 @@ setupRouter(app)
 setupStore(app)
 // Mount when the route is ready
 router.isReady().then(() => {
-  app.mount('#app-3', true)
+  app.mount('#app', true)
 })

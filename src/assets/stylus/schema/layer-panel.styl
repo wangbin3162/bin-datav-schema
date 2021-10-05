@@ -1,0 +1,53 @@
+.layer-panel-wp {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  width: var(--schema-layer-width);
+  height: 100%;
+  overflow: hidden;
+  background: var(--schema-color-bg-dark);
+  border-right: 1px solid #000;
+  transition: width .2s ease;
+  flex: none;
+  flex-direction: column;
+  .layer-panel {
+    z-index: 9;
+    display: flex;
+    width: var(--schema-layer-width);
+    height: 100%;
+    overflow: hidden;
+    transition: .2s ease;
+    flex-direction: column;
+    flex: auto;
+    .layer-top {
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      background: var(--schema-color-bg-light);
+      user-select: none;
+    }
+    .layer-action {
+      position: absolute;
+      top: 0;
+      right: 1px;
+      letter-spacing: 4px;
+      > i {
+        text-indent: 0;
+        cursor: pointer;
+        transition: color 0.2s;
+        width: 20px;
+        height: 30px;
+        display: inline-block;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+  &.is-hide {
+    width: 0;
+    .layer-panel {
+      transform: translateX(-100%);
+    }
+  }
+}
