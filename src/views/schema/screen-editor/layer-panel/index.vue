@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import useSchemaStore from '@/hooks/schema-store/useSchemaStore'
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
 
 export default {
   name: 'layer-panel',

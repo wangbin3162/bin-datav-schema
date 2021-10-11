@@ -2,22 +2,22 @@
   <div class="header-container">
     <div class="left-actions">
       <b-space size="mini">
-        <b-tooltip content="图层" theme="light" :open-delay="300">
+        <b-tooltip content="图层" :open-delay="500">
           <div class="head-btn" :class="{active:pageConfig.layerExpand}" @click="toggleLayerPanel()">
             <b-icon name="container"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="组件列表" theme="light" :open-delay="300">
+        <b-tooltip content="组件列表" :open-delay="500">
           <div class="head-btn" :class="{active:pageConfig.componentsExpand}" @click="toggleCompsPanel()">
             <b-icon name="hourglass" class="com-list-icon" :class="{'is-rotate':!pageConfig.componentsExpand}"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="右侧面板" theme="light" :open-delay="300">
+        <b-tooltip content="右侧面板" :open-delay="500">
           <div class="head-btn" :class="{active:pageConfig.configExpand}" @click="toggleConfigPanel()">
             <b-icon name="control"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="工具箱" theme="light" :open-delay="300">
+        <b-tooltip content="工具箱" :open-delay="500">
           <div class="head-btn" :class="{active:pageConfig.toolboxShow}" @click="toggleToolbox()">
             <b-icon name="shopping"></b-icon>
           </div>
@@ -25,7 +25,7 @@
       </b-space>
     </div>
     <div class="screen-info">
-      <b-tooltip content="返回" theme="light" :open-delay="300">
+      <b-tooltip content="返回" :open-delay="500">
         <b-icon name="laptop" type="button" @click="handleBack"></b-icon>
       </b-tooltip>
       <span>工作空间</span>
@@ -41,22 +41,22 @@
     </div>
     <div class="global-actions">
       <b-space size="mini">
-        <b-tooltip content="帮助" theme="light" :open-delay="300">
+        <b-tooltip content="帮助" :open-delay="500">
           <div class="head-btn" @click="handleHelp">
             <b-icon name="question-circle"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="保存" theme="light" :open-delay="300">
+        <b-tooltip content="保存" :open-delay="500">
           <div class="head-btn" @click="handleSave">
             <b-icon name="save"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="预览" theme="light" :open-delay="300">
+        <b-tooltip content="预览" :open-delay="500">
           <div class="head-btn" @click="handPreview">
             <b-icon name="eye"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="发布" theme="light" :open-delay="300">
+        <b-tooltip content="发布" :open-delay="500">
           <div class="head-btn" @click="handlePublish">
             <b-icon name="send"></b-icon>
           </div>
@@ -67,11 +67,10 @@
 </template>
 
 <script>
-import { computed, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { Message } from 'bin-ui-next'
-import { useStore } from 'vuex'
-import useSchemaStore from '@/hooks/schema-store/useSchemaStore'
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
 
 export default {
   name: 'header-bar',

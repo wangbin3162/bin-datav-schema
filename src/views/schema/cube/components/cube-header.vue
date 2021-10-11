@@ -2,7 +2,7 @@
   <div class="action-panel">
     <div class="header-container">
       <div class="simple-header-left">
-        <b-tooltip content="返回" theme="light">
+        <b-tooltip content="返回">
           <div class="simple-header-icon" @click="handleBack">
             <b-icon name="left" size="24"></b-icon>
           </div>
@@ -22,10 +22,10 @@
       <div class="simple-header-right">
         <div class="cube-btn" flex="cross:center">
           <b-space size="large">
-            <b-tooltip content="另存为" theme="light">
+            <b-tooltip content="另存为">
               <b-icon name="file-copy" size="18" type="button"></b-icon>
             </b-tooltip>
-            <b-tooltip content="帮助" theme="light">
+            <b-tooltip content="帮助">
               <b-icon name="question-circle" size="18" type="button"></b-icon>
             </b-tooltip>
             <span class="primary-btn" @click="handleSave">保存</span>

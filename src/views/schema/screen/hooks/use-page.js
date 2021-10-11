@@ -1,7 +1,6 @@
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { onMounted, reactive, watch } from 'vue'
-import { Message } from 'bin-ui-next'
-import useSchemaStore from '@/hooks/schema-store/useSchemaStore'
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
 
 export default function useCubePage() {
   const route = useRoute()

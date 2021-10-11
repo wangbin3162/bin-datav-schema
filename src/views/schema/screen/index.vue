@@ -6,7 +6,7 @@
 import { onMounted } from 'vue'
 import { setAttrVar } from '@/config/setting.cfg'
 import usePage from '@/views/schema/screen/hooks/use-page'
-import SchemaEditor from '@/components/SchemaEditor/index.vue'
+import SchemaEditor from '@/views/schema/screen-editor/index.vue'
 
 export default {
   name: 'Screen',

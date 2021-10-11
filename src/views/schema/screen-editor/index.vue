@@ -14,17 +14,17 @@
 </template>
 
 <script>
-import { reactive, toRefs } from 'vue'
+import { provide, reactive, toRefs } from 'vue'
 import { compileFlatState, throwError } from '@/utils/util'
 import { getSchema } from '@/api/modules/bi-cube.api'
-import useSchemaStore from '@/hooks/schema-store/useSchemaStore'
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
 import '@/assets/stylus/schema/index.styl'
 import SvgLoading from '@/components/Common/SvgLoading/index.vue'
-import HeaderBar from '@/components/SchemaEditor/header-bar/index.vue'
-import LayerPanel from '@/components/SchemaEditor/layer-panel/index.vue'
-import ComponentsPanel from '@/components/SchemaEditor/components-panel/index.vue'
-import CanvasMain from '@/components/SchemaEditor/canvas-main/index.vue'
-import ConfigPanel from '@/components/SchemaEditor/config-panel/index.vue'
+import HeaderBar from '@/views/schema/screen-editor/header-bar/index.vue'
+import LayerPanel from '@/views/schema/screen-editor/layer-panel/index.vue'
+import ComponentsPanel from '@/views/schema/screen-editor/components-panel/index.vue'
+import CanvasMain from '@/views/schema/screen-editor/canvas-main/index.vue'
+import ConfigPanel from '@/views/schema/screen-editor/config-panel/index.vue'
 
 export default {
   name: 'schema-editor',
@@ -66,6 +66,10 @@ export default {
     }
 
     initData()
+
+    provide('Schema', {
+      status,
+    })
     return {
       ...toRefs(status),
       ...schemaStore,
