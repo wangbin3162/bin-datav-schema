@@ -1,0 +1,273 @@
+$gui-primary-color = #2483ff;
+
+// dv-transform
+.dv-transform {
+  position: absolute;
+  will-change: transform;
+  &.selected {
+    z-index: 1;
+    .dv-com {
+      background: rgba(36, 63, 162, 0.03);
+    }
+    .dv-scale::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: -1;
+      border: 1px dashed $gui-primary-color;
+    }
+  }
+  &.locked {
+    pointer-events: none;
+  }
+}
+// dv-scale
+.dv-scale {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0 0;
+  .dv-com {
+    width: 100%;
+    height: 100%;
+    outline: 0;
+    box-sizing: border-box;
+    transform-origin: 50% 50%;
+    transform: scaleX(1) scaleY(1);
+    overflow: hidden;
+    .dv-event-disable {
+      position: absolute;
+      top: 0;
+    }
+  }
+  &.hovered {
+    .dv-com {
+      background: rgba(36, 63, 162, 0.1);
+    }
+    .bottom-handler, .left-handler, .right-handler, .top-handler {
+      display: flex !important;
+    }
+  }
+}
+// transform-handler
+.transform-handler {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: move;
+  box-sizing: border-box;
+  &.is-hide {
+    .transform-bg, i[class$="-handler"] {
+      display: none;
+    }
+  }
+
+
+  .transform-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    cursor: move;
+    background: rgba(0, 231, 255, 0.11);
+  }
+
+
+  .top-handler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: -5px;
+    width: 100%;
+    height: 11px;
+    &::after {
+      content: "";
+      height: 1px;
+      background: $gui-primary-color;
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+  .bottom-handler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -5px;
+    width: 100%;
+    height: 11px;
+    &::after {
+      content: "";
+      height: 1px;
+      background: $gui-primary-color;
+      width: 100%;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+  .left-handler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: -5px;
+    width: 11px;
+    height: 100%;
+    &::after {
+      content: "";
+      width: 1px;
+      background: $gui-primary-color;
+      height: 100%;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+  .right-handler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: -5px;
+    width: 11px;
+    height: 100%;
+    &::after {
+      content: "";
+      width: 1px;
+      background: $gui-primary-color;
+      height: 100%;
+      position: absolute;
+      z-index: 1;
+    }
+  }
+  .top-left-handler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: -15px;
+    top: -15px;
+    height: 11px;
+    width: 11px;
+    .rotate-handler {
+      padding-top: 21px;
+      padding-left: 21px;
+      cursor: url('@/assets/images/schema/cursor-rotate-top-left.png') 14 14, pointer;
+    }
+  }
+  .top-right-handler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    height: 11px;
+    width: 11px;
+    .rotate-handler {
+      padding-top: 21px;
+      padding-right: 21px;
+      cursor: url('@/assets/images/schema/cursor-rotate-top-right.png') 14 14, pointer;
+    }
+  }
+  .bottom-left-handler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -15px;
+    left: -15px;
+    height: 11px;
+    width: 11px;
+    .rotate-handler {
+      padding-bottom: 21px;
+      padding-left: 21px;
+      cursor: url('@/assets/images/schema/cursor-rotate-bottom-left.png') 14 14, pointer;
+    }
+  }
+  .bottom-right-handler {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    bottom: -15px;
+    right: -15px;
+    height: 11px;
+    width: 11px;
+    .rotate-handler {
+      padding-bottom: 21px;
+      padding-right: 21px;
+      cursor: url('@/assets/images/schema/cursor-rotate-bottom-right.png') 14 14, pointer;
+    }
+  }
+
+  .rotate-handler {
+    z-index: 2;
+  }
+  .control-point {
+    z-index: 2;
+    display: flex;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    align-items: center;
+    &::after {
+      width: 6px;
+      height: 6px;
+      background: #fff;
+      border-radius: 100%;
+      content: '';
+    }
+  }
+}
+
+
+.dv-com {
+  .dv-wrapper {
+    //pointer-events: none !important;
+  }
+}
+
+.nav-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  box-sizing: content-box;
+}
+
+.nav-line-top {
+  position: absolute;
+  left: 0;
+  width: 0;
+  border-left: 1px dashed $gui-primary-color;
+  transform: translateY(-100%);
+}
+
+.nav-line-left {
+  position: absolute;
+  top: 0;
+  height: 0;
+  border-top: 1px dashed $gui-primary-color;
+  transform: translateX(-100%);
+}
+
+.nav-line-account {
+  position: absolute;
+  color: $gui-primary-color;
+  text-shadow: 1px 1px 1px #222;
+  white-space: nowrap;
+  transform: translate(-100%, -100%);
+}

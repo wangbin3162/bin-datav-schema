@@ -1,6 +1,9 @@
 import { Utils, Notice } from 'bin-ui-next'
+import { camelize, isObject } from '@vue/shared'
 
 export const generateId = Utils.helper.generateId
+
+export const logger = Utils.log
 
 export const copyText = Utils.util.copy
 
@@ -21,6 +24,10 @@ export const windowOpen = Utils.util.open
 export const on = Utils.dom.on
 
 export const off = Utils.dom.off
+
+export const addClass = Utils.dom.addClass
+
+export const removeClass = Utils.dom.removeClass
 
 export const addResizeListener = Utils.resize.addResizeListener
 
@@ -140,4 +147,49 @@ export function compileFlatState(stateTree) {
   flattenChildren(stateTree)
 
   return flatTree
+}
+
+/**
+ * 转换为json对象
+ * @param data
+ * @param defaultValue
+ * @returns {any}
+ */
+export function toJson(data, defaultValue) {
+  try {
+    if (!data) {
+      return defaultValue
+    }
+    if (typeOf(data) === 'string') {
+      return JSON.parse(data)
+    }
+    return data
+  } catch {
+    return defaultValue
+  }
+}
+
+// 设置dom style
+export function setStyle(element, styleName, value) {
+  if (!element || !styleName) return
+
+  if (isObject(styleName)) {
+    Object.keys(styleName).forEach(prop => {
+      setStyle(element, prop, styleName[prop])
+    })
+  } else {
+    styleName = camelize(styleName)
+    element.style[styleName] = value
+  }
+}
+
+// 简单计算字符串宽度
+let TextCanvas = null
+export const calcStrWidth = (str, font) => {
+  if (!TextCanvas) {
+    TextCanvas = document.createElement('canvas')
+  }
+  const ctx = TextCanvas.getContext('2d')
+  ctx.font = font
+  return ctx.measureText(str).width
 }

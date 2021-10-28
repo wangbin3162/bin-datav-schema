@@ -9,6 +9,7 @@ import 'brace/mode/stylus'
 import 'brace/snippets/stylus'
 import 'brace/theme/chrome'
 import 'brace/theme/sqlserver'
+import 'brace/theme/tomorrow_night'
 
 export function registerEditor(app) {
   app.component('BAceEditor', BAceEditor)

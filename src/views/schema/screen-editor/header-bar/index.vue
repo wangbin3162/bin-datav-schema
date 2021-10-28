@@ -3,22 +3,22 @@
     <div class="left-actions">
       <b-space size="mini">
         <b-tooltip content="图层" :open-delay="500">
-          <div class="head-btn" :class="{active:pageConfig.layerExpand}" @click="toggleLayerPanel()">
+          <div class="head-btn" :class="{active:toolbar.layer}" @click="toggleLayerPanel()">
             <b-icon name="container"></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="组件列表" :open-delay="500">
-          <div class="head-btn" :class="{active:pageConfig.componentsExpand}" @click="toggleCompsPanel()">
-            <b-icon name="hourglass" class="com-list-icon" :class="{'is-rotate':!pageConfig.componentsExpand}"></b-icon>
+          <div class="head-btn" :class="{active:toolbar.components}" @click="toggleCompsPanel()">
+            <b-icon name="hourglass" class="com-list-icon" :class="{'is-rotate':!toolbar.components}"></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="右侧面板" :open-delay="500">
-          <div class="head-btn" :class="{active:pageConfig.configExpand}" @click="toggleConfigPanel()">
+          <div class="head-btn" :class="{active:toolbar.config}" @click="toggleConfigPanel()">
             <b-icon name="control"></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="工具箱" :open-delay="500">
-          <div class="head-btn" :class="{active:pageConfig.toolboxShow}" @click="toggleToolbox()">
+          <div class="head-btn" :class="{active:toolbar.toolbox}" @click="toggleToolbox()">
             <b-icon name="shopping"></b-icon>
           </div>
         </b-tooltip>
@@ -35,15 +35,14 @@
         placeholder="请输入名称"
         maxlength="50"
         type="text"
-        v-model="name"
-        @input="handleInputChange"
+        v-model="pageInfo.name"
       >
     </div>
     <div class="global-actions">
       <b-space size="mini">
-        <b-tooltip content="帮助" :open-delay="500">
-          <div class="head-btn" @click="handleHelp">
-            <b-icon name="question-circle"></b-icon>
+        <b-tooltip content="保存快照" :open-delay="500">
+          <div class="head-btn" @click="copyCfg">
+            <b-icon name="codelibrary"></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="保存" :open-delay="500">
@@ -51,29 +50,35 @@
             <b-icon name="save"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="预览" :open-delay="500">
-          <div class="head-btn" @click="handPreview">
-            <b-icon name="eye"></b-icon>
-          </div>
-        </b-tooltip>
         <b-tooltip content="发布" :open-delay="500">
           <div class="head-btn" @click="handlePublish">
             <b-icon name="send"></b-icon>
           </div>
         </b-tooltip>
+        <b-tooltip content="预览" :open-delay="500">
+          <div class="head-btn" @click="handPreview">
+            <b-icon name="eye"></b-icon>
+          </div>
+        </b-tooltip>
       </b-space>
     </div>
   </div>
+  <head-loading />
+  <publish-screen v-model="publishVisible" :project-id="publishAppId"></publish-screen>
 </template>
 
 <script>
-import { ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { Message } from 'bin-ui-next'
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { copyText, logger } from '@/utils/util'
+import { ref } from 'vue'
+import HeadLoading from '@/views/schema/screen-editor/header-bar/head-loading.vue'
+import PublishScreen from '@/views/schema/screen-editor/header-bar/publish-screen.vue'
 
 export default {
   name: 'header-bar',
+  components: { PublishScreen, HeadLoading },
   props: {
     backUrl: {
       type: String,
@@ -89,10 +94,11 @@ export default {
     },
   },
   setup(props) {
-    const name = ref('')
     const $router = useRouter()
-
+    const $route = useRoute()
     const storeStatus = useSchemaStore()
+    const publishVisible = ref(false)
+    const publishAppId = ref('')
 
     const handleBack = () => {
       const path = props.backUrl || '/'
@@ -104,39 +110,49 @@ export default {
       }
     }
 
-    const handleSave = () => {
-      Message.info({ message: 'handleSave', showClose: true })
+    // 复制json至剪切板
+    const copyCfg = async () => {
+      const { data } = await storeStatus.saveScreenData()
+      await copyText(JSON.stringify(data))
+      logger.primary('已拷贝配置至剪切板！')
     }
 
-    const handleHelp = () => {
-      Message.success({ message: 'handleHelp', showClose: true })
+    // 保存
+    const handleSave = async () => {
+      const oldId = storeStatus.pageInfo.value.id // 缓存原有id
+      const { data } = await storeStatus.saveScreenData()
+      if (!oldId) {
+        let routeData = $router.resolve({
+          path: '/schema/screen',
+          query: { id: data.pageInfo.id },
+        })
+        window.location.replace(routeData.href)
+      }
+      Message.success({ message: '保存成功！', showClose: true })
     }
 
-    const handPreview = () => {
-      Message.warning({ message: 'handPreview', showClose: true })
+    // 预览
+    const handPreview = async () => {
+      const { data } = await storeStatus.saveScreenData()
+      let routeData = $router.resolve({ path: `/screen/preview/${data.pageInfo.id}`, query: {} })
+      window.open(routeData.href, '_blank')
     }
 
+    // 发布
     const handlePublish = () => {
-      Message.error({ message: 'handlePublish', showClose: true })
+      publishVisible.value = true
+      publishAppId.value = $route.query.id
     }
-
-    const handleInputChange = (e) => {
-      storeStatus.pageInfo.value.dashboardName = e.target.value.trim()
-    }
-
-    watch(() => storeStatus.pageInfo.value, val => {
-      name.value = val.dashboardName || '未命名'
-    }, { immediate: true })
 
     return {
-      name,
       ...storeStatus,
+      publishVisible,
+      publishAppId,
+      copyCfg,
       handleBack,
       handleSave,
-      handleHelp,
       handPreview,
       handlePublish,
-      handleInputChange,
     }
   },
 }

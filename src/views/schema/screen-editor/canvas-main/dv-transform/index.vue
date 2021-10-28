@@ -1,0 +1,220 @@
+<template>
+  <div
+    class="dv-transform"
+    :class="transformClass"
+    :style="transformStyle"
+  >
+    <refer-line
+      v-if="toolbox.referLine && isSelected"
+      :attr="data.attr"
+      :scale="scale"
+    />
+    <div
+      :class="['dv-scale', { hovered: isHovered }]"
+      :style="hideStyle"
+      @mouseenter="onEnter"
+      @mouseleave="onLeave"
+      @mousedown.prevent.stop="onMove"
+    >
+      <div
+        class="transform-handler"
+        :class="handlerClass"
+        :style="handlerStyle"
+      >
+        <div class="dv-com">
+          <slot></slot>
+          <div
+            class="dv-event-disable"
+            :style="wrapperStyle"
+            @contextmenu="showMenu"
+          ></div>
+        </div>
+        <template v-for="(v, k) in points" :key="k">
+          <i v-if="v.rotateStyle" :class="`${v.name}-handler`" data-html2canvas-ignore>
+            <span
+              class="rotate-handler"
+              :style="v.rotateStyle"
+              @mousedown.prevent.stop="onRotate"
+            >
+              <span
+                class="control-point"
+                :style="v.style"
+                @mousedown.prevent.stop="onZoom($event, k)"
+              ></span>
+            </span>
+          </i>
+          <i v-else :class="`${v.name}-handler`" data-html2canvas-ignore>
+            <span
+              class="control-point"
+              :style="v.style"
+              @mousedown.prevent.stop="onZoom($event, k)"
+            ></span>
+          </i>
+        </template>
+        <div class="transform-bg"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { computed, getCurrentInstance } from 'vue'
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { isEmpty } from '@/utils/util'
+import { getCursors, handleMove, handleRotate, handleZoom } from './util'
+import ReferLine from './refer-line.vue'
+import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
+
+export default {
+  name: 'dv-transform',
+  components: { ReferLine },
+  props: {
+    data: {
+      type: Object,
+      required: true,
+    },
+  },
+  setup(props, ctx) {
+    const instance = getCurrentInstance()
+    const {
+      canvas,
+      comps,
+      pageConfig,
+      selectedCom,
+      hoveredCom,
+      onCompHovered,
+      onCompSelected,
+      toolbox,
+    } = useSchemaStore()
+    const { showMenu } = useSchemaContextMenu()
+    // 是否悬停当前
+    const isHovered = computed(() => hoveredCom.value === props.data.id)
+    // 是否选中当前当前
+    const isSelected = computed(() => !isEmpty(selectedCom.value) && selectedCom.value.id === props.data.id)
+
+    const transformClass = computed(() => ({
+      locked: props.data.locked,
+      selected: isSelected.value,
+    }))
+
+    const transformStyle = computed(() => ({
+      top: 0,
+      left: 0,
+      width: `${props.data.attr.w}px`,
+      height: `${props.data.attr.h}px`,
+      transform: `translate(${props.data.attr.x}px, ${props.data.attr.y}px)`,
+    }))
+
+    const handlerClass = computed(() => ({ 'is-hide': !isSelected.value || props.data.locked }))
+
+    const handlerStyle = computed(() => ({ cursor: 'move', transform: `rotate(${props.data.attr.rotate}deg)` }))
+
+    const wrapperStyle = computed(() => ({
+      width: `${props.data.attr.w}px`,
+      height: `${props.data.attr.h}px`,
+    }))
+    const hideStyle = computed(() => ({
+      display: props.data.hided ? 'none' : 'block',
+    }))
+
+    const cursor = computed(() => getCursors(props.data.attr.rotate))
+
+    const scale = computed(() => canvas.value.scale)
+
+    const points = computed(() => {
+      const transform = `scale(${1 / scale.value}, ${1 / scale.value})`
+      return {
+        t: {
+          name: 'top',
+          style: { cursor: cursor.value.t, transform },
+        },
+        rt: {
+          name: 'top-right',
+          style: { cursor: cursor.value.rt },
+          rotateStyle: { 'transform-origin': '25% 75%', transform },
+        },
+        r: {
+          name: 'right',
+          style: { cursor: cursor.value.r, transform },
+        },
+        rb: {
+          name: 'bottom-right',
+          style: { cursor: cursor.value.rb },
+          rotateStyle: { 'transform-origin': '25% 25%', transform },
+        },
+        b: {
+          name: 'bottom',
+          style: { cursor: cursor.value.b, transform },
+        },
+        lb: {
+          name: 'bottom-left',
+          style: { cursor: cursor.value.lb },
+          rotateStyle: { 'transform-origin': '75% 25%', transform },
+        },
+        l: {
+          name: 'left',
+          style: { cursor: cursor.value.l, transform },
+        },
+        lt: {
+          name: 'top-left',
+          style: { cursor: cursor.value.lt },
+          rotateStyle: { 'transform-origin': '75% 75%', transform },
+        },
+      }
+    })
+
+    const onEnter = () => {
+      onCompHovered(props.data.id)
+    }
+
+    const onLeave = () => {
+      onCompHovered('')
+    }
+
+    const selectCom = () => {
+      if (isSelected.value) {
+        return
+      }
+      onCompSelected(props.data)
+    }
+    // 单击选中组件
+    const onMove = (e) => {
+      selectCom()
+      handleMove(e, props.data, scale.value, pageConfig.value.grid)
+    }
+
+    const onZoom = (e, dir) => {
+      selectCom()
+      handleZoom(e, dir, props.data, scale.value)
+    }
+
+    const onRotate = (e) => {
+      handleRotate(e, instance.vnode.el, props.data)
+    }
+    return {
+      // store
+      comps,
+      selectedCom,
+      hoveredCom,
+      toolbox,
+      // 自有属性
+      isHovered,
+      isSelected,
+      hideStyle,
+      transformClass,
+      transformStyle,
+      handlerClass,
+      handlerStyle,
+      wrapperStyle,
+      onEnter,
+      onLeave,
+      onMove,
+      onZoom,
+      onRotate,
+      points,
+      scale,
+      showMenu,
+    }
+  },
+}
+</script>

@@ -7,5 +7,5 @@ import './services/user'
 import './services/bi-cube'
 
 Mock.setup({
-  timeout: 300, // setter delay time
+  timeout: 200, // setter delay time
 })

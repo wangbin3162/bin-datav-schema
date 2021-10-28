@@ -4,6 +4,7 @@ import { MENU_THEME_COLOR_LIST, setMenuTheme, setPrimaryColor, setThemeMode } fr
 export default {
   namespaced: true,
   state: {
+    projectName: document.title,
     setting: getAdminSetting(),
     searchVisible: false,
     settingVisible: false,

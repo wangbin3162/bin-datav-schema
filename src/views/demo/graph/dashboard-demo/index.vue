@@ -8,13 +8,13 @@
     <b-collapse-wrap title="仪表板" shadow="none">
       <template #right>
         <b-space>
-          <b-input size="small" placeholder="请输入..." search></b-input>
-          <b-button size="small" icon="plus" type="primary">新建仪表板</b-button>
+          <b-input size="small" placeholder="请输入..." search @search="initList"></b-input>
+          <b-button size="small" icon="plus" type="primary" @click="handleCreate">新建仪表板</b-button>
           <b-button size="small" icon="plus" type="primary" transparent>新建文件夹</b-button>
         </b-space>
       </template>
       <div class="p16">
-        <ul class="list-wrap">
+        <ul class="list-wrap" v-loading="loading" v-no-data="list.length===0">
           <li v-for="item in list" :key="item.id" class="base-list-item">
             <div class="list-item-meta">
               <b-icon name="barchart"></b-icon>
@@ -40,7 +40,14 @@
             </div>
             <div class="list-item-action">
               <action-button type="text" icon="edit-square" @click="handleEdit(item)"></action-button>
-              <action-button type="text" icon="delete" confirm></action-button>
+              <action-button
+                type="text"
+                icon="delete"
+                color="#f5222d"
+                confirm
+                :disabled="['screen_0001','screen_0002'].includes(item.id)"
+                @click="handleRemove(item.id)"
+              ></action-button>
             </div>
           </li>
         </ul>
@@ -54,6 +61,8 @@ import PageWrapper from '@/components/Common/Page/page-wrapper.vue'
 import ActionButton from '@/components/Common/ActionButton/index.vue'
 import { reactive, toRefs } from 'vue'
 import { useRouter } from 'vue-router'
+import { getAnalysisList, removeScreen } from '@/api/database.api'
+import { Message } from 'bin-ui-next'
 
 export default {
   name: 'DatasetDemo',
@@ -67,39 +76,54 @@ export default {
       activeTab: 'all',
     })
     const listStatus = reactive({
-      list: [
-        {
-          id: 'page-screen-0001',
-          datasetName: '仪表板（空）',
-          workspaceId: 'test_datasource',
-          datasourceName: '探索空间',
-          creator: '316281400@qq.com',
-          updater: '316281400@qq.com',
-          updateDate: '2021/9/16 08:50:29',
-        },
-        {
-          id: 'page-screen-0002',
-          datasetName: '仪表板',
-          workspaceId: 'test_datasource',
-          datasourceName: '探索空间',
-          creator: '316281400@qq.com',
-          updater: '316281400@qq.com',
-          updateDate: '2021/9/16 08:50:29',
-        },
-      ],
+      loading: false,
+      list: [],
     })
     const router = useRouter()
+
     const handleEdit = (item) => {
       let routeData = router.resolve({
         path: '/schema/screen',
-        query: { pageId: item.id, workspaceId: item.workspaceId },
+        query: { id: item.id },
       })
       window.open(routeData.href, '_blank')
     }
+
+    const handleCreate = () => {
+      let routeData = router.resolve({
+        path: '/schema/screen',
+        query: {},
+      })
+      window.open(routeData.href, '_blank')
+    }
+
+    const handleRemove = async (id) => {
+      const res = await removeScreen(id)
+      if (res) {
+        Message.error('删除成功！')
+        await initList()
+      }
+    }
+
+    async function initList() {
+      try {
+        listStatus.loading = true
+        const { data } = await getAnalysisList()
+        listStatus.list = data
+      } catch (e) {
+        console.log(e)
+      }
+      listStatus.loading = false
+    }
+
+    initList()
     return {
       ...toRefs(tabStatus),
       ...toRefs(listStatus),
       handleEdit,
+      handleCreate,
+      handleRemove,
+      initList,
     }
   },
 }

@@ -7,9 +7,9 @@
       :style="asideStyle"
     >
       <div class="logo" flex="cross:center">
-        <img class="icon" src="@/assets/images/logo/bin-ui-next-02.svg" alt="logo-small" />
+        <img class="icon" src="@/assets/images/logo/logo.png" alt="logo-small" />
         <transition name="zoom-in">
-          <h1 v-show="sidebar">DATAV-SCHEMA</h1>
+          <h1 v-show="sidebar">{{ $store.state.app.projectName }}</h1>
         </transition>
       </div>
       <div class="layout-aside-children">

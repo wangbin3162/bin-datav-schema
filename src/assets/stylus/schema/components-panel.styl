@@ -94,7 +94,43 @@
     }
     .components-list {
       width: calc(100% - 45px);
-      background: var(--schema-color-bg-deep);
+      background: #0a0b0d;
+      overflow: auto;
+      .comp-item {
+        cursor: pointer;
+        color: var(--schema-font-color);
+        width: 100%;
+        vertical-align: top;
+        user-select: none;
+        margin-bottom: 12px;
+        box-sizing: border-box;
+        overflow: hidden;
+        position: relative;
+        .comp-item-text {
+          font-size: 12px;
+          padding: 0 5px;
+          text-align: left;
+          overflow: hidden;
+          background: var(--schema-color-bg);
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          line-height: 22px;
+        }
+        .comp-item-img {
+          overflow: hidden;
+          width: 100%;
+          background-clip: content-box;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-color: #17191c;
+          position: relative;
+          text-align: center;
+          box-sizing: content-box;
+          transition: border-color 0.2s;
+          height: 72px;
+        }
+      }
     }
   }
 }

@@ -82,8 +82,23 @@ export const routesOutLayout = [
   },
   {
     path: '/schema/screen',
+    name: 'ScreenEditor',
+    component: () => import('@/views/schema/screen-editor/index.vue'),
+  },
+  {
+    path: '/screen/:screenId',
     name: 'Screen',
     component: () => import('@/views/schema/screen/index.vue'),
+  },
+  {
+    path: '/screen/preview/:screenId',
+    name: 'Preview',
+    component: () => import('@/views/schema/screen/index.vue'),
+  },
+  {
+    path: '/notfound',
+    name: 'NotFound',
+    component: () => import('@/views/system/error/index.vue'),
   },
 ]
 

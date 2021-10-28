@@ -1,5 +1,5 @@
 <template>
-  <div class="config-panel-wp" :class="{'is-hide':!pageConfig.configExpand}">
+  <div class="config-panel-wp" :class="{'is-hide':!toolbar.config}">
     <div class="config-panel">
       <page-config v-if="!selectedCom"></page-config>
       <div v-else class="page-config-panel">
@@ -47,7 +47,7 @@ export default {
   name: 'config-panel',
   components: { SettingPanel, DataCenterPanel, PageConfig },
   setup() {
-    const { pageConfig, selectedCom, toggleConfigPanel } = useSchemaStore()
+    const { toolbar, selectedCom, toggleConfigPanel } = useSchemaStore()
     // tab切换
     const curTabIndex = ref(0)
     const changeTab = (index) => {
@@ -60,7 +60,7 @@ export default {
       }
     }
     return {
-      pageConfig,
+      toolbar,
       selectedCom,
       toggleConfigPanel,
       curTabIndex,

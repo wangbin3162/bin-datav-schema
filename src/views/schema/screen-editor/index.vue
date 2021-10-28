@@ -7,17 +7,18 @@
     <div v-else class="editor-main-wrapper">
       <layer-panel></layer-panel>
       <components-panel></components-panel>
-      <canvas-main></canvas-main>
+      <div class="edit-main-wp">
+        <toolbox-panel></toolbox-panel>
+        <canvas-main></canvas-main>
+        <footer-panel></footer-panel>
+      </div>
       <config-panel></config-panel>
     </div>
+    <context-menu></context-menu>
   </div>
 </template>
 
 <script>
-import { provide, reactive, toRefs } from 'vue'
-import { compileFlatState, throwError } from '@/utils/util'
-import { getSchema } from '@/api/modules/bi-cube.api'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
 import '@/assets/stylus/schema/index.styl'
 import SvgLoading from '@/components/Common/SvgLoading/index.vue'
 import HeaderBar from '@/views/schema/screen-editor/header-bar/index.vue'
@@ -25,54 +26,33 @@ import LayerPanel from '@/views/schema/screen-editor/layer-panel/index.vue'
 import ComponentsPanel from '@/views/schema/screen-editor/components-panel/index.vue'
 import CanvasMain from '@/views/schema/screen-editor/canvas-main/index.vue'
 import ConfigPanel from '@/views/schema/screen-editor/config-panel/index.vue'
+import ToolboxPanel from '@/views/schema/screen-editor/toolbox-panel/index.vue'
+import FooterPanel from '@/views/schema/screen-editor/footer-panel/index.vue'
+import ContextMenu from '@/views/schema/screen-editor/context-menu/index.vue'
+import usePage from '@/hooks/schema/usePage'
+import { onMounted } from 'vue'
+import { setAttrVar } from '@/config/setting.cfg'
 
 export default {
-  name: 'schema-editor',
-  components: { CanvasMain, ConfigPanel, ComponentsPanel, LayerPanel, HeaderBar, SvgLoading },
+  name: 'ScreenEditor',
+  components: {
+    ContextMenu,
+    FooterPanel,
+    ToolboxPanel,
+    CanvasMain,
+    ConfigPanel,
+    ComponentsPanel,
+    LayerPanel,
+    HeaderBar,
+    SvgLoading,
+  },
   setup() {
-    const status = reactive({
-      loading: false,
-      dimensionTree: {}, // 维度树
-      dimensionTreeFlats: [], // 维度树拉平
-      dimensionFields: [],
-      measureTree: {}, // 度量树
-      measureTreeFlats: [], // 度量树拉平
-      measureFields: [],
-    })
-    const schemaStore = useSchemaStore()
-
-    // 更新字段数据
-    const updateFieldState = (cubeSchema) => {
-      const { dimension, measure } = cubeSchema || {}
-      // 维度、度量树
-      status.dimensionTree = dimension || { title: '维度', nodeType: 'root', children: [] }
-      status.measureTree = measure || { title: '度量', nodeType: 'root', children: [] }
-      status.dimensionTreeFlats = compileFlatState(status.dimensionTree)
-      status.measureTreeFlats = compileFlatState(status.measureTree)
-      status.dimensionFields = status.dimensionTreeFlats.filter(v => v.node.nodeType === 'attribute')
-      status.measureFields = status.measureTreeFlats.filter(v => v.node.nodeType === 'attribute')
-    }
-    // 初始化数据表
-    const initData = async () => {
-      status.loading = true
-      try {
-        const { pageId, workspaceId, sourceId } = schemaStore.pageInfo.value
-        const { cubeSchema } = await getSchema({ workspaceId, id: pageId || sourceId })
-        updateFieldState(cubeSchema)
-      } catch (e) {
-        throwError('schema/index', e)
-      }
-      status.loading = false
-    }
-
-    initData()
-
-    provide('Schema', {
-      status,
+    const pageStatus = usePage()
+    onMounted(() => {
+      setAttrVar('data-schema', 'screen-editor')
     })
     return {
-      ...toRefs(status),
-      ...schemaStore,
+      ...pageStatus,
     }
   },
 }

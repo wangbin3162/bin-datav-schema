@@ -12,8 +12,8 @@
         <div class="main" flex="dir:top main:center cross:center">
           <!-- logo -->
           <div class="page-login--logo">
-            <img src="@/assets/images/logo/bin-ui-next-02.svg" alt="logo">
-            <span>DATAV-SCHEMA</span>
+            <img src="@/assets/images/logo/logo.png" alt="logo">
+            <span>{{ $store.state.app.projectName }}</span>
           </div>
           <!-- 表单 -->
           <div class="form">

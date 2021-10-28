@@ -1,49 +1,148 @@
+import { MoveType } from '@/config/enum'
+import { deepCopy, generateId } from '@/utils/util'
+import { getBgPath } from '@/utils/env'
+
+const findComIndex = (comps, id) => comps.findIndex(c => c.id === id)
+
+const findCom = (comps, id) => comps.find(c => c.id === id)
+
+// 模拟后端复制
+const getNewCom = (com) => {
+  const ncom = deepCopy(com)
+  ncom.id = `${ncom.name}_${generateId()}`
+  ncom.alias += '_copy'
+  ncom.attr.x += 50
+  ncom.attr.y += 50
+
+  for (const key in ncom.apiData) {
+    ncom.apiData[key].id = `api_${generateId()}`
+    ncom.apiData[key].comId = ncom.id
+  }
+
+  return ncom
+}
+
+const defaultInfo = {
+  id: '',
+  name: '未命名',
+}
+
+const defaultPageCfg = {
+  width: 1920,
+  height: 1080,
+  bgColor: '#0d2a42',
+  bgImage: getBgPath('bg.png'),
+  grid: 8, // 拖拽间隔
+}
+
 export default {
   state: {
-    pageInfo: {},
+    // 当前页面信息
+    pageInfo: { ...defaultInfo },
     // 页面存储数据
-    pageConfig: {
-      gridStep: 8, // 拖拽间隔
-      canvasRange: 100, // 画布缩放
-      screenshot: '', // 快照json字符串
-      layerExpand: true, // 图层面板展开收起
-      componentsExpand: false, // 参数面板打开关闭
-      configExpand: true, // 参数面板打开关闭
-      toolboxShow: false, // 工具箱展示
-    },
+    pageConfig: { ...defaultPageCfg },
+    comps: [], // 画布中的组件，默认插入一个用于调试可动态添加，暂时写死，后期用lowdb缓存
+    selectedCom: null, // 单选选中的可拖拽组件
+    hoveredCom: '',// 悬停的组件缓存，保存的内容为id
+    renamingId: '',// 重命名的id
   },
   mutations: {
     SET_INFO: (state, info) => {
-      state.pageInfo = info || {}
+      state.pageInfo = info || { ...defaultInfo }
     },
-    TOGGLE_LAYER: (state, visible) => {
-      state.pageConfig.layerExpand = visible
+    SET_PAGE_CFG: (state, cfg) => {
+      state.pageConfig = cfg || { ...defaultPageCfg }
     },
-    TOGGLE_COMPS: (state, visible) => {
-      state.pageConfig.componentsExpand = visible
+    SET_COMPS: (state, comps) => {
+      state.comps = comps || []
     },
-    TOGGLE_CONFIG: (state, visible) => {
-      state.pageConfig.configExpand = visible
+    ADD_COM(state, { component, index }) {
+      if (index !== undefined) {
+        state.comps.splice(index, 0, component)
+      } else {
+        state.comps.push(component)
+      }
     },
-    TOGGLE_TOOLBOX: (state, visible) => {
-      state.pageConfig.toolboxShow = visible
+    COPY_COM(state, id) {
+      const ocom = findCom(state.comps, id)
+      if (ocom) {
+        const ncom = getNewCom(ocom)
+        state.comps.push(ncom)
+      }
+    },
+    DELETE_COM(state, id) {
+      const i = findComIndex(state.comps, id)
+      state.comps.splice(i, 1)
+    },
+    SELECT_COM: (state, component) => {
+      state.selectedCom = component
+    },
+    HOVER_COM: (state, id) => {
+      state.hoveredCom = id
+    },
+    RENAMING_COM: (state, id) => {
+      state.renamingId = id
+    },
+    MOVE_COM: (state, { id, moveType }) => {
+      const i = findComIndex(state.comps, id)
+
+      if (moveType === MoveType.up) {
+        if (i + 1 < state.comps.length) {
+          state.comps.splice(i + 1, 0, ...state.comps.splice(i, 1))
+        }
+      } else if (moveType === MoveType.down) {
+        if (i > 0) {
+          state.comps.splice(i - 1, 0, ...state.comps.splice(i, 1))
+        }
+      } else if (moveType === MoveType.top) {
+        if (i + 1 < state.comps.length) {
+          state.comps.push(...state.comps.splice(i, 1))
+        }
+      } else if (moveType === MoveType.bottom) {
+        if (i > 0) {
+          state.comps.unshift(...state.comps.splice(i, 1))
+        }
+      }
+    },
+    SET_SINGLE_STYLE: (state, { key, value }) => {
+      if (!state.selectedCom) return
+      state.selectedCom.attr[key] = value
     },
   },
   actions: {
     setPageInfo: ({ commit, state }, info) => {
       commit('SET_INFO', info)
     },
-    toggleLayerPanel: ({ commit, state }, visible) => {
-      commit('TOGGLE_LAYER', visible !== undefined ? visible : !state.pageConfig.layerExpand)
+    addCom: ({ commit }, { component, index }) => {
+      commit('ADD_COM', { component, index })
     },
-    toggleCompsPanel: ({ commit, state }, visible) => {
-      commit('TOGGLE_COMPS', visible !== undefined ? visible : !state.pageConfig.componentsExpand)
+    copyCom: ({ commit }, id) => {
+      commit('COPY_COM', id)
     },
-    toggleConfigPanel: ({ commit, state }, visible) => {
-      commit('TOGGLE_CONFIG', visible !== undefined ? visible : !state.pageConfig.configExpand)
+    deleteCom: ({ commit }, id) => {
+      commit('DELETE_COM', id)
     },
-    toggleToolbox: ({ commit, state }, visible) => {
-      commit('TOGGLE_TOOLBOX', visible !== undefined ? visible : !state.pageConfig.toolboxShow)
+    selectedCom: ({ commit }, component) => {
+      commit('SELECT_COM', component)
+    },
+    hoveredCom: ({ commit }, id) => {
+      commit('HOVER_COM', id)
+    },
+    renamingCom: ({ commit }, id) => {
+      commit('RENAMING_COM', id)
+    },
+    moveCom: ({ commit }, { id, moveType }) => {
+      commit('MOVE_COM', { id, moveType })
+    },
+    setShapeSingleStyle: ({ commit }, { key, value }) => {
+      commit('SET_SINGLE_STYLE', { key, value })
+    },
+    // 载入全屏数据
+    loadScreenData: async ({ commit }, screenData) => {
+      const { pageInfo, pageConfig, comps } = screenData
+      commit('SET_INFO', pageInfo)
+      commit('SET_PAGE_CFG', pageConfig)
+      commit('SET_COMPS', comps)
     },
   },
 }

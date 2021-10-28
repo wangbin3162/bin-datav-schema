@@ -66,131 +66,159 @@
 }
 // 参数设置样式
 .setting-panel {
-
+  width: 100%;
+  height: 100%;
+  .setting-panel-content {
+    width: 100%;
+    height: calc(100% - 60px - 32px);
+    .scroll-container {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      .bin-scrollbar__wrap {
+        overflow-x: hidden;
+      }
+    }
+  }
+  .basic-setting-wp {
+    border-bottom: 1px solid var(--schema-color-border);
+  }
+  .setting-panel-gui {
+    .series-title {
+      position: relative;
+      padding: 16px 16px 8px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &:before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 16px;
+        width: 6px;
+        height: 6px;
+        background: var(--bin-color-primary);
+      }
+    }
+  }
 }
 // 数据中心面板样式
 .data-center-panel {
   height: 100%;
-  display: flex;
-  .data-config-left, .data-config-right {
-    width: 50%;
-    font-size: 12px;
-    height: 100%;
-  }
-  .data-config-left {
-    height: 100%;
-    position: relative;
-    border-right: 1px solid #000000;
-  }
-  .data-config-right {
-    position: relative;
-    height: 100%;
-    font-size: 12px;
-    .tree-box {
-      padding: 5px 0;
-      height: 50%;
-      overflow-y: auto;
-    }
-    &:before {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 50%;
-      height: 1px;
-      background: var(--schema-color-border);
-    }
-  }
-  .config-data-container {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    .config-data-panel {
-      height: calc(100% - 39px);
-      overflow-x: hidden;
-      overflow-y: auto;
-      .config-data-item {
-        position: relative;
-        padding: 0 6px 12px;
-        border-bottom: 1px solid var(--schema-color-border);
-        .area-name {
-          color: #fff;
-          white-space: nowrap;
-          word-break: keep-all;
-          height: 42px;
-          line-height: 42px;
-        }
-        .column-list {
-          min-height: 28px;
-          overflow-y: hidden;
-          overflow-x: hidden;
-          background: hsla(0, 0%, 100%, .1);
-          border: 1px dashed hsla(0, 0%, 100%, .2);
-        }
-        .no-column-tip {
-          position: absolute;
-          top: 50px;
-          left: 0;
-          width: 100%;
-          text-align: center;
-          color: hsla(0, 0%, 100%, .4);
-          span {
-            display: block;
-            height: 12px;
-            line-height: 12px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-        }
-        &.highlight-area {
-          background: rgba(255, 255, 255, .1);
-        }
-      }
-    }
-    .bottom-menus {
-      .refresh-panel button {
-        height: 38px;
-        line-height: 38px;
-        font-size: 12px;
-        color: #fff;
-        text-align: center;
-        width: 100%;
-        background: var(--bin-color-primary);
-        border: none;
-        border-top: 1px solid #000000;
-        outline: none;
-        cursor: pointer;
-      }
-    }
+  .scroll-container {
+    height: calc(100% - 60px - 32px);
   }
 
-
-  .bin-tree {
-    color: var(--schema-font-color);
-    .bin-tree-arrow {
-      width: 20px;
-      height: 20px;
-      line-height: 20px;
-    }
-    .bin-tree-node-children {
+  .api-editor {
+    .api-editor-title {
+      display: flex;
+      width: 100%;
+      height: 38px;
+      padding-right: 34px;
       padding-left: 10px;
+      font-size: var(--schema-font-size);
+      background: #1c1f25;
+      border-top: 1px solid var(--schema-color-border);
+      border-bottom: 1px solid var(--schema-color-border);
+      box-sizing: border-box;
+      justify-content: space-between;
+      align-items: center;
+      transition: 0.4s;
     }
-    .bin-tree-render-title {
-      .D > i {
-        color: var(--bin-color-primary);
-      }
-      .M > i {
-        color: var(--bin-color-success);
+    .api-desc {
+      max-width: 160px;
+      color: #fff;
+      white-space: initial;
+      cursor: pointer;
+    }
+    &.--disable-fold {
+      .api-desc {
+        cursor: default;
       }
     }
-    .bin-tree-title, .bin-tree-render-title {
-      line-height: 18px;
-      border: 1px solid transparent;
-      &.is-selected, &:hover {
-        background: rgba(118, 150, 202, .1);
-        border-color: var(--bin-color-primary);
+    &.--fold {
+      .api-fold-icon {
+        transform: rotate(90deg);
       }
+    }
+  }
+
+  .data-attr-table {
+    width: 100%;
+    color: var(--schema-font-color);
+    text-align: left;
+    .table-head {
+      display: block;
+      width: 100%;
+      height: 40px;
+      font-size: 0;
+      line-height: 40px;
+      border-bottom: 1px solid var(--schema-color-border);
+
+      .table-head-row {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .th-item {
+        font-weight: 400;
+      }
+    }
+
+    .table-body {
+      display: block;
+      width: 100%;
+      padding-bottom: 10px;
+
+      .table-body-row {
+        display: block;
+        width: 100%;
+      }
+    }
+    .table-head, .table-body {
+      .column-item {
+        display: inline-flex;
+        height: 40px;
+        padding: 0 6px;
+        font-size: 12px;
+        line-height: 17px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        align-items: center;
+        &:first-child {
+          padding-left: 10px;
+        }
+      }
+      .attr-name {
+        width: 19%;
+        text-align: center;
+        .ellipsis2 {
+          padding-left: 8px;
+        }
+      }
+
+      .attr-value {
+        width: 41%;
+      }
+
+      .attr-status {
+        width: 40%;
+      }
+      .attr-input {
+        width: 108px;
+        height: 24px;
+      }
+    }
+  }
+
+
+  .data-source {
+    color: var(--schema-font-color);
+    .data-result-title {
+      padding: 10px;
+      border-top: 1px solid var(--schema-color-border);
+      border-bottom: 1px solid var(--schema-color-border);
     }
   }
 }

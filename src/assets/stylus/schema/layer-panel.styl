@@ -51,3 +51,135 @@
     }
   }
 }
+
+.layer-toolbar {
+  display: flex;
+  height: 32px;
+  padding: 0 18px;
+  background: #20242a;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+
+  &.layer-toolbar-top {
+    border-bottom: 1px solid var(--schema-color-border);
+  }
+  .toolbar-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 16px;
+    color: var(--schema-font-color);
+    border-radius: 1px;
+    transition: background 0.2s;
+    margin: 0 9px;
+    line-height: 20px;
+    text-align: center;
+    background: var(--schema-color-border);
+
+    &.enable:hover {
+      color: #fff;
+      cursor: pointer;
+      background: var(--bin-color-primary) !important;
+    }
+
+    &.enable.checked {
+      color: #fff;
+      background: var(--bin-color-primary) !important;
+    }
+
+    &.standard:not(.enable):hover {
+      cursor: pointer;
+      background: #3a4650;
+      opacity: 0.5 !important;
+    }
+  }
+}
+
+.layer-manager-wrap {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: calc(100% - 62px);
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 2;
+  color: var(--schema-font-color);
+  list-style: none;
+  background: #1d2126;
+  user-select: none;
+  flex: auto;
+  flex-direction: column;
+
+  .layer-manager-item {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 32px;
+    padding: 0 6px;
+    padding-left: 8px;
+    cursor: pointer;
+    background: #1d2126;
+    box-sizing: border-box;
+    transition: background 0.2s;
+    align-items: center;
+    flex: none;
+    &.hided, &.locked {
+      color: #576369;
+      background: #1c1f25;
+    }
+
+    &.hovered {
+      color: #fff;
+      background: rgba(143, 225, 255, 0.1);
+    }
+
+    &.selected {
+      color: #fff;
+      background: var(--bin-color-primary);
+    }
+
+    &.sortable-ghost {
+      opacity: 0.4;
+    }
+    .layer-item-span {
+      flex: auto;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .layer-item-text {
+        flex: 0 1 auto;
+        text-indent: 7px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+
+    .layer-item-input {
+      width: 100%;
+      color: var(--schema-font-color);
+      padding: 0 4px;
+      height: 20px;
+      line-height: 20px;
+      background: 0 0;
+      border: none;
+      outline: 0;
+      font-size: 12px;
+      text-indent: 2px;
+
+      &:focus {
+        color: #fff;
+        background: #363c48;
+      }
+    }
+
+    .show-toggle-btn {
+      padding: 0 2px;
+    }
+  }
+  .last-flex-item {
+    flex: auto;
+    min-height: 40px;
+  }
+
+}

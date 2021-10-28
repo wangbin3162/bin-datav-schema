@@ -1,0 +1,645 @@
+{
+  "pageInfo": {
+    "id": "screen_0002",
+    "name": "仪表板"
+  },
+  "pageConfig": {
+    "width": 1920,
+    "height": 1080,
+    "bgColor": "#0d2a42",
+    "bgImage": "/images/bg/bg2.jpg",
+    "grid": 8
+  },
+  "comps": [
+    {
+      "id": "BasicBar_4793",
+      "name": "VBasicBar",
+      "alias": "柱状图",
+      "type": "com",
+      "locked": false,
+      "hided": false,
+      "attr": {
+        "x": 197,
+        "y": 175,
+        "w": 500,
+        "h": 300,
+        "rotate": 0,
+        "opacity": 1
+      },
+      "apiData": {
+        "source": {
+          "comId": "BasicBar_4793",
+          "id": "api_9198",
+          "config": {
+            "data": "[{\"x\":\"上海\",\"y\":23},{\"x\":\"深圳\",\"y\":13},{\"x\":\"合肥\",\"y\":2},{\"x\":\"成都\",\"y\":9},{\"x\":\"安徽\",\"y\":5},{\"x\":\"北京\",\"y\":10},{\"x\":\"杭州\",\"y\":14},{\"x\":\"长沙\",\"y\":24}]"
+          },
+          "type": "static",
+          "staticPath": "bar/basic-bar"
+        }
+      },
+      "apis": {
+        "source": {
+          "fields": {
+            "x": {
+              "type": "string",
+              "map": "",
+              "description": "类目",
+              "optional": false
+            },
+            "y": {
+              "type": "string",
+              "map": "",
+              "description": "值",
+              "optional": false
+            }
+          },
+          "render": "render",
+          "description": "基本柱状图接口",
+          "useAutoUpdate": false,
+          "autoUpdate": 1
+        }
+      },
+      "events": {
+        "click": {
+          "description": "当点击数据项时",
+          "fields": {
+            "x": {
+              "type": "string",
+              "map": "",
+              "description": "类目",
+              "optional": false
+            },
+            "y": {
+              "type": "string",
+              "map": "",
+              "description": "值",
+              "optional": false
+            }
+          }
+        }
+      },
+      "icon": "barchart",
+      "config": {
+        "color": [
+          "#00baff",
+          "#3de7c9",
+          "#94e08a",
+          "#6F5EF9",
+          "#fbf320",
+          "#ff69fa",
+          "#ff05ca"
+        ],
+        "global": {
+          "fontFamily": "Microsoft Yahei",
+          "margin": {
+            "top": 40,
+            "bottom": 50,
+            "left": 50,
+            "right": 10
+          },
+          "innerPadding": 20,
+          "outerPadding": 30,
+          "barWidth": "auto",
+          "background": {
+            "show": true,
+            "color": "rgba(255, 255, 255, 0.1)"
+          }
+        },
+        "label": {
+          "show": false,
+          "position": "top",
+          "textStyle": {
+            "fontSize": 12,
+            "color": "rgba(255, 255, 255, 0.6)",
+            "fontWeight": "normal"
+          },
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "legend": {
+          "show": true,
+          "position": "top-center",
+          "orient": "horizontal",
+          "textStyle": {
+            "fontSize": 12,
+            "color": "#90a0ae",
+            "fontWeight": "normal"
+          },
+          "symbol": {
+            "show": true,
+            "icon": "auto",
+            "width": 25,
+            "height": 14,
+            "gap": 10
+          }
+        },
+        "xAxis": {
+          "show": true,
+          "type": "category",
+          "boundaryGap": true,
+          "title": {
+            "show": true,
+            "name": "X轴",
+            "location": "center",
+            "display": {
+              "rotate": 0,
+              "offset": 20
+            },
+            "textStyle": {
+              "fontSize": 12,
+              "color": "#90a0ae",
+              "fontWeight": "normal"
+            }
+          },
+          "axisLine": {
+            "show": true,
+            "type": "solid",
+            "width": 1,
+            "color": "rgba(255, 255, 255, 0.5)"
+          },
+          "axisTick": {
+            "show": true,
+            "type": "solid",
+            "width": 1,
+            "color": "rgba(255, 255, 255, 0.5)"
+          },
+          "axisLabel": {
+            "show": true,
+            "timeFormat": "MM/DD",
+            "interval": "auto",
+            "display": {
+              "rotate": 0,
+              "margin": 10
+            },
+            "align": "center",
+            "textStyle": {
+              "fontSize": 12,
+              "color": "rgba(255, 255, 255, 0.6)",
+              "fontWeight": "normal"
+            }
+          },
+          "grid": {
+            "show": true,
+            "line": {
+              "type": "dashed",
+              "width": 1,
+              "color": "rgba(233, 228, 228, 0.1)",
+              "dashedLength": 4,
+              "dashedSpace": 4
+            }
+          }
+        },
+        "yAxis": {
+          "show": true,
+          "extent": {
+            "min": "auto",
+            "max": "auto"
+          },
+          "splitNumber": 0,
+          "title": {
+            "show": false,
+            "name": "Y轴",
+            "location": "end",
+            "display": {
+              "rotate": 0,
+              "offset": 12
+            },
+            "textStyle": {
+              "fontSize": 12,
+              "color": "#90a0ae",
+              "fontWeight": "normal"
+            }
+          },
+          "axisLine": {
+            "show": true,
+            "type": "solid",
+            "width": 1,
+            "color": "rgba(255, 255, 255, 0.5)"
+          },
+          "axisTick": {
+            "show": true,
+            "type": "solid",
+            "width": 1,
+            "color": "rgba(255, 255, 255, 0.5)"
+          },
+          "axisLabel": {
+            "show": true,
+            "valueFormat": "auto",
+            "boundaryGap": 0,
+            "display": {
+              "rotate": 0,
+              "margin": 10
+            },
+            "align": "center",
+            "textStyle": {
+              "fontSize": 12,
+              "color": "rgba(255, 255, 255, 0.6)",
+              "fontWeight": "normal"
+            }
+          },
+          "grid": {
+            "show": true,
+            "line": {
+              "type": "dashed",
+              "width": 1,
+              "color": "rgba(233, 228, 228, 0.1)",
+              "dashedLength": 4,
+              "dashedSpace": 4
+            }
+          }
+        },
+        "tooltip": {
+          "show": true,
+          "textStyle": {
+            "fontSize": 14,
+            "color": "#fff",
+            "fontWeight": "normal"
+          },
+          "background": {
+            "padding": {
+              "h": 5,
+              "v": 5
+            },
+            "color": "rgba(0, 0, 0, 0.65)"
+          },
+          "pointer": {
+            "show": true,
+            "line": {
+              "type": "dashed",
+              "width": 1,
+              "color": "#f5dc69",
+              "dashedLength": 4,
+              "dashedSpace": 4
+            }
+          }
+        },
+        "series": [
+          {
+            "type": "bar",
+            "name": "系列一",
+            "color": {
+              "type": "solid",
+              "value": "#00baff",
+              "from": "#00baff",
+              "to": "#3de7c9"
+            }
+          }
+        ]
+      },
+      "actions": {}
+    },
+    {
+      "id": "MainTitle_5278",
+      "name": "VMainTitle",
+      "alias": "通用标题",
+      "type": "com",
+      "locked": false,
+      "hided": false,
+      "attr": {
+        "x": 565,
+        "y": 765,
+        "w": 300,
+        "h": 48,
+        "rotate": 0,
+        "opacity": 1
+      },
+      "apiData": {
+        "source": {
+          "comId": "MainTitle_5278",
+          "id": "api_6681",
+          "config": {
+            "data": "{\"title\":\"测试标题\",\"url\":\"https://wangbin3162.gitee.io/bin-admin-pro/#/login?redirect=/workbench\"}"
+          },
+          "type": "static",
+          "staticPath": "text/main-title"
+        }
+      },
+      "apis": {
+        "source": {
+          "fields": {
+            "title": {
+              "type": "string",
+              "map": "",
+              "description": "标题值",
+              "optional": true
+            },
+            "url": {
+              "type": "string",
+              "map": "",
+              "description": "超链接url",
+              "optional": true
+            }
+          },
+          "render": "render",
+          "description": "",
+          "useAutoUpdate": false,
+          "autoUpdate": 1
+        }
+      },
+      "events": {},
+      "icon": "file-word",
+      "config": {
+        "title": "我是标题数据",
+        "textStyle": {
+          "fontFamily": "Microsoft Yahei",
+          "fontSize": 24,
+          "color": "#fff",
+          "fontWeight": "normal"
+        },
+        "textAlign": "center",
+        "writingMode": "horizontal-tb",
+        "backgroundStyle": {
+          "show": false,
+          "bgColor": "#008bff",
+          "borderRadius": 15,
+          "borderColor": "#fff",
+          "borderStyle": "solid",
+          "borderWidth": 1
+        },
+        "ellipsis": false,
+        "urlConfig": {
+          "url": "",
+          "isBlank": false
+        }
+      },
+      "actions": {}
+    },
+    {
+      "id": "BasicBar_1253",
+      "name": "VBasicBar",
+      "alias": "柱状图",
+      "type": "com",
+      "locked": false,
+      "hided": false,
+      "attr": {
+        "x": 1017,
+        "y": 125,
+        "w": 600,
+        "h": 400,
+        "rotate": 0,
+        "opacity": 1
+      },
+      "apiData": {
+        "source": {
+          "comId": "BasicBar_4793",
+          "id": "api_9198",
+          "config": {
+            "data": "[{\"x\":\"上海\",\"y\":23},{\"x\":\"深圳\",\"y\":23},{\"x\":\"合肥\",\"y\":12},{\"x\":\"成都\",\"y\":91},{\"x\":\"安徽\",\"y\":55},{\"x\":\"北京\",\"y\":20},{\"x\":\"杭州\",\"y\":141},{\"x\":\"长沙\",\"y\":24}]"
+          },
+          "type": "static",
+          "staticPath": "bar/basic-bar"
+        }
+      },
+      "apis": {
+        "source": {
+          "fields": {
+            "x": {
+              "type": "string",
+              "map": "",
+              "description": "类目",
+              "optional": false
+            },
+            "y": {
+              "type": "string",
+              "map": "",
+              "description": "值",
+              "optional": false
+            }
+          },
+          "render": "render",
+          "description": "基本柱状图接口",
+          "useAutoUpdate": false,
+          "autoUpdate": 1
+        }
+      },
+      "events": {
+        "click": {
+          "description": "当点击数据项时",
+          "fields": {
+            "x": {
+              "type": "string",
+              "map": "",
+              "description": "类目",
+              "optional": false
+            },
+            "y": {
+              "type": "string",
+              "map": "",
+              "description": "值",
+              "optional": false
+            }
+          }
+        }
+      },
+      "icon": "barchart",
+      "config": {
+        "color": [
+          "#00baff",
+          "#3de7c9",
+          "#94e08a",
+          "#6F5EF9",
+          "#fbf320",
+          "#ff69fa",
+          "#ff05ca"
+        ],
+        "global": {
+          "fontFamily": "Microsoft Yahei",
+          "margin": {
+            "top": 40,
+            "bottom": 50,
+            "left": 50,
+            "right": 10
+          },
+          "innerPadding": 20,
+          "outerPadding": 30,
+          "barWidth": "auto",
+          "background": {
+            "show": true,
+            "color": "rgba(255, 255, 255, 0.1)"
+          }
+        },
+        "label": {
+          "show": false,
+          "position": "top",
+          "textStyle": {
+            "fontSize": 12,
+            "color": "rgba(255, 255, 255, 0.6)",
+            "fontWeight": "normal"
+          },
+          "offsetX": 0,
+          "offsetY": 0
+        },
+        "legend": {
+          "show": true,
+          "position": "top-center",
+          "orient": "horizontal",
+          "textStyle": {
+            "fontSize": 12,
+            "color": "#90a0ae",
+            "fontWeight": "normal"
+          },
+          "symbol": {
+            "show": true,
+            "icon": "auto",
+            "width": 25,
+            "height": 14,
+            "gap": 10
+          }
+        },
+        "xAxis": {
+          "show": true,
+          "type": "category",
+          "boundaryGap": true,
+          "title": {
+            "show": true,
+            "name": "X轴",
+            "location": "center",
+            "display": {
+              "rotate": 0,
+              "offset": 20
+            },
+            "textStyle": {
+              "fontSize": 12,
+              "color": "#90a0ae",
+              "fontWeight": "normal"
+            }
+          },
+          "axisLine": {
+            "show": true,
+            "type": "solid",
+            "width": 1,
+            "color": "rgba(255, 255, 255, 0.5)"
+          },
+          "axisTick": {
+            "show": true,
+            "type": "solid",
+            "width": 1,
+            "color": "rgba(255, 255, 255, 0.5)"
+          },
+          "axisLabel": {
+            "show": true,
+            "timeFormat": "MM/DD",
+            "interval": "auto",
+            "display": {
+              "rotate": 0,
+              "margin": 10
+            },
+            "align": "center",
+            "textStyle": {
+              "fontSize": 12,
+              "color": "rgba(255, 255, 255, 0.6)",
+              "fontWeight": "normal"
+            }
+          },
+          "grid": {
+            "show": true,
+            "line": {
+              "type": "dashed",
+              "width": 1,
+              "color": "rgba(233, 228, 228, 0.1)",
+              "dashedLength": 4,
+              "dashedSpace": 4
+            }
+          }
+        },
+        "yAxis": {
+          "show": true,
+          "extent": {
+            "min": "auto",
+            "max": "auto"
+          },
+          "splitNumber": 0,
+          "title": {
+            "show": false,
+            "name": "Y轴",
+            "location": "end",
+            "display": {
+              "rotate": 0,
+              "offset": 12
+            },
+            "textStyle": {
+              "fontSize": 12,
+              "color": "#90a0ae",
+              "fontWeight": "normal"
+            }
+          },
+          "axisLine": {
+            "show": true,
+            "type": "solid",
+            "width": 1,
+            "color": "rgba(255, 255, 255, 0.5)"
+          },
+          "axisTick": {
+            "show": true,
+            "type": "solid",
+            "width": 1,
+            "color": "rgba(255, 255, 255, 0.5)"
+          },
+          "axisLabel": {
+            "show": true,
+            "valueFormat": "auto",
+            "boundaryGap": 0,
+            "display": {
+              "rotate": 0,
+              "margin": 10
+            },
+            "align": "center",
+            "textStyle": {
+              "fontSize": 12,
+              "color": "rgba(255, 255, 255, 0.6)",
+              "fontWeight": "normal"
+            }
+          },
+          "grid": {
+            "show": true,
+            "line": {
+              "type": "dashed",
+              "width": 1,
+              "color": "rgba(233, 228, 228, 0.1)",
+              "dashedLength": 4,
+              "dashedSpace": 4
+            }
+          }
+        },
+        "tooltip": {
+          "show": true,
+          "textStyle": {
+            "fontSize": 14,
+            "color": "#fff",
+            "fontWeight": "normal"
+          },
+          "background": {
+            "padding": {
+              "h": 5,
+              "v": 5
+            },
+            "color": "rgba(0, 0, 0, 0.65)"
+          },
+          "pointer": {
+            "show": true,
+            "line": {
+              "type": "dashed",
+              "width": 1,
+              "color": "#f5dc69",
+              "dashedLength": 4,
+              "dashedSpace": 4
+            }
+          }
+        },
+        "series": [
+          {
+            "type": "bar",
+            "name": "系列一",
+            "color": {
+              "type": "solid",
+              "value": "#00baff",
+              "from": "#00baff",
+              "to": "#3de7c9"
+            }
+          }
+        ]
+      },
+      "actions": {}
+    }
+  ]
+}
