@@ -27,7 +27,10 @@
           <g-color-picker v-model="pageConfig.bgColor"></g-color-picker>
         </g-field>
         <g-field label="背景图" tooltip="支持图片地址、静态路径、base64存储">
-          <g-upload-img v-model="pageConfig.bgImage" show-preset show-suffix :images="bgImages"></g-upload-img>
+          <g-upload-img v-model="pageConfig.bgImage"></g-upload-img>
+        </g-field>
+        <g-field label="背景预设" tooltip="可以加载对应预设的图片背景">
+          <g-images-select v-model="pageConfig.bgImage" :images="backgroundImages" value-key="src" />
         </g-field>
         <g-field label="重置">
           <b-button type="primary" size="small" @click="resetBGImage">恢复默认背景</b-button>
@@ -49,32 +52,26 @@
 
 <script>
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
-import { getImagesPath } from '@/utils/env'
-import { computed } from 'vue'
+import { getBgPath } from '@/utils/env'
+import { backgroundImages } from '@/components/Schema/media/config/background'
 
 export default {
   name: 'page-config',
   setup() {
     const { pageConfig, autoCanvasScale } = useSchemaStore()
 
-    const bgImages = computed(() => ([
-      { name: '默认背景', path: 'bg.png', folder: 'bg' },
-      { name: '背景一', path: 'bg0.jpg', folder: 'bg' },
-      { name: '背景二', path: 'bg1.jpg', folder: 'bg' },
-      { name: '背景三', path: 'bg2.jpg', folder: 'bg' },
-    ]))
-
     const resetBGImage = () => {
       pageConfig.value.bgColor = '#0d2a42'
-      pageConfig.value.bgImage = getImagesPath(bgImages.value[0].path, bgImages.value[0].folder || '')
+      pageConfig.value.bgImage = getBgPath('bg.png')
     }
+
     const onSizeChange = async () => {
       await autoCanvasScale()
     }
     return {
       onSizeChange,
       resetBGImage,
-      bgImages,
+      backgroundImages,
       pageConfig,
     }
   },

@@ -1,16 +1,13 @@
 <template>
   <div class="dv-gui g-upload">
-    <g-images
+    <b-input
       :model-value="modelValue"
-      :show-suffix="showSuffix"
-      :suffix-title="suffixTitle"
-      :static-path="staticPath"
-      :prefix-icon="prefixIcon"
-      :suffix-icon="suffixIcon"
-      :images="images"
       placeholder="请输入图片地址"
+      :prefix="prefixIcon"
+      size="small"
       @update:model-value="handleInput"
-    ></g-images>
+    >
+    </b-input>
     <b-upload action="" :before-upload="handleUpload" :show-upload-list="false">
       <div
         class="g-upload-image-wrap"
@@ -40,7 +37,6 @@
 <script>
 import { ref } from 'vue'
 import { validAllowImg } from './utils'
-import { getPublicPath } from '@/utils/env'
 
 export default {
   name: 'g-upload-img',
@@ -61,24 +57,9 @@ export default {
       type: String,
       default: '',
     },
-    showSuffix: {
-      type: Boolean,
-      default: false,
-    },
-    suffixTitle: {
-      type: String,
-      default: '预设',
-    },
     prefixIcon: {
       type: String,
       default: 'link',
-    },
-    suffixIcon: {
-      type: String,
-      default: 'sketch',
-    },
-    staticPath: { // 图片上传或选择的路径地址
-      type: String,
     },
     images: {
       type: Array,
@@ -126,11 +107,6 @@ export default {
       ctx.emit('update:modelValue', value)
     }
 
-    const handleCommand = (name) => {
-      const path = getPublicPath(`/images/${name}`)
-      handleInput(path)
-    }
-
     const removeImage = () => {
       handleInput('')
       visibleCover.value = false
@@ -142,7 +118,6 @@ export default {
       handleUpload,
       handleMouseEnter,
       handleMouseLeave,
-      handleCommand,
       removeImage,
       handleInput,
     }

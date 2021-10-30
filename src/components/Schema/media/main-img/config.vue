@@ -3,6 +3,9 @@
     <g-field label="背景图" tooltip="支持图片地址、静态路径、base64存储">
       <g-upload-img v-model="config.backgroundImage" prefix-icon="image"></g-upload-img>
     </g-field>
+    <g-field label="图片预设">
+      <g-images-select v-model="config.backgroundImage" :images="mainImages" value-key="src" />
+    </g-field>
     <g-field label="图片重复">
       <g-select v-model="config.repeat" :data="repeatTypes" />
     </g-field>
@@ -30,6 +33,7 @@
 <script>
 import { toRef } from 'vue'
 import { repeatTypes } from '@/config/select-options'
+import { mainImages } from '@/components/Schema/media/main-img/config'
 
 export default {
   name: 'VMainImgConfig',
@@ -41,9 +45,11 @@ export default {
   },
   setup(props) {
     const config = toRef(props.data, 'config')
+
     return {
       config,
       repeatTypes,
+      mainImages,
     }
   },
 }

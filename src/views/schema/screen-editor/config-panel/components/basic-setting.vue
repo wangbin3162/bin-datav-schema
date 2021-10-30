@@ -40,6 +40,9 @@
         :step="1"
         inline
       />
+      <div style="width: 50%;">
+        <b-button size="small" @click="attr.rotate=0">重置旋转</b-button>
+      </div>
     </g-field>
     <g-field label="透明度">
       <g-slider
@@ -63,7 +66,3 @@ export default {
   },
 }
 </script>
-
-<style scoped lang="stylus">
-
-</style>

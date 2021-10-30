@@ -6,8 +6,7 @@
 
 <script>
 import { computed } from 'vue'
-import { presetImages } from './config'
-import { getBoxPath } from '@/utils/env'
+import { boxImages } from '@/components/Schema/media/config/box'
 
 export default {
   name: 'VBorderBox',
@@ -33,9 +32,9 @@ export default {
         'border-width': `1px`,
         background: 'none',
       }
-      const img = presetImages.find(m => m.src === config.value.img)
+      const img = boxImages.find(m => m.id === config.value.img)
       if (img) {
-        style['border-image'] = `url(${getBoxPath(img.src)}) ${img.border.slice} / ${img.border.width} / ${img.border.outset} ${img.border.repeat}`
+        style['border-image'] = `url(${img.src}) ${img.border.slice} / ${img.border.width} / ${img.border.outset} ${img.border.repeat}`
       }
       return style
     })

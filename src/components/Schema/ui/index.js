@@ -19,6 +19,7 @@ export function registerGUI(app) {
   app.component('GField', defineAsyncComponent(() => import('./g-field/index.vue')))
   app.component('GFieldCollapse', defineAsyncComponent(() => import('./g-field-collapse/index.vue')))
   app.component('GImages', defineAsyncComponent(() => import('./g-images/index.vue')))
+  app.component('GImagesSelect', defineAsyncComponent(() => import('./g-images-select/index.vue')))
   app.component('GInput', defineAsyncComponent(() => import('./g-input/index.vue')))
   app.component('GInputNumber', defineAsyncComponent(() => import('./g-input-number/index.vue')))
   app.component('GSelect', defineAsyncComponent(() => import('./g-select/index.vue')))

@@ -6,8 +6,7 @@
 
 <script>
 import { computed } from 'vue'
-import { presetImages } from './config'
-import { getDecorationPath } from '@/utils/env'
+import { decorationImages } from '@/components/Schema/media/config/decoration'
 
 export default {
   name: 'VDecoration',
@@ -32,11 +31,11 @@ export default {
     })
 
     const imgBoxStyle = computed(() => {
-      const gif = presetImages.find(v => v.url === config.value.img)
+      const gif = decorationImages.find(v => v.id === config.value.img)
       return {
         width: '100%',
         height: '100%',
-        'background-image': `url(${getDecorationPath(gif.url)})`,
+        'background-image': `url(${gif.src})`,
         'background-size': '100%',
         'background-repeat': 'no-repeat',
         'background-position': 'center',

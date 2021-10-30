@@ -67,6 +67,14 @@ export const VNumberTitleFlop = {
   type: 'info',
   used: true,
 }
+// 媒体-背景块
+export const VBgBox = {
+  name: 'VBgBox',
+  alias: '背景块',
+  img: getComPath('bg-box.png'),
+  type: 'media',
+  used: true,
+}
 // 媒体-边框
 export const VBorderBox = {
   name: 'VBorderBox',
@@ -141,7 +149,7 @@ export const list = [
     type: 'media',
     name: '媒体',
     icon: 'Youtube',
-    data: [VBorderBox, VDecoration, VMainImg],
+    data: [VBgBox, VBorderBox, VDecoration, VMainImg],
   },
   {
     type: 'table',

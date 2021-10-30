@@ -147,12 +147,15 @@ input[type="number"] {
   }
   // ui
   .bin-input {
+    font-family: Arial;
     color: #fff;
     border-radius: 0;
     padding: 0 8px 0 8px;
     background-color: var(--schema-ui-bg);
     border: 1px solid var(--schema-ui-border);
     box-shadow: none;
+    font-weight: normal;
+    font-size: 12px;
     &:hover, &:focus {
       border-color: var(--bin-color-primary);
     }
@@ -169,6 +172,7 @@ input[type="number"] {
     border: 1px solid var(--schema-ui-border);
     box-shadow: none;
     .bin-input-number-input {
+      font-family: Arial;
       padding-right: 25px;
       padding-left: 7px;
       color: #fff;
@@ -301,6 +305,7 @@ input[type="number"] {
       font-size: 12px;
       &:hover {
         z-index: 0;
+        background: var(--schema-color-bg-light);
       }
       &.is-checked {
         color: #fff;
@@ -313,6 +318,18 @@ input[type="number"] {
       + .bin-radio {
         margin-left: 0;
       }
+    }
+  }
+  .bin-button {
+    border: 1px solid var(--schema-ui-border);
+    color: #a1aeb3;
+    background: var(--schema-ui-bg);
+    font-size: 12px;
+    &:hover {
+      background: var(--schema-color-bg-light);
+    }
+    &:active {
+      background: var(--schema-color-bg);
     }
   }
   // dropdown

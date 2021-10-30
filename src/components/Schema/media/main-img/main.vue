@@ -34,8 +34,10 @@ export default {
         background += 'auto 100% repeat-x'
       } else if (config.value.repeat === 'repeat-y') {
         background += '100% repeat-y'
-      } else {
+      } else if (config.value.repeat === 'no-repeat') {
         background += '100% 100% no-repeat'
+      } else {
+        background += 'auto no-repeat'
       }
       return {
         width: `${attr.value.w}px`,

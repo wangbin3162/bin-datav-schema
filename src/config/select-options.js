@@ -45,7 +45,7 @@ export const justifyContents = [
 export const arrangements = [
   { value: 'top', label: '标题在上' },
   { value: 'left', label: '标题在左' },
-  { value: 'bottom', label: '标题在下' }
+  { value: 'bottom', label: '标题在下' },
 ]
 
 export const aligns = [
@@ -78,6 +78,7 @@ export const fillTypes = [
 
 export const repeatTypes = [
   { value: 'no-repeat', label: '不重复，拉伸满' },
+  { value: 'auto', label: '不重复，默认尺寸' },
   { value: 'repeat', label: '水平和垂直重复' },
   { value: 'repeat-x', label: '水平重复' },
   { value: 'repeat-y', label: '垂直重复' },

@@ -1,5 +1,8 @@
 import { ComType } from '@/config/data-source'
 import { getBgPath } from '@/utils/env'
+import { widgetImages } from '@/components/Schema/media/config/widget'
+import { backgroundImages } from '@/components/Schema/media/config/background'
+import { bgImages } from '@/components/Schema/media/config/bg'
 
 export const mainImgConfig = {
   alias: '单张图片',
@@ -20,3 +23,9 @@ export const mainImgConfig = {
   events: {},
   actions: {},
 }
+
+export const mainImages = [
+  ...widgetImages,
+  ...backgroundImages,
+  ...bgImages,
+]

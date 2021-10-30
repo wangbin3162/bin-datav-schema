@@ -76,7 +76,7 @@ export default {
     const getImgUrl = (img) => {
       const path = img.path
       const folder = props.staticPath || img.folder
-      return (folder) ? getImagesPath(path, folder) : path
+      return folder ? getImagesPath(path, folder) : path
     }
 
     const handleCommand = (img) => {

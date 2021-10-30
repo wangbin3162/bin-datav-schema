@@ -28,7 +28,7 @@
           </div>
           <div class="shortcut-item">
             <div class="shortcut-title">画布缩放为100%</div>
-            <div class="shortcut-value">Ctrl/Cmd + s</div>
+            <div class="shortcut-value">Ctrl/Cmd + d</div>
           </div>
         </div>
       </template>
@@ -73,6 +73,8 @@
 <script>
 import { onMounted, onUnmounted, ref, watch } from 'vue'
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { Message } from 'bin-ui-next'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'footer-panel',
@@ -84,7 +86,10 @@ export default {
       toggleLayerPanel,
       toggleCompsPanel,
       toggleConfigPanel,
+      pageInfo,
+      saveScreenData,
     } = useSchemaStore()
+    const $router = useRouter()
     const scaleList = ref([150, 100, 75, 50])
     const inputScale = ref(20)
     const scale = ref(20)
@@ -104,7 +109,6 @@ export default {
       inputScale.value = val
     })
 
-
     const addShortcuts = (ev) => {
       const target = ev.target
       if (!['input', 'textarea'].includes(target.tagName.toLowerCase())) {
@@ -118,12 +122,27 @@ export default {
             toggleConfigPanel()
           } else if (key === 'a') {
             autoCanvasScale()
-          } else if (key === 's') {
+          } else if (key === 'd') {
             submitScale(100)
+          } else if (key === 's') {
+            handleSave()
           }
           ev.preventDefault()
         }
       }
+    }
+
+    const handleSave = async () => {
+      const oldId = pageInfo.value.id // 缓存原有id
+      const { data } = await saveScreenData()
+      if (!oldId) {
+        let routeData = $router.resolve({
+          path: '/schema/screen',
+          query: { id: data.pageInfo.id },
+        })
+        window.location.replace(routeData.href)
+      }
+      Message.success({ message: '保存成功！', showClose: true })
     }
 
     onMounted(() => {

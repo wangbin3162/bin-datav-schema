@@ -1,21 +1,14 @@
 <template>
   <div class="setting-panel-gui">
     <g-field label="边框选择">
-      <g-images
-        v-model="config.img"
-        prefix-icon="creditcard"
-        suffix-icon="select"
-        show-preset show-suffix
-        :images="bgImages"
-        static-path="box"
-      />
+      <g-images-select v-model="config.img" :images="boxImages" />
     </g-field>
   </div>
 </template>
 
 <script>
-import { computed, toRef } from 'vue'
-import { presetImages } from './config'
+import { toRef } from 'vue'
+import { boxImages } from '@/components/Schema/media/config/box'
 
 export default {
   name: 'VBorderBoxConfig',
@@ -27,11 +20,9 @@ export default {
   },
   setup(props) {
     const config = toRef(props.data, 'config')
-    const bgImages = computed(() => presetImages.map(i => ({ name: i.name, path: i.src })))
     return {
       config,
-      presetImages,
-      bgImages,
+      boxImages,
     }
   },
 }
