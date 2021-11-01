@@ -25,7 +25,7 @@ export const VBasicLine = {
   alias: '基本折线图',
   img: getComPath('basic-line.png'),
   type: 'line',
-  used: false,
+  used: true,
 }
 // 线图-区域图
 export const VBasicArea = {

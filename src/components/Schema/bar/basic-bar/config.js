@@ -21,7 +21,7 @@ export const BasicBarSeries = (name) => {
 }
 
 export const basicBarConfig = {
-  alias: '柱状图',
+  alias: '基础柱图',
   icon: 'barchart',
   type: ComType.com,
   attr: { w: 500, h: 300 },

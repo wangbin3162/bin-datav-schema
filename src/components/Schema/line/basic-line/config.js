@@ -1,28 +1,27 @@
-// 基础条形图配置项
+// 基础柱图配置项
 import { createField, initApiConfig, initApiData, ComType } from '@/config/data-source'
 import { defaultColors } from '@/config/colors'
 
 const fields = [
-  createField('x', { description: '值' }),
-  createField('y', { description: '类目' }),
+  createField('x', { description: '类目' }),
+  createField('y', { description: '值' }),
 ]
 
-export const BasicHoriBarSeries = (name) => {
+export const BasicLineSeries = (name) => {
   return {
-    type: 'bar',
+    type: 'line',
     name: name || '系列',
-    color: {
+    lineStyle: {
+      width: 2,
+      color: defaultColors[0],
       type: 'solid',
-      value: defaultColors[0],
-      from: defaultColors[0],
-      to: defaultColors[1],
     },
   }
 }
 
-export const horiBasicBarConfig = {
-  alias: '条形图',
-  icon: 'menu',
+export const basicLineConfig = {
+  alias: '基础线图',
+  icon: 'linechart',
   type: ComType.com,
   attr: { w: 500, h: 300 },
   config: {
@@ -32,14 +31,10 @@ export const horiBasicBarConfig = {
       margin: {
         top: 40,
         bottom: 50,
-        left: 60,
+        left: 50,
         right: 10,
       },
-      innerPadding: 20,
-      outerPadding: 30,
-      barWidth: 'auto',
-      borderRadius: 0,
-      background: { show: true, color: 'rgba(255, 255, 255, 0.1)' },
+      smooth: false,
     },
     label: {
       show: false,
@@ -69,13 +64,13 @@ export const horiBasicBarConfig = {
         gap: 10,
       },
     },
-    yAxis: {
+    xAxis: {
       show: true,
       type: 'category',
       boundaryGap: true,
       title: {
         show: false,
-        name: 'Y轴',
+        name: 'X轴',
         location: 'center',
         display: {
           rotate: 0,
@@ -94,7 +89,7 @@ export const horiBasicBarConfig = {
         color: 'rgba(255, 255, 255, 0.5)',
       },
       axisTick: {
-        show: false,
+        show: true,
         type: 'solid',
         width: 1,
         color: 'rgba(255, 255, 255, 0.5)',
@@ -105,7 +100,7 @@ export const horiBasicBarConfig = {
         interval: 'auto',
         display: {
           rotate: 0,
-          margin: 20,
+          margin: 10,
         },
         align: 'center',
         textStyle: {
@@ -115,7 +110,7 @@ export const horiBasicBarConfig = {
         },
       },
       grid: {
-        show: true,
+        show: false,
         line: {
           type: 'dashed',
           width: 1,
@@ -125,7 +120,7 @@ export const horiBasicBarConfig = {
         },
       },
     },
-    xAxis: {
+    yAxis: {
       show: true,
       extent: {
         min: 'auto',
@@ -134,7 +129,7 @@ export const horiBasicBarConfig = {
       splitNumber: 0,
       title: {
         show: false,
-        name: 'X轴',
+        name: 'Y轴',
         location: 'end',
         display: {
           rotate: 0,
@@ -147,13 +142,13 @@ export const horiBasicBarConfig = {
         },
       },
       axisLine: {
-        show: true,
+        show: false,
         type: 'solid',
         width: 1,
         color: 'rgba(255, 255, 255, 0.5)',
       },
       axisTick: {
-        show: true,
+        show: false,
         type: 'solid',
         width: 1,
         color: 'rgba(255, 255, 255, 0.5)',
@@ -176,7 +171,7 @@ export const horiBasicBarConfig = {
       grid: {
         show: true,
         line: {
-          type: 'dashed',
+          type: 'solid',
           width: 1,
           color: 'rgba(233, 228, 228, 0.1)',
           dashedLength: 4,
@@ -207,14 +202,14 @@ export const horiBasicBarConfig = {
       },
     },
     series: [
-      BasicHoriBarSeries('系列一'),
+      BasicLineSeries('系列一'),
     ],
   },
   apis: initApiConfig({
     fields: Object.assign({}, ...fields),
-    description: '基本条形图接口',
+    description: '基本线图接口',
   }),
-  apiData: initApiData({ staticPath: 'bar/hori-basic-bar' }),
+  apiData: initApiData({ staticPath: 'line/basic-line' }),
   events: {
     click: {
       description: '当点击数据项时',
