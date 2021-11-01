@@ -10,7 +10,7 @@
       <g-input-number
         v-model="config.textStyle.fontSize"
         :min="12"
-        :max="24"
+        :max="100"
         :step="1"
         suffix="px"
         inline
