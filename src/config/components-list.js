@@ -51,7 +51,7 @@ export const VBasicMap = {
   type: 'map',
   used: false,
 }
-// 指标-指标版
+// 信息-通用标题
 export const VMainTitle = {
   name: 'VMainTitle',
   alias: '通用标题',
@@ -59,11 +59,19 @@ export const VMainTitle = {
   type: 'info',
   used: true,
 }
-// 指标-指标版
+// 信息-数字指标
 export const VNumberTitleFlop = {
   name: 'VNumberTitleFlop',
   alias: '数字指标',
   img: getComPath('number-title-flop.png'),
+  type: 'info',
+  used: true,
+}
+// 信息-时间器
+export const VTimer = {
+  name: 'VTimer',
+  alias: '时间器',
+  img: getComPath('timer.png'),
   type: 'info',
   used: true,
 }
@@ -143,7 +151,7 @@ export const list = [
     type: 'info',
     name: '信息',
     icon: 'info-circle',
-    data: [VMainTitle, VNumberTitleFlop],
+    data: [VMainTitle, VNumberTitleFlop, VTimer],
   },
   {
     type: 'media',

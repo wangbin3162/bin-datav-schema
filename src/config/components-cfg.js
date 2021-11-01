@@ -8,6 +8,7 @@ import { numberTitleFlopConfig } from '@/components/Schema/text/number-title-flo
 import { decorationConfig } from '@/components/Schema/media/decoration/config'
 import { borderBoxConfig } from '@/components/Schema/media/border-box/config'
 import { mainImgConfig } from '@/components/Schema/media/main-img/config'
+import { timerConfig } from '@/components/Schema/text/timer/config'
 
 const DatavComponent = {
   id: '',
@@ -51,6 +52,8 @@ export function createComponent(name) {
       return mergeConfig('MainTitle', mainTitleConfig)
     case 'NumberTitleFlop':
       return mergeConfig('NumberTitleFlop', numberTitleFlopConfig)
+    case 'Timer':
+      return mergeConfig('Timer', timerConfig)
     case 'BorderBox':
       return mergeConfig('BorderBox', borderBoxConfig)
     case 'Decoration':
