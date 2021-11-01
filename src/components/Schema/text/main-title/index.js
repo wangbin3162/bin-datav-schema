@@ -1,5 +1,5 @@
 import { loadAsyncComponent } from '@/utils/async-component'
-import MainTitle from './main-title.vue'
+import MainTitle from './main.vue'
 
 MainTitle.install = (app) => {
   app.component(MainTitle.name, MainTitle)

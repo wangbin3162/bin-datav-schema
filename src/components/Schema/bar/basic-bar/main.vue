@@ -216,6 +216,7 @@ export default {
                 colorStops: [{ offset: 0, color: item.color.from }, { offset: 1, color: item.color.to }],
               }
               : item.color.value,
+            borderRadius: global.borderRadius,
           },
           barWidth: global.barWidth,
           barGap: `${global.innerPadding}%`,

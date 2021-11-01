@@ -33,6 +33,30 @@ export const addResizeListener = Utils.resize.addResizeListener
 
 export const removeResizeListener = Utils.resize.removeResizeListener
 
+export const ColorHelper = Utils.color
+
+export function isColor(str) {
+  let type = ''
+  if (/^rgb\(/.test(str)) {
+    //如果是rgb开头，200-249，250-255，0-199
+    type = '^[rR][gG][Bb][(]([\\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\\s]*,){2}[\\s]*(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)[\\s]*[)]$'
+  } else if (/^rgba\(/.test(str)) {
+    //如果是rgba开头，判断0-255:200-249，250-255，0-199 判断0-1：0 1 1.0 0.0-0.9
+    type = '^[rR][gG][Bb][Aa][(]([\\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\\s]*,){3}[\\s]*(1|1.0|0|0.[0-9])[\\s]*[)]$'
+  } else if (/^#/.test(str)) {
+    //六位或者三位
+    type = '^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$'
+  } else if (/^hsl\(/.test(str)) {
+    //判断0-360 判断0-100%(0可以没有百分号)
+    type = '^[hH][Ss][Ll][(]([\\s]*(2[0-9][0-9]|360｜3[0-5][0-9]|[01]?[0-9][0-9]?)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*)[)]$'
+  } else if (/^hsla\(/.test(str)) {
+    type = '^[hH][Ss][Ll][Aa][(]([\\s]*(2[0-9][0-9]|360｜3[0-5][0-9]|[01]?[0-9][0-9]?)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*,){2}([\\s]*(1|1.0|0|0.[0-9])[\\s]*)[)]$'
+  }
+
+  let re = new RegExp(type)
+  return str.match(re) !== null
+}
+
 /**
  * arraybuffer 流文件转换为base64图像
  * @param data

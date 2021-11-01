@@ -1,5 +1,5 @@
 import { loadAsyncComponent } from '@/utils/async-component'
-import BasicBar from './basic-bar.vue'
+import BasicBar from './main.vue'
 
 BasicBar.install = (app) => {
   app.component(BasicBar.name, BasicBar)

@@ -68,6 +68,15 @@
         <g-input v-model="config.global.barWidth" />
       </g-field>
 
+      <g-field label="柱子圆角">
+        <g-input-number
+          v-model="config.global.borderRadius"
+          :min="0"
+          :max="300"
+          :step="1"
+          suffix="px" />
+      </g-field>
+
       <g-field-collapse label="背景" toggle v-model="config.global.background.show">
         <g-field label="背景颜色">
           <g-color-picker v-model="config.global.background.color" />

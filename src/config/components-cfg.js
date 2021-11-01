@@ -9,6 +9,7 @@ import { decorationConfig } from '@/components/Schema/media/decoration/config'
 import { borderBoxConfig } from '@/components/Schema/media/border-box/config'
 import { mainImgConfig } from '@/components/Schema/media/main-img/config'
 import { timerConfig } from '@/components/Schema/text/timer/config'
+import { bgBoxConfig } from '@/components/Schema/media/bg-box/config'
 
 const DatavComponent = {
   id: '',
@@ -54,6 +55,8 @@ export function createComponent(name) {
       return mergeConfig('NumberTitleFlop', numberTitleFlopConfig)
     case 'Timer':
       return mergeConfig('Timer', timerConfig)
+    case 'BgBox':
+      return mergeConfig('BgBox', bgBoxConfig)
     case 'BorderBox':
       return mergeConfig('BorderBox', borderBoxConfig)
     case 'Decoration':
