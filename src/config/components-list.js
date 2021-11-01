@@ -17,7 +17,7 @@ export const VHorizontalBar = {
   alias: '基本条形图',
   img: getComPath('hori-basic-bar.png'),
   type: 'bar',
-  used: false,
+  used: true,
 }
 // 线图-基本线图
 export const VBasicLine = {
