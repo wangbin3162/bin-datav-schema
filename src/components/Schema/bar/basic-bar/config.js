@@ -1,4 +1,4 @@
-// 基础柱图配置项
+// 基本柱图配置项
 import { createField, initApiConfig, initApiData, ComType } from '@/config/data-source'
 import { defaultColors } from '@/config/colors'
 
@@ -21,7 +21,7 @@ export const BasicBarSeries = (name) => {
 }
 
 export const basicBarConfig = {
-  alias: '基础柱图',
+  alias: '基本柱图',
   icon: 'barchart',
   type: ComType.com,
   attr: { w: 500, h: 300 },

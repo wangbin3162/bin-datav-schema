@@ -1,6 +1,7 @@
 import VBasicBar from './bar/basic-bar'
 import VHorizontalBar from './bar/hori-basic-bar'
 import VBasicLine from './line/basic-line'
+import VBasicArea from './line/basic-area'
 import VMainTitle from './text/main-title'
 import VNumberTitleFlop from './text/number-title-flop'
 import VTimer from './text/timer'
@@ -13,6 +14,7 @@ const components = [
   VBasicBar,
   VHorizontalBar,
   VBasicLine,
+  VBasicArea,
   VMainTitle,
   VNumberTitleFlop,
   VTimer,

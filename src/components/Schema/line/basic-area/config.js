@@ -1,4 +1,4 @@
-// 基本线图配置项
+// 基本区域图配置项
 import { createField, initApiConfig, initApiData, ComType } from '@/config/data-source'
 import { defaultColors } from '@/config/colors'
 
@@ -16,11 +16,16 @@ export const BasicLineSeries = (name) => {
       color: defaultColors[0],
       type: 'solid',
     },
+    areaStyle: {
+      from: defaultColors[0],
+      to: defaultColors[1],
+      opacity: 0.8,
+    },
   }
 }
 
-export const basicLineConfig = {
-  alias: '基本线图',
+export const basicAreaConfig = {
+  alias: '基本区域图',
   icon: 'linechart',
   type: ComType.com,
   attr: { w: 500, h: 300 },

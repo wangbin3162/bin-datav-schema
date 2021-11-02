@@ -9,18 +9,18 @@ const CONFIG_WIDTH = 332
 const TOOLBOX_HEIGHT = 40
 const PANEL_PADDING = 60
 export default function useSchemaStore() {
-  const $store = useStore()
-  const $schema = computed(() => $store.state.schema)
-  const pageInfo = computed(() => $schema.value.pageInfo)
-  const pageConfig = computed(() => $schema.value.pageConfig)
-  const comps = computed(() => $schema.value.comps)
-  const selectedCom = computed(() => $schema.value.selectedCom)
-  const hoveredCom = computed(() => $schema.value.hoveredCom)
+  const store = useStore()
+  const schemaStatus = computed(() => store.state.schema)
+  const pageInfo = computed(() => schemaStatus.value.pageInfo)
+  const pageConfig = computed(() => schemaStatus.value.pageConfig)
+  const comps = computed(() => schemaStatus.value.comps)
+  const selectedCom = computed(() => schemaStatus.value.selectedCom)
+  const hoveredCom = computed(() => schemaStatus.value.hoveredCom)
   // 四个基础面板
-  const toolbar = computed(() => $schema.value.toolbar)
-  const toolbox = computed(() => $schema.value.toolbox)
+  const toolbar = computed(() => schemaStatus.value.toolbar)
+  const toolbox = computed(() => schemaStatus.value.toolbox)
   // canvas画布
-  const canvas = computed(() => $schema.value.canvas)
+  const canvas = computed(() => schemaStatus.value.canvas)
   const getPanelOffsetX = computed(() => {
     const toolbarVisible = toolbar.value
     let offsetX = 0
@@ -69,57 +69,57 @@ export default function useSchemaStore() {
 
   // toggle图层面板
   async function toggleLayerPanel(visible) {
-    await $store.dispatch('schema/toggleLayerPanel', visible)
+    await store.dispatch('schema/toggleLayerPanel', visible)
   }
 
   // toggle组件面板
   async function toggleCompsPanel(visible) {
-    await $store.dispatch('schema/toggleCompsPanel', visible)
+    await store.dispatch('schema/toggleCompsPanel', visible)
   }
 
   // toggle配置面板
   async function toggleConfigPanel(visible) {
-    await $store.dispatch('schema/toggleConfigPanel', visible)
+    await store.dispatch('schema/toggleConfigPanel', visible)
   }
 
   // toggle配置面板
   async function toggleToolbox(visible) {
-    await $store.dispatch('schema/toggleToolbox', visible)
+    await store.dispatch('schema/toggleToolbox', visible)
   }
 
   // 设置pageInfo
   async function setPageInfo(info) {
-    await $store.dispatch('schema/setPageInfo', info)
+    await store.dispatch('schema/setPageInfo', info)
   }
 
   // 增加组件至面板
   async function addCom({ component, index }) {
-    await $store.dispatch('schema/addCom', { component, index })
+    await store.dispatch('schema/addCom', { component, index })
   }
 
   // 拷贝组件至面板
   async function copyCom(id) {
-    await $store.dispatch('schema/copyCom', id)
+    await store.dispatch('schema/copyCom', id)
   }
 
   // 删除组件
   async function deleteCom(id) {
-    await $store.dispatch('schema/deleteCom', id)
+    await store.dispatch('schema/deleteCom', id)
   }
 
   // 设置hovered组件
   async function onCompHovered(component) {
-    await $store.dispatch('schema/hoveredCom', component)
+    await store.dispatch('schema/hoveredCom', component)
   }
 
   // 设置selected组件
   async function onCompSelected(component) {
-    await $store.dispatch('schema/selectedCom', component)
+    await store.dispatch('schema/selectedCom', component)
   }
 
   // 移动组件位置
   async function onCompMoved(id, moveType) {
-    await $store.dispatch('schema/moveCom', { id, moveType })
+    await store.dispatch('schema/moveCom', { id, moveType })
   }
 
   const getPanelOffset = () => ({
@@ -129,28 +129,28 @@ export default function useSchemaStore() {
 
   // 自适应面板
   async function autoCanvasScale() {
-    await $store.dispatch('schema/autoCanvasScale', getPanelOffset)
+    await store.dispatch('schema/autoCanvasScale', getPanelOffset)
   }
 
   // 设置面板
   async function setCanvasScale(scale) {
-    await $store.dispatch('schema/setCanvasScale', { scale, ...getPanelOffset() })
+    await store.dispatch('schema/setCanvasScale', { scale, ...getPanelOffset() })
   }
 
   // 设置单个位置
   async function setSingleComAttr({ key, value }) {
     const map = { left: 'x', top: 'y' }
-    await $store.dispatch('schema/setShapeSingleStyle', { key: map[key], value })
+    await store.dispatch('schema/setShapeSingleStyle', { key: map[key], value })
   }
 
   // 设置全局的loading
   async function setGlobalLoading(loading) {
-    await $store.commit('schema/setLoading', loading)
+    await store.commit('schema/setLoading', loading)
   }
 
   // 载入全局data
   async function loadScreenData(screenData) {
-    await $store.dispatch('schema/loadScreenData', screenData)
+    await store.dispatch('schema/loadScreenData', screenData)
   }
 
   // 保存screenData
@@ -174,6 +174,7 @@ export default function useSchemaStore() {
 
 
   return {
+    store,
     pageInfo,
     canvas,
     toolbar,

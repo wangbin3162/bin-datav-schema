@@ -12,6 +12,7 @@ import { timerConfig } from '@/components/Schema/text/timer/config'
 import { bgBoxConfig } from '@/components/Schema/media/bg-box/config'
 import { horiBasicBarConfig } from '@/components/Schema/bar/hori-basic-bar/config'
 import { basicLineConfig } from '@/components/Schema/line/basic-line/config'
+import { basicAreaConfig } from '@/components/Schema/line/basic-area/config'
 
 const DatavComponent = {
   id: '',
@@ -55,6 +56,8 @@ export function createComponent(name) {
       return mergeConfig('HorizontalBar', horiBasicBarConfig)
     case 'BasicLine':
       return mergeConfig('BasicLine', basicLineConfig)
+    case 'BasicArea':
+      return mergeConfig('BasicArea', basicAreaConfig)
     case 'MainTitle':
       return mergeConfig('MainTitle', mainTitleConfig)
     case 'NumberTitleFlop':

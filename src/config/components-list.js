@@ -33,7 +33,7 @@ export const VBasicArea = {
   alias: '基本区域图',
   img: getComPath('basic-area.png'),
   type: 'line',
-  used: false,
+  used: true,
 }
 // 饼图-基本饼图
 export const VBasicPie = {
@@ -121,7 +121,7 @@ export const list = [
     type: 'normal',
     name: '常用',
     icon: 'star',
-    data: [VBasicBar, VHorizontalBar, VBasicLine, VBasicArea, VBasicPie, VMainTitle],
+    data: [VBasicBar, VHorizontalBar, VBasicLine, VBasicArea, VMainTitle, VNumberTitleFlop, VTimer, VDecoration, VMainImg, VBorderBox, VBgBox],
   },
   {
     type: 'bar',
@@ -135,18 +135,18 @@ export const list = [
     icon: 'linechart',
     data: [VBasicLine, VBasicArea],
   },
-  {
-    type: 'pie',
-    name: '饼图',
-    icon: 'piechart',
-    data: [VBasicPie],
-  },
-  {
-    type: 'map',
-    name: '地图',
-    icon: 'location',
-    data: [VBasicMap],
-  },
+  // {
+  //   type: 'pie',
+  //   name: '饼图',
+  //   icon: 'piechart',
+  //   data: [VBasicPie],
+  // },
+  // {
+  //   type: 'map',
+  //   name: '地图',
+  //   icon: 'location',
+  //   data: [VBasicMap],
+  // },
   {
     type: 'info',
     name: '信息',
@@ -159,12 +159,12 @@ export const list = [
     icon: 'Youtube',
     data: [VBgBox, VBorderBox, VDecoration, VMainImg],
   },
-  {
-    type: 'table',
-    name: '表格',
-    icon: 'table',
-    data: [VCrossTable],
-  },
+  // {
+  //   type: 'table',
+  //   name: '表格',
+  //   icon: 'table',
+  //   data: [VCrossTable],
+  // },
 ]
 
 export function findComByName(name) {

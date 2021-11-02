@@ -43,9 +43,14 @@
           label="右侧"
         />
       </g-field>
+      <g-field label="平滑曲线">
+        <div class="pt-5">
+          <b-switch v-model="config.global.smooth" size="small" />
+        </div>
+      </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="柱子标注" toggle v-model="config.label.show">
+    <g-field-collapse label="标注" toggle v-model="config.label.show">
       <g-field label="位置">
         <g-select v-model="config.label.position" :data="echartsLabelPositions" />
       </g-field>

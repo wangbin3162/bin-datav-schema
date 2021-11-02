@@ -144,5 +144,11 @@ export default {
       commit('SET_PAGE_CFG', pageConfig)
       commit('SET_COMPS', comps)
     },
+    clearScreen: ({ commit }) => {
+      commit('SELECT_COM', null)
+      commit('HOVER_COM', '')
+      commit('RENAMING_COM', '')
+      commit('SET_COMPS', [])
+    },
   },
 }

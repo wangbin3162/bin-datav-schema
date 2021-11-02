@@ -4,7 +4,6 @@
       <g-field label="字体" tooltip="请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体">
         <g-select v-model="config.global.fontFamily" :data="fontFamilys" />
       </g-field>
-
       <g-field label="边距" flat>
         <g-input-number
           v-model="config.global.margin.top"
@@ -43,45 +42,11 @@
           label="右侧"
         />
       </g-field>
-
-      <g-field label="组内间距">
-        <g-slider
-          v-model="config.global.innerPadding"
-          :min="-100"
-          :max="100"
-          :step="1"
-          suffix="%"
-        />
+      <g-field label="平滑曲线">
+        <div class="pt-5">
+          <b-switch v-model="config.global.smooth" size="small" />
+        </div>
       </g-field>
-
-      <g-field label="组间间距">
-        <g-slider
-          v-model="config.global.outerPadding"
-          :min="-100"
-          :max="100"
-          :step="1"
-          suffix="%"
-        />
-      </g-field>
-
-      <g-field label="柱子宽度" tooltip="不设时自适应，可以是绝对值像素或百分比。">
-        <g-input v-model="config.global.barWidth" />
-      </g-field>
-
-      <g-field label="柱子圆角">
-        <g-input-number
-          v-model="config.global.borderRadius"
-          :min="0"
-          :max="300"
-          :step="1"
-          suffix="px" />
-      </g-field>
-
-      <g-field-collapse label="背景" toggle v-model="config.global.background.show">
-        <g-field label="背景颜色">
-          <g-color-picker v-model="config.global.background.color" />
-        </g-field>
-      </g-field-collapse>
     </g-field-collapse>
 
     <g-field-collapse label="标注" toggle v-model="config.label.show">
@@ -684,22 +649,37 @@
         <g-field label="系列名称">
           <g-input v-model="config.series[index].name" />
         </g-field>
-        <g-field label="填充类型">
-          <b-radio-group v-model="config.series[index].color.type" type="button" size="mini">
-            <b-radio v-for="em in fillTypes" :key="em.value" :label="em.value">{{ em.label }}</b-radio>
-          </b-radio-group>
+        <g-field label="线条样式" flat>
+          <g-input-number
+            v-model="config.series[index].lineStyle.width"
+            :min="1"
+            :max="5"
+            :step="1"
+            inline
+            label="线条粗细"
+          />
+          <g-select
+            v-model="config.series[index].lineStyle.type"
+            :data="lineStyles"
+            inline
+            label="线条类型"
+          />
+          <g-color-picker v-model="config.series[index].lineStyle.color" label="颜色" inline="inline-single" />
         </g-field>
-        <g-field label="颜色配置" v-if="config.series[index].color.type==='solid'">
-          <g-color-picker v-model="config.series[index].color.value" />
+        <g-field label="透明度">
+          <g-input-number
+            v-model="config.series[index].areaStyle.opacity"
+            :min="0"
+            :max="1"
+            :step="0.1"
+          />
         </g-field>
-        <template v-else>
-          <g-field label="开始颜色">
-            <g-color-picker v-model="config.series[index].color.from" />
-          </g-field>
-          <g-field label="结束颜色">
-            <g-color-picker v-model="config.series[index].color.to" />
-          </g-field>
-        </template>
+        <g-field label="开始颜色">
+          <g-color-picker v-model="config.series[index].areaStyle.from" />
+        </g-field>
+        <g-field label="结束颜色">
+          <g-color-picker v-model="config.series[index].areaStyle.to" />
+        </g-field>
       </div>
     </g-field-collapse>
   </div>
@@ -708,24 +688,17 @@
 <script>
 import { computed, toRef } from 'vue'
 import {
-  fontFamilys,
-  fontWeights,
-  echartsLabelPositions,
-  legendLocations,
-  orients,
-  legendIcons,
   axisTypes,
-  titleLocations,
-  lineStyles,
-  hAligns,
-  timeFormats,
-  valueFormats,
-  fillTypes,
+  echartsLabelPositions, fillTypes,
+  fontFamilys,
+  fontWeights, hAligns, legendIcons,
+  legendLocations, lineStyles,
+  orients, timeFormats, titleLocations, valueFormats,
 } from '@/config/select-options'
-import { BasicBarSeries } from '@/components/Schema/bar/basic-bar/config'
+import { BasicLineSeries } from '@/components/Schema/line/basic-line/config'
 
 export default {
-  name: 'VBasicBarConfig',
+  name: 'VBasicAreaConfig',
   props: {
     data: {
       type: Object,
@@ -737,7 +710,7 @@ export default {
     const xAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
 
     const addSeries = () => {
-      config.value.series.push(BasicBarSeries('新系列'))
+      config.value.series.push(BasicLineSeries('新系列'))
     }
     const deleteLast = () => {
       config.value.series.splice(config.value.series.length - 1, 1)

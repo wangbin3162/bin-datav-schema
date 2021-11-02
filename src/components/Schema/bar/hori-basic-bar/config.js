@@ -1,4 +1,4 @@
-// 基础条形图配置项
+// 基本条形图配置项
 import { createField, initApiConfig, initApiData, ComType } from '@/config/data-source'
 import { defaultColors } from '@/config/colors'
 
@@ -21,7 +21,7 @@ export const BasicHoriBarSeries = (name) => {
 }
 
 export const horiBasicBarConfig = {
-  alias: '条形图',
+  alias: '基本条形图',
   icon: 'menu',
   type: ComType.com,
   attr: { w: 500, h: 300 },
