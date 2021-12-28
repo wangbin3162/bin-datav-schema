@@ -3,9 +3,8 @@
     v-model:visible="visible"
     :placement="placement"
     trigger="click"
-    :width="188"
+    :width="288"
     :show-arrow="false"
-    transition=""
     :offset="3"
     popper-class="g-select-image-popover"
   >
@@ -26,20 +25,26 @@
     </div>
     <template #content>
       <div class="g-select-image-dropdown-menu-wrap">
+        <ul class="g-select-image-tabs" v-if="images.length>1">
+          <li
+            class="tab-item"
+            v-for="item in images"
+            :class="{active:item===activeTab}"
+            :key="item"
+            @click="activeTab=item"
+          >{{ imagesTitleMap[item] }}
+          </li>
+        </ul>
         <ul class="g-select-image-dropdown-menu">
-          <template v-if="images && images.length > 0">
-            <li
-              v-for="(img,index) in images"
-              :key="index"
-              class="g-select-image-dropdown-menu-item"
-              @click="onSelectImg(img)"
-            >
+          <li
+            v-for="(img,index) in currentImages"
+            :key="index"
+            class="g-select-image-dropdown-menu-item"
+          >
+            <div class="image-item" @click="onSelectImg(img)">
               <img :src="img.src" class="g-select-image-img">
               <span>{{ img.name }}</span>
-            </li>
-          </template>
-          <li v-else class="g-select-image-dropdown-menu-item --empty">
-            <span>列表为空</span>
+            </div>
           </li>
         </ul>
       </div>
@@ -48,7 +53,34 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { bgImages } from '@/components/Schema/images-cfg/bg'
+import { boxImages } from '@/components/Schema/images-cfg/box'
+import { decorationImages } from '@/components/Schema/images-cfg/decoration'
+import { headerImages } from '@/components/Schema/images-cfg/header'
+import { widgetImages } from '@/components/Schema/images-cfg/widget'
+
+const imagesMap = {
+  bg: bgImages,
+  box: boxImages,
+  decoration: decorationImages,
+  header: headerImages,
+  widget: widgetImages,
+}
+const allImages = [
+  ...bgImages,
+  ...boxImages,
+  ...decorationImages,
+  ...headerImages,
+  ...widgetImages,
+]
+const imagesTitleMap = {
+  bg: '背景',
+  box: '边框',
+  decoration: '装饰',
+  header: '头部',
+  widget: '部件',
+}
 
 export default {
   name: 'GImagesSelect',
@@ -57,9 +89,9 @@ export default {
       type: String,
       default: '',
     },
-    images: {
+    images: { // 图片预设分类，至少为一个
       type: Array,
-      default: () => [],
+      default: () => ['bg', 'box', 'decoration', 'header', 'widget'],
     },
     placement: {
       type: String,
@@ -70,18 +102,33 @@ export default {
       default: 'id',
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change'],
   setup(props, ctx) {
     const visible = ref(false)
-    const selectedImg = computed(() => props.images.find(m => m[props.valueKey] === props.modelValue) || {})
+    const activeTab = ref('')
+
+    const currentImages = computed(() => imagesMap[activeTab.value] || [])
+
+    const selectedImg = computed(() => allImages.find(m => m[props.valueKey] === props.modelValue) || {})
 
     const onSelectImg = (img) => {
       visible.value = false
       ctx.emit('update:modelValue', img[props.valueKey])
+      ctx.emit('change', img)
     }
 
+    watch(() => visible.value, v => {
+      if (v) {
+        activeTab.value = props.images[0]
+      }
+    })
+
     return {
+      imagesMap,
+      imagesTitleMap,
       visible,
+      activeTab,
+      currentImages,
       selectedImg,
       onSelectImg,
     }
@@ -188,33 +235,62 @@ export default {
 <style lang="stylus">
 .bin-popover.g-select-image-popover {
   box-shadow: none;
-  background: #111417;
-  max-height: 300px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  border: 1px solid var(--bin-color-primary);
+  background: #262c33;
+  overflow: hidden;
+  border: 1px solid #0b0c0d;
   border-radius: 0;
-
   .g-select-image-dropdown-menu-wrap {
+    .g-select-image-tabs {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #0b0c0d;
+      .tab-item {
+        flex: auto;
+        text-align: center;
+        line-height 22px;
+        padding: 4px 8px 5px;
+        cursor: pointer;
+        &:hover {
+          color: var(--bin-color-primary);
+        }
+        &.active {
+          color: var(--bin-color-primary);
+          position: relative;
+          &:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--bin-color-primary);
+          }
+        }
+      }
+    }
     .g-select-image-dropdown-menu {
       display: flex;
       flex-wrap: wrap;
-      margin-right: 8px;
-      margin-bottom: 8px;
+      padding-right: 8px;
+      padding-top: 4px;
+      max-height: 380px;
+      overflow-y: auto;
       .g-select-image-dropdown-menu-item {
         box-sizing: border-box;
         width: 50%;
-        height: 78px;
+        height: 86px;
         padding: 8px 0 0 8px;
         background: transparent;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        overflow: hidden;
-        line-height: 24px;
-        font-size: 12px;
-        color: #a1aeb3;
-        cursor: pointer;
+        .image-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          overflow: hidden;
+          line-height: 24px;
+          font-size: 12px;
+          color: #a1aeb3;
+          cursor: pointer;
+        }
         .g-select-image-img {
           width: 100%;
           height: 54px;

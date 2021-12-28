@@ -1,0 +1,40 @@
+[data-schema=datav-dark] {
+  .bin-modal.schema-modal {
+    border: none;
+    border-radius: 0;
+    background: #303640;
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background-image: linear-gradient(270deg, #74f0ff 0, #2681ff 74%);
+    }
+    .bin-desc__label, .bin-form-item__label {
+      color: #fff;
+    }
+    .bin-modal-header {
+      height: 46px;
+      .bin-modal-title {
+        color: var(--bin-color-primary);
+      }
+    }
+    .bin-modal-close {
+      height: 46px;
+      .b-iconfont {
+        color: var(--bin-color-primary);
+        transition: transform .2s;
+        &:hover {
+          transform: rotate(180deg);
+        }
+      }
+    }
+    .bin-modal-footer {
+      border-top: none;
+    }
+  }
+}

@@ -6,7 +6,7 @@
 
 <script>
 import { computed } from 'vue'
-import { boxImages } from '@/components/Schema/media/config/box'
+import { boxImages } from '@/components/Schema/images-cfg/box'
 
 export default {
   name: 'VBorderBox',

@@ -6,7 +6,7 @@
 
 <script>
 import { computed } from 'vue'
-import { decorationImages } from '@/components/Schema/media/config/decoration'
+import { decorationImages } from '@/components/Schema/images-cfg/decoration'
 
 export default {
   name: 'VDecoration',

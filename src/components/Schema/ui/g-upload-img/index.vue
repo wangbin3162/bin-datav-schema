@@ -37,6 +37,7 @@
 <script>
 import { ref } from 'vue'
 import { validAllowImg } from './utils'
+import { readFileBase64 } from '@/utils/file-helper'
 
 export default {
   name: 'g-upload-img',
@@ -80,16 +81,9 @@ export default {
         return false
       }
 
-      try {
-        const reader = new FileReader()
-        reader.readAsDataURL(file)      // 将图片转换为base64
-        reader.onload = (res) => {
-          const fileResult = res.target.result
-          handleInput(fileResult)
-        }
-      } catch (e) {
-        console.warn(e)
-      }
+      readFileBase64(file).then(data => {
+        handleInput(data)
+      })
       return false
     }
 

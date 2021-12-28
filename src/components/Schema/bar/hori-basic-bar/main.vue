@@ -1,16 +1,20 @@
 <template>
   <div class="dv-wrapper" :style="wrapperStyle">
     <b-charts :options="options" style="width:100%;height: 100%;" ref="chartRef"></b-charts>
+    <g-breadcrumb
+      v-if="couldDrill"
+      v-bind="{drillData, drillIndex, drillFilters}"
+      @scroll-up="dvScrollUp"
+    />
   </div>
 </template>
 
 <script>
-import { computed, onMounted, ref } from 'vue'
-import useApiStore from '@/hooks/schema/useApiStore'
-import { getFieldMap, useDataCenter } from '@/hooks/schema/useDataCenter'
-import { groupBy } from 'lodash-es'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { useDataCenter } from '@/hooks/schema/useDataCenter'
 import dayjs from 'dayjs'
 import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
+import { defaultColors } from '@/config/colors'
 
 export default {
   name: 'VHorizontalBar',
@@ -21,33 +25,34 @@ export default {
     },
   },
   setup(props) {
-    const { apiDataMap } = useApiStore()
-    const { dvEmit } = useDataCenter(props.data)
+    const {
+      dvData,
+      dvEmit,
+      dvScrollUp,
+      drillData,
+      drillIndex,
+      drillFilters,
+      couldDrill,
+    } = useDataCenter(props.data)
     // config 配置项
     const config = computed(() => props.data.config)
     // attr 属性
     const attr = computed(() => props.data.attr)
+    // event属性
+    const events = computed(() => props.data.events)
 
     const chartRef = ref(null)
 
     // 容器style
     const wrapperStyle = computed(() => ({ width: `${attr.value.w}px`, height: `${attr.value.h}px` }))
-    // dv 数据，跟进apiDataMap中取得 source[]
-    const dv_data = computed(() => apiDataMap.value[props.data.id]?.source ?? [])
-    // dv 字段 return: {x: 'x', y: 'y'}
-    const dv_field = computed(() => getFieldMap(props.data.apis.source.fields))
 
-    // 拉平数据，分别返回{keys,values} 分别为x轴data和y轴data
-    const chartData = computed(() => {
-      const groups = groupBy(dv_data.value, item => item[dv_field.value.y])
-      return {
-        keys: Object.keys(groups),
-        values: Object.values(groups),
-      }
-    })
+    const chartData = computed(() => ({
+      xData: dvData.value.xData ?? [],
+      yData: dvData.value.yData ?? [],
+    }))
 
     const options = computed(() => {
-      const { global, xAxis, yAxis, tooltip, legend, color } = config.value
+      const { global, xAxis, yAxis, tooltip, legend, colors } = config.value
       const [legendTop, legendLeft] = legend.position.split('-')
       const pointerLineStyle = {
         type: tooltip.pointer.line.type === 'dashed'
@@ -56,6 +61,7 @@ export default {
         width: tooltip.pointer.line.width,
         color: tooltip.pointer.line.color,
       }
+      const { xData } = chartData.value
 
       return {
         textStyle: { fontFamily: global.fontFamily },
@@ -122,7 +128,7 @@ export default {
               color: yAxis.grid.line.color,
             },
           },
-          data: chartData.value.keys,
+          data: xData,
         },
         xAxis: {
           show: xAxis.show,
@@ -189,17 +195,19 @@ export default {
           borderWidth: 0,
         },
         series: getSeries(),
-        color,
+        color: defaultColors,
       }
     })
 
     const getSeries = () => {
       const { global, label, series } = config.value
-      const { values } = chartData.value
-      return series.map((item, idx) => {
+      const { yData } = chartData.value
+
+      // 根据返回数据进行遍历拼接
+      return yData.map((item, index) => {
         return {
-          type: item.type,
-          name: item.name,
+          type: 'bar',
+          name: item.name ?? `系列${index + 1}`,
           label: {
             show: label.show,
             position: label.position,
@@ -207,16 +215,19 @@ export default {
             offset: [label.offsetX, label.offsetY],
           },
           itemStyle: {
-            color: item.color.type === 'gradient'
+            color: series[index].color.type === 'gradient'
               ? {
                 type: 'linear',
                 x: 0,
                 y: 0,
-                x2: 0,
-                y2: 1,
-                colorStops: [{ offset: 0, color: item.color.from }, { offset: 1, color: item.color.to }],
+                x2: 1,
+                y2: 0,
+                colorStops: [
+                  { offset: 0, color: series[index].color.from },
+                  { offset: 1, color: series[index].color.to },
+                ],
               }
-              : item.color.value,
+              : series[index].color.value,
             borderRadius: global.borderRadius,
           },
           barWidth: global.barWidth,
@@ -224,23 +235,27 @@ export default {
           barCategoryGap: `${global.outerPadding}%`,
           showBackground: global.background.show,
           backgroundStyle: { color: global.background.color },
-          data: values.map(v => {
-            const obj = v[idx] // {x:'',y:11}
-            return {
-              value: obj ? obj[dv_field.value.x] : null,
-              dataRef: obj ?? {},
-            }
-          }),
+          data: item.data,
         }
       })
     }
 
     const onClick = (params) => {
-      dvEmit('click', { x: params.name, y: params.value })
+      dvEmit('click', params)
     }
 
+    // 设置seriesCount
+    watch(() => dvData.value, val => {
+      props.data.apiData.config.seriesCount = val.yData ? val.yData.length : 0
+      nextTick(() => {
+        chartRef.value && chartRef.value.refresh()
+      })
+    })
     onMounted(() => {
-      chartRef.value && chartRef.value.getInstance().on('click', onClick)
+      // 如果click事件存在，则绑定事件
+      if (events.value.click) {
+        chartRef.value && chartRef.value.getInstance().on('click', onClick)
+      }
     })
 
     return {
@@ -249,6 +264,11 @@ export default {
       config,
       wrapperStyle,
       options,
+      drillData,
+      drillIndex,
+      drillFilters,
+      couldDrill,
+      dvScrollUp,
     }
   },
 }

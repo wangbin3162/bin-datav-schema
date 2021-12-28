@@ -1,15 +1,37 @@
+@font-face {
+  font-family: "Orbitron-Bold";
+  src: url('@/assets/fonts/orbitron-bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: "YouSheBiaoTiHei";
+  src: url('@/assets/fonts/YouSheBiaoTiHei-2.ttf') format('truetype');
+}
 html, body {
+  margin: 0;
+  padding: 0;
   height: 100%;
+  min-width: 1024px;
+  font-size: 12px;
 }
 body {
   margin: 0;
   height: 100%;
-  font-size: 14px;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   -webkit-tap-highlight-color: transparent;
   text-rendering: optimizeLegibility;
-  color: #515a6e;
+  font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif !important;
+  font-size: 12px;
+  background: #171b22;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+* {
+  box-sizing: border-box;
+  vertical-align: baseline;
+  border: 0;
+  outline: 0;
 }
 ul {
   margin: 0;
@@ -29,21 +51,42 @@ a {
 a:focus, a:hover {
   color: getHover();
 }
-#app {
-  min-height: 100%;
+input {
+  &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 a:active, a:focus, button, div, span, svg {
-  outline: 0 !important;
+  outline: 0;
 }
 
-/* webkit, opera, IE9 */
-::selection {
-  background: getColor();
-  color: #fff;
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
 }
-/* mozilla firefox */
-::-moz-selection {
-  background: getColor();
-  color: #fff;
+
+::-webkit-scrollbar-corner {
+  display: none;
+}
+::-webkit-scrollbar-thumb {
+  background: #434b55;
+}
+
+
+#app {
+  width: 100%;
+  height: 100%;
+}
+
+hideScrollBar() {
+  scrollbar-width: none; /* firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+  }
 }

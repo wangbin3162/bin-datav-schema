@@ -25,8 +25,6 @@ export const timerConfig = {
       vertical: 'center',
     },
   },
-  apis: {},
   apiData: {},
   events: {},
-  actions: {},
 }

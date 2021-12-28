@@ -94,13 +94,13 @@ export default {
       justify-content: space-between;
       align-items: center;
       width: 100%;
-      overflow: hidden;
       &-title {
         color: #17233d;
         font-weight: 500;
         font-size: 18px;
         margin-bottom: 0;
         padding-right: 12px;
+        overflow: hidden;
       }
     }
     .b-icon-close {

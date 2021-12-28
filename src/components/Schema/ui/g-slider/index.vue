@@ -107,10 +107,10 @@ export default {
         margin: 12px 0;
       }
       .bin-input-number-handler-up-inner:before {
-        content: "\e8fe";
+        content: "\e9a8";
       }
       .bin-input-number-handler-down-inner:before {
-        content: "\e82e";
+        content: "\e88c";
       }
     }
   }

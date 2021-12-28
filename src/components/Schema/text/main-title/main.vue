@@ -10,8 +10,7 @@
 </template>
 
 <script>
-import useApiStore from '@/hooks/schema/useApiStore'
-import { getFieldMap, useDataCenter } from '@/hooks/schema/useDataCenter'
+import { useDataCenter } from '@/hooks/schema/useDataCenter'
 import { computed } from 'vue'
 
 export default {
@@ -23,17 +22,10 @@ export default {
     },
   },
   setup(props) {
-    const { apiDataMap } = useApiStore()
-    const { dvEmit } = useDataCenter(props.data)
     // config 配置项
     const config = computed(() => props.data.config)
     // attr 属性
     const attr = computed(() => props.data.attr)
-
-    // dv 数据，跟进apiDataMap中取得 source[]
-    const dv_data = computed(() => apiDataMap.value[props.data.id]?.source ?? [])
-    // dv 字段 return: {x: 'x', y: 'y'}
-    const dv_field = computed(() => getFieldMap(props.data.apis.source.fields))
 
     const titleStyle = computed(() => {
       const style = {
@@ -108,9 +100,9 @@ export default {
       return style
     })
 
-    const titleText = computed(() => dv_data.value[dv_field.value.title] ?? config.value.title)
+    const titleText = computed(() => config.value.title)
 
-    const urlText = computed(() => dv_data.value[dv_field.value.url] ?? config.value.urlConfig.url)
+    const urlText = computed(() => config.value.urlConfig.url)
 
     const urlTarget = computed(() => config.value.urlConfig.isBlank ? '_blank' : '_self')
     return {

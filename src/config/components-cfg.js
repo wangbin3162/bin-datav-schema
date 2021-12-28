@@ -1,7 +1,7 @@
 /**
  * 基础组件类
  */
-import { deepCopy, deepMerge, generateId } from '@/utils/util'
+import { deepCopy, deepMerge, generateId, isEmpty } from '@/utils/util'
 import { basicBarConfig } from '@/components/Schema/bar/basic-bar/config'
 import { mainTitleConfig } from '@/components/Schema/text/main-title/config'
 import { numberTitleFlopConfig } from '@/components/Schema/text/number-title-flop/config'
@@ -13,6 +13,7 @@ import { bgBoxConfig } from '@/components/Schema/media/bg-box/config'
 import { horiBasicBarConfig } from '@/components/Schema/bar/hori-basic-bar/config'
 import { basicLineConfig } from '@/components/Schema/line/basic-line/config'
 import { basicAreaConfig } from '@/components/Schema/line/basic-area/config'
+import { scrollTableConfig } from '@/components/Schema/table/scroll-table/config'
 
 const DatavComponent = {
   id: '',
@@ -30,7 +31,6 @@ const DatavComponent = {
     opacity: 1,
   },
   apiData: {},
-  apis: {},
   events: {},
 }
 
@@ -38,8 +38,8 @@ function mergeConfig(name, config) {
   const mergeObj = deepMerge(deepCopy(DatavComponent), config || {})
   mergeObj.id = `${name}_${generateId()}`
   mergeObj.name = `V${name}`
-  if (mergeObj.apiData.source) {
-    mergeObj.apiData.source.comId = mergeObj.id
+  if (!isEmpty(mergeObj.apiData)) {
+    mergeObj.apiData.comId = mergeObj.id
   }
   return mergeObj
 }
@@ -58,6 +58,8 @@ export function createComponent(name) {
       return mergeConfig('BasicLine', basicLineConfig)
     case 'BasicArea':
       return mergeConfig('BasicArea', basicAreaConfig)
+    case 'ScrollTable':
+      return mergeConfig('ScrollTable', scrollTableConfig)
     case 'MainTitle':
       return mergeConfig('MainTitle', mainTitleConfig)
     case 'NumberTitleFlop':

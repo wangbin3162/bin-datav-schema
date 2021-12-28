@@ -1,4 +1,4 @@
-const isProd = process.env.NODE_ENV === 'production'
+export const isProd = process.env.NODE_ENV === 'production'
 
 // 拼接publicPath
 export function getPublicPath(path) {
@@ -6,30 +6,14 @@ export function getPublicPath(path) {
 }
 
 // 获取images/下的图片路径
-export function getImagesPath(imgName, folder) {
-  return getPublicPath(`/images/${folder ? folder + '/' : ''}${imgName}`)
-}
-
-// 获取images/bg 下的图片路径
-export function getBgPath(imgName) {
-  return getImagesPath(imgName, 'bg')
+export function getImagesPath(imgPath) {
+  return getPublicPath(`/images${imgPath}`)
 }
 
 // 获取images/com 下的图片路径
-export function getComPath(imgName) {
-  return getImagesPath(imgName, 'com')
+export function getComPath(imgPath) {
+  return getImagesPath(`/com/${imgPath}`)
 }
-
-// 获取images/box 下的图片路径
-export function getBoxPath(imgName) {
-  return getImagesPath(imgName, 'box')
-}
-
-// 获取images/decoration 下的图片路径
-export function getDecorationPath(imgName) {
-  return getImagesPath(imgName, 'decoration')
-}
-
 
 // 拼接cdnPath
 export function getCDNPath(path) {

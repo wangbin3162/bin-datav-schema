@@ -107,6 +107,14 @@ export const VMainImg = {
   type: 'media',
   used: true,
 }
+// 表格-基础滚动表格
+export const VScrollTable = {
+  name: 'VScrollTable',
+  alias: '基础表格',
+  img: getComPath('carousel-table.png'),
+  type: 'table',
+  used: true,
+}
 // 表格-交叉表
 export const VCrossTable = {
   name: 'VCrossTable',
@@ -115,14 +123,11 @@ export const VCrossTable = {
   type: 'table',
   used: false,
 }
-// 组件列表
+/**
+ * 组件列表
+ * 上方的组件分配至组件列表中，回渲染值screen-editor中components-panel面板中进行渲染
+ */
 export const list = [
-  {
-    type: 'normal',
-    name: '常用',
-    icon: 'star',
-    data: [VBasicBar, VHorizontalBar, VBasicLine, VBasicArea, VMainTitle, VNumberTitleFlop, VTimer, VDecoration, VMainImg, VBorderBox, VBgBox],
-  },
   {
     type: 'bar',
     name: '柱图',
@@ -148,6 +153,12 @@ export const list = [
   //   data: [VBasicMap],
   // },
   {
+    type: 'table',
+    name: '表格',
+    icon: 'table',
+    data: [VScrollTable],
+  },
+  {
     type: 'info',
     name: '信息',
     icon: 'info-circle',
@@ -159,14 +170,12 @@ export const list = [
     icon: 'Youtube',
     data: [VBgBox, VBorderBox, VDecoration, VMainImg],
   },
-  // {
-  //   type: 'table',
-  //   name: '表格',
-  //   icon: 'table',
-  //   data: [VCrossTable],
-  // },
 ]
 
+/**
+ * 根据组件名称获取组件信息
+ * @param name
+ */
 export function findComByName(name) {
   for (let i = 0; i < list.length; i++) {
     const classification = list[i]

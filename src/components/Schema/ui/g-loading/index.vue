@@ -45,10 +45,6 @@ export default defineComponent({
       type: String,
       default: 'dark',
     },
-    opacity: {
-      type: Number,
-      default: 1,
-    },
     wrapClass: {
       type: String,
     },
@@ -57,8 +53,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const opacity = props.opacity > 1 ? 1 : props.opacity < 0 ? 0 : props.opacity
-
     const spinContentClass = ref('')
     if (props.spinning) {
       if (props.wrapClass) {
@@ -71,9 +65,6 @@ export default defineComponent({
     const wrapStyle = props.wrapStyle || {}
     const spinContentStyle = ref({
       ...wrapStyle,
-      background: props.theme === 'dark'
-        ? `rgba(23, 27, 34, ${opacity})`
-        : `rgba(255, 255, 255, ${opacity})`,
     })
 
     return {
@@ -94,7 +85,6 @@ export default defineComponent({
 .g-loading-mask {
   position: absolute;
   z-index: 2000;
-  background-color: hsla(0, 0%, 100%, 0.9);
   margin: 0;
   top: 0;
   right: 0;
@@ -110,8 +100,7 @@ export default defineComponent({
   z-index: 2001;
   display: block;
   width: 100%;
-  height: 100%;
-  max-height: 400px;
+  height: 120px;
 }
 
 .square-loading {

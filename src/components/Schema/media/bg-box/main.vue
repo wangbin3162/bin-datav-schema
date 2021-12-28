@@ -29,7 +29,7 @@
 
 <script>
 import { computed } from 'vue'
-import { bgBoxImages } from '@/components/Schema/media/bg-box/config'
+import { boxImages } from '@/components/Schema/images-cfg/box'
 
 export default {
   name: 'VBgBox',
@@ -91,7 +91,7 @@ export default {
           style.borderWidth = '2px'
           style.borderStyle = 'solid'
           if (border.imageType === 'preset') {
-            const img = bgBoxImages.find(m => m.id === border.presetImage)
+            const img = boxImages.find(m => m.id === border.presetImage)
             if (img) {
               style.borderImage = `url(${img.src}) ${img.border.slice} / ${img.border.width} / ${img.border.outset} ${img.border.repeat}`
             }

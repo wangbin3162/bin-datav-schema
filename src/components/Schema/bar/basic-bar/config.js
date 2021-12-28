@@ -1,32 +1,26 @@
 // 基本柱图配置项
-import { createField, initApiConfig, initApiData, ComType } from '@/config/data-source'
+import { initApiData, ComType } from '@/config/data-source'
 import { defaultColors } from '@/config/colors'
+import { ColorHelper } from '@/utils/util'
 
-const fields = [
-  createField('x', { description: '类目' }),
-  createField('y', { description: '值' }),
-]
-
-export const BasicBarSeries = (name) => {
-  return {
-    type: 'bar',
-    name: name || '系列',
+export const BasicBarSeries = () => {
+  return defaultColors.map(item => ({
     color: {
       type: 'solid',
-      value: defaultColors[0],
-      from: defaultColors[0],
-      to: defaultColors[1],
+      value: item,
+      from: ColorHelper.alpha(item, .8),
+      to: ColorHelper.alpha(item, .2),
     },
-  }
+  }))
 }
 
 export const basicBarConfig = {
   alias: '基本柱图',
   icon: 'barchart',
   type: ComType.com,
+  componentType: 'bar',
   attr: { w: 500, h: 300 },
   config: {
-    color: defaultColors,
     global: {
       fontFamily: 'Microsoft Yahei',
       margin: {
@@ -79,7 +73,7 @@ export const basicBarConfig = {
         location: 'center',
         display: {
           rotate: 0,
-          offset: 20,
+          offset: 30,
         },
         textStyle: {
           fontSize: 12,
@@ -138,7 +132,7 @@ export const basicBarConfig = {
         location: 'end',
         display: {
           rotate: 0,
-          offset: 12,
+          offset: 20,
         },
         textStyle: {
           fontSize: 12,
@@ -166,7 +160,7 @@ export const basicBarConfig = {
           rotate: 0,
           margin: 10,
         },
-        align: 'center',
+        align: 'right',
         textStyle: {
           fontSize: 12,
           color: 'rgba(255, 255, 255, 0.6)',
@@ -206,20 +200,13 @@ export const basicBarConfig = {
         },
       },
     },
-    series: [
-      BasicBarSeries('系列一'),
-    ],
+    series: BasicBarSeries(),
   },
-  apis: initApiConfig({
-    fields: Object.assign({}, ...fields),
-    description: '基本柱状图接口',
-  }),
   apiData: initApiData({ staticPath: 'bar/basic-bar' }),
   events: {
     click: {
       description: '当点击数据项时',
-      fields: Object.assign({}, ...fields),
+      fields: [],
     },
   },
-  actions: {},
 }

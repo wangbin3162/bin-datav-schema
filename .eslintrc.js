@@ -1,5 +1,10 @@
 module.exports = {
   root: true,
+  globals: {
+    defineEmits: true,
+    defineProps: true,
+    defineExpose: true,
+  },
   parser: 'vue-eslint-parser',
   env: {
     browser: true,

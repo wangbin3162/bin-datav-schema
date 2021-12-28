@@ -28,7 +28,7 @@
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.time.textStyle.fontSize"
-          :min="12"
+          :min="10"
           :max="100"
           :step="1"
           suffix="px"

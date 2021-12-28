@@ -1,36 +1,30 @@
 // 基本区域图配置项
-import { createField, initApiConfig, initApiData, ComType } from '@/config/data-source'
+import { initApiData, ComType } from '@/config/data-source'
 import { defaultColors } from '@/config/colors'
+import { ColorHelper } from '@/utils/util'
 
-const fields = [
-  createField('x', { description: '类目' }),
-  createField('y', { description: '值' }),
-]
-
-export const BasicLineSeries = (name) => {
-  return {
-    type: 'line',
-    name: name || '系列',
+export const BasicAreaSeries = () => {
+  return defaultColors.map(item => ({
     lineStyle: {
       width: 2,
-      color: defaultColors[0],
+      color: item,
       type: 'solid',
     },
     areaStyle: {
-      from: defaultColors[0],
-      to: defaultColors[1],
+      from: ColorHelper.alpha(item, .8),
+      to: ColorHelper.alpha(item, .2),
       opacity: 0.8,
     },
-  }
+  }))
 }
 
 export const basicAreaConfig = {
   alias: '基本区域图',
   icon: 'linechart',
   type: ComType.com,
+  componentType: 'line',
   attr: { w: 500, h: 300 },
   config: {
-    color: defaultColors,
     global: {
       fontFamily: 'Microsoft Yahei',
       margin: {
@@ -79,7 +73,7 @@ export const basicAreaConfig = {
         location: 'center',
         display: {
           rotate: 0,
-          offset: 20,
+          offset: 30,
         },
         textStyle: {
           fontSize: 12,
@@ -138,7 +132,7 @@ export const basicAreaConfig = {
         location: 'end',
         display: {
           rotate: 0,
-          offset: 12,
+          offset: 20,
         },
         textStyle: {
           fontSize: 12,
@@ -206,20 +200,13 @@ export const basicAreaConfig = {
         },
       },
     },
-    series: [
-      BasicLineSeries('系列一'),
-    ],
+    series: BasicAreaSeries(),
   },
-  apis: initApiConfig({
-    fields: Object.assign({}, ...fields),
-    description: '基本线图接口',
-  }),
   apiData: initApiData({ staticPath: 'line/basic-line' }),
   events: {
     click: {
       description: '当点击数据项时',
-      fields: Object.assign({}, ...fields),
+      fields: [''],
     },
   },
-  actions: {},
 }

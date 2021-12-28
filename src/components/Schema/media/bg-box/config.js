@@ -1,10 +1,7 @@
 import { ComType } from '@/config/data-source'
-import { getCDNPath } from '@/utils/env'
-import { widgetImages } from '@/components/Schema/media/config/widget'
-import { backgroundImages } from '@/components/Schema/media/config/background'
-import { boxImages } from '@/components/Schema/media/config/box'
+import { getImagesPath } from '@/utils/env'
 
-const getImgUrl = (name) => getCDNPath(`/box/${name}`)
+const getImgUrl = (name) => getImagesPath(`/box/${name}`)
 
 export const bgBoxConfig = {
   alias: '背景块',
@@ -48,10 +45,8 @@ export const bgBoxConfig = {
     backdropFilter: { blur: '0px' },
     urlConfig: { url: '', ifBlank: false },
   },
-  apis: {},
   apiData: {},
   events: {},
-  actions: {},
 }
 export const imageTypes = [
   { value: 'preset', label: '预设边框' },
@@ -61,10 +56,4 @@ export const borderTypes = [
   { value: 'flat', label: '纯色' },
   { value: 'linearGradient', label: '渐变' },
   { value: 'image', label: '图片' },
-]
-
-export const bgBoxImages = [
-  ...boxImages,
-  ...widgetImages,
-  ...backgroundImages,
 ]

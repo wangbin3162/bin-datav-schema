@@ -57,7 +57,7 @@
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.label.textStyle.fontSize"
-          :min="12"
+          :min="10"
           :max="24"
           :step="1"
           suffix="px"
@@ -283,7 +283,7 @@
         <g-field label="文本样式" flat>
           <g-input-number
             v-model="config.xAxis.axisLabel.textStyle.fontSize"
-            :min="12"
+            :min="10"
             :max="100"
             :step="1"
             suffix="px"
@@ -487,7 +487,7 @@
         <g-field label="文本样式" flat>
           <g-input-number
             v-model="config.yAxis.axisLabel.textStyle.fontSize"
-            :min="12"
+            :min="10"
             :max="100"
             :step="1"
             suffix="px"
@@ -635,45 +635,36 @@
     </g-field-collapse>
 
     <g-field-collapse label="系列">
-      <template #add>
-        <b-button type="text" @click="addSeries">
-          <b-icon name="plus" size="16"></b-icon>
-        </b-button>
-        <b-button type="text" :disabled="config.series.length===1" @click="deleteLast">
-          <b-icon name="delete" size="16"></b-icon>
-        </b-button>
-      </template>
-      <div v-for="(s,index) in config.series" :key="index">
-        <div class="series-title">
-          <span>系列{{ index + 1 }}</span>
+      <template v-for="(s,index) in config.series" :key="index">
+        <div v-if="index<seriesCount">
+          <div class="series-title">
+            <span>系列{{ index + 1 }}</span>
+          </div>
+          <g-field label="线条样式" flat>
+            <g-input-number
+              v-model="config.series[index].lineStyle.width"
+              :min="1"
+              :max="5"
+              :step="1"
+              inline
+              label="线条粗细"
+            />
+            <g-select
+              v-model="config.series[index].lineStyle.type"
+              :data="lineStyles"
+              inline
+              label="线条类型"
+            />
+            <g-color-picker v-model="config.series[index].lineStyle.color" label="颜色" inline="inline-single" />
+          </g-field>
         </div>
-        <g-field label="系列名称">
-          <g-input v-model="config.series[index].name" />
-        </g-field>
-        <g-field label="线条样式" flat>
-          <g-input-number
-            v-model="config.series[index].lineStyle.width"
-            :min="1"
-            :max="5"
-            :step="1"
-            inline
-            label="线条粗细"
-          />
-          <g-select
-            v-model="config.series[index].lineStyle.type"
-            :data="lineStyles"
-            inline
-            label="线条类型"
-          />
-          <g-color-picker v-model="config.series[index].lineStyle.color" label="颜色" inline="inline-single" />
-        </g-field>
-      </div>
+      </template>
     </g-field-collapse>
   </div>
 </template>
 
 <script>
-import { computed, toRef } from 'vue'
+import { computed } from 'vue'
 import {
   axisTypes,
   echartsLabelPositions, fillTypes,
@@ -682,7 +673,6 @@ import {
   legendLocations, lineStyles,
   orients, timeFormats, titleLocations, valueFormats,
 } from '@/config/select-options'
-import { BasicLineSeries } from '@/components/Schema/line/basic-line/config'
 
 export default {
   name: 'VBasicLineConfig',
@@ -693,17 +683,13 @@ export default {
     },
   },
   setup(props) {
-    const config = toRef(props.data, 'config')
+    const config = computed(() => props.data.config)
+    const seriesCount = computed(() => props.data.apiData.config.seriesCount)
     const xAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
 
-    const addSeries = () => {
-      config.value.series.push(BasicLineSeries('新系列'))
-    }
-    const deleteLast = () => {
-      config.value.series.splice(config.value.series.length - 1, 1)
-    }
     return {
       config,
+      seriesCount,
       fontFamilys,
       fontWeights,
       echartsLabelPositions,
@@ -717,8 +703,6 @@ export default {
       timeFormats,
       valueFormats,
       fillTypes,
-      addSeries,
-      deleteLast,
     }
   },
 }

@@ -9,6 +9,7 @@ import VBgBox from './media/bg-box'
 import VBorderBox from './media/border-box'
 import VDecoration from './media/decoration'
 import VMainImg from './media/main-img'
+import VScrollTable from './table/scroll-table'
 
 const components = [
   VBasicBar,
@@ -22,6 +23,7 @@ const components = [
   VBorderBox,
   VDecoration,
   VMainImg,
+  VScrollTable,
 ]
 
 export function registerVCharts(app) {

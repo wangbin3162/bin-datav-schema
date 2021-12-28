@@ -8,8 +8,6 @@ export const decorationConfig = {
   config: {
     img: 'decoration10',
   },
-  apis: {},
   apiData: {},
   events: {},
-  actions: {},
 }

@@ -9,7 +9,7 @@
     <g-field label="文本样式" flat>
       <g-input-number
         v-model="config.textStyle.fontSize"
-        :min="12"
+        :min="10"
         :max="100"
         :step="1"
         suffix="px"
@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { toRef } from 'vue'
+import { computed, toRef } from 'vue'
 import {
   fontFamilys,
   fontWeights,
@@ -95,7 +95,7 @@ export default {
     },
   },
   setup(props) {
-    const config = toRef(props.data, 'config')
+    const config = computed(() => props.data.config)
 
     return {
       config,

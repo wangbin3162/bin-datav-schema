@@ -10,7 +10,7 @@
       @dragend="onDragEnd"
     >
       <b-icon name="file-text" size="16"></b-icon>
-      <span class="title">{{ item.title }}</span>
+      <span class="title" :title="item.tableName">{{ item.title || item.tableName }}</span>
       <b-icon name="info-circle" type="button" @click="handleClick(item)"></b-icon>
     </div>
 

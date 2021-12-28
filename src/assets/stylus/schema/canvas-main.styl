@@ -10,6 +10,7 @@
 
 // toolbox
 .toolbox-panel-wp {
+  position: relative;
   height: 40px;
   z-index: 10;
   transition: height 0.2s ease;
@@ -17,14 +18,14 @@
   flex-shrink: 0;
   .toolbox-panel {
     background: #191c21;
-    padding: 8px 30px;
+    padding: 8px 24px;
     height: 100%;
     display: flex;
     align-items: center;
     .btn-box {
       display: flex;
       align-items: center;
-      margin-right: 12px;
+      margin-left: 12px;
     }
   }
   &.is-hide {
@@ -46,8 +47,13 @@
   box-shadow: 0 -1px #000;
   user-select: none;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0 20px;
+  .screen-info {
+    > span {
+      font-size: 12px;
+    }
+  }
   .scale-input-wp {
     position: relative;
     display: block;
@@ -98,6 +104,7 @@
     width: 100%;
     height: calc(100% - 32px);
     overflow: auto;
+    hideScrollBar()
     .canvas-panel {
       top: 60px;
       left: 60px;

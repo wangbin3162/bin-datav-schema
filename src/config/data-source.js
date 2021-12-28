@@ -6,62 +6,15 @@ export const ComType = {
   layer: 'layer',
 }
 
-export const ApiStatus = {
-  loading: 'loading',
-  success: 'success',
-  failed: 'failed',
-  completed: 'completed',
-  incomplete: 'incomplete',
-}
-
-export const FieldStatus = {
-  loading: 'loading',
-  success: 'success',
-  failed: 'failed',
-  optional: 'optional',
-}
-
-
 export const ApiType = {
   static: 'static',
-  api: 'api',
+  model: 'model',
 }
 
 export function createDataSources() {
   return {
     [ApiType.static]: '静态数据',
-    [ApiType.api]: 'API',
-  }
-}
-
-/**
- * 创建字段
- */
-export function createField(name, config) {
-  return {
-    [name]: {
-      type: 'string',
-      map: '',
-      description: '',
-      optional: false,
-      ...(config ?? {}),
-    },
-  }
-}
-
-/**
- * 初始化数据接口配置
- */
-export function initApiConfig(options) {
-  return {
-    source: {
-      fields: {},
-      render: 'render',
-      description: '',
-      useAutoUpdate: false,
-      autoUpdate: 1,
-      ...options,
-    },
+    [ApiType.model]: '模型数据',
   }
 }
 
@@ -70,14 +23,19 @@ export function initApiConfig(options) {
  */
 export function initApiData(options) {
   return {
-    source: {
-      comId: '',
-      id: `api_${generateId()}`,
-      config: {
-        data: '',
-      },
-      type: ApiType.static,
-      ...options,
+    comId: '',
+    id: `api_${generateId()}`,
+    config: {
+      data: '', // 存储静态数据
+      seriesCount: 0,
+      modelId: '',
+      modelName: '',
+      x: [],
+      y: [],
+      drill: [],
+      filters: [],
     },
+    type: ApiType.static,
+    ...options,
   }
 }

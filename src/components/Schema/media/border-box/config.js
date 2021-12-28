@@ -8,8 +8,6 @@ export const borderBoxConfig = {
   config: {
     img: 'box1',
   },
-  apis: {},
   apiData: {},
   events: {},
-  actions: {},
 }

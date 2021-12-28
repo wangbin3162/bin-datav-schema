@@ -20,7 +20,6 @@
     <g-field label="填充颜色">
       <g-color-picker v-model="config.fills[0].fill" />
     </g-field>
-
     <g-field label="滤镜" flat>
       <g-input
         v-model="config.filter.blur"
@@ -122,33 +121,28 @@
         </b-radio-group>
       </g-field>
       <g-field v-if="config.border.type === 'image' && config.border.imageType === 'preset'" label="边框配置">
-        <g-images-select v-model="config.border.presetImage" :images="bgBoxImages" />
+        <g-images-select v-model="config.border.presetImage" :images="['box']" />
       </g-field>
-      <g-field v-if="config.border.type === 'image' && config.border.imageType === 'custom'" label="边框配置" flat>
+      <g-field v-if="config.border.type === 'image' && config.border.imageType === 'custom'" label="边框配置">
         <g-upload-img
           v-model="config.border.customImage.source"
-          inline="inline"
           label="图片"
         />
         <g-input
           v-model="config.border.customImage.slice"
-          inline="inline"
           label="切片"
         />
         <g-input
           v-model="config.border.customImage.width"
-          inline="inline"
           label="宽度"
         />
         <g-input
           v-model="config.border.customImage.outset"
-          inline="inline"
           label="外扩"
         />
         <g-select
           v-model="config.border.customImage.repeat"
           :data="repeatTypes"
-          inline="inline"
           label="平铺类型"
         />
       </g-field>
@@ -169,7 +163,7 @@
 <script>
 import { toRef } from 'vue'
 import { lineStyles, repeatTypes } from '@/config/select-options'
-import { bgBoxImages, borderTypes, imageTypes } from '@/components/Schema/media/bg-box/config'
+import { borderTypes, imageTypes } from '@/components/Schema/media/bg-box/config'
 
 export default {
   name: 'VBgBoxConfig',
@@ -202,7 +196,6 @@ export default {
       repeatTypes,
       borderTypes,
       imageTypes,
-      bgBoxImages,
       handleAddFillsItem,
       handleAddStopsItem,
     }

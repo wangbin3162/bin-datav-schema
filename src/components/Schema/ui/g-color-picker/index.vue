@@ -12,6 +12,7 @@
       <b-input
         :model-value="modelValue"
         :size="size"
+        readonly
         @update:model-value="handleInput"
       />
       <b-color-picker

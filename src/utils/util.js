@@ -3,6 +3,8 @@ import { camelize, isObject } from '@vue/shared'
 
 export const generateId = Utils.helper.generateId
 
+export const uuid = Utils.util.uuid
+
 export const logger = Utils.log
 
 export const copyText = Utils.util.copy
@@ -99,42 +101,6 @@ export function arrToObj(arr = [], keyCode = 'key', valueCode = 'value') {
     obj[k] = v
   }
   return obj
-}
-
-export function downloadFile(content, fileName) {
-  // filename，摘取了常用的部分，其实还有其他一些
-  const typeMap = {
-    pdf: 'application/pdf',
-    doc: 'application/vnd.ms-word',
-    docx: 'application/vnd.ms-word',
-    xls: 'application/vnd.ms-excel',
-    xlsx: 'application/vnd.ms-excel',
-    ppt: 'application/vnd.ms-powerpoint',
-    pptx: 'application/vnd.ms-powerpoint',
-    js: 'application/x-javascript',
-    zip: 'application/zip',
-    mp3: 'audio/mpeg',
-    gif: 'image/gif',
-    jpeg: 'image/jpeg',
-    jpg: 'image/jpeg',
-    png: 'image/png',
-    txt: 'text/plain',
-    xml: 'image/text/xml',
-  }
-  const hg = fileName.split('.').pop().toLocaleLowerCase() || ''
-
-  const data = new Blob([content], { type: typeMap[hg] })
-  if (window.navigator.msSaveOrOpenBlob) {
-    navigator.msSaveBlob(data, fileName)
-  } else {
-    const link = document.createElement('a')
-    link.href = window.URL.createObjectURL(data)
-    link.setAttribute('download', fileName)
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
-    window.URL.revokeObjectURL(link.href)
-  }
 }
 
 /**

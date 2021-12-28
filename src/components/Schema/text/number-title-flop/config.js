@@ -1,11 +1,4 @@
-import { createField, initApiConfig, initApiData, ComType } from '@/config/data-source'
-
-const fields = [
-  createField('title', { description: '标题', optional: true }),
-  createField('value', { description: '翻牌器数值' }),
-  createField('prefix', { description: '翻牌器前缀', optional: true }),
-  createField('suffix', { description: '翻牌器后缀', optional: true }),
-]
+import { initApiData, ComType } from '@/config/data-source'
 
 export const numberTitleFlopConfig = {
   alias: '数字指标',
@@ -32,7 +25,7 @@ export const numberTitleFlopConfig = {
         fontFamily: 'Microsoft Yahei',
         fontSize: 36,
         color: '#0a73ff',
-        fontWeight: 'bold',
+        fontWeight: 'bolder',
         textAlign: 'left',
       },
       value: 1234567,
@@ -45,10 +38,6 @@ export const numberTitleFlopConfig = {
       suffix: '',
     },
   },
-  apis: initApiConfig({
-    fields: Object.assign({}, ...fields),
-  }),
   apiData: initApiData({ staticPath: 'text/number-title-flop' }),
   events: {},
-  actions: {},
 }

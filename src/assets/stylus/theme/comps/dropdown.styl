@@ -1,0 +1,25 @@
+[data-schema=datav-dark] {
+  .bin-dropdown__popper.bin-popper[role=tooltip] {
+    padding: 0;
+    background: var(--schema-ui-bg);
+    border: 1px solid var(--schema-ui-border);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1);
+    .bin-dropdown-item {
+      position: relative;
+      color: var(--schema-font-color);
+      &:hover, &.bin-dropdown-item-selected {
+        background-color: var(--schema-color-bg-deep);
+        color: var(--bin-color-primary);
+        &:before {
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 1px;
+          bottom: 1px;
+          width: 2px;
+          background-color: var(--bin-color-primary);
+        }
+      }
+    }
+  }
+}

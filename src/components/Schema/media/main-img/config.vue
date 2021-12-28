@@ -4,7 +4,12 @@
       <g-upload-img v-model="config.backgroundImage" prefix-icon="image"></g-upload-img>
     </g-field>
     <g-field label="图片预设">
-      <g-images-select v-model="config.backgroundImage" :images="mainImages" value-key="src" />
+      <g-images-select
+        v-model="config.backgroundImage"
+        :images="['bg', 'header', 'widget']"
+        value-key="src"
+        @change="imageChange"
+      />
     </g-field>
     <g-field label="图片重复">
       <g-select v-model="config.repeat" :data="repeatTypes" />
@@ -31,9 +36,9 @@
 </template>
 
 <script>
-import { toRef } from 'vue'
+import { computed } from 'vue'
 import { repeatTypes } from '@/config/select-options'
-import { mainImages } from '@/components/Schema/media/main-img/config'
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
 
 export default {
   name: 'VMainImgConfig',
@@ -44,12 +49,20 @@ export default {
     },
   },
   setup(props) {
-    const config = toRef(props.data, 'config')
+    const config = computed(() => props.data.config)
+    const { selectedCom } = useSchemaStore()
+
+    const imageChange = (img) => {
+      if (img.attr) {
+        selectedCom.value.attr.w = img.attr.w
+        selectedCom.value.attr.h = img.attr.h
+      }
+    }
 
     return {
       config,
       repeatTypes,
-      mainImages,
+      imageChange,
     }
   },
 }

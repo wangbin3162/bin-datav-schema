@@ -1,14 +1,16 @@
 <template>
   <div class="g-field-wp">
     <div class="g-field" :style="{width:labelWidth}">
-      <template v-if="tooltip">
-        <label class="g-field-title-with-description" :title="tooltip">
+      <slot name="label">
+        <template v-if="tooltip">
+          <label class="g-field-title-with-description" :title="tooltip">
+            {{ label }}
+          </label>
+        </template>
+        <label v-else class="g-field-title" :title="label">
           {{ label }}
         </label>
-      </template>
-      <label v-else class="g-field-title" :title="label">
-        {{ label }}
-      </label>
+      </slot>
     </div>
     <div class="g-field-container" :class="{ 'is-flat': flat }" :style="{width:`calc(100% - ${labelWidth})`}">
       <slot></slot>

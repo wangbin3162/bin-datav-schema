@@ -19,8 +19,7 @@
 
 <script>
 import { computed, ref, watch } from 'vue'
-import useApiStore from '@/hooks/schema/useApiStore'
-import { getFieldMap, useDataCenter } from '@/hooks/schema/useDataCenter'
+import { useDataCenter } from '@/hooks/schema/useDataCenter'
 
 export default {
   name: 'VNumberTitleFlop',
@@ -31,17 +30,11 @@ export default {
     },
   },
   setup(props) {
-    const { apiDataMap } = useApiStore()
-    const { dvEmit } = useDataCenter(props.data)
+    const { dvData } = useDataCenter(props.data)
     // config 配置项
     const config = computed(() => props.data.config)
     // attr 属性
     const attr = computed(() => props.data.attr)
-
-    // dv 数据，跟进apiDataMap中取得 source[]
-    const dv_data = computed(() => apiDataMap.value[props.data.id]?.source ?? [])
-    // dv 字段 return: {x: 'x', y: 'y'}
-    const dv_field = computed(() => getFieldMap(props.data.apis.source.fields))
 
     const wrapperStyle = computed(() => {
       const arrangement = config.value.global.arrangement
@@ -72,7 +65,7 @@ export default {
       }
     })
 
-    const titleText = computed(() => dv_data.value[dv_field.value.title] || config.value.title.content)
+    const titleText = computed(() => dvData.value.title || config.value.title.content)
 
     const titleStyle = computed(() => {
       const { fontFamily, arrangement, distance } = config.value.global
@@ -80,6 +73,7 @@ export default {
 
       const style = {
         display: 'flex',
+        flexShrink: '0',
         alignItems: 'center',
         color: textStyle.color,
         fontWeight: textStyle.fontWeight,
@@ -130,7 +124,7 @@ export default {
 
     const counter = computed(() => config.value.counter)
 
-    const realNumber = computed(() => dv_data.value[dv_field.value.value] ?? counter.value.value)
+    const realNumber = computed(() => dvData.value.value ?? counter.value.value)
 
     const render = ref(true)
 

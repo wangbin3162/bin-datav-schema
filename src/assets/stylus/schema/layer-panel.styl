@@ -114,7 +114,7 @@
     position: relative;
     display: flex;
     width: 100%;
-    height: 32px;
+    height: 40px;
     padding: 0 6px;
     padding-left: 8px;
     cursor: pointer;
@@ -128,20 +128,8 @@
       background: #1c1f25;
     }
 
-    &.hovered {
-      color: #fff;
-      background: rgba(143, 225, 255, 0.1);
-    }
-
-    &.selected {
-      color: #fff;
-      background: var(--bin-color-primary);
-    }
-
-    &.sortable-ghost {
-      opacity: 0.4;
-    }
     .layer-item-span {
+      width: 124px;
       flex: auto;
       display: flex;
       flex-direction: row;
@@ -152,6 +140,8 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        height: 20px;
+        line-height: 20px;
       }
     }
 
@@ -175,6 +165,27 @@
 
     .show-toggle-btn {
       padding: 0 2px;
+      font-size: 18px;
+      display: none;
+    }
+    &.hovered {
+      color: #fff;
+      background: rgba(143, 225, 255, 0.1);
+      .show-toggle-btn {
+        display: block;
+      }
+    }
+
+    &.selected {
+      color: #fff;
+      background: var(--bin-color-primary);
+      .show-toggle-btn {
+        display: block;
+      }
+    }
+
+    &.sortable-ghost {
+      opacity: 0.4;
     }
   }
   .last-flex-item {

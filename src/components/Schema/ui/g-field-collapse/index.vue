@@ -46,13 +46,14 @@ export default {
       default: false,
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['update:modelValue', 'change'],
   setup(props, ctx) {
     const show = ref(false)
 
     const toggleVisible = () => {
       show.value = !props.modelValue
-      ctx.emit('update:modelValue', !props.modelValue)
+      ctx.emit('update:modelValue', show.value)
+      ctx.emit('change', show.value)
     }
     const toggleShow = () => {
       if (!props.modelValue) {

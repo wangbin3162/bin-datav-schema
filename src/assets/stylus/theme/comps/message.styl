@@ -1,0 +1,93 @@
+[data-schema=datav-dark] {
+  .bin-message {
+    &.bin-message--info {
+      background: var(--bin-color-primary-light5);
+      border: 1px solid var(--bin-color-primary-light2);
+    }
+    &.bin-message--success {
+      background: var(--bin-color-success-light5);
+      border: 1px solid var(--bin-color-success-light2);
+    }
+    &.bin-message--warning {
+      background: var(--bin-color-warning-light5);
+      border: 1px solid var(--bin-color-warning-light2);
+    }
+    &.bin-message--error {
+      background: var(--bin-color-danger-light5);
+      border: 1px solid var(--bin-color-danger-light2);
+    }
+  }
+  .bin-message-box {
+    border: none;
+    border-radius: 0;
+    background: #303640;
+    margin: 200px auto 0;
+    &::before {
+      content: '';
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 2px;
+      background-image: linear-gradient(270deg, #74f0ff 0, #2681ff 74%);
+    }
+    .bin-message-box__header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      .bin-message-box__status {
+        font-size: 48px;
+      }
+      .bin-message-box__title {
+        color: var(--schema-font-color);
+        padding-top: 18px;
+        padding-bottom: 18px;
+        margin: 0;
+        font-weight: bold;
+      }
+    }
+    .bin-message-box__message {
+      padding: 0 0 16px;
+      text-align: center;
+      color: var(--schema-font-color);
+      font-size: var(--schema-font-size);
+    }
+    .bin-message-box__footer {
+      border-top: 1px solid #3a4659;
+      padding: 16px 16px 0;
+      margin: 0 -24px -8px;
+      text-align: center;
+      .bin-button {
+        width: 86px;
+      }
+      .bin-button--default {
+        background: transparent;
+        border: 1px solid var(--bin-color-primary);
+        color: var(--bin-color-primary);
+      }
+    }
+  }
+  .bin-notice {
+    background-color: #303640;
+    box-shadow: var(--schema-border-shadow);
+    .bin-notice__title {
+      color: #fff;
+    }
+    .bin-notice__content {
+      color: var(--bin-color-text-secondary);
+      text-align: left;
+      font-size: 12px;
+    }
+    .b-icon-close {
+      color: var(--bin-color-primary);
+      transition: transform .2s;
+      top: 16px;
+      &:hover {
+        color: var(--bin-color-primary);
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

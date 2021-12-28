@@ -24,7 +24,7 @@
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.title.textStyle.fontSize"
-          :min="12"
+          :min="10"
           :max="100"
           :step="1"
           suffix="px"
@@ -60,7 +60,7 @@
         />
         <g-input-number
           v-model="config.counter.textStyle.fontSize"
-          :min="12"
+          :min="10"
           :max="100"
           :step="1"
           suffix="px"
@@ -75,7 +75,7 @@
         />
         <g-select
           v-model="config.counter.textStyle.textAlign"
-          :data="justifyContents"
+          :data="hAligns"
           inline="inline"
           label="对齐方式"
         />
@@ -125,7 +125,7 @@
 
 <script>
 import { toRef } from 'vue'
-import { fontFamilys, fontWeights, justifyContents, arrangements } from '@/config/select-options'
+import { fontFamilys, fontWeights, justifyContents, arrangements, hAligns } from '@/config/select-options'
 
 export default {
   name: 'VNumberTitleFlopConfig',
@@ -142,6 +142,7 @@ export default {
       fontFamilys,
       fontWeights,
       justifyContents,
+      hAligns,
       arrangements,
     }
   },

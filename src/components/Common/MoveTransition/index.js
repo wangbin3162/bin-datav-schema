@@ -6,7 +6,7 @@ export default {
   setup(props, { slots }) {
     return () => {
       return h(Transition, {
-        name: 'fade-transverse',
+        name: 'fade-scale-move',
         appear: true,
         onBeforeLeave(el) {
           el.style.position = 'absolute'

@@ -1,9 +1,4 @@
-import { createField, initApiConfig, initApiData, ComType } from '@/config/data-source'
-
-const fields = [
-  createField('title', { description: '标题值', optional: true }),
-  createField('url', { description: '超链接url', optional: true }),
-]
+import { ComType } from '@/config/data-source'
 
 export const mainTitleConfig = {
   alias: '通用标题',
@@ -34,10 +29,6 @@ export const mainTitleConfig = {
       isBlank: false,
     },
   },
-  apis: initApiConfig({
-    fields: Object.assign({}, ...fields),
-  }),
-  apiData: initApiData({ staticPath: 'text/main-title' }),
+  apiData: {},
   events: {},
-  actions: {},
 }
