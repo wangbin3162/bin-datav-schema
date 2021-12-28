@@ -1,7 +1,8 @@
 import page from './page'
 import canvas from './canvas'
 import contextmenu from './contextmenu'
-import api from './api'
+import shortcuts from './shortcuts'
+import snapshot from './snapshot'
 
 export default {
   namespaced: true,
@@ -9,18 +10,21 @@ export default {
     ...page.state,
     ...canvas.state,
     ...contextmenu.state,
-    ...api.state,
+    ...shortcuts.state,
+    ...snapshot.state,
   },
   mutations: {
     ...page.mutations,
     ...canvas.mutations,
     ...contextmenu.mutations,
-    ...api.mutations,
+    ...shortcuts.mutations,
+    ...snapshot.mutations,
   },
   actions: {
     ...page.actions,
     ...canvas.actions,
     ...contextmenu.actions,
-    ...api.actions,
+    ...shortcuts.actions,
+    ...snapshot.actions,
   },
 }

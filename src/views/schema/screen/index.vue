@@ -27,11 +27,12 @@
 
 <script>
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
-import { onMounted, ref } from 'vue'
-import { loadScreen } from '@/api/database.api'
+import { ref } from 'vue'
+import { loadScreenPreview } from '@/api/database.api'
 import { useRoute, useRouter } from 'vue-router'
 import GLoading from '@/components/Schema/ui/g-loading/index.vue'
 import { on, setStyle } from '@/utils/util'
+import { loadKanban } from '@/api/modules/analysis-dashboard.api'
 
 export default {
   name: 'Screen',
@@ -40,7 +41,7 @@ export default {
     const $router = useRouter()
     const $route = useRoute()
     const { loadScreenData, pageConfig, comps } = useSchemaStore()
-    const loading = ref(false)
+    const loading = ref(true)
 
     const resize = () => {
       const width = pageConfig.value.width
@@ -49,19 +50,38 @@ export default {
         transform: `scale(${ratio})`,
         transformOrigin: 'left top',
         backgroundSize: '100%',
+        backgroundRepeat: 'no-repeat',
       })
     }
 
     // 初始化screen数据
     const init = async () => {
-      const { screenId: id } = $route.params
-      if (!id) return
+      const id = $route.params.screenId
+      const name = $route.name
+      if (!id) {
+        await $router.push('/notfound')
+        return
+      }
       try {
         loading.value = true
-        const res = await loadScreen(id)
-        if (res.data) {
-          await loadScreenData(res.data)
-          setPageStyle(res.data)
+        let data = {}
+        // 本地预览模式
+        if (name === 'Preview') {
+          data = await loadScreenPreview()
+        } else {
+          const kanban = await loadKanban(id)
+          if (kanban) {
+            const { id, name, pid, layout, components } = kanban
+            data = {
+              pageInfo: { id, name, pid },
+              pageConfig: JSON.parse(layout),
+              comps: components.map(c => JSON.parse(c.componentContent)),
+            }
+          }
+        }
+        if (data) {
+          await loadScreenData(data)
+          setPageStyle(data)
 
           setTimeout(() => {
             loading.value = false
@@ -70,7 +90,7 @@ export default {
           on(window, 'resize', resize)
         }
       } catch (e) {
-        $router.push('/notfound')
+        await $router.push('/notfound')
       }
     }
 
@@ -94,10 +114,7 @@ export default {
       resize()
     }
 
-    onMounted(() => {
-      init()
-    })
-
+    init()
     return {
       loading,
       comps,
@@ -123,8 +140,11 @@ body::-webkit-scrollbar {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #0f2a42;
+  background: linear-gradient(45deg, #222428, #444856);
   z-index: 2;
+  .g-loading {
+    top: 320px;
+  }
 }
 .dv-layout {
   position: absolute;

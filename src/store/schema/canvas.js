@@ -7,7 +7,7 @@ export default {
     },
     toolbar: {
       layer: true,
-      components: true,
+      components: false,
       config: true,
       toolbox: false,
       loading: false,
@@ -53,7 +53,7 @@ export default {
     setCanvasScale: ({ commit, state }, payload) => {
       let width = document.documentElement.clientWidth - payload.offsetX
       let height = document.documentElement.clientHeight - 42 - 32 - payload.offsetY
-      const scale = Math.min(Math.max(payload.scale, 10), 150) / 100
+      const scale = Math.min(Math.max(payload.scale, 20), 200) / 100
       // 方便计算滚动条 和 标尺
       const deltaW = state.pageConfig.width * scale
       const deltaH = state.pageConfig.height * scale

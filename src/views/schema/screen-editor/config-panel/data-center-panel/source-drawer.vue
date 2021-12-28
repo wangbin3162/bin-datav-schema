@@ -2,30 +2,55 @@
   <b-drawer
     v-model="visible"
     class-name="source-drawer"
-    :width="500"
-    title="配置数据源"
     append-to-body
+    :width="500"
+    :title="`模型 [${selectedModelName}] 配置`"
     :styles="{padding: 0}"
+    :mask-closable="false"
+    @close="close"
   >
-    <ds-api v-if="visible"></ds-api>
+    <ds-api
+      v-if="visible"
+      :selected-model-id="selectedModelId"
+      :selected-model-name="selectedModelName"
+      @save="close"
+    ></ds-api>
   </b-drawer>
 </template>
 
 <script>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import DsApi from '@/views/schema/screen-editor/config-panel/data-center-panel/ds-api.vue'
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
 
 export default {
   name: 'source-drawer',
   components: { DsApi },
-  setup() {
+  emits: ['close'],
+  setup(props, { emit }) {
     const visible = ref(false)
-    const open = () => {
+    const { selectedCom } = useSchemaStore()
+    const apiDataConfig = computed(() => selectedCom.value.apiData)
+    const selectedModelId = ref('')
+    const selectedModelName = ref('')
+    const open = ({ modelId, modelName }) => {
       visible.value = true
+      selectedModelId.value = modelId
+      selectedModelName.value = modelName
+    }
+    const close = () => {
+      visible.value = false
+      selectedModelId.value = ''
+      selectedModelName.value = ''
+      emit('close')
     }
     return {
       visible,
+      apiDataConfig,
       open,
+      close,
+      selectedModelId,
+      selectedModelName,
     }
   },
 }

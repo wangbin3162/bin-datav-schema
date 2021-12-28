@@ -6,6 +6,8 @@ function pathResolve(dir) {
   return resolve(process.cwd(), '.', dir)
 }
 
+const proxyAddress = 'http://192.168.0.121:8850/'
+
 // https://vitejs.dev/config/
 export default ({ mode }) => {
   const dirRoot = process.cwd()
@@ -19,9 +21,20 @@ export default ({ mode }) => {
       host: '0.0.0.0',
       port: 8085,
       open: true,
-      // proxy: {
-      //   '/admin': { target: 'http://localhost:8088/cms' }
-      // }
+      proxy: {
+        '/auth': { target: proxyAddress },
+        '/oauth': { target: proxyAddress },
+        '/user': { target: proxyAddress },
+        '/management': { target: proxyAddress },
+        '/api': { target: proxyAddress },
+        '/dir': { target: proxyAddress },
+        '/open': { target: proxyAddress },
+        '/batch': { target: proxyAddress },
+        '/cms': { target: proxyAddress },
+        '/analysis': { target: proxyAddress },
+        '/dxp-web': { target: proxyAddress },
+        '/datacenter': { target: proxyAddress },
+      },
     },
     resolve: {
       alias: {

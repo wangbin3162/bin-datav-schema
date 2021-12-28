@@ -2,6 +2,7 @@
 import { off, on } from '@/utils/util'
 import eventBus from '@/utils/event-bus'
 import { nextTick } from 'vue'
+import store from '@/store/index'
 
 const initialDirectionAngle = [
   { direction: 'lt', angle: 0 },
@@ -111,7 +112,9 @@ const setAttr = (ev, dir, com, scale, grid) => {
   const startX = ev.clientX
   const startY = ev.clientY
 
+  let hasMove = false
   const move = (e) => {
+    hasMove = true
     const curX = e.clientX
     const curY = e.clientY
     if (dir) {
@@ -139,6 +142,7 @@ const setAttr = (ev, dir, com, scale, grid) => {
   }
   const up = () => {
     eventBus.emit('unmove')
+    hasMove && store.dispatch('schema/recordSnapshot')
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
   }
@@ -166,7 +170,10 @@ export const handleRotate = (ev, el, com) => {
     centerX - ev.clientX,
   ) * 180 / Math.PI - com.attr.rotate
 
+  // 如果元素没有移动，则不保存快照
+  let hasMove = false
   const move = (e) => {
+    hasMove = true
     const angle = Math.atan2(
       centerY - e.clientY,
       centerX - e.clientX,
@@ -176,6 +183,7 @@ export const handleRotate = (ev, el, com) => {
   }
 
   const up = () => {
+    hasMove && store.dispatch('schema/recordSnapshot')
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
   }

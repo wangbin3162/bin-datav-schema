@@ -1,15 +1,15 @@
-<template>
+ <template>
   <div class="header-container">
     <div class="left-actions">
       <b-space size="mini">
+        <b-tooltip content="组件" :open-delay="500">
+          <div class="head-btn" :class="{active:toolbar.components}" @click="toggleCompsPanel()">
+            <b-icon name="hourglass" class="com-list-icon" :class="{'is-rotate':!toolbar.components}"></b-icon>
+          </div>
+        </b-tooltip>
         <b-tooltip content="图层" :open-delay="500">
           <div class="head-btn" :class="{active:toolbar.layer}" @click="toggleLayerPanel()">
             <b-icon name="container"></b-icon>
-          </div>
-        </b-tooltip>
-        <b-tooltip content="组件列表" :open-delay="500">
-          <div class="head-btn" :class="{active:toolbar.components}" @click="toggleCompsPanel()">
-            <b-icon name="hourglass" class="com-list-icon" :class="{'is-rotate':!toolbar.components}"></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="右侧面板" :open-delay="500">
@@ -28,7 +28,7 @@
       <b-tooltip content="返回" :open-delay="500">
         <b-icon name="laptop" type="button" @click="handleBack"></b-icon>
       </b-tooltip>
-      <span>工作空间</span>
+      <span>分析看板</span>
       <span style="padding: 0 6px 0 12px;">-</span>
       <input
         class="header-input"
@@ -40,13 +40,20 @@
     </div>
     <div class="global-actions">
       <b-space size="mini">
-        <b-tooltip content="保存快照" :open-delay="500">
-          <div class="head-btn" @click="copyCfg">
-            <b-icon name="codelibrary"></b-icon>
+        <b-tooltip content="导入json (会覆盖所有内容！)" :open-delay="500">
+          <b-upload action="/" :show-upload-list="false" :before-upload="handleUpload">
+            <div class="head-btn">
+              <b-icon name="Import"></b-icon>
+            </div>
+          </b-upload>
+        </b-tooltip>
+        <b-tooltip content="保存模板" :open-delay="500">
+          <div class="head-btn" @click="tempVisible = true">
+            <b-icon name="Storedprocedure"></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="保存" :open-delay="500">
-          <div class="head-btn" @click="handleSave">
+          <div class="head-btn" @click="handleSaveScreen">
             <b-icon name="save"></b-icon>
           </div>
         </b-tooltip>
@@ -57,28 +64,30 @@
         </b-tooltip>
         <b-tooltip content="预览" :open-delay="500">
           <div class="head-btn" @click="handPreview">
-            <b-icon name="eye"></b-icon>
+            <b-icon name="View"></b-icon>
           </div>
         </b-tooltip>
       </b-space>
     </div>
   </div>
   <head-loading />
-  <publish-screen v-model="publishVisible" :project-id="publishAppId"></publish-screen>
+  <save-screen v-model="saveVisible" :status="saveStatus" />
+  <save-template v-model="tempVisible" />
 </template>
 
 <script>
-import { useRoute, useRouter } from 'vue-router'
-import { Message } from 'bin-ui-next'
+import { useRouter } from 'vue-router'
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
-import { copyText, logger } from '@/utils/util'
 import { ref } from 'vue'
-import HeadLoading from '@/views/schema/screen-editor/header-bar/head-loading.vue'
-import PublishScreen from '@/views/schema/screen-editor/header-bar/publish-screen.vue'
+import HeadLoading from './head-loading.vue'
+import SaveScreen from './save-screen.vue'
+import SaveTemplate from './save-template.vue'
+import { Message } from 'bin-ui-next'
+import { readFileText } from '@/utils/file-helper'
 
 export default {
   name: 'header-bar',
-  components: { PublishScreen, HeadLoading },
+  components: { SaveTemplate, SaveScreen, HeadLoading },
   props: {
     backUrl: {
       type: String,
@@ -95,10 +104,10 @@ export default {
   },
   setup(props) {
     const $router = useRouter()
-    const $route = useRoute()
     const storeStatus = useSchemaStore()
-    const publishVisible = ref(false)
-    const publishAppId = ref('')
+    const saveVisible = ref(false)
+    const saveStatus = ref('edit')
+    const tempVisible = ref(false)
 
     const handleBack = () => {
       const path = props.backUrl || '/'
@@ -110,49 +119,52 @@ export default {
       }
     }
 
-    // 复制json至剪切板
-    const copyCfg = async () => {
-      const { data } = await storeStatus.saveScreenData()
-      await copyText(JSON.stringify(data))
-      logger.primary('已拷贝配置至剪切板！')
+    const handleUpload = file => {
+      if (file.type !== 'application/json') {
+        Message.warning('请选择正确的json配置文件')
+        return false
+      }
+      readFileText(file).then(data => {
+        try {
+          const screenData = JSON.parse(data)
+          const { comps, pageConfig } = screenData
+          storeStatus.loadScreenData({ comps, pageConfig })
+        } catch (e) {
+          console.warn('The imported file could not be converted to the correct JSON!')
+        }
+      })
+      return false
     }
 
     // 保存
-    const handleSave = async () => {
-      const oldId = storeStatus.pageInfo.value.id // 缓存原有id
-      const { data } = await storeStatus.saveScreenData()
-      if (!oldId) {
-        let routeData = $router.resolve({
-          path: '/schema/screen',
-          query: { id: data.pageInfo.id },
-        })
-        window.location.replace(routeData.href)
-      }
-      Message.success({ message: '保存成功！', showClose: true })
-    }
-
-    // 预览
-    const handPreview = async () => {
-      const { data } = await storeStatus.saveScreenData()
-      let routeData = $router.resolve({ path: `/screen/preview/${data.pageInfo.id}`, query: {} })
-      window.open(routeData.href, '_blank')
+    const handleSaveScreen = () => {
+      saveStatus.value = 'edit'
+      saveVisible.value = true
     }
 
     // 发布
     const handlePublish = () => {
-      publishVisible.value = true
-      publishAppId.value = $route.query.id
+      saveStatus.value = 'audited'
+      saveVisible.value = true
+    }
+
+    // 预览
+    const handPreview = async () => {
+      const data = await storeStatus.previewScreen()
+      let routeData = $router.resolve({ path: `/screen/preview/${data.pageInfo.id}` })
+      window.open(routeData.href, '_blank')
     }
 
     return {
       ...storeStatus,
-      publishVisible,
-      publishAppId,
-      copyCfg,
+      saveVisible,
+      saveStatus,
+      tempVisible,
       handleBack,
-      handleSave,
+      handleSaveScreen,
       handPreview,
       handlePublish,
+      handleUpload,
     }
   },
 }

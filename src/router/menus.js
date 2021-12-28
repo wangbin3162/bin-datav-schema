@@ -1,25 +1,15 @@
 // default menu list
 export default [
   {
-    name: 'PivotDemo',
-    title: '交叉表',
-    icon: 'merge-cells',
-  },
-  {
-    name: 'DatasetDemo',
-    title: '分析模型',
+    name: 'DataCenter',
+    title: '数据中心',
     icon: 'database',
-  },
-  {
-    name: 'DashboardDemo',
-    title: '仪表板',
-    icon: 'barchart',
   },
 ]
 
 // 基础
 export const HOME_PATH = 'Dashboard'
-export const HOME_NAME = '工作空间'
+export const HOME_NAME = '我的看板'
 export const ERROR_PATH_LIST = ['403', '404', '500']
 export const DASHBOARD_MENUS = [
   {

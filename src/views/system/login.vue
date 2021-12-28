@@ -1,11 +1,6 @@
 <template>
   <div class="page-login">
-    <!--背景-->
-    <div class="layer area">
-      <ul class="circles">
-        <li v-for="n in 10" :key="n"></li>
-      </ul>
-    </div>
+    <background-particles />
     <!--登录框-->
     <div class="layer">
       <div class="content" flex="dir:top main:center cross:center">
@@ -17,12 +12,13 @@
           </div>
           <!-- 表单 -->
           <div class="form">
-            <b-form ref="loginForm" label-position="top" :rules="rules" :model="formLogin" size="large">
+            <b-form ref="loginForm" label-position="top" :rules="rules" :model="formLogin">
               <b-form-item prop="username">
                 <b-input
                   type="text"
                   v-model="formLogin.username"
-                  placeholder="用户名[admin,wang]"
+                  placeholder="用户名"
+                  size="large"
                   @keydown.enter="submit"
                 >
                   <template #prefix>
@@ -34,7 +30,8 @@
                 <b-input
                   type="password"
                   v-model="formLogin.password"
-                  placeholder="密码[admin,123456]"
+                  placeholder="密码"
+                  size="large"
                   @keydown.enter="submit"
                 >
                   <template #prefix>
@@ -42,19 +39,21 @@
                   </template>
                 </b-input>
               </b-form-item>
-              <b-form-item prop="captcha">
-                <b-input
-                  type="text"
-                  v-model="formLogin.captcha"
-                  placeholder="- - - -"
-                  style="width: 68%;"
-                  @keydown.enter="submit"
-                >
-                  <template #prefix>
-                    <b-icon name="bulb" size="16"></b-icon>
-                  </template>
-                </b-input>
-                <span class="login-code"><img src="@/assets/images/login-code.png" alt="code"></span>
+              <b-form-item prop="verycode">
+                <div flex="main:justify cross:center">
+                  <b-input
+                    type="text"
+                    v-model="formLogin.verycode"
+                    size="large"
+                    style="width: 73%;"
+                    @keydown.enter="submit"
+                  >
+                    <template #prefix>
+                      <b-icon name="code" size="16"></b-icon>
+                    </template>
+                  </b-input>
+                  <span class="login-code"><img src="@/assets/images/login-code.png" alt="code"></span>
+                </div>
               </b-form-item>
               <b-button
                 @click="submit"
@@ -68,6 +67,7 @@
             </b-form>
           </div>
         </div>
+        <div class="footer"></div>
       </div>
     </div>
   </div>
@@ -76,23 +76,28 @@
 <script>
 import { login } from '@/api/modules/login.api'
 import { throwError } from '@/utils/util'
+import { defineAsyncComponent } from 'vue'
 
 export default {
   name: 'Login',
+  components: {
+    BackgroundParticles: defineAsyncComponent(() => import('@/components/Common/BackgroundParticles/index.vue')),
+  },
   data() {
     return {
       // 表单
       formLogin: {
         username: 'admin',
-        password: 'admin',
-        captcha: 'v9am',
+        password: '123456',
+        verycode: '',
+        uuid: '',
       },
       loading: false,
       // 校验
       rules: {
         username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        captcha: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+        verycode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
       },
     }
   },
@@ -104,6 +109,7 @@ export default {
           try {
             this.loading = true
             const { data } = await login(this.formLogin)
+            console.log(data)
             await this.loginSuccess(data)
           } catch (e) {
             throwError('login/requestFailed', e)
@@ -130,13 +136,12 @@ export default {
 <style lang="stylus" scoped>
 .page-login {
   user-select: none;
-  background-color: #F0F2F5;
   height: 100vh;
+  background-image: url("@/assets/images/bg/bg.png");
   position: relative;
-  background-image: url('@/assets/images/login-background.svg');
   background-repeat: no-repeat;
-  background-position: center 110px;
-  background-size: 100%;
+  background-position: center center;
+  background-size: cover;
   .layer {
     position: absolute;
     left: 0;
@@ -144,10 +149,6 @@ export default {
     top: 0;
     bottom: 0;
     overflow: auto;
-  }
-
-  .area {
-    overflow: hidden;
   }
 
   .content {
@@ -180,9 +181,10 @@ export default {
           width: 48px;
         }
         span {
+          font-family: YouSheBiaoTiHei, PingFangSC-Medium, PingFang SC, Microsoft YaHei, Arial, Helvetica, sans-serif;
           padding-left: 12px;
-          font-size: 32px;
-          font-weight: bold;
+          font-size: 36px;
+          color: #fff;
         }
       }
       .form {
@@ -192,14 +194,21 @@ export default {
           width: 100%;
         }
         .login-code {
-          display: inline-block;
-          vertical-align: middle;
-          width: 30%;
+          cursor: pointer;
+          width: 84px;
           height: 36px;
           text-align: right;
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          background-color: rgba(255, 255, 255, 0.3);
           img {
-            height: 100%;
+            height 100%;
           }
+        }
+        :deep(.bin-input) {
+          background-color: transparent;
+          font-size: 14px;
+          padding-left: 34px;
+          border: 1px solid rgba(255, 255, 255, 0.3);
         }
       }
     }
@@ -213,112 +222,6 @@ export default {
         a {
           color: #6898f0;
         }
-      }
-    }
-  }
-  .circles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-
-    li {
-      position: absolute;
-      display: block;
-      list-style: none;
-      width: 20px;
-      height: 20px;
-      background: #FFF;
-      animation: animate 25s linear infinite;
-      bottom: -200px;
-      @keyframes animate {
-        0% {
-          transform: translateY(0) rotate(0deg);
-          opacity: 1;
-          border-radius: 0;
-        }
-        100% {
-          transform: translateY(-1000px) rotate(720deg);
-          opacity: 0;
-          border-radius: 50%;
-        }
-      }
-
-      &:nth-child(1) {
-        left: 15%;
-        width: 80px;
-        height: 80px;
-        animation-delay: 0s;
-      }
-
-      &:nth-child(2) {
-        left: 5%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 2s;
-        animation-duration: 12s;
-      }
-
-      &:nth-child(3) {
-        left: 70%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 4s;
-      }
-
-      &:nth-child(4) {
-        left: 40%;
-        width: 60px;
-        height: 60px;
-        animation-delay: 0s;
-        animation-duration: 18s;
-      }
-
-      &:nth-child(5) {
-        left: 65%;
-        width: 20px;
-        height: 20px;
-        animation-delay: 0s;
-      }
-
-      &:nth-child(6) {
-        left: 75%;
-        width: 90px;
-        height: 90px;
-        animation-delay: 3s;
-      }
-
-      &:nth-child(7) {
-        left: 35%;
-        width: 65px;
-        height: 65px;
-        animation-delay: 7s;
-      }
-
-      &:nth-child(8) {
-        left: 50%;
-        width: 25px;
-        height: 25px;
-        animation-delay: 15s;
-        animation-duration: 45s;
-      }
-
-      &:nth-child(9) {
-        left: 20%;
-        width: 35px;
-        height: 35px;
-        animation-delay: 2s;
-        animation-duration: 35s;
-      }
-
-      &:nth-child(10) {
-        left: 85%;
-        width: 70px;
-        height: 70px;
-        animation-delay: 0s;
-        animation-duration: 11s;
       }
     }
   }

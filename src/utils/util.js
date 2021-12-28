@@ -173,6 +173,11 @@ export function setStyle(element, styleName, value) {
   }
 }
 
+// 查找索引
+export function findIndex(data, value, key = 'id') {
+  return data.findIndex(i => i[key] === value)
+}
+
 // 简单计算字符串宽度
 let TextCanvas = null
 export const calcStrWidth = (str, font) => {

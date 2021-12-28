@@ -14,7 +14,7 @@
       :style="hideStyle"
       @mouseenter="onEnter"
       @mouseleave="onLeave"
-      @mousedown.prevent.stop="onMove"
+      @mousedown="onMove"
     >
       <div
         class="transform-handler"
@@ -23,6 +23,7 @@
       >
         <div class="dv-com">
           <slot></slot>
+          <!--事件阻止蒙版-->
           <div
             class="dv-event-disable"
             :style="wrapperStyle"
@@ -78,6 +79,7 @@ export default {
     const instance = getCurrentInstance()
     const {
       canvas,
+      store,
       comps,
       pageConfig,
       selectedCom,
@@ -91,6 +93,7 @@ export default {
     const isHovered = computed(() => hoveredCom.value === props.data.id)
     // 是否选中当前当前
     const isSelected = computed(() => !isEmpty(selectedCom.value) && selectedCom.value.id === props.data.id)
+    const spaceDown = computed(() => store.state.schema.shortcuts.spaceKey)
 
     const transformClass = computed(() => ({
       locked: props.data.locked,
@@ -179,6 +182,9 @@ export default {
     }
     // 单击选中组件
     const onMove = (e) => {
+      if (spaceDown.value) return
+      e.stopPropagation()
+      e.preventDefault()
       selectCom()
       handleMove(e, props.data, scale.value, pageConfig.value.grid)
     }

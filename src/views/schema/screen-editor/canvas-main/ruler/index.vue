@@ -37,7 +37,7 @@ export default {
       if (hRulerWpRef.value && vRulerWpRef.value) {
         const hWidth = Math.max(canvas.value.width, cw)
         if (hRuler.value) {
-          hRuler.value.setSize(hWidth, 20, canvas.value.scale)
+          hRuler.value.setSize(hWidth, 18, canvas.value.scale)
         } else {
           hRuler.value = new RulerBuilder(hRulerWpRef.value, {
             direction: 'TB',
@@ -47,7 +47,7 @@ export default {
         }
 
         if (vRuler.value) {
-          vRuler.value.setSize(canvas.value.height, 20, canvas.value.scale)
+          vRuler.value.setSize(canvas.value.height, 18, canvas.value.scale)
         } else {
           vRuler.value = new RulerBuilder(vRulerWpRef.value, {
             direction: 'LR',
@@ -90,10 +90,10 @@ export default {
   z-index: 1;
   .ruler-wrapper {
     position: absolute;
-    height: 20px;
+    height: 18px;
   }
   .h-container {
-    left: 20px;
+    left: 18px;
     transform: translateX(0);
   }
   .v-container {
@@ -104,14 +104,14 @@ export default {
     position: fixed;
     z-index: 10;
     display: flex;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
     font-size: 16px;
     color: #bcc9d4;
     cursor: pointer;
     background: #0e1013;
-    border-right: 1px solid rgba(161, 174, 179, 0.8);
-    border-bottom: 1px solid rgba(161, 174, 179, 0.8);
+    border-right: 1px solid rgba(161, 174, 179, 0.4);
+    border-bottom: 1px solid rgba(161, 174, 179, 0.4);
     align-items: center;
     justify-content: center;
     &:hover {

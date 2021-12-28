@@ -1,62 +1,6 @@
 <template>
-  <div :class="['api-editor', { '--disable-fold': !collapse, '--fold': collapse && visible }]">
-    <div class="api-editor-title">
-      <div class="api-desc">
-        {{ apiConfig.description || '数据接口' }}
-      </div>
-      <div class="api-status success">
-        <display-api-status :status="totalStatus" success-text="配置完成" />
-      </div>
-    </div>
-    <div v-show="visible" class="attr-source-wp">
-      <div class="data-attr-table-container">
-        <table class="data-attr-table">
-          <thead class="table-head">
-          <tr class="table-head-row">
-            <th class="th-item column-item attr-name">字段</th>
-            <th class="th-item column-item attr-value">映射</th>
-            <th class="th-item column-item attr-status">状态</th>
-          </tr>
-          </thead>
-          <tbody class="table-body">
-          <template v-if="Object.keys(apiConfig.fields).length > 0">
-            <tr
-              v-for="(fc, fn) in apiConfig.fields"
-              :key="fn"
-              class="table-body-row"
-            >
-              <td class="column-item attr-name">
-                <b-tooltip :content="fc.description">
-                  <span class="ellipsis2">{{ fn }}</span>
-                </b-tooltip>
-              </td>
-              <td class="column-item attr-value">
-                <g-input
-                  :model-value="fc.map"
-                  placeholder="可自定义"
-                  class="attr-input"
-                  size="mini"
-                  @change="val => fc.map = val"
-                  style="margin: 0;"
-                />
-              </td>
-              <td class="column-item attr-status">
-                <display-api-status :status="fieldsStatus[fn]" :optional="fc.optional" />
-              </td>
-            </tr>
-          </template>
-          <tr v-else class="table-body-row">
-            <td class="column-item attr-name">
-              <span>任意</span>
-            </td>
-            <td class="column-item attr-value"></td>
-            <td class="column-item attr-status">
-              <display-api-status status="completed" />
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
+  <div class="api-editor">
+    <div class="attr-source-wp">
       <div class="data-source">
         <div class="data-result-title">数据源配置</div>
         <div class="data-source-config">
@@ -66,11 +10,23 @@
             </b-radio-group>
           </g-field>
           <!--静态编辑器-->
-          <template v-if="apiDataConfig.type === ApiType.static">
-            <data-editor :model-value="apiDataConfig.config.data" @change="updateData" />
-          </template>
-          <div v-if="apiDataConfig.type === ApiType.api" class="p16">
-            <b-button type="primary" size="small" @click="openSourceDrawer">配置数据源</b-button>
+          <data-editor
+            v-if="apiDataConfig.type === ApiType.static"
+            :model-value="apiDataConfig.config.data"
+            :height="staticEditorHeight"
+            @change="updateData"
+          />
+          <!--选择分析模型-->
+          <div v-else class="pt-10">
+            <div class="data-result-title">选择分析模型</div>
+            <div class="p16">
+              <b-tree
+                :data="modelTree"
+                titleKey="name"
+                default-expand
+                @select-change="handleChange"
+              ></b-tree>
+            </div>
           </div>
         </div>
       </div>
@@ -80,77 +36,97 @@
 </template>
 
 <script>
-import { computed, ref } from 'vue'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
-import useApiStore from '@/hooks/schema/useApiStore'
-import { ApiStatus, FieldStatus, createDataSources, ApiType } from '@/config/data-source'
+import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
+import { createDataSources, ApiType } from '@/config/data-source'
 import { loadAsyncComponent } from '@/utils/async-component'
-import DisplayApiStatus from '@/views/schema/screen-editor/config-panel/components/display-api-status.vue'
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { on, off } from '@/utils/util'
+import { Message } from 'bin-ui-next'
 import SourceDrawer from '@/views/schema/screen-editor/config-panel/data-center-panel/source-drawer.vue'
 
 export default {
   name: 'source-panel',
   components: {
     SourceDrawer,
-    DisplayApiStatus,
     DataEditor: loadAsyncComponent(() => import('../components/data-editor.vue')),
   },
-  props: {
-    apiName: {
-      type: String,
-      required: true,
-    },
-    activeName: String,
-    collapse: Boolean,
-  },
-  setup(props) {
-    const { selectedCom: com } = useSchemaStore()
-    const { apiFieldStatusMap } = useApiStore()
+  setup() {
+    const staticEditorHeight = ref('260px')
     const sourceDrawerRef = ref(null)
 
-    const visible = computed(() => props.apiName === props.activeName)
-    const apiConfig = computed(() => com.value.apis[props.apiName])
-    const apiDataConfig = computed(() => com.value.apiData[props.apiName])
+    const treeData = inject('ModelTree', [])
+    const modelTree = computed(() => {
+      const mapper = node => {
+        const modelId = apiDataConfig.value.config ? apiDataConfig.value.config.modelId : ''
+        const mapperNode = {
+          ...node,
+          icon: node.directory === 'Y' ? 'folder' : (node.modelType === 'DM' ? 'deploymentunit' : 'database'),
+          selected: modelId === node.id,
+        }
+        if (node.children && node.children.length) {
+          mapperNode.children = node.children.map(mapper)
+        }
+        return mapperNode
+      }
+      return treeData.value.map(mapper)
+    })
 
-    const fieldsStatus = computed(() => {
-      const comFields = apiFieldStatusMap.value[com.value.id]
-      return comFields ? comFields[props.apiName] : {}
-    })
-    const totalStatus = computed(() => {
-      const list = Object.values(fieldsStatus.value)
-      if (list.includes(FieldStatus.loading)) {
-        return ApiStatus.loading
-      }
-      if (list.includes(FieldStatus.failed)) {
-        return ApiStatus.incomplete
-      }
-      return ApiStatus.completed
-    })
+    const { selectedCom } = useSchemaStore()
+    const apiDataConfig = computed(() => selectedCom.value.apiData)
 
     const updateData = (data) => {
       apiDataConfig.value.config.data = data
     }
 
-    const openSourceDrawer = () => {
-      sourceDrawerRef.value?.open()
+    const calcEdit = () => {
+      staticEditorHeight.value = `${document.body.clientHeight - 260}px`
     }
 
+    const handleChange = (val, node) => {
+      if (node.directory === 'Y') {
+        node.selected = false
+        Message.warning('不能选择文件夹！')
+      } else {
+        if (apiDataConfig.value.config.modelId === node.id) {
+          node.selected = true
+        }
+        sourceDrawerRef.value?.open({ modelId: node.id, modelName: node.name })
+      }
+    }
+
+    onMounted(() => {
+      calcEdit()
+      on(window, 'resize', calcEdit)
+    })
+    onBeforeUnmount(() => {
+      off(window, 'resize', calcEdit)
+    })
+
     return {
+      staticEditorHeight,
       sourceDrawerRef,
       ApiType,
-      ApiTypeMap: createDataSources(),
-      visible,
-      apiConfig,
       apiDataConfig,
-      fieldsStatus,
-      totalStatus,
+      modelTree,
+      handleChange,
+      ApiTypeMap: createDataSources(),
       updateData,
-      openSourceDrawer,
     }
   },
 }
 </script>
 
-<style scoped lang="stylus">
-
+<style lang="stylus" scoped>
+.data-source-config {
+  :deep(.bin-tree) {
+    color: var(--schema-font-color);
+    .bin-tree-title, .bin-tree-render-title {
+      border: 1px solid transparent;
+      &.is-selected, &:hover {
+        background: rgba(118, 150, 202, .1);
+        border-color: var(--bin-color-primary);
+      }
+    }
+  }
+}
 </style>

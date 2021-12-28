@@ -1,6 +1,5 @@
 import { MoveType } from '@/config/enum'
-import { deepCopy, generateId } from '@/utils/util'
-import { getBgPath } from '@/utils/env'
+import { deepCopy, generateId, isEmpty } from '@/utils/util'
 
 const findComIndex = (comps, id) => comps.findIndex(c => c.id === id)
 
@@ -14,25 +13,28 @@ const getNewCom = (com) => {
   ncom.attr.x += 50
   ncom.attr.y += 50
 
-  for (const key in ncom.apiData) {
-    ncom.apiData[key].id = `api_${generateId()}`
-    ncom.apiData[key].comId = ncom.id
+
+  if (!isEmpty(ncom.apiData)) {
+    ncom.apiData.id = `api_${generateId()}`
+    ncom.apiData.comId = ncom.id
   }
 
   return ncom
 }
 
 const defaultInfo = {
+  pid: '1',
   id: '',
-  name: '未命名',
+  name: '',
 }
 
 const defaultPageCfg = {
   width: 1920,
   height: 1080,
   bgColor: '#0d2a42',
-  bgImage: getBgPath('bg.png'),
-  grid: 8, // 拖拽间隔
+  bgImage: '',
+  grid: 1, // 拖拽间隔
+  thumbnail: '',
 }
 
 export default {
@@ -47,6 +49,10 @@ export default {
     renamingId: '',// 重命名的id
   },
   mutations: {
+    SET_SIZE: (state, { width, height }) => {
+      state.pageConfig.width = width
+      state.pageConfig.height = height
+    },
     SET_INFO: (state, info) => {
       state.pageInfo = info || { ...defaultInfo }
     },
@@ -68,6 +74,7 @@ export default {
       if (ocom) {
         const ncom = getNewCom(ocom)
         state.comps.push(ncom)
+        state.selectedCom = ncom
       }
     },
     DELETE_COM(state, id) {
@@ -143,6 +150,10 @@ export default {
       commit('SET_INFO', pageInfo)
       commit('SET_PAGE_CFG', pageConfig)
       commit('SET_COMPS', comps)
+    },
+    // 设置screen size
+    setScreenSize: async ({ commit }, screenSize) => {
+      commit('SET_SIZE', screenSize)
     },
     clearScreen: ({ commit }) => {
       commit('SELECT_COM', null)

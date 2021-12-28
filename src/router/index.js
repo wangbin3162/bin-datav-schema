@@ -7,6 +7,7 @@ import { ERROR_PATH_LIST, getFilterMenus } from './menus'
 import cookies from '../utils/util.cookies'
 import { ACCESS_TOKEN } from '@/config/token-const'
 import { throwError } from '@/utils/util'
+import menuList from './menus'
 
 /**
  * @description 创建路由
@@ -38,6 +39,10 @@ export function setupRouter(app) {
 // 权限白名单 no redirect whitelist
 const whiteList = ['/login', ERROR_PATH_LIST.map(path => `/${path}`), '/error']
 router.beforeEach(async (to, from) => {
+  // set page title
+  if (to.meta && to.meta.title) {
+    document.title = `${to.meta.title}`
+  }
   LoadingBar.start()
   // 没有登录的时候跳转到登录界面 // 携带上登陆成功之后需要跳转的页面完整路径
   if (whiteList.indexOf(to.path) !== -1) { // 在免登陆白名单中
@@ -59,7 +64,8 @@ router.beforeEach(async (to, from) => {
             offset: 60,
           })
         }
-        const menus = getFilterMenus(user.functions || [])
+        // 默认静态菜单
+        const menus = getFilterMenus(menuList || [])
         // console.log('menus: ', menus)
         const { menuItems } = await store.dispatch('menu/setRouterMenu', menus)
         const asyncRoute = await store.dispatch('menu/generateRoutes', menuItems)

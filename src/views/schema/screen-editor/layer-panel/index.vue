@@ -51,9 +51,10 @@
             @mousedown="selectCom(com.id)"
             @mouseenter="onEnter(com.id)"
             @mouseleave="onLeave"
+            @dblclick="renamingCom(com.id)"
             @contextmenu="showMenu($event)"
           >
-            <b-icon :name="com.icon"></b-icon>
+            <b-icon :name="com.icon" size="18"></b-icon>
             <input
               v-if="com.id === renamingId"
               v-model.trim="com.alias"
@@ -66,14 +67,14 @@
               <span class="layer-item-text">{{ com.alias }}</span>
             </span>
             <i
-              v-if="com.hided"
-              class="b-iconfont b-icon-eye show-toggle-btn"
-              @click="com.hided = false"
+              :class="['b-iconfont',`b-icon-${com.hided?'eye-close':'eye'}`,'show-toggle-btn']"
+              :title="com.hided?'显示':'隐藏'"
+              @click="com.hided = !com.hided"
             ></i>
             <i
-              v-if="com.locked"
-              class="b-iconfont b-icon-lock show-toggle-btn"
-              @click="com.locked = false"
+              :class="['b-iconfont',`b-icon-${com.locked?'lock':'unlock'}`,'show-toggle-btn']"
+              :title="com.locked?'解锁':'锁定'"
+              @click="com.locked = !com.locked"
             ></i>
           </div>
         </template>

@@ -2,81 +2,10 @@ import axios from 'axios'
 import { getPublicPath } from '@/utils/env'
 import { deepCopy, generateId } from '@/utils/util'
 import ldb from '@/config/localforage-db'
-import dayjs from 'dayjs'
-
-// 保存测试mock的screen数据值列表
-async function saveMockScreen2List(id, name) {
-  try {
-    const { data: list } = await getAnalysisList()
-    const index = list.findIndex(i => i.id === id)
-    if (index > -1) {
-      const obj = list[index]
-      list.splice(index, 1, {
-        id,
-        datasetName: name,
-        datasourceName: '探索空间',
-        creator: obj.creator,
-        updater: obj.updater,
-        updateDate: dayjs().format('YYYY/MM/DD HH:mm:ss'),
-      })
-    } else {
-      list.push({
-        id,
-        datasetName: name,
-        datasourceName: '探索空间',
-        creator: '316281400@qq.com',
-        updater: '316281400@qq.com',
-        updateDate: dayjs().format('YYYY/MM/DD HH:mm:ss'),
-      })
-    }
-    // 再保存list
-    await ldb.setItem('list', deepCopy(list))
-  } catch (e) {
-    console.log('save mock screen data fail.')
-  }
-}
+import { webScreenMap } from '@/config/enum'
 
 /**
- * 模拟分析看板数列表
- */
-export async function getAnalysisList() {
-  const key = 'list'
-  try {
-    const list = await ldb.getItem(key)
-    if (list && list.length) { // 如果列表数据库中存在则直接返回，否则去获取mock数据
-      return { data: list }
-    }
-    const { data } = await axios.get(getPublicPath(`/data/mock/${key}.json`))
-    await ldb.setItem(key, data)
-    return { data }
-  } catch (e) {
-    console.log(e)
-    return []
-  }
-}
-
-/**
- * 模拟数据，可在外部修改，模拟两个id保存的数据内容
- * @param id 大屏分析id
- */
-export async function loadScreen(id) {
-  try {
-    const data = await ldb.getItem(id)
-    if (data) { // 如果列表数据库中存在则直接返回，否则去获取mock数据
-      return { data }
-    } else {
-      const { data } = await axios.get(getPublicPath(`/data/mock/${id}.json`))
-      await ldb.setItem(id, data)
-      return { data }
-    }
-  } catch (e) {
-    throw new Error('404')
-  }
-}
-
-/**
- * 保存大屏数据
- * @param id 大屏id
+ * 保存预览大屏数据
  * @param screenData
  * screenData:{
  *    pageInfo:'当前大屏id等基本信息',
@@ -84,13 +13,11 @@ export async function loadScreen(id) {
  *    comps:'大屏包含的所有组件comps'
  * }
  */
-export async function saveScreen(id, screenData) {
-  const key = id || `screen_${generateId()}`
-  screenData.pageInfo.id = key
+export async function saveScreenPreview(screenData) {
+  const key = 'screen_preview'
+  screenData.pageInfo.id = screenData.pageInfo.id || `screen_${generateId()}`
   try {
-    const data = await ldb.setItem(key, deepCopy(screenData))
-    await saveMockScreen2List(key, data.pageInfo.name)
-    return { data }
+    return await ldb.setItem(key, deepCopy(screenData))
   } catch (e) {
     console.log(e)
     return null
@@ -98,25 +25,13 @@ export async function saveScreen(id, screenData) {
 }
 
 /**
- * 删除一个大屏数据
- * @param id
+ * 载入预览数据
  */
-export async function removeScreen(id) {
+export async function loadScreenPreview() {
   try {
-    const { data: list } = await getAnalysisList()
-    const index = list.findIndex(i => i.id === id)
-    if (index > -1) {
-      list.splice(index, 1)
-      // 先删除id key
-      await ldb.removeItem(id)
-      // 再保存list
-      await ldb.setItem('list', deepCopy(list))
-      return true
-    }
-    return false
+    return await ldb.getItem('screen_preview')
   } catch (e) {
-    console.log(e)
-    return false
+    throw new Error('404')
   }
 }
 
@@ -128,4 +43,46 @@ export async function removeScreen(id) {
 export function getStaticData(comId, comPath) {
   const path = getPublicPath(`/data/${comPath}.json?comId=${comId}`)
   return axios.get(path)
+}
+
+/**
+ * 默认创建参数
+ * @type {{type: string}} web mobile custom || tpl
+ */
+export const defaultCreateObj = {
+  label: webScreenMap[0].label,
+  type: 'web',
+  width: 1920,
+  height: 1080,
+  tpl: '',
+}
+
+/**
+ * 保存创建基本信息
+ * @param createData
+ * screenData:{
+ *    pageInfo:'当前大屏id等基本信息',
+ *    pageConfig:'page基本配置信息',
+ *    comps:'大屏包含的所有组件comps'
+ * }
+ */
+export async function saveCreateData(createData) {
+  const key = 'screen_create'
+  try {
+    return await ldb.setItem(key, deepCopy(createData))
+  } catch (e) {
+    console.log(e)
+    return { ...defaultCreateObj }
+  }
+}
+
+/**
+ * 获取创建信息
+ */
+export async function getCreateData() {
+  try {
+    return await ldb.getItem('screen_create')
+  } catch (e) {
+    return { ...defaultCreateObj }
+  }
 }

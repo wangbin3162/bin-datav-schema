@@ -1,15 +1,12 @@
 <template>
-  <div class="components-panel-wp" :class="{'is-hide':!toolbar.components}">
+  <div class="components-panel-wp">
     <div class="components-panel">
       <div class="panel-title">
-        <span class="panel-text" @click="toggleCompsPanel(true)">
-          {{ toolbar.components ? '全部组件' : '组件' }}
-        </span>
-        <i class="b-iconfont b-icon-left comps-action" title="收起" @click="toggleCompsPanel(false)"></i>
+        <span class="panel-text">组件</span>
       </div>
       <div class="components-panel-content" @dragover="dragOver">
         <div class="components-type">
-          <b-scrollbar>
+          <b-scrollbar native>
             <div
               class="components-item"
               v-for="(com,index) in componentsList"
@@ -17,24 +14,28 @@
               :class="{active:activeIndex===index}"
               @click="changeComp(index)"
             >
-              <b-icon class="com-tab-icon" :name="com.icon" size="16"></b-icon>
+              <b-icon class="com-tab-icon" :name="com.icon"></b-icon>
               <span class="com-tab-title">{{ com.name }}</span>
             </div>
           </b-scrollbar>
         </div>
-        <div class="components-list p10">
-          <div
-            class="comp-item"
-            v-for="(com,index) in comps"
-            :key="index"
-            :title="com.alias"
-            :draggable="com.used"
-            @dragstart="dragStart($event, com.name)"
-            @click="toAddCom(com.name, com.used)"
-          >
-            <div class="comp-item-text">{{ com.alias }}</div>
-            <div class="comp-item-img" :style="`background-image: url(${com.img});`"></div>
-          </div>
+        <div class="components-list" :class="{'is-hide':!toolbar.components}" v-click-outside="closePanel">
+          <b-scrollbar native>
+            <div class="p10">
+              <div
+                class="comp-item"
+                v-for="(com,index) in comps"
+                :key="index"
+                :title="com.alias"
+                :draggable="com.used"
+                @dragstart="dragStart($event, com.name)"
+                @click="toAddCom(com.name, com.used)"
+              >
+                <div class="comp-item-text">{{ com.alias }}</div>
+                <div class="comp-item-img" :style="`background-image: url(${com.img});`"></div>
+              </div>
+            </div>
+          </b-scrollbar>
         </div>
       </div>
     </div>
@@ -73,9 +74,9 @@ export default {
         // 选中当前
         await onCompSelected(com)
         // 如是静态数据，且存在staticPath，则填充一次数据
-        if (com.apiData.source && com.apiData.source.type === ApiType.static && com.apiData.source.staticPath) {
-          const { data } = await getStaticData(com.id, com.apiData.source.staticPath)
-          selectedCom.value.apiData.source.config.data = JSON.stringify(data)
+        if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
+          const { data } = await getStaticData(com.id, com.apiData.staticPath)
+          selectedCom.value.apiData.config.data = JSON.stringify(data)
         }
       } else {
         console.log('正在开发中。。。')
@@ -86,6 +87,11 @@ export default {
       e.preventDefault()
       e.stopPropagation()
       e.dataTransfer.dropEffect = 'none'
+    }
+    const closePanel = () => {
+      if (toolbar.value.components) {
+        toggleCompsPanel(false)
+      }
     }
 
     return {
@@ -98,6 +104,7 @@ export default {
       dragStart,
       toAddCom,
       dragOver,
+      closePanel,
     }
   },
 }

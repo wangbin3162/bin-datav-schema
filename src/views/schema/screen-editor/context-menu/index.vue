@@ -7,15 +7,19 @@
     >
       <div class="context-menu-item" @click="moveTop">
         <i class="menu-icon b-iconfont b-icon-vertical-align-botto" style="transform: rotate(180deg);"></i>置顶
+        <span class="key-code">Alt + Home</span>
       </div>
       <div class="context-menu-item" @click="moveBottom">
         <i class="menu-icon b-iconfont b-icon-vertical-align-botto"></i>置底
+        <span class="key-code">Alt + End</span>
       </div>
       <div class="context-menu-item" @click="moveUp">
         <i class="menu-icon b-iconfont b-icon-arrowup"></i>上移一层
+        <span class="key-code">Alt + ↑</span>
       </div>
       <div class="context-menu-item" @click="moveDown">
         <i class="menu-icon b-iconfont b-icon-arrowdown"></i>下移一层
+        <span class="key-code">Alt + ↓</span>
       </div>
 
       <div class="context-menu-divider"></div>
@@ -40,12 +44,15 @@
       <div class="context-menu-divider"></div>
       <div class="context-menu-item" @click="renameCom">
         <i class="menu-icon b-iconfont b-icon-edit"></i>重命名
+        <span class="key-code">F2</span>
       </div>
       <div class="context-menu-item" @click="toCopyCom">
         <i class="menu-icon b-iconfont b-icon-file-copy"></i>复制
+        <span class="key-code">Ctrl + C,V</span>
       </div>
       <div class="context-menu-item" @click="toDeleteCom">
         <i class="menu-icon b-iconfont b-icon-delete"></i>删除
+        <span class="key-code">Delete</span>
       </div>
     </div>
   </transition>
@@ -123,7 +130,6 @@ export default {
     }
 
     const handleContextmenu = (ev) => ev.preventDefault()
-
     onMounted(() => {
       on(document, 'contextmenu', handleContextmenu)
     })
@@ -154,13 +160,15 @@ export default {
   position: fixed;
   z-index: 9999;
   display: none;
-  width: 111px;
+  width: 152px;
   color: var(--schema-font-color);
   background: #27343e;
   user-select: none;
+  outline: 1px solid var(--schema-ui-border);
 }
 
 .context-menu-item {
+  position: relative;
   display: flex;
   height: 28px;
   padding: 0 6px;
@@ -169,7 +177,6 @@ export default {
   line-height: 28px;
   cursor: pointer;
   border-left: 2px solid transparent;
-
   &:hover {
     color: var(--bin-color-primary);
     background-color: #1d262e;
@@ -180,6 +187,14 @@ export default {
     margin-right: 4px;
   }
 
+  .key-code {
+    position: absolute;
+    top: 0;
+    right: 6px;
+    color: #9d9d9d;
+    font-size: 12px;
+    transform: scale(0.9);
+  }
   &.disable {
     color: #576369;
     pointer-events: none;

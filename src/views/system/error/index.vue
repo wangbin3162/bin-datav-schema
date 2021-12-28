@@ -11,8 +11,8 @@
       <div class="bin-result-subtitle">{{ errorMessage }}</div>
       <div class="bin-result-extra">
         <b-space>
-          <b-button background @click="$router.back()">返回上级</b-button>
-          <router-link :to="{path:HOME_PATH}">
+          <!--<b-button background @click="$router.back()">返回上级</b-button>-->
+          <router-link :to="{name:HOME_PATH}">
             <b-button type="primary">返回首页</b-button>
           </router-link>
         </b-space>
@@ -77,6 +77,8 @@ export default {
 
 <style lang="stylus">
 .system-error-page {
+  background-color: #1d2126;
+  height: 100vh;
   .bin-result {
     padding: 32px;
     display: flex;
@@ -90,7 +92,7 @@ export default {
   }
   .bin-result-title {
     margin-bottom: 24px;
-    color: #17233d;
+    color: #fff;
     font-weight: bold;
     font-size: 32px;
     line-height: 32px;

@@ -1,10 +1,11 @@
 import { ACCESS_TOKEN } from '@/config/token-const'
 import request from 'axios'
 import cookies from '../utils/util.cookies'
-import router from '@/router'
 import { throwError } from '@/utils/util'
+import store from '@/store'
+import router from '@/router'
 
-const baseUrl = process.env.NODE_ENV === 'production' ? '/' : '/mock'
+const baseUrl = process.env.NODE_ENV === 'production' ? '/' : '/'
 
 const service = request.create({
   baseUrl,
@@ -31,7 +32,7 @@ export async function fetchData(config) {
 const err = (error) => {
   if (error.response) {
     const data = error.response.data
-    const token = cookies.get(ACCESS_TOKEN)
+    // const token = cookies.get(ACCESS_TOKEN)
     // 响应时触发错误
     throwError('request/error', data)
   }
@@ -40,7 +41,7 @@ const err = (error) => {
 /**
  * request interceptor
  */
-service.interceptors.request.use(config => {
+service.interceptors.request.use(async config => {
   const token = cookies.get(ACCESS_TOKEN)
   if (token && token !== 'undefined') {
     config.headers.Authorization = 'Bearer ' + token // 让每个请求携带自定义 token 请根据实际情况自行修改
@@ -60,8 +61,6 @@ service.interceptors.response.use(
       } else if (error.response.status === 404) {
         router.push({ path: 'error', query: { status: '404', message: error.message } })
       }
-    } else {
-      throwError('request/error', error)
     }
     return Promise.reject(error)
   },

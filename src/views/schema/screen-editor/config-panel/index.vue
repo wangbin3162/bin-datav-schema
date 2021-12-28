@@ -23,10 +23,10 @@
           </div>
         </div>
         <div class="page-config-content">
-          <div v-show="curTabIndex===0" style="height: 100%;">
+          <div v-if="curTabIndex===0" style="height: 100%;">
             <setting-panel :key="selectedCom.id"></setting-panel>
           </div>
-          <div v-show="curTabIndex===1" style="height: 100%;">
+          <div v-if="curTabIndex===1" style="height: 100%;">
             <data-center-panel :key="selectedCom.id"></data-center-panel>
           </div>
         </div>
@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { Message } from 'bin-ui-next'
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
 import PageConfig from '@/views/schema/screen-editor/config-panel/page-config.vue'
@@ -59,6 +59,9 @@ export default {
         curTabIndex.value = index
       }
     }
+    watch(() => selectedCom.value, () => {
+      curTabIndex.value = 0
+    })
     return {
       toolbar,
       selectedCom,

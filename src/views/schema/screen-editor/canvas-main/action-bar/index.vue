@@ -1,0 +1,50 @@
+<template>
+  <div class="action-bar-wrap" :style="actionStyle">
+    <i class="action-btn b-iconfont b-icon-aim" title="最佳画布比例" @click.stop="autoCanvasScale" />
+    <i class="action-btn b-iconfont b-icon-icon-test" title="1:1画布大小" @click.stop="setCanvasScale(100)" />
+    <i class="action-btn b-iconfont b-icon-rollback" title="撤销" @click.stop="undo" />
+    <i class="action-btn b-iconfont b-icon-rollback" title="重做" @click.stop="redo"
+       style="transform: rotateY(180deg);" />
+  </div>
+</template>
+
+<script setup>
+import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { computed } from 'vue'
+
+const { toolbar, store, autoCanvasScale, setCanvasScale } = useSchemaStore()
+
+const actionStyle = computed(() => toolbar.value.config ? { right: '332px' } : { right: 0 })
+
+const undo = () => store.dispatch('schema/undo')
+const redo = () => store.dispatch('schema/redo')
+
+</script>
+
+<style scoped lang="stylus">
+.action-bar-wrap {
+  position: fixed;
+  width: 32px;
+  right: 332px;
+  z-index: 2;
+  min-height: 32px;
+  background-color: var(--schema-color-bg-dark);
+  border-left: 1px solid var(--schema-color-bg-deep);
+  border-right: 1px solid var(--schema-color-bg-deep);
+  display: flex;
+  flex-direction: column;
+  transition: .25s ease-in-out;
+  .action-btn {
+    font-size: 16px;
+    cursor: pointer;
+    width: 100%;
+    height: 32px;
+    line-height: 32px;
+    text-align: center;
+    border-bottom: 1px solid var(--schema-color-bg-deep);
+    &:hover {
+      background-color: var(--schema-color-bg-deep);
+    }
+  }
+}
+</style>

@@ -1,11 +1,9 @@
 import Mock from 'mockjs'
 import { builder, getBody } from '../util'
-import menuList from '@/router/menus'
 
 // 默认的用户名密码
 const username = ['admin', 'wang']
 const password = ['admin', '123456']
-const testMenu = menuList
 
 const login = (options) => {
   // 拼装请求体
@@ -18,12 +16,6 @@ const login = (options) => {
 
 const info = (options) => {
   const userInfo = {
-    departCode: '10000',
-    departId: 'pre_ncloud_sys_depart_10000',
-    departKind: 'DOMAIN',
-    departName: '信用办',
-    functions: [...testMenu],
-    permissions: {},
     realName: 'Wang',
     roleCodes: 'ROLE_ADMIN',
     roleNames: '王彬',

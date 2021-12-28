@@ -2,6 +2,15 @@
   <div :class="['toolbox-panel-wp', { 'is-hide':!toolbar.toolbox }]">
     <div class="toolbox-panel" flex="main:justify">
       <div style="width: 500px;" flex>
+        <b-button size="mini" @click="undo">
+          <i class="action-btn b-iconfont b-icon-rollback"></i>
+          撤销
+        </b-button>
+        <b-button size="mini" @click="redo">
+          <i class="action-btn b-iconfont b-icon-rollback" style="transform: rotateY(180deg);" />
+          重做
+        </b-button>
+        <div></div>
         <div class="btn-box">参考线&nbsp;&nbsp;
           <b-switch v-model="toolbox.referLine" size="small"></b-switch>
         </div>
@@ -16,28 +25,20 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
 import { MessageBox } from 'bin-ui-next'
 
-export default {
-  name: 'toolbox-panel',
-  setup() {
-    const { store, toolbar, toolbox } = useSchemaStore()
-    const clearCanvas = () => {
-      MessageBox.confirm({
-        type: 'error',
-        title: '确认清空画布吗？请谨慎操作！',
-      }).then(() => {
-        store.dispatch('schema/clearScreen')
-      }).catch(() => {
-      })
-    }
-    return {
-      toolbar,
-      toolbox,
-      clearCanvas,
-    }
-  },
+const { store, toolbar, toolbox } = useSchemaStore()
+const clearCanvas = () => {
+  MessageBox.confirm({
+    type: 'error',
+    title: '确认清空画布吗？请谨慎操作！',
+  }).then(() => {
+    store.dispatch('schema/clearScreen')
+  }).catch(() => {
+  })
 }
+const undo = () => store.dispatch('schema/undo')
+const redo = () => store.dispatch('schema/redo')
 </script>

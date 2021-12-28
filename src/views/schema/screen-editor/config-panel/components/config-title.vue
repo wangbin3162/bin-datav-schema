@@ -74,6 +74,7 @@ export default {
     }
     .alias-name {
       max-width: 160px;
+      line-height: 24px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;

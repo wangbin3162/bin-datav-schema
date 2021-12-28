@@ -21,13 +21,13 @@
     <g-field label="图表位置" flat>
       <g-input-number
         v-model="attr.x"
-        label="offsetX"
+        label="X"
         inline
         suffix="px"
       />
       <g-input-number
         v-model="attr.y"
-        label="offsetY"
+        label="Y"
         inline
         suffix="px"
       />

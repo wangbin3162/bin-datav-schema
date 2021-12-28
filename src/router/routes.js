@@ -1,4 +1,3 @@
-import layout from '@/layouts/index.vue'
 import { HOME_NAME } from '@/router/menus'
 
 /**
@@ -6,22 +5,10 @@ import { HOME_NAME } from '@/router/menus'
  */
 export const asyncRouterMap = [
   {
-    path: 'pivotDemo',
-    name: 'PivotDemo',
-    component: () => import('@/views/demo/graph/pivot-demo/index.vue'),
-    meta: { title: '交叉表' },
-  },
-  {
-    path: 'datasetDemo',
-    name: 'DatasetDemo',
-    component: () => import('@/views/demo/graph/dataset-demo/index.vue'),
-    meta: { title: '分析模型' },
-  },
-  {
-    path: 'dashboardDemo',
-    name: 'DashboardDemo',
-    component: () => import('@/views/demo/graph/dashboard-demo/index.vue'),
-    meta: { title: '仪表板' },
+    path: 'dataCenter',
+    name: 'DataCenter',
+    component: () => import('@/views/data-center/index.vue'),
+    meta: { title: '数据中心' },
   },
 ]
 
@@ -35,25 +22,19 @@ export function createRoutesInLayout(routes = []) {
       path: '/',
       redirect: { name: 'Dashboard' },
       name: 'Root',
-      component: layout,
+      component: () => import('@/views/home/index.vue'),
       children: [
         {
           path: 'dashboard',
           name: 'Dashboard',
           meta: { title: HOME_NAME },
-          component: () => import('@/views/dashboard/workbench/index.vue'),
+          component: () => import('@/views/analysis-dashboard/index.vue'),
         },
         // 刷新页面 必须保留
         {
           path: 'redirect/:path(.*)',
           name: 'Redirect',
           component: () => import('@/views/system/redirect/index.vue'),
-        },
-        // 错误页面
-        {
-          path: '/:path(.*)*',
-          name: 'ErrorPage',
-          component: () => import('@/views/system/error/index.vue'),
         },
         ...routes,
       ],
@@ -74,11 +55,11 @@ export const routesOutLayout = [
     name: 'Login',
     component: () => import('@/views/system/login.vue'),
   },
-  // 分析看板
+  // 建模看板
   {
-    path: '/schema/cube',
+    path: '/model/cube',
     name: 'Cube',
-    component: () => import('@/views/schema/cube/index.vue'),
+    component: () => import('@/views/analysis-model-cube/index.vue'),
   },
   {
     path: '/schema/screen',
@@ -98,6 +79,12 @@ export const routesOutLayout = [
   {
     path: '/notfound',
     name: 'NotFound',
+    component: () => import('@/views/system/error/index.vue'),
+  },
+  // 错误页面
+  {
+    path: '/:path(.*)*',
+    name: 'ErrorPage',
     component: () => import('@/views/system/error/index.vue'),
   },
 ]

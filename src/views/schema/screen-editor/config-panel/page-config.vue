@@ -3,11 +3,14 @@
     <div class="page-config-top">页面设置</div>
     <div class="page-config-content">
       <div class="page-config-wp">
+        <g-field label="屏幕设置" flat>
+          <g-group-select v-model="screenLabel" :data="pageMap" @change="sizeChange" />
+        </g-field>
         <g-field label="屏幕大小" flat>
           <g-input-number
             v-model="pageConfig.width"
             label="宽度"
-            :min="1000"
+            :min="375"
             :max="3840"
             inline
             suffix="px"
@@ -30,7 +33,7 @@
           <g-upload-img v-model="pageConfig.bgImage"></g-upload-img>
         </g-field>
         <g-field label="背景预设" tooltip="可以加载对应预设的图片背景">
-          <g-images-select v-model="pageConfig.bgImage" :images="backgroundImages" value-key="src" />
+          <g-images-select v-model="pageConfig.bgImage" :images="['bg']" value-key="src" />
         </g-field>
         <g-field label="重置">
           <b-button type="primary" size="small" @click="resetBGImage">恢复默认背景</b-button>
@@ -52,27 +55,68 @@
 
 <script>
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
-import { getBgPath } from '@/utils/env'
-import { backgroundImages } from '@/components/Schema/media/config/background'
+import { getImagesPath } from '@/utils/env'
+import { mobileScreenMap, webScreenMap } from '@/config/enum'
+import { ref, watch } from 'vue'
 
 export default {
   name: 'page-config',
   setup() {
-    const { pageConfig, autoCanvasScale } = useSchemaStore()
+    const { pageConfig, autoCanvasScale, setScreenSize } = useSchemaStore()
+    const screenLabel = ref('')
 
     const resetBGImage = () => {
       pageConfig.value.bgColor = '#0d2a42'
-      pageConfig.value.bgImage = getBgPath('bg.png')
+      pageConfig.value.bgImage = getImagesPath('/background/background0.png')
     }
 
     const onSizeChange = async () => {
       await autoCanvasScale()
     }
+
+    const sizeChange = (value) => {
+      if (value !== 'custom') {
+        const val = value.split('x')
+        const width = +val[0]
+        const height = +val[1]
+        setScreenSize({ width, height })
+      }
+    }
+
+    watch([() => pageConfig.value.width, () => pageConfig.value.height], () => {
+      const { width, height } = pageConfig.value
+      if (
+        (width === 1920 && height === 1080) ||
+        (width === 2560 && height === 1080) ||
+        (width === 3440 && height === 1080) ||
+        (width === 3440 && height === 1440) ||
+        (width === 414 && height === 736) ||
+        (width === 375 && height === 667) ||
+        (width === 375 && height === 812)
+      ) {
+        screenLabel.value = `${width}x${height}`
+      } else {
+        screenLabel.value = 'custom'
+      }
+    }, { immediate: true })
+
     return {
+      screenLabel,
       onSizeChange,
       resetBGImage,
-      backgroundImages,
       pageConfig,
+      pageMap: [
+        {
+          group: 'web端',
+          data: webScreenMap.map(i => ({ value: `${i.width}x${i.height}`, label: i.label })),
+        },
+        {
+          group: '移动设备',
+          data: mobileScreenMap.map(i => ({ value: `${i.width}x${i.height}`, label: i.label })),
+        },
+        { group: '其他', data: [{ value: 'custom', label: '自定义' }] },
+      ],
+      sizeChange,
     }
   },
 }
