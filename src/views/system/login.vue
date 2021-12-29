@@ -8,7 +8,7 @@
           <!-- logo -->
           <div class="page-login--logo">
             <img src="@/assets/images/logo/logo.png" alt="logo">
-            <span>{{ $store.state.app.projectName }}</span>
+            <span>{{ title }}</span>
           </div>
           <!-- 表单 -->
           <div class="form">
@@ -17,7 +17,7 @@
                 <b-input
                   type="text"
                   v-model="formLogin.username"
-                  placeholder="用户名"
+                  placeholder="测试用户名：admin"
                   size="large"
                   @keydown.enter="submit"
                 >
@@ -30,7 +30,7 @@
                 <b-input
                   type="password"
                   v-model="formLogin.password"
-                  placeholder="密码"
+                  placeholder="测试密码：123456"
                   size="large"
                   @keydown.enter="submit"
                 >
@@ -39,22 +39,22 @@
                   </template>
                 </b-input>
               </b-form-item>
-              <b-form-item prop="verycode">
-                <div flex="main:justify cross:center">
-                  <b-input
-                    type="text"
-                    v-model="formLogin.verycode"
-                    size="large"
-                    style="width: 73%;"
-                    @keydown.enter="submit"
-                  >
-                    <template #prefix>
-                      <b-icon name="code" size="16"></b-icon>
-                    </template>
-                  </b-input>
-                  <span class="login-code"><img src="@/assets/images/login-code.png" alt="code"></span>
-                </div>
-              </b-form-item>
+              <!--              <b-form-item prop="verycode">-->
+              <!--                <div flex="main:justify cross:center">-->
+              <!--                  <b-input-->
+              <!--                    type="text"-->
+              <!--                    v-model="formLogin.verycode"-->
+              <!--                    size="large"-->
+              <!--                    style="width: 73%;"-->
+              <!--                    @keydown.enter="submit"-->
+              <!--                  >-->
+              <!--                    <template #prefix>-->
+              <!--                      <b-icon name="code" size="16"></b-icon>-->
+              <!--                    </template>-->
+              <!--                  </b-input>-->
+              <!--                  <span class="login-code"><img src="@/assets/images/login-code.png" alt="code"></span>-->
+              <!--                </div>-->
+              <!--              </b-form-item>-->
               <b-button
                 @click="submit"
                 :loading="loading"
@@ -77,6 +77,7 @@
 import { login } from '@/api/modules/login.api'
 import { throwError } from '@/utils/util'
 import { defineAsyncComponent } from 'vue'
+import config from '../../../package.json'
 
 export default {
   name: 'Login',
@@ -87,8 +88,8 @@ export default {
     return {
       // 表单
       formLogin: {
-        username: 'admin',
-        password: '123456',
+        username: '',
+        password: '',
         verycode: '',
         uuid: '',
       },
@@ -99,6 +100,7 @@ export default {
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
         verycode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
       },
+      title: config.description,
     }
   },
   methods: {
@@ -172,7 +174,7 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 340px;
+        width: 360px;
         height: 70px;
         margin-bottom: 1em;
         margin-top: -1em;
@@ -181,7 +183,7 @@ export default {
         }
         span {
           font-family: YouSheBiaoTiHei, PingFangSC-Medium, PingFang SC, Microsoft YaHei, Arial, Helvetica, sans-serif;
-          padding-left: 12px;
+          padding-left: 8px;
           font-size: 36px;
           color: #fff;
         }
