@@ -1,74 +1,93 @@
 // 数据分析模板操作
-import { deepCopy, isEmpty } from '@/utils/util'
+import { deepCopy, findIndex, isEmpty } from '@/utils/util'
 import ldb from '@/config/localforage-db'
 import dayjs from 'dayjs'
 import axios from 'axios'
 import { getPublicPath } from '@/utils/env'
 import { fetchData } from '@/api/request'
 
-const TEMPLATES_KEY = 'templates_list'
+const TEMPLATES_KEY = 'TPL_LIST'
 
 // 保存为模板数据
-export function saveTemplate(data) {
-  return fetchData({
-    url: '/analysis/kanban/tpl/save',
-    method: 'post',
-    data,
-  })
+export async function saveTemplate(tpl) {
+  try {
+    const data = await ldb.getItem(TEMPLATES_KEY)
+    if (data) {
+      const tmp = JSON.parse(tpl.content)
+      data.push(tmp)
+      await ldb.setItem(TEMPLATES_KEY, data)
+    }
+    return true
+  } catch (e) {
+    return false
+  }
 }
 
 // 载入模板数据
-export function loadTemplate(id) {
-  return fetchData({
-    url: '/analysis/kanban/tpl/detail',
-    method: 'post',
-    data: { id },
-  })
+export async function loadTemplate(id) {
+  try {
+    const data = await ldb.getItem(TEMPLATES_KEY)
+    if (data) {
+      // 存在表
+      const index = data.findIndex(i => i.template.id === id)
+      if (index > -1) {
+        const v = data[index]
+        return {
+          id: v.template.id,
+          name: v.template.name,
+          content: JSON.stringify(v),
+        }
+      }
+    }
+    return null
+  } catch (e) {
+    return null
+  }
 }
 
 // 移除模板数据
-export function removeTemplate(id) {
-  return fetchData({
-    url: '/analysis/kanban/tpl/remove',
-    method: 'post',
-    data: { id },
-  })
+export async function removeTemplate(id) {
+  try {
+    const data = await ldb.getItem(TEMPLATES_KEY)
+    if (data) {
+      // 存在表
+      const index = data.findIndex(i => i.template.id === id)
+      data.splice(index, 1)
+      await ldb.setItem(TEMPLATES_KEY, data)
+    }
+    return true
+  } catch (e) {
+    return false
+  }
 }
 
 // 获取模板列表
-export function getTemplateList(query) {
-  return fetchData({
-    url: '/analysis/kanban/tpl/search',
-    method: 'post',
-    data: {
-      name: '',
-      page: 1,
-      size: 50,
-      ...query,
-    },
-  })
-}
-
-// 保存模板值模板列表
-async function saveTemp2List(id, name, pageConfig) {
+export async function getTemplateList(query) {
   try {
-    const { data: list } = await getTemplateList()
-    const index = list.findIndex(i => i.id === id)
-    const item = {
-      id,
-      name,
-      pageConfig,
-      updateDate: dayjs().format('YYYY/MM/DD HH:mm:ss'),
+    const data = await ldb.getItem(TEMPLATES_KEY)
+    if (data) {
+      return {
+        rows: data.map(v => ({
+          id: v.template.id,
+          name: v.template.name,
+          content: JSON.stringify(v),
+        })),
+        total: data.length,
+      }
     }
-    if (index > -1) {
-      list.splice(index, 1, item)
-    } else {
-      list.push(item)
+    const path = getPublicPath('/data/mock/temp_list.json')
+    const res = await axios.get(path)
+    const list = res.data
+    await ldb.setItem(TEMPLATES_KEY, list)
+    return {
+      rows: list.map(v => ({
+        id: v.template.id,
+        name: v.template.name,
+        content: JSON.stringify(v),
+      })),
+      total: list.length,
     }
-    // 再保存list
-    return await ldb.setItem(TEMPLATES_KEY, deepCopy(list))
   } catch (e) {
-    console.log('save mock screen data fail.')
-    return []
+    return { rows: [], total: 0 }
   }
 }

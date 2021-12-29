@@ -14,7 +14,7 @@ export const ApiType = {
 export function createDataSources() {
   return {
     [ApiType.static]: '静态数据',
-    [ApiType.model]: '模型数据',
+    // [ApiType.model]: '模型数据', // 静态版本，注释模型配置
   }
 }
 

@@ -1,6 +1,6 @@
-import { getImagesPath } from '@/utils/env'
+import { getCDNPath } from '@/utils/env'
 
-const getImgUrl = (name) => getImagesPath(`/header/${name}`)
+const getImgUrl = (name) => getCDNPath(`/header/${name}`)
 
 export const headerImages = [
   {

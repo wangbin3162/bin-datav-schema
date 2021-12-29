@@ -55,12 +55,6 @@ export const routesOutLayout = [
     name: 'Login',
     component: () => import('@/views/system/login.vue'),
   },
-  // 建模看板
-  {
-    path: '/model/cube',
-    name: 'Cube',
-    component: () => import('@/views/analysis-model-cube/index.vue'),
-  },
   {
     path: '/schema/screen',
     name: 'ScreenEditor',

@@ -109,7 +109,6 @@ export default {
           try {
             this.loading = true
             const { data } = await login(this.formLogin)
-            console.log(data)
             await this.loginSuccess(data)
           } catch (e) {
             throwError('login/requestFailed', e)

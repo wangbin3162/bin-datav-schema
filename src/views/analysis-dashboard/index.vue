@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="right-list">
-<!--        <kanban-list :group="{pid:selectedPid,name:selectedName}"></kanban-list>-->
+        <kanban-list :group="{pid:selectedPid,name:selectedName}"></kanban-list>
       </div>
     </div>
   </div>
@@ -61,7 +61,7 @@ import KanbanList from './kanban-list.vue'
 
 export default {
   name: 'AnalysisDashboard',
-  // components: { KanbanList },
+  components: { KanbanList },
   setup() {
     return {
       ...useFolder(),

@@ -1,0 +1,61 @@
+[
+  {
+    "template": {
+      "id": "temp_test",
+      "name": "测试模板"
+    },
+    "pageConfig": {
+      "width": 1920,
+      "height": 1080,
+      "bgColor": "#0d2a42",
+      "bgImage": "https://wangbin3162.gitee.io/bin-files/background/bg6.png",
+      "grid": 1,
+      "thumbnail": ""
+    },
+    "comps": [
+      {
+        "id": "MainTitle_6941",
+        "name": "VMainTitle",
+        "alias": "通用标题",
+        "type": "com",
+        "locked": false,
+        "hided": false,
+        "attr": {
+          "x": 507,
+          "y": 277,
+          "w": 300,
+          "h": 48,
+          "rotate": 0,
+          "opacity": 1
+        },
+        "apiData": {},
+        "events": {},
+        "icon": "file-word",
+        "config": {
+          "title": "我是标题数据",
+          "textStyle": {
+            "fontFamily": "Microsoft Yahei",
+            "fontSize": 24,
+            "color": "#fff",
+            "fontWeight": "normal"
+          },
+          "textAlign": "center",
+          "writingMode": "horizontal-tb",
+          "backgroundStyle": {
+            "show": false,
+            "bgColor": "#008bff",
+            "borderRadius": 15,
+            "borderColor": "#fff",
+            "borderStyle": "solid",
+            "borderWidth": 1
+          },
+          "ellipsis": false,
+          "urlConfig": {
+            "url": "",
+            "isBlank": false
+          }
+        }
+      }
+    ]
+  }
+]

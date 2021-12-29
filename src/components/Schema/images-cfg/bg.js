@@ -1,6 +1,6 @@
-import { getImagesPath } from '@/utils/env'
+import { getCDNPath } from '@/utils/env'
 
-const getImgUrl = (name) => getImagesPath(`/bg/${name}`)
+const getImgUrl = (name) => getCDNPath(`/background/${name}`)
 
 export const bgImages = [
   { id: 'bg1', name: '背景1', src: getImgUrl('bg1.jpg') },

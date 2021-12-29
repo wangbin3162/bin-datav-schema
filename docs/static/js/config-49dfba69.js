@@ -1,1 +1,0 @@
-import{P as a,I as e,C as s,K as i}from"./index-20325587.js";const g={alias:"\u5355\u5F20\u56FE\u7247",icon:"image",type:s.com,attr:{w:300,h:180},config:{backgroundImage:i("title.jpg"),repeat:"no-repeat",radius:2,urlConfig:{url:"",ifBlank:!1}},apis:{},apiData:{},events:{},actions:{}},n=[...a,...e];export{n as a,g as m};

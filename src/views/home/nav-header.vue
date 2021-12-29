@@ -102,7 +102,7 @@ export default {
       handleClick,
       welcome: 'Welcome to the data analysis system',
       version: config.version,
-      title: config.name.toUpperCase(),
+      title: config.description
     }
   },
 }

@@ -8,14 +8,14 @@
     @close="closeDialog"
   >
     <b-form label-width="80px" ref="formRef" :model="pageInfo" label-suffix=":">
-      <b-form-item label="所在目录" class="is-required">
-        <b-tree-select
-          :data="dirTree"
-          v-model="pageInfo.pid"
-          titleKey="text"
-          default-expand
-        ></b-tree-select>
-      </b-form-item>
+      <!--      <b-form-item label="所在目录" class="is-required">-->
+      <!--        <b-tree-select-->
+      <!--          :data="dirTree"-->
+      <!--          v-model="pageInfo.pid"-->
+      <!--          titleKey="text"-->
+      <!--          default-expand-->
+      <!--        ></b-tree-select>-->
+      <!--      </b-form-item>-->
       <b-form-item label="看板名称" prop="name" :rules="{ required: true, message: '看板名称不能为空', trigger: 'blur' }">
         <b-input v-model="pageInfo.name"></b-input>
       </b-form-item>

@@ -1,7 +1,7 @@
 import { useRoute } from 'vue-router'
 import { nextTick, watch, ref, provide } from 'vue'
 import useSchemaStore from '@/hooks/schema/useSchemaStore'
-import { getModelTree } from '@/api/modules/analysis-model.api'
+// import { getModelTree } from '@/api/modules/analysis-model.api'
 import { loadKanban } from '@/api/modules/analysis-dashboard.api'
 import { loadTemplate } from '@/api/modules/template.api'
 import { getCreateData } from '@/api/database.api'
@@ -10,11 +10,11 @@ export default function useCubePage() {
   const route = useRoute()
   const { loadScreenData, setScreenSize } = useSchemaStore()
   const loading = ref(false)
-  const modelTree = ref([])
-
-  getModelTree().then(res => {
-    modelTree.value = res ? [res] : []
-  })
+  // const modelTree = ref([])
+  //
+  // getModelTree().then(res => {
+  //   modelTree.value = res ? [res] : []
+  // })
 
   const getBaseInfo = async (id) => {
     try {
@@ -67,7 +67,7 @@ export default function useCubePage() {
     }
   }, { immediate: true })
 
-  provide('ModelTree', modelTree)
+  // provide('ModelTree', modelTree)
 
   return {
     loading,

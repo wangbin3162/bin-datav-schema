@@ -4,6 +4,9 @@ import { deepCopy, generateId } from '@/utils/util'
 import ldb from '@/config/localforage-db'
 import { webScreenMap } from '@/config/enum'
 
+const PREVIEW_KEY = 'SCREEN_PREVIEW'
+const CREATE_KEY = 'SCREEN_CREATE'
+
 /**
  * 保存预览大屏数据
  * @param screenData
@@ -14,10 +17,9 @@ import { webScreenMap } from '@/config/enum'
  * }
  */
 export async function saveScreenPreview(screenData) {
-  const key = 'screen_preview'
   screenData.pageInfo.id = screenData.pageInfo.id || `screen_${generateId()}`
   try {
-    return await ldb.setItem(key, deepCopy(screenData))
+    return await ldb.setItem(PREVIEW_KEY, deepCopy(screenData))
   } catch (e) {
     console.log(e)
     return null
@@ -29,7 +31,7 @@ export async function saveScreenPreview(screenData) {
  */
 export async function loadScreenPreview() {
   try {
-    return await ldb.getItem('screen_preview')
+    return await ldb.getItem(PREVIEW_KEY)
   } catch (e) {
     throw new Error('404')
   }
@@ -67,9 +69,8 @@ export const defaultCreateObj = {
  * }
  */
 export async function saveCreateData(createData) {
-  const key = 'screen_create'
   try {
-    return await ldb.setItem(key, deepCopy(createData))
+    return await ldb.setItem(CREATE_KEY, deepCopy(createData))
   } catch (e) {
     console.log(e)
     return { ...defaultCreateObj }
@@ -81,7 +82,7 @@ export async function saveCreateData(createData) {
  */
 export async function getCreateData() {
   try {
-    return await ldb.getItem('screen_create')
+    return await ldb.getItem(CREATE_KEY)
   } catch (e) {
     return { ...defaultCreateObj }
   }

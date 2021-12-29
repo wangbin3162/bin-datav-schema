@@ -1,6 +1,6 @@
-import { getImagesPath } from '@/utils/env'
+import { getCDNPath } from '@/utils/env'
 
-const getImgUrl = (name) => getImagesPath(`/widget/${name}`)
+const getImgUrl = (name) => getCDNPath(`/widget/${name}`)
 
 export const widgetImages = [
   {

@@ -1,7 +1,7 @@
 {
   "name": "bin-datav-schema",
   "version": "1.0.0",
-  "description": "数据分析平台",
+  "description": "数据可视化分析平台",
   "homepage": "https://github.com/wangbin3162/bin-datav-schema",
   "keywords": [
     "bin-ui-next",
