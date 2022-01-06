@@ -55,6 +55,7 @@
         <div class="transform-bg"></div>
       </div>
     </div>
+    <i v-if="data.locked" class="b-iconfont b-icon-lock" title="解锁" @click.stop="data.locked = false"></i>
   </div>
 </template>
 
@@ -75,7 +76,7 @@ export default {
       required: true,
     },
   },
-  setup(props, ctx) {
+  setup(props) {
     const instance = getCurrentInstance()
     const {
       canvas,
