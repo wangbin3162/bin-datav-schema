@@ -63,14 +63,14 @@ export default {
               lineNode: lines.xt, // xt
               line: 'xt',
               dragShift: top,
-              lineShift: top * scale + 60,
+              lineShift: top,
             },
             {
               isNearly: isNearly(curComponentStyle.bottom, top),
               lineNode: lines.xt, // xt
               line: 'xt',
               dragShift: top - curComponentStyle.height,
-              lineShift: top * scale + 60,
+              lineShift: top,
             },
             {
               // 组件与拖拽节点的中间是否对齐
@@ -78,21 +78,21 @@ export default {
               lineNode: lines.xc, // xc
               line: 'xc',
               dragShift: top + componentHalfHeight - curComponentHalfHeight,
-              lineShift: (top + componentHalfHeight) * scale + 60,
+              lineShift: (top + componentHalfHeight),
             },
             {
               isNearly: isNearly(curComponentStyle.top, bottom),
               lineNode: lines.xb, // xb
               line: 'xb',
               dragShift: bottom,
-              lineShift: bottom * scale + 60,
+              lineShift: bottom,
             },
             {
               isNearly: isNearly(curComponentStyle.bottom, bottom),
               lineNode: lines.xb, // xb
               line: 'xb',
               dragShift: bottom - curComponentStyle.height,
-              lineShift: bottom * scale + 60,
+              lineShift: bottom,
             },
           ],
           left: [
@@ -101,14 +101,14 @@ export default {
               lineNode: lines.yl, // yl
               line: 'yl',
               dragShift: left,
-              lineShift: left * scale + 60,
+              lineShift: left,
             },
             {
               isNearly: isNearly(curComponentStyle.right, left),
               lineNode: lines.yl, // yl
               line: 'yl',
               dragShift: left - curComponentStyle.width,
-              lineShift: left * scale + 60,
+              lineShift: left,
             },
             {
               // 组件与拖拽节点的中间是否对齐
@@ -116,21 +116,21 @@ export default {
               lineNode: lines.yc, // yc
               line: 'yc',
               dragShift: left + componentHalfWidth - curComponentHalfWidth,
-              lineShift: (left + componentHalfWidth) * scale + 60,
+              lineShift: (left + componentHalfWidth),
             },
             {
               isNearly: isNearly(curComponentStyle.left, right),
               lineNode: lines.yr, // yr
               line: 'yr',
               dragShift: right,
-              lineShift: right * scale + 60,
+              lineShift: right,
             },
             {
               isNearly: isNearly(curComponentStyle.right, right),
               lineNode: lines.yr, // yr
               line: 'yr',
               dragShift: right - curComponentStyle.width,
-              lineShift: right * scale + 60,
+              lineShift: right,
             },
           ],
         }
@@ -142,9 +142,12 @@ export default {
           conditions[key].forEach((condition) => {
             if (!condition.isNearly) return
             // 修改当前组件位移
-            const value = rotate !== 0 ? translateCurComponentShift(key, condition, curComponentStyle) : condition.dragShift
+            const value = rotate !== 0
+              ? translateCurComponentShift(key, condition, curComponentStyle)
+              : condition.dragShift
+            console.log(top, left, bottom, right, width, height)
             setSingleComAttr({ key, value })
-            condition.lineNode.style[key] = `${condition.lineShift}px`
+            condition.lineNode.style[key] = `${condition.lineShift * scale + 60}px`
             needToShow.push(condition.line)
           })
         })
@@ -157,11 +160,11 @@ export default {
     }
 
     const translateCurComponentShift = (key, condition, curComponentStyle) => {
-      const { width, height } = curComponentStyle
+      const { w, h } = selectedCom.value.attr
       if (key === 'top') {
-        return Math.round(condition.dragShift - (height - curComponentStyle.height) / 2)
+        return Math.round(condition.dragShift - (h - curComponentStyle.height) / 2)
       }
-      return Math.round(condition.dragShift - (width - curComponentStyle.width) / 2)
+      return Math.round(condition.dragShift - (w - curComponentStyle.width) / 2)
     }
 
     const chooseTheTureLine = (needToShow, isDownward, isRightward) => {

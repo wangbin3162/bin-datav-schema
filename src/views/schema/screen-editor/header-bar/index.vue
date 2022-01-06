@@ -1,4 +1,4 @@
- <template>
+<template>
   <div class="header-container">
     <div class="left-actions">
       <b-space size="mini">
