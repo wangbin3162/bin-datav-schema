@@ -52,7 +52,8 @@ export default {
 
       hideLine()
       components.forEach(component => {
-        if (component.id === currentComp.id) return
+        // 优化，禁用和锁定的不予吸附
+        if (component.id === currentComp.id || component.locked || component.hided) return
         const { top, left, bottom, right, width, height } = getComponentRotatedStyle(compStyle(component.attr))
         const componentHalfWidth = width / 2
         const componentHalfHeight = height / 2
