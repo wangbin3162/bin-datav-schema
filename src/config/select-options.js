@@ -102,6 +102,18 @@ export const echartsLabelPositions = [
   { value: 'insideBottomRight', label: '内-底部居右' },
 ]
 
+export const pieLabelPosition = [
+  { value: 'outside', label: '扇区外侧' },
+  { value: 'inside', label: '扇区内部' },
+  { value: 'center', label: '中心' },
+]
+
+export const pieLabelAlign = [
+  { value: 'none', label: '默认值' },
+  { value: 'labelLine', label: '末端对齐' },
+  { value: 'edge', label: '文字对齐' },
+]
+
 export const selectSuggests = [
   { value: 'auto', label: '自适应' },
   { value: 'dataMin', label: '数据最小值' },
@@ -123,8 +135,8 @@ export const legendLocations = [
   { value: 'top-left', label: '顶部居左' },
   { value: 'top-center', label: '顶部居中' },
   { value: 'top-right', label: '顶部居右' },
-  { value: 'mvaluedle-left', label: '左侧居中' },
-  { value: 'mvaluedle-right', label: '右侧居中' },
+  { value: 'middle-left', label: '左侧居中' },
+  { value: 'middle-right', label: '右侧居中' },
   { value: 'bottom-left', label: '底部居左' },
   { value: 'bottom-center', label: '底部居中' },
   { value: 'bottom-right', label: '底部居右' },

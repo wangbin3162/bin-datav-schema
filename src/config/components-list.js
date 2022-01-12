@@ -41,7 +41,7 @@ export const VBasicPie = {
   alias: '基本饼图',
   img: getComPath('basic-pie.png'),
   type: 'pie',
-  used: false,
+  used: true,
 }
 // 地图-基本地图
 export const VBasicMap = {
@@ -140,12 +140,12 @@ export const list = [
     icon: 'linechart',
     data: [VBasicLine, VBasicArea],
   },
-  // {
-  //   type: 'pie',
-  //   name: '饼图',
-  //   icon: 'piechart',
-  //   data: [VBasicPie],
-  // },
+  {
+    type: 'pie',
+    name: '饼图',
+    icon: 'piechart',
+    data: [VBasicPie],
+  },
   // {
   //   type: 'map',
   //   name: '地图',

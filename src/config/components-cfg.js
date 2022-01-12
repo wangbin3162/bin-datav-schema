@@ -14,6 +14,7 @@ import { horiBasicBarConfig } from '@/components/Schema/bar/hori-basic-bar/confi
 import { basicLineConfig } from '@/components/Schema/line/basic-line/config'
 import { basicAreaConfig } from '@/components/Schema/line/basic-area/config'
 import { scrollTableConfig } from '@/components/Schema/table/scroll-table/config'
+import { basicPieConfig } from '@/components/Schema/pie/basic-pie/config'
 
 const DatavComponent = {
   id: '',
@@ -58,6 +59,8 @@ export function createComponent(name) {
       return mergeConfig('BasicLine', basicLineConfig)
     case 'BasicArea':
       return mergeConfig('BasicArea', basicAreaConfig)
+    case 'BasicPie':
+      return mergeConfig('BasicPie', basicPieConfig)
     case 'ScrollTable':
       return mergeConfig('ScrollTable', scrollTableConfig)
     case 'MainTitle':

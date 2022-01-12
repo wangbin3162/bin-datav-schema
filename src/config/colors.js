@@ -1,14 +1,14 @@
 export const defaultColors = [
   '#00baff',
-  '#3de7c9',
-  '#94e08a',
-  '#6F5EF9',
-  '#fbf320',
-  '#ff69fa',
-  '#5D7092',
-  '#ff05ca',
-  '#6DC8EC',
-  '#FF99C3',
+  '#5470c6',
+  '#91cc75',
+  '#fac858',
+  '#ee6666',
+  '#73c0de',
+  '#3ba272',
+  '#fc8452',
+  '#9a60b4',
+  '#ea7ccc',
 ]
 
 export const colorsOther = [
@@ -17,7 +17,7 @@ export const colorsOther = [
   '#406C85',
   '#F6BD16',
   '#B40F0F',
-  '#2FB8FC',
+  '#3de7c9',
   '#4435FF',
   '#FF5CA2',
   '#BBE800',
