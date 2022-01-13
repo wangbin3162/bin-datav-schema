@@ -1,8 +1,8 @@
 // 基本饼图配置项
 import { initApiData, ComType } from '@/config/data-source'
 
-export const basicPieConfig = {
-  alias: '基本饼图',
+export const basicRingConfig = {
+  alias: '基本环图',
   icon: 'piechart',
   type: ComType.com,
   componentType: 'pie',
@@ -11,9 +11,9 @@ export const basicPieConfig = {
     global: {
       fontFamily: 'Microsoft Yahei',
       center: ['50%', '50%'],
-      radius: ['0', '75%'],
+      radius: ['50%', '75%'],
       roseType: false,
-      borderRadius: 0,
+      borderRadius: 5,
     },
     label: {
       show: true,

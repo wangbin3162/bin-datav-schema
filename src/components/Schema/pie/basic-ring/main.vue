@@ -15,7 +15,7 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { defaultColors } from '@/config/colors'
 
 export default {
-  name: 'VBasicPie',
+  name: 'VBasicRing',
   props: {
     data: {
       type: Object,

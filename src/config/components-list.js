@@ -43,6 +43,14 @@ export const VBasicPie = {
   type: 'pie',
   used: true,
 }
+// 饼图-基本环图
+export const VBasicRing = {
+  name: 'VBasicRing',
+  alias: '基本环图',
+  img: getComPath('basic-pie.png'),
+  type: 'pie',
+  used: true,
+}
 // 地图-基本地图
 export const VBasicMap = {
   name: 'VBasicMap',
@@ -144,7 +152,7 @@ export const list = [
     type: 'pie',
     name: '饼图',
     icon: 'piechart',
-    data: [VBasicPie],
+    data: [VBasicPie, VBasicRing],
   },
   // {
   //   type: 'map',

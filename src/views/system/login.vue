@@ -7,7 +7,7 @@
         <div class="main" flex="dir:top main:center cross:center">
           <!-- logo -->
           <div class="page-login--logo">
-            <img src="@/assets/images/logo/logo.png" alt="logo">
+            <img src="@/assets/images/logo/logo.png" alt="logo" />
             <span>{{ title }}</span>
           </div>
           <!-- 表单 -->
@@ -82,14 +82,16 @@ import config from '../../../package.json'
 export default {
   name: 'Login',
   components: {
-    BackgroundParticles: defineAsyncComponent(() => import('@/components/Common/BackgroundParticles/index.vue')),
+    BackgroundParticles: defineAsyncComponent(() =>
+      import('@/components/Common/BackgroundParticles/index.vue'),
+    ),
   },
   data() {
     return {
       // 表单
       formLogin: {
-        username: '',
-        password: '',
+        username: 'admin',
+        password: '123456',
         verycode: '',
         uuid: '',
       },

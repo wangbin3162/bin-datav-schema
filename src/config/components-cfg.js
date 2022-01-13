@@ -15,6 +15,7 @@ import { basicLineConfig } from '@/components/Schema/line/basic-line/config'
 import { basicAreaConfig } from '@/components/Schema/line/basic-area/config'
 import { scrollTableConfig } from '@/components/Schema/table/scroll-table/config'
 import { basicPieConfig } from '@/components/Schema/pie/basic-pie/config'
+import { basicRingConfig } from '@/components/Schema/pie/basic-ring/config'
 
 const DatavComponent = {
   id: '',
@@ -61,6 +62,8 @@ export function createComponent(name) {
       return mergeConfig('BasicArea', basicAreaConfig)
     case 'BasicPie':
       return mergeConfig('BasicPie', basicPieConfig)
+    case 'BasicRing':
+      return mergeConfig('BasicRing', basicRingConfig)
     case 'ScrollTable':
       return mergeConfig('ScrollTable', scrollTableConfig)
     case 'MainTitle':

@@ -3,6 +3,7 @@ import VHorizontalBar from './bar/hori-basic-bar'
 import VBasicLine from './line/basic-line'
 import VBasicArea from './line/basic-area'
 import VBasicPie from './pie/basic-pie'
+import VBasicRing from './pie/basic-ring'
 import VMainTitle from './text/main-title'
 import VNumberTitleFlop from './text/number-title-flop'
 import VTimer from './text/timer'
@@ -18,6 +19,7 @@ const components = [
   VBasicLine,
   VBasicArea,
   VBasicPie,
+  VBasicRing,
   VMainTitle,
   VNumberTitleFlop,
   VTimer,
@@ -30,7 +32,7 @@ const components = [
 
 export function registerVCharts(app) {
   // sync register
-  components.forEach(component => {
+  components.forEach((component) => {
     app.use(component)
   })
 }
