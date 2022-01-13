@@ -3,7 +3,7 @@
     <b-charts :options="options" style="width:100%;height: 100%;" ref="chartRef"></b-charts>
     <g-breadcrumb
       v-if="couldDrill"
-      v-bind="{drillData, drillIndex, drillFilters}"
+      v-bind="{ drillData, drillIndex, drillFilters }"
       @scroll-up="dvScrollUp"
     />
   </div>

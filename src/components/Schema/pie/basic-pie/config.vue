@@ -11,28 +11,17 @@
           :min="0"
           :max="300"
           :step="1"
-          suffix="px" />
+          suffix="px"
+        />
       </g-field>
 
       <g-field label="中心位置" flat tooltip="饼图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标/支持设置成百分比">
-        <g-input
-          v-model="config.global.center[0]"
-          inline="inline"
-          label="水平位置"
-        />
-        <g-input
-          v-model="config.global.center[1]"
-          inline="inline"
-          label="垂直位置"
-        />
+        <g-input v-model="config.global.center[0]" inline="inline" label="水平位置" />
+        <g-input v-model="config.global.center[1]" inline="inline" label="垂直位置" />
       </g-field>
 
       <g-field label="饼图半径" flat tooltip="饼图的半径，值为<number|string>，可设置可视区域百分比">
-        <g-input
-          v-model="config.global.radius[1]"
-          inline="inline"
-          label="半径"
-        />
+        <g-input v-model="config.global.radius[1]" inline="inline" label="半径" />
       </g-field>
 
       <g-field label="南丁格尔图">
@@ -73,20 +62,10 @@
         <g-select v-model="config.label.alignTo" :data="pieLabelAlign" />
       </g-field>
       <g-field label="出血线大小">
-        <g-slider
-          v-model="config.label.bleedMargin"
-          :min="0"
-          :max="100"
-          :step="1"
-        />
+        <g-slider v-model="config.label.bleedMargin" :min="0" :max="100" :step="1" />
       </g-field>
       <g-field label="字线距离" tooltip="文字与 label line 之间的距离">
-        <g-slider
-          v-model="config.label.distanceToLabelLine"
-          :min="0"
-          :max="100"
-          :step="1"
-        />
+        <g-slider v-model="config.label.distanceToLabelLine" :min="0" :max="100" :step="1" />
       </g-field>
     </g-field-collapse>
     <g-field-collapse label="图例" toggle v-model="config.legend.show">
@@ -145,12 +124,7 @@
             inline
             label="间隔"
           />
-          <g-select
-            v-model="config.legend.symbol.icon"
-            :data="legendIcons"
-            inline
-            label="形状"
-          />
+          <g-select v-model="config.legend.symbol.icon" :data="legendIcons" inline label="形状" />
         </g-field>
       </g-field-collapse>
     </g-field-collapse>
@@ -192,7 +166,11 @@
           inline="inline"
           label="垂直边距"
         />
-        <g-color-picker v-model="config.tooltip.background.color" label="背景颜色" inline="inline-single" />
+        <g-color-picker
+          v-model="config.tooltip.background.color"
+          label="背景颜色"
+          inline="inline-single"
+        />
       </g-field>
     </g-field-collapse>
   </div>
