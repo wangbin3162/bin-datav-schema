@@ -4,6 +4,7 @@ import VBasicLine from './line/basic-line'
 import VBasicArea from './line/basic-area'
 import VBasicPie from './pie/basic-pie'
 import VBasicRing from './pie/basic-ring'
+import VBasicRadar from './radar/basic-radar'
 import VMainTitle from './text/main-title'
 import VNumberTitleFlop from './text/number-title-flop'
 import VTimer from './text/timer'
@@ -20,6 +21,7 @@ const components = [
   VBasicArea,
   VBasicPie,
   VBasicRing,
+  VBasicRadar,
   VMainTitle,
   VNumberTitleFlop,
   VTimer,

@@ -50,7 +50,6 @@ export default {
       const [legendTop, legendLeft] = legend.position.split('-')
       return {
         textStyle: { fontFamily: global.fontFamily },
-        grid: { ...global.margin },
         legend: {
           show: legend.show,
           top: legendTop,

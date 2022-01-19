@@ -15,7 +15,7 @@ import { computed, nextTick, onMounted, ref, watch } from 'vue'
 import { defaultColors } from '@/config/colors'
 
 export default {
-  name: 'VBasicRing',
+  name: 'VBasicRadar',
   props: {
     data: {
       type: Object,
@@ -43,9 +43,11 @@ export default {
     const chartData = computed(() => ({
       xData: dvData.value.xData ?? [],
       yData: dvData.value.yData ?? [],
+      indicator: dvData.value.indicator ?? [],
     }))
 
     const options = computed(() => {
+      console.log(chartData.value)
       const { global, tooltip, legend } = config.value
       const [legendTop, legendLeft] = legend.position.split('-')
       return {
@@ -73,39 +75,48 @@ export default {
           trigger: 'item',
           borderWidth: 0,
         },
+        radar: {
+          indicator: chartData.value.indicator,
+          shape: global.shape,
+          splitNumber: global.splitNumber,
+          center: global.center,
+          radius: global.radius,
+          splitLine: {
+            lineStyle: {
+              color: global.splitLine.lineStyle.color,
+            },
+          },
+          splitArea: {
+            show: global.splitArea.show,
+            areaStyle: { ...global.splitArea.areaStyle },
+          },
+          axisLine: {
+            lineStyle: { ...global.axisLine.lineStyle },
+          },
+        },
         series: getSeries(),
         color: defaultColors,
       }
     })
 
     const getSeries = () => {
-      const { global, label } = config.value
-      const { xData, yData } = chartData.value
+      const { label, series } = config.value
+      const { yData } = chartData.value
       // 根据返回数据进行遍历拼接
       return yData.map((item, index) => {
-        const sData = []
-        for (let i = 0; i < xData.length; i++) {
-          sData.push({ name: xData[i], value: item.data[i] })
-        }
         return {
-          type: 'pie',
+          type: 'radar',
           name: item.name ?? `系列${index + 1}`,
           label: {
             show: label.show,
             position: label.position,
             ...label.textStyle,
-            formatter: label.formatter || '{b}',
-            alignTo: label.alignTo,
-            bleedMargin: label.bleedMargin,
-            distanceToLabelLine: label.distanceToLabelLine,
+            formatter: label.formatter || '{c}',
           },
-          itemStyle: {
-            borderRadius: global.borderRadius,
+          areaStyle: {
+            opacity: series[index].areaStyle.opacity,
           },
-          center: global.center,
-          radius: global.radius,
-          roseType: global.roseType ? 'area' : false,
-          data: sData,
+          data: item.data,
         }
       })
     }

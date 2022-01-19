@@ -7,7 +7,7 @@ import { getComPath } from '@/utils/env'
 export const VBasicBar = {
   name: 'VBasicBar',
   alias: '基本柱图',
-  img: getComPath('basic-bar.png'),
+  img: getComPath('basic-bar.jpg'),
   type: 'bar',
   used: true,
 }
@@ -15,7 +15,7 @@ export const VBasicBar = {
 export const VHorizontalBar = {
   name: 'VHorizontalBar',
   alias: '基本条形图',
-  img: getComPath('hori-basic-bar.png'),
+  img: getComPath('hori-basic-bar.jpg'),
   type: 'bar',
   used: true,
 }
@@ -23,7 +23,7 @@ export const VHorizontalBar = {
 export const VBasicLine = {
   name: 'VBasicLine',
   alias: '基本折线图',
-  img: getComPath('basic-line.png'),
+  img: getComPath('basic-line.jpg'),
   type: 'line',
   used: true,
 }
@@ -31,7 +31,7 @@ export const VBasicLine = {
 export const VBasicArea = {
   name: 'VBasicArea',
   alias: '基本区域图',
-  img: getComPath('basic-area.png'),
+  img: getComPath('basic-area.jpg'),
   type: 'line',
   used: true,
 }
@@ -39,7 +39,7 @@ export const VBasicArea = {
 export const VBasicPie = {
   name: 'VBasicPie',
   alias: '基本饼图',
-  img: getComPath('basic-pie.png'),
+  img: getComPath('basic-pie.jpg'),
   type: 'pie',
   used: true,
 }
@@ -47,8 +47,16 @@ export const VBasicPie = {
 export const VBasicRing = {
   name: 'VBasicRing',
   alias: '基本环图',
-  img: getComPath('basic-pie.png'),
+  img: getComPath('basic-ring.jpg'),
   type: 'pie',
+  used: true,
+}
+// 地图-基本雷达图
+export const VBasicRadar = {
+  name: 'VBasicRadar',
+  alias: '基本雷达图',
+  img: getComPath('2d-china.png'),
+  type: 'map',
   used: true,
 }
 // 地图-基本地图
@@ -119,7 +127,7 @@ export const VMainImg = {
 export const VScrollTable = {
   name: 'VScrollTable',
   alias: '基础表格',
-  img: getComPath('carousel-table.png'),
+  img: getComPath('scroll-table.jpg'),
   type: 'table',
   used: true,
 }
@@ -153,6 +161,12 @@ export const list = [
     name: '饼图',
     icon: 'piechart',
     data: [VBasicPie, VBasicRing],
+  },
+  {
+    type: 'radar',
+    name: '雷达图',
+    icon: 'radarchart',
+    data: [VBasicRadar],
   },
   // {
   //   type: 'map',
