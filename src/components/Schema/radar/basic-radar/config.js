@@ -2,14 +2,6 @@
 import { initApiData, ComType } from '@/config/data-source'
 import { defaultColors } from '@/config/colors'
 
-export const BasicBarSeries = () => {
-  return defaultColors.map((item) => ({
-    areaStyle: {
-      opacity: 0.1,
-    },
-  }))
-}
-
 export const basicRadarConfig = {
   alias: '基本雷达图',
   icon: 'radarchart',
@@ -24,7 +16,18 @@ export const basicRadarConfig = {
       startAngle: 90,
       shape: 'polygon',
       splitNumber: 4,
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: 'rgba(211, 253, 250, 0.8)',
+        },
+      },
+      axisName: {
+        show: true,
+        color: 'rgba(211, 253, 250, 0.8)',
+      },
       splitLine: {
+        show: true,
         lineStyle: {
           color: ['rgba(211, 253, 250, 0.8)'],
         },
@@ -32,27 +35,23 @@ export const basicRadarConfig = {
       splitArea: {
         show: true,
         areaStyle: {
-          color: ['rgba(250,250,250,0.2)', 'rgba(210,219,238,0.2'],
+          color: ['rgba(250,250,250,0.3)', 'rgba(200,200,200,0.3)'],
         },
       },
-      axisLine: {
-        lineStyle: {
-          color: '#bbb',
-        },
+      symbolSize: 2,
+      areaStyle: {
+        opacity: 0.1,
       },
     },
     label: {
       show: false,
-      position: 'outside',
+      position: 'top',
       textStyle: {
         fontSize: 10,
         color: 'rgba(255, 255, 255, 0.6)',
         fontWeight: 'normal',
       },
       formatter: '',
-      alignTo: 'none',
-      bleedMargin: 10,
-      distanceToLabelLine: 5,
     },
     legend: {
       show: false,
@@ -83,7 +82,7 @@ export const basicRadarConfig = {
         color: 'rgba(0, 0, 0, 0.65)',
       },
     },
-    series: BasicBarSeries(),
+    color: defaultColors,
   },
   apiData: initApiData({ staticPath: 'radar/basic-radar' }),
   events: {

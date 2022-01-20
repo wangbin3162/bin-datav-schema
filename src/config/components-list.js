@@ -55,7 +55,7 @@ export const VBasicRing = {
 export const VBasicRadar = {
   name: 'VBasicRadar',
   alias: '基本雷达图',
-  img: getComPath('2d-china.png'),
+  img: getComPath('basic-radar.jpg'),
   type: 'map',
   used: true,
 }

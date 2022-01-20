@@ -12,7 +12,6 @@
 <script>
 import { useDataCenter } from '@/hooks/schema/useDataCenter'
 import { computed, nextTick, onMounted, ref, watch } from 'vue'
-import { defaultColors } from '@/config/colors'
 
 export default {
   name: 'VBasicRadar',
@@ -47,7 +46,6 @@ export default {
     }))
 
     const options = computed(() => {
-      console.log(chartData.value)
       const { global, tooltip, legend } = config.value
       const [legendTop, legendLeft] = legend.position.split('-')
       return {
@@ -77,11 +75,13 @@ export default {
         },
         radar: {
           indicator: chartData.value.indicator,
+          startAngle: global.startAngle,
           shape: global.shape,
           splitNumber: global.splitNumber,
           center: global.center,
           radius: global.radius,
           splitLine: {
+            show: global.splitLine.show,
             lineStyle: {
               color: global.splitLine.lineStyle.color,
             },
@@ -91,22 +91,30 @@ export default {
             areaStyle: { ...global.splitArea.areaStyle },
           },
           axisLine: {
-            lineStyle: { ...global.axisLine.lineStyle },
+            show: global.axisLine.show,
+            lineStyle: {
+              color: global.axisLine.lineStyle.color,
+            },
+          },
+          axisName: {
+            show: global.axisName.show,
+            color: global.axisName.color,
           },
         },
         series: getSeries(),
-        color: defaultColors,
+        color: config.value.color,
       }
     })
 
     const getSeries = () => {
-      const { label, series } = config.value
+      const { label, global } = config.value
       const { yData } = chartData.value
       // 根据返回数据进行遍历拼接
       return yData.map((item, index) => {
         return {
           type: 'radar',
           name: item.name ?? `系列${index + 1}`,
+          symbolSize: global.symbolSize,
           label: {
             show: label.show,
             position: label.position,
@@ -114,7 +122,7 @@ export default {
             formatter: label.formatter || '{c}',
           },
           areaStyle: {
-            opacity: series[index].areaStyle.opacity,
+            opacity: global.areaStyle.opacity,
           },
           data: item.data,
         }
