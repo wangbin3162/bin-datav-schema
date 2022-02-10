@@ -186,7 +186,7 @@ export default {
         span {
           font-family: YouSheBiaoTiHei, PingFangSC-Medium, PingFang SC, Microsoft YaHei, Arial, Helvetica, sans-serif;
           padding-left: 8px;
-          font-size: 36px;
+          font-size: 34px;
           color: #fff;
         }
       }

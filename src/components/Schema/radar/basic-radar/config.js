@@ -6,7 +6,7 @@ export const basicRadarConfig = {
   alias: '基本雷达图',
   icon: 'radarchart',
   type: ComType.com,
-  componentType: 'pie',
+  componentType: 'radar',
   attr: { w: 500, h: 300 },
   config: {
     global: {
