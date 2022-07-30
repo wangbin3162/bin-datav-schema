@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import useSetting from '@/hooks/store/useSetting'
 import { computed } from 'vue'
 import { Utils } from 'bin-ui-next'
 
@@ -22,7 +23,7 @@ export default {
     },
     size: {
       type: Number,
-      default: 24,
+      default: 28,
     },
     bg: Boolean,
     round: Boolean,
@@ -30,11 +31,13 @@ export default {
   },
   emits: ['click'],
   setup(props, { emit }) {
+    const { systemPrimary } = useSetting()
+
     const colorVar = computed(() => {
       const color = props.color
       if (!color) return null
       const colorMap = {
-        primary: '#1089ff',
+        primary: systemPrimary.value,
         success: '#52c41a',
         info: '#35495E',
         warning: '#fea638',

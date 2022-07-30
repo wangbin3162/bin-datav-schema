@@ -1,7 +1,7 @@
 <template>
   <div class="kanban-list-wp">
     <div class="new-box" @click="handleCreate">
-      <img src="@/assets/images/new-project.png">
+      <img src="@/assets/images/new-project.png" />
       <span class="text-title ellipsis">新建看板</span>
     </div>
     <div class="list-header">
@@ -19,7 +19,7 @@
           <div class="list-item-img">
             <div class="preview-image">
               <img v-if="item.pageConfig.bgImage" :src="item.pageConfig.bgImage" alt="" />
-              <img v-else src="@/assets/images/logo/logo.png" alt="default" style="width: 147px;height: 147px;">
+              <img v-else src="@/assets/images/logo/logo.png" alt="default" style="width: 147px; height: 147px" />
             </div>
             <div class="list-item-mask">
               <div class="action">
@@ -37,15 +37,12 @@
           </div>
           <div class="list-item-info">
             <div class="item-title" t-ellipsis>
-              <iconfont
-                :icon="item.directory === 'Y'?'folder':'linechart'"
-                :color="item.directory === 'Y'?'#fa8c16':'#1089ff'"
-              />
+              <iconfont icon="linechart" />
               <span>
                 {{ item.name }}
               </span>
             </div>
-            <b-tag :type="item.status === 'audited' ? 'success' : 'primary'" dot :tag-style="{color: '#999'}">
+            <b-tag :type="item.status === 'audited' ? 'success' : 'primary'" dot :tag-style="{ color: '#999' }">
               {{ item.status === 'audited' ? '已发布' : '待发布' }}
             </b-tag>
           </div>
@@ -53,17 +50,12 @@
       </li>
     </ul>
     <!--状态和分页-->
-    <div style="height: 200px;" v-show="listData.loading" flex="main:center cross:center">
+    <div style="height: 200px" v-show="listData.loading" flex="main:center cross:center">
       <svg-loading name="loading02" :width="100"></svg-loading>
     </div>
-    <b-empty v-show="!listData.loading && listData.rows.length===0">该分组下没有看板</b-empty>
-    <div class="t-center pb-24" v-show="!listData.loading && listData.total>query.size">
-      <b-page
-        :total="listData.total"
-        :current="query.page"
-        :page-size="query.size"
-        @change="pageChange"
-      ></b-page>
+    <b-empty v-show="!listData.loading && listData.rows.length === 0">该分组下没有看板</b-empty>
+    <div class="t-center pb-24" v-show="!listData.loading && listData.total > query.size">
+      <b-page :total="listData.total" :current="query.page" :page-size="query.size" @change="pageChange"></b-page>
     </div>
   </div>
   <create-kanban ref="createRef"></create-kanban>
@@ -81,8 +73,6 @@ import {
 } from '@/api/modules/analysis-dashboard.api'
 import { useRouter } from 'vue-router'
 import { Message, MessageBox } from 'bin-ui-next'
-import SvgLoading from '@/components/Common/SvgLoading/index.vue'
-import Iconfont from '@/components/Common/Iconfont/iconfont.vue'
 import CreateKanban from '@/views/analysis-dashboard/create-kanban.vue'
 
 const props = defineProps({
@@ -116,6 +106,7 @@ const getSearchList = async () => {
   try {
     listData.loading = true
     const res = await getDashboardList({ pid: props.group.pid, ...query })
+    console.log(res)
     listData.rows = (res.rows || []).map(item => {
       let json = {}
       try {
@@ -136,13 +127,13 @@ const getSearchList = async () => {
   }
   listData.loading = false
 }
-const pageChange = async (page) => {
+const pageChange = async page => {
   query.page = page
   await getSearchList()
 }
 
 // 预览页面
-const handlePreview = (item) => {
+const handlePreview = item => {
   let routeData = router.resolve({ path: `/screen/${item.id}` })
   window.open(routeData.href, '_blank')
 }
@@ -155,7 +146,7 @@ const resetModelObj = () => {
 }
 
 // 跳转分析看板编辑页
-const gotoDashboard = (id) => {
+const gotoDashboard = id => {
   let routeData = router.resolve({
     path: '/schema/screen',
     query: { id },
@@ -170,7 +161,7 @@ const handleCreate = () => {
 }
 
 // 编辑按钮
-const handleEdit = (item) => {
+const handleEdit = item => {
   resetModelObj()
   modelObj.id = item.id
   modelObj.pid = item.pid
@@ -180,7 +171,7 @@ const handleEdit = (item) => {
 }
 
 // 复制按钮
-const handleCopy = async (item) => {
+const handleCopy = async item => {
   try {
     const kanban = await loadKanban(item.id)
     kanban.name = `${kanban.name}_copy`
@@ -194,7 +185,7 @@ const handleCopy = async (item) => {
 }
 
 // 发布按钮
-const handlePublish = async (item) => {
+const handlePublish = async item => {
   if (item.status === 'audited') return
   try {
     await publishKanban(item.id)
@@ -206,26 +197,31 @@ const handlePublish = async (item) => {
 }
 
 // 删除模型或文件夹
-const removeDashboard = (id) => {
+const removeDashboard = id => {
   MessageBox.confirm({
     type: 'error',
     title: '删除后无法恢复，确认删除？',
-  }).then(async () => {
-    try {
-      await removeKanban(id)
-      await getSearchList()
-      Message.success('删除成功！')
-    } catch (e) {
-      throwError('kanban-list/removeDashboard', e)
-    }
-  }).catch(() => {
   })
+    .then(async () => {
+      try {
+        await removeKanban(id)
+        await getSearchList()
+        Message.success('删除成功！')
+      } catch (e) {
+        throwError('kanban-list/removeDashboard', e)
+      }
+    })
+    .catch(() => {})
 }
 
-watch(() => props.group, () => {
-  query.page = 1
-  getSearchList()
-}, { immediate: true, deep: true })
+watch(
+  () => props.group,
+  () => {
+    query.page = 1
+    getSearchList()
+  },
+  { immediate: true, deep: true },
+)
 </script>
 
 <style scoped lang="stylus">

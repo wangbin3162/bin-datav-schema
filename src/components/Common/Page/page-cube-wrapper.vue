@@ -1,14 +1,14 @@
 <template>
   <div class="page-cube-wrapper" ref="cubeRef">
     <div class="page-cube">
-      <div v-if="$slots.left" class="page-cube-left" :style="{width: leftWidth}">
+      <div v-if="$slots.left" class="page-cube-left" :style="{ width: leftWidth }">
         <div
           class="toggle"
-          :style="{left: leftWidth, opacity: leftExpand?null:1}"
-          :title="leftExpand?leftCollapseText:leftExpandText"
+          :style="{ left: leftWidth, opacity: leftExpand ? null : 1 }"
+          :title="leftExpand ? leftCollapseText : leftExpandText"
           @click="toggleLeft"
         >
-          <b-icon :name="leftExpand?'caret-left':'caret-right'"></b-icon>
+          <b-icon :name="leftExpand ? 'left' : 'right'"></b-icon>
         </div>
         <div class="cube-left-content" v-show="leftExpand">
           <slot name="left"></slot>
@@ -18,22 +18,18 @@
         class="page-cube-content"
         @mouseup="onResizeMouseUp"
         @mousemove="onResizeMouseMove"
-        :style="{width: rightWidth, cursor:active ? 'col-resize' : '', userSelect:active ? 'none' : ''}"
+        :style="{ width: rightWidth, cursor: active ? 'col-resize' : '', userSelect: active ? 'none' : '' }"
       >
-        <div v-if="$slots.default" :style="{height: $slots.draggable ? height+'px':'100%'}">
+        <div v-if="$slots.default" :style="{ height: $slots.draggable ? height + 'px' : '100%' }">
           <slot></slot>
         </div>
-        <div class="draggable-content" v-if="$slots.draggable" :style="{height: `calc(100% - ${height}px)`}">
+        <div class="draggable-content" v-if="$slots.draggable" :style="{ height: `calc(100% - ${height}px)` }">
           <div class="toggle">
             <i class="b-iconfont b-icon-caret-up" title="展开" @click="changeDragStatus('maximum')" />
             <i class="b-iconfont b-icon-caret-down" title="收起" @click="changeDragStatus('minimum')" />
             <i class="b-iconfont b-icon-creditcard-fill" title="默认高度" @click="changeDragStatus('default')" />
           </div>
-          <div
-            class="drag-handler"
-            draggable="true"
-            @mousedown="onResizeMouseDown"
-          ></div>
+          <div class="drag-handler" draggable="true" @mousedown="onResizeMouseDown"></div>
           <slot name="draggable"></slot>
         </div>
       </div>
@@ -82,7 +78,7 @@ export default {
       wrapHeight: 0,
     })
     const leftExpand = ref(true)
-    const leftWidth = computed(() => leftExpand.value ? props.leftDefaultWidth : '12px')
+    const leftWidth = computed(() => (leftExpand.value ? props.leftDefaultWidth : '12px'))
     const rightWidth = computed(() => {
       if (slots.left) {
         return leftExpand.value ? `calc(100% - ${props.leftDefaultWidth})` : '100%'
@@ -95,7 +91,7 @@ export default {
       leftExpand.value = !leftExpand.value
     }
 
-    const changeDragStatus = (type) => {
+    const changeDragStatus = type => {
       if (type === 'default') {
         status.height = props.defaultHeight
       } else if (type === 'maximum') {
@@ -115,7 +111,7 @@ export default {
       if (!slots.draggable) return
       status.active = false
     }
-    const onResizeMouseMove = (e) => {
+    const onResizeMouseMove = e => {
       if (!slots.draggable) return
       if (e.buttons === 0 || e.which === 0) {
         status.active = false
@@ -173,23 +169,25 @@ export default {
         position: absolute;
         z-index: 100;
         top: 16px;
+        transform: translateX(-10px);
         display: flex;
         align-items: center;
         justify-content: center;
-        transform: translate(-50%, 0);
-        width: 8px;
-        height: 100px;
+        width: 20px;
+        height: 40px;
         cursor: pointer;
-        background-color: #fafafa;
+        background-color: #fff;
+        border: 1px solid #e8e8e8;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, .12);
         transition: .15s ease;
-        border-radius: 4px;
-        box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.12);
         opacity: 0;
         > i {
           font-size: 12px;
         }
         &:hover {
-          background-color: #f3f3f3;
+          border-color: var(--bin-color-primary);
+          color: var(--bin-color-primary);
         }
       }
       &:hover {

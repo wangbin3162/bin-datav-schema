@@ -1,7 +1,7 @@
 <template>
   <div class="handle" :class="customClass" :style="styles" title="Drag sort">
-    <img v-if="type==='svg'" :src="svgImg[icon]" alt="move" />
-    <i v-else :class="`b-iconfont b-icon-${icon}`" :style="{fontSize:iconFontSize}"></i>
+    <img v-if="type === 'svg'" :src="svgImg[icon]" alt="move" />
+    <i v-else :class="`b-iconfont b-icon-${icon}`" :style="{ fontSize: iconFontSize }"></i>
   </div>
 </template>
 

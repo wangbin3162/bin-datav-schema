@@ -19,14 +19,14 @@
         <div class="header-item">
           <b-dropdown @command="handleClick" append-to-body>
             <div class="user-link-wrap">
-              <img src="@/assets/images/avatar/avatar05.jpeg" class="avatar" alt="avatar">
+              <img src="@/assets/images/avatar/avatar05.jpeg" class="avatar" alt="avatar" />
               <span class="user-link" v-if="userInfo">
                 {{ userInfo.realName }}
                 <b-icon name="down"></b-icon>
               </span>
             </div>
             <template #dropdown>
-              <b-dropdown-menu style="width: 120px;">
+              <b-dropdown-menu style="width: 120px">
                 <!--        <b-dropdown-item name="userCenter">-->
                 <!--          <div flex="cross:center">-->
                 <!--            <b-icon name="user" size="16"></b-icon>-->
@@ -48,7 +48,7 @@
     <div class="dv-nav">
       <div class="header-img">
         <div class="nav-img-text">
-          <img src="@/assets/images/logo/logo.png" alt="logo">
+          <img src="@/assets/images/logo/logo.png" alt="logo" />
           <div class="nav-welcome">
             <h2>{{ title }}</h2>
             <h4>{{ welcome }}</h4>
@@ -64,12 +64,10 @@
 import useStoreRouter from '@/hooks/store/useStoreRouter'
 import { computed } from 'vue'
 import { MessageBox } from 'bin-ui-next'
-import Weather from '@/components/Common/Weather/index.vue'
 import config from '../../../package.json'
 
 export default {
   name: 'NavHeader',
-  components: { Weather },
   props: {
     isFixed: {
       type: Boolean,
@@ -88,12 +86,14 @@ export default {
         MessageBox.confirm({
           type: 'warning',
           title: '确认退出登录吗？',
-        }).then(() => {
-          $store.dispatch('user/clearToken')
-          $router.push(`/login?redirect=${$route.fullPath}`)
-        }).catch(e => {
-          console.log(e)
         })
+          .then(() => {
+            $store.dispatch('user/clearToken')
+            $router.push(`/login?redirect=${$route.fullPath}`)
+          })
+          .catch(e => {
+            console.log(e)
+          })
       }
     }
 
@@ -102,7 +102,7 @@ export default {
       handleClick,
       welcome: 'Welcome to the data analysis system',
       version: config.version,
-      title: config.description
+      title: config.description,
     }
   },
 }

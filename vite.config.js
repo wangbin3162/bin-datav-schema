@@ -6,7 +6,7 @@ function pathResolve(dir) {
   return resolve(process.cwd(), '.', dir)
 }
 
-const proxyAddress = 'http://192.168.0.121:8850/'
+// const proxyAddress = 'http://192.168.0.121:8850/'
 
 // https://vitejs.dev/config/
 export default ({ mode }) => {
@@ -19,21 +19,21 @@ export default ({ mode }) => {
     plugins: [vue()],
     server: {
       host: '0.0.0.0',
-      port: 8085,
+      port: 8086,
       open: true,
       proxy: {
-        '/auth': { target: proxyAddress },
-        '/oauth': { target: proxyAddress },
-        '/user': { target: proxyAddress },
-        '/management': { target: proxyAddress },
-        '/api': { target: proxyAddress },
-        '/dir': { target: proxyAddress },
-        '/open': { target: proxyAddress },
-        '/batch': { target: proxyAddress },
-        '/cms': { target: proxyAddress },
-        '/analysis': { target: proxyAddress },
-        '/dxp-web': { target: proxyAddress },
-        '/datacenter': { target: proxyAddress },
+        // '/auth': { target: proxyAddress },
+        // '/oauth': { target: proxyAddress },
+        // '/user': { target: proxyAddress },
+        // '/management': { target: proxyAddress },
+        // '/api': { target: proxyAddress },
+        // '/dir': { target: proxyAddress },
+        // '/open': { target: proxyAddress },
+        // '/batch': { target: proxyAddress },
+        // '/cms': { target: proxyAddress },
+        // '/analysis': { target: proxyAddress },
+        // '/dxp-web': { target: proxyAddress },
+        // '/datacenter': { target: proxyAddress },
       },
     },
     resolve: {
@@ -68,7 +68,7 @@ export default ({ mode }) => {
             if (id.includes('/node_modules/')) {
               // 设置需要独立打包的npm包
               const expansions = ['bin-ui-next', 'brace']
-              const c = expansions.find(exp => id.includes(`/node_modules/${exp}`))
+              const c = expansions.find((exp) => id.includes(`/node_modules/${exp}`))
               if (c) {
                 return `chunk-${c}`
               } else {

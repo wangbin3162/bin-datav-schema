@@ -23,11 +23,10 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import NavHeader from './nav-header.vue'
 import NavMain from './nav-main.vue'
 import { useRouter } from 'vue-router'
-import MoveTransition from '@/components/Common/MoveTransition'
 
 export default {
   name: 'Home',
-  components: { MoveTransition, NavMain, NavHeader },
+  components: { NavMain, NavHeader },
   setup() {
     const navMainRef = ref(null)
     const isFixed = ref(false)
@@ -37,7 +36,7 @@ export default {
       isFixed.value = navMainRef.value.$el.offsetTop > 200
     }
 
-    const onNavChange = (nav) => {
+    const onNavChange = nav => {
       router.push({ name: nav.name })
     }
 

@@ -8,6 +8,7 @@ import { registerEditor } from '@/plugins/bin-editor-next'
 import { registerDatav } from '@/plugins/bin-datav'
 import { registerVCharts } from '@/components/Schema'
 import { registerGUI } from '@/components/Schema/ui'
+import { registerCommonComps } from '@/components/Common/index'
 import 'bin-ui-next/lib/styles/normalize.css' // 初始化样式
 import 'bin-ui-next/lib/styles/scrollbar.css' // 滚动条样式
 import 'bin-ui-next/lib/styles/index.css' // 组件库样式
@@ -24,14 +25,15 @@ import './mock'
 // }
 
 const app = createApp(App)
+setupRouter(app)
+setupStore(app)
 registerUI(app)
 registerCharts(app)
 registerEditor(app)
+registerCommonComps(app)
 registerDatav(app)
 registerVCharts(app)
 registerGUI(app)
-setupRouter(app)
-setupStore(app)
 // Mount when the route is ready
 router.isReady().then(() => {
   app.mount('#app', true)

@@ -1,9 +1,8 @@
 import { ACCESS_TOKEN } from '@/config/token-const'
 import request from 'axios'
 import cookies from '../utils/util.cookies'
-import { throwError } from '@/utils/util'
-import store from '@/store'
 import router from '@/router'
+import { throwError } from '@/utils/util'
 
 const baseUrl = process.env.NODE_ENV === 'production' ? '/' : '/'
 
@@ -29,7 +28,7 @@ export async function fetchData(config) {
   }
 }
 
-const err = (error) => {
+const err = error => {
   if (error.response) {
     const data = error.response.data
     // const token = cookies.get(ACCESS_TOKEN)
@@ -56,7 +55,8 @@ service.interceptors.response.use(
   response => response,
   error => {
     if (error.response) {
-      if (error.response.status >= 500) { // 如果是服务器端错误则跳转至服务错误页面
+      if (error.response.status >= 500) {
+        // 如果是服务器端错误则跳转至服务错误页面
         router.push({ path: 'error', query: { status: '500', message: error.message } })
       } else if (error.response.status === 404) {
         router.push({ path: 'error', query: { status: '404', message: error.message } })

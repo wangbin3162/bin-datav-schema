@@ -1,19 +1,14 @@
 <template>
-  <b-popover
-    placement="bottom-end"
-    width="320px"
-    popper-class="weather-box"
-    trigger="hover"
-    :show-arrow="false"
-    :offset="4"
-  >
+  <b-popover placement="bottom-end" width="320px" popper-class="weather-box" trigger="hover">
     <div class="global-header-trigger" flex="cross:center">
-      <p class="f-s-12 mr-8">{{ currentDate }}</p>
-      <i :class="`qi-${current.icon}`" style="font-size: 14px;" :title="current.text"></i>
+      <i :class="`qi-${current.icon}`" style="font-size: 18px" :title="current.text"></i>
     </div>
     <template #content>
       <div class="weather-content">
-        <div class="city mb-5" flex="main:justify"><span>徐州市</span><span>{{ currentDate }}</span></div>
+        <div class="city mb-5" flex="main:justify">
+          <span>徐州市</span>
+          <span>{{ currentDate }}</span>
+        </div>
         <div class="weather-current" flex="cross:center">
           <i :class="`qi-icon qi-${current.icon}`" :title="current.text"></i>
           <div class="weather-text">
@@ -36,32 +31,27 @@
         <div class="weather-air mb-5" flex="cross:center">
           空气质量指数
           <div class="air-tag" :style="getAirColor(air.aqi)">
-            <i class="b-iconfont b-icon-cloud" style="font-size: 14px;"></i>&nbsp;
-            <span>{{ air.category }}</span>&nbsp;
-            <span>{{ air.aqi }}</span>&nbsp;
+            <i class="b-iconfont b-icon-cloud" style="font-size: 14px"></i>
+            &nbsp;
+            <span>{{ air.category }}</span>
+            &nbsp;
+            <span>{{ air.aqi }}</span>
+            &nbsp;
           </div>
           PM2.5: {{ air.pm2p5 }}
         </div>
         <div class="weather-desc mb-5">
-          <div
-            v-for="(hour,index) in weather"
-            :key="index"
-            class="hour-item"
-          >
+          <div v-for="(hour, index) in weather" :key="index" class="hour-item">
             <div>{{ hour.fxTime }}</div>
             <i :class="`weather-icon qi-${hour.icon}`" :title="hour.text"></i>
             <div>{{ hour.temp }}℃</div>
           </div>
         </div>
-        <div class="weather-daily" v-if="daily.length>0">
-          <div
-            v-for="(day,index) in daily"
-            :key="index"
-            class="daily-item"
-          >
+        <div class="weather-daily" v-if="daily.length > 0">
+          <div v-for="(day, index) in daily" :key="index" class="daily-item">
             <div>{{ day.date }}</div>
             <div class="pl-20" flex="cross:center">
-              <i :class="`weather-icon qi-${day.icon}`" style="font-size: 20px;"></i>
+              <i :class="`weather-icon qi-${day.icon}`" style="font-size: 20px"></i>
               <div class="ml-8">{{ day.text }}</div>
             </div>
             <div class="t-right">{{ day.temp }}</div>
@@ -99,7 +89,7 @@ export default {
       primary: '', // 空气质量的主要污染物，空气质量为优时，返回值为NA
       pm2p5: '', // PM2.5,
     })
-    const daily = ref([])  // 3天预报 tempMax,tempMin,iconDay,textDay
+    const daily = ref([]) // 3天预报 tempMax,tempMin,iconDay,textDay
     const warning = ref({})
     const current = computed(() => weather.value[0] || {})
 
@@ -146,7 +136,7 @@ export default {
         const { data } = await axios.get('https://devapi.qweather.com/v7/weather/3d', { params: PARAMS })
         if (data.code === '200') {
           daily.value = data.daily.map((i, index) => ({
-            date: index === 0 ? '今天' : (index === 1 ? '明天' : Utils.util.parseTime(i.fxDate, '周{a}')),
+            date: index === 0 ? '今天' : index === 1 ? '明天' : Utils.util.parseTime(i.fxDate, '周{a}'),
             icon: i.iconDay,
             text: i.textDay,
             temp: `${i.tempMin}°/${i.tempMax}°`,
@@ -194,7 +184,7 @@ export default {
       if (level === '蓝色') {
         return { background: 'rgba(64,161,255,0.8)', color: '#fff' }
       } else if (level === '黄色') {
-        return { background: 'rgba(255,255,0,0.8)', color: '#fff' }
+        return { background: 'rgba(255,255,0,0.8)', color: '#666' }
       } else if (level === '橙色') {
         return { background: 'rgba(251,163,69,0.8)', color: '#fff' }
       } else if (level === '红色') {
@@ -222,14 +212,11 @@ export default {
 
 <style lang="stylus">
 @import "../../../assets/stylus/base/qweather-icons.styl"
-.global-header-trigger {
-  cursor: pointer;
-}
 .weather-content {
+  font-size: 12px;
   .weather-desc {
     padding: 5px 0;
     display: flex;
-    color: rgba(255, 255, 255, .8);
     border-bottom: 1px solid rgba(0, 0, 0, .4);
     > div {
       display: flex;

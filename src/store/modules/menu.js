@@ -7,7 +7,7 @@ export default {
     routes: [],
     addRouters: [], // 左侧菜单栏的缓存路由
     menu: [], // 原始菜单
-    menuItems: [] // 平铺菜单
+    menuItems: [], // 平铺菜单
   },
   mutations: {
     SET_MENU: (state, { menu, menuItems }) => {
@@ -17,7 +17,7 @@ export default {
     SET_ROUTERS: (state, routers) => {
       state.addRouters = routers
       state.routes = addRoutes(routers)
-    }
+    },
   },
   actions: {
     generateRoutes({ commit }, menuItems) {
@@ -35,8 +35,8 @@ export default {
         commit('SET_MENU', { menu, menuItems })
         resolve({ menu, menuItems })
       })
-    }
-  }
+    },
+  },
 }
 
 /**
@@ -71,13 +71,13 @@ function setMenu(menus) {
     if (child.length === 0) {
       return {
         ...route,
-        parents: parents
+        parents: parents,
       }
     }
     return {
       ...route,
       parents: parents,
-      children: child
+      children: child,
     }
   }
   menus.forEach(item => {
@@ -89,7 +89,7 @@ function setMenu(menus) {
 // 递归平铺菜单树
 function getMenuItems(menus) {
   const all = []
-  const mapper = (menu) => {
+  const mapper = menu => {
     if (menu.name && !menu.children) {
       all.push({ ...menu })
     }

@@ -5,19 +5,19 @@
 </template>
 
 <script>
-import Loading01 from '@/components/Common/SvgLoading/loading/loading01.vue'
-import Loading02 from '@/components/Common/SvgLoading/loading/loading02.vue'
-import Loading03 from '@/components/Common/SvgLoading/loading/loading03.vue'
-import Loading04 from '@/components/Common/SvgLoading/loading/loading04.vue'
-import Loading05 from '@/components/Common/SvgLoading/loading/loading05.vue'
-import Loading06 from '@/components/Common/SvgLoading/loading/loading06.vue'
-import Loading07 from '@/components/Common/SvgLoading/loading/loading07.vue'
-import Loading08 from '@/components/Common/SvgLoading/loading/loading08.vue'
-import Loading09 from '@/components/Common/SvgLoading/loading/loading09.vue'
-import Loading10 from '@/components/Common/SvgLoading/loading/loading10.vue'
-import Loading11 from '@/components/Common/SvgLoading/loading/loading11.vue'
-import Loading12 from '@/components/Common/SvgLoading/loading/loading12.vue'
-import LoadingText from '@/components/Common/SvgLoading/loading/loading-text.vue'
+import Loading01 from './loading/loading01.vue'
+import Loading02 from './loading/loading02.vue'
+import Loading03 from './loading/loading03.vue'
+import Loading04 from './loading/loading04.vue'
+import Loading05 from './loading/loading05.vue'
+import Loading06 from './loading/loading06.vue'
+import Loading07 from './loading/loading07.vue'
+import Loading08 from './loading/loading08.vue'
+import Loading09 from './loading/loading09.vue'
+import Loading10 from './loading/loading10.vue'
+import Loading11 from './loading/loading11.vue'
+import Loading12 from './loading/loading12.vue'
+import LoadingText from './loading/loading-text.vue'
 
 /**
  * design by https://loading.io/

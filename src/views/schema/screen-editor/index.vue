@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="schema-screen-container"
-    @wheel.ctrl.prevent="ctrlMouseWheel"
-  >
+  <div class="schema-screen-container" @wheel.ctrl.prevent="ctrlMouseWheel">
     <header-bar ref="headerRef" back-url="/dashboard"></header-bar>
     <div v-if="loading" flex="main:center cross:center" class="full-wrapper">
       <svg-loading name="loading02" />
@@ -22,7 +19,6 @@
 </template>
 
 <script>
-import SvgLoading from '@/components/Common/SvgLoading/index.vue'
 import HeaderBar from '@/views/schema/screen-editor/header-bar/index.vue'
 import LayerPanel from '@/views/schema/screen-editor/layer-panel/index.vue'
 import ComponentsPanel from '@/views/schema/screen-editor/components-panel/index.vue'
@@ -45,7 +41,6 @@ export default {
     ComponentsPanel,
     LayerPanel,
     HeaderBar,
-    SvgLoading,
   },
   setup() {
     return {

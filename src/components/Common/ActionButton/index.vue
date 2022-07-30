@@ -5,7 +5,7 @@
       <slot></slot>
     </b-button>
     <template #content>
-      <p style="line-height: 22px;margin-bottom: 8px;">
+      <p style="line-height: 22px; margin-bottom: 8px">
         <b-icon name="question-circle" size="16" color="#fa8c16"></b-icon>
         {{ message }}
       </p>
