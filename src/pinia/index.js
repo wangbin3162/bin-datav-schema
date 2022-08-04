@@ -1,18 +1,19 @@
 import { createPinia, storeToRefs } from 'pinia'
-import piniaPlugin from './pinia-plugin'
+// import piniaPlugin from './pinia-plugin'
 import useGlobal from './modules/global'
 import useUser from './modules/user'
 import useMenu from './modules/menu'
+import useSchema from './schema/index'
 
 // 注册store及插件信息
-export function setupStore1(app) {
+export function setupStore(app) {
   const store = createPinia()
-  store.use(
-    piniaPlugin({
-      key: 'store',
-      paths: [],
-    }),
-  )
+  // store.use(
+  //   piniaPlugin({
+  //     key: 'store',
+  //     paths: [],
+  //   }),
+  // )
   app.use(store)
 }
 
@@ -23,5 +24,6 @@ export function useStore() {
     globalStore: useGlobal(),
     userStore: useUser(),
     menuStore: useMenu(),
+    schemaStore: useSchema(),
   }
 }

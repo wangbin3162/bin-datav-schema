@@ -1,15 +1,15 @@
 import { toRefs, watch, ref, computed } from 'vue'
-import { useStore } from 'vuex'
 import { ApiType } from '@/config/data-source'
 import { throwError, toJson, isEmpty, logger } from '@/utils/util'
 import { getModelDataById } from '@/api/modules/analysis-dashboard.api'
+import { useStore } from '@/pinia'
 
 /**
  * 数据中心hook
  * @param com 传入的组件对象
  */
 export const useDataCenter = com => {
-  const $store = useStore()
+  const { schemaStore } = useStore() // 执行获取schema专属store
   const { apiData } = toRefs(com)
   const dvData = ref({})
 
@@ -25,7 +25,7 @@ export const useDataCenter = com => {
   // 设置dvData，读取数据并塞入存储数据
   const setDvData = async (filters = []) => {
     const { comId, type, config } = apiData.value
-    $store.commit('schema/setLoading', true)
+    await schemaStore.setGlobalLoading(true)
     try {
       // 获取源数据
       if (type === ApiType.static) {
@@ -35,7 +35,7 @@ export const useDataCenter = com => {
         const cfgFilters = config.filters || []
         // 如可以下钻，则从下钻对应层级取得x轴数据
         const drillX = drillData.value[drillIndex.value]
-        const x = (couldDrill.value && drillX) ? [drillX] : config.x
+        const x = couldDrill.value && drillX ? [drillX] : config.x
         if (!isEmpty(modelId) && !isEmpty(x) && !isEmpty(y)) {
           dvData.value = await getModelDataById({
             modelId,
@@ -54,7 +54,7 @@ export const useDataCenter = com => {
       throwError('useDataCenter/setDvData', e)
     }
     // setTimeout(() => {
-    $store.commit('schema/setLoading', false)
+    await schemaStore.setGlobalLoading(false)
     // }, 800)
   }
 
@@ -68,7 +68,7 @@ export const useDataCenter = com => {
     if (drillIndex.value < drillData.value.length - 1) {
       // 如可以下钻，则从下钻对应层级取得x轴数据
       const drillX = drillData.value[drillIndex.value]
-      const x = (couldDrill.value && drillX) ? drillX : xData
+      const x = couldDrill.value && drillX ? drillX : xData
       drillFilters.value.push({
         ...x,
         complexFilter: {
@@ -76,7 +76,7 @@ export const useDataCenter = com => {
           items: [{ oper: 'EQ', value: name }],
         },
       })
-      drillIndex.value++  // 下钻层级
+      drillIndex.value++ // 下钻层级
       setDvData(drillFilters.value)
     }
   }

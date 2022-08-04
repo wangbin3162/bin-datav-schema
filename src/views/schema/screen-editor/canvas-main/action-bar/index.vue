@@ -1,24 +1,31 @@
 <template>
   <div class="action-bar-wrap" :style="actionStyle">
-    <i class="action-btn b-iconfont b-icon-aim" title="最佳画布比例" @click.stop="autoCanvasScale" />
-    <i class="action-btn b-iconfont b-icon-icon-test" title="1:1画布大小" @click.stop="setCanvasScale(100)" />
+    <i class="action-btn b-iconfont b-icon-aim" title="最佳画布比例" @click.stop="schemaStore.autoCanvasScale()" />
+    <i
+      class="action-btn b-iconfont b-icon-icon-test"
+      title="1:1画布大小"
+      @click.stop="schemaStore.setCanvasScale(100)"
+    />
     <i class="action-btn b-iconfont b-icon-rollback" title="撤销" @click.stop="undo" />
-    <i class="action-btn b-iconfont b-icon-rollback" title="重做" @click.stop="redo"
-       style="transform: rotateY(180deg);" />
+    <i
+      class="action-btn b-iconfont b-icon-rollback"
+      title="重做"
+      @click.stop="redo"
+      style="transform: rotateY(180deg)"
+    />
   </div>
 </template>
 
 <script setup>
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
 import { computed } from 'vue'
+import { useStore } from '@/pinia'
 
-const { toolbar, store, autoCanvasScale, setCanvasScale } = useSchemaStore()
+const { schemaStore } = useStore() // 执行获取schema专属store
 
-const actionStyle = computed(() => toolbar.value.config ? { right: '332px' } : { right: 0 })
+const actionStyle = computed(() => (schemaStore.toolbar.value.config ? { right: '332px' } : { right: 0 }))
 
-const undo = () => store.dispatch('schema/undo')
-const redo = () => store.dispatch('schema/redo')
-
+const undo = () => schemaStore.undo()
+const redo = () => schemaStore.redo()
 </script>
 
 <style scoped lang="stylus">

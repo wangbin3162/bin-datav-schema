@@ -9,9 +9,9 @@
           <b-scrollbar native>
             <div
               class="components-item"
-              v-for="(com,index) in componentsList"
+              v-for="(com, index) in componentsList"
               :key="index"
-              :class="{active:activeIndex===index}"
+              :class="{ active: activeIndex === index }"
               @click="changeComp(index)"
             >
               <b-icon class="com-tab-icon" :name="com.icon"></b-icon>
@@ -19,12 +19,12 @@
             </div>
           </b-scrollbar>
         </div>
-        <div class="components-list" :class="{'is-hide':!toolbar.components}" v-click-outside="closePanel">
+        <div class="components-list" :class="{ 'is-hide': !toolbar.components }" v-click-outside="closePanel">
           <b-scrollbar native>
             <div class="p10">
               <div
                 class="comp-item"
-                v-for="(com,index) in comps"
+                v-for="(com, index) in comps"
                 :key="index"
                 :title="com.alias"
                 :draggable="com.used"
@@ -53,12 +53,12 @@ import { ApiType } from '@/config/data-source'
 export default {
   name: 'components-panel',
   setup() {
-    const { toggleCompsPanel, pageConfig, toolbar, addCom, onCompSelected, selectedCom } = useSchemaStore()
+    const { toggleCompsPanel, pageConfig, toolbar, addCom, selectedCom, selectedCom } = useSchemaStore()
     const activeIndex = ref(0)
     // 开启的显示组件
     const comps = computed(() => list[activeIndex.value].data)
 
-    const changeComp = (index) => {
+    const changeComp = index => {
       toggleCompsPanel(true)
       activeIndex.value = index
     }
@@ -72,7 +72,7 @@ export default {
         com.attr.y = Math.floor((pageConfig.value.height - com.attr.h) / 2)
         await addCom({ component: com })
         // 选中当前
-        await onCompSelected(com)
+        await selectedCom(com)
         // 如是静态数据，且存在staticPath，则填充一次数据
         if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
           const { data } = await getStaticData(com.id, com.apiData.staticPath)
@@ -83,7 +83,7 @@ export default {
         // Message.warning('正在开发中。。。')
       }
     }
-    const dragOver = (e) => {
+    const dragOver = e => {
       e.preventDefault()
       e.stopPropagation()
       e.dataTransfer.dropEffect = 'none'

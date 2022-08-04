@@ -1,14 +1,6 @@
 <template>
-  <div
-    class="dv-transform"
-    :class="transformClass"
-    :style="transformStyle"
-  >
-    <refer-line
-      v-if="toolbox.referLine && isSelected"
-      :attr="data.attr"
-      :scale="scale"
-    />
+  <div class="dv-transform" :class="transformClass" :style="transformStyle">
+    <refer-line v-if="toolbox.referLine && isSelected" :attr="data.attr" :scale="scale" />
     <div
       :class="['dv-scale', { hovered: isHovered }]"
       :style="hideStyle"
@@ -16,40 +8,20 @@
       @mouseleave="onLeave"
       @mousedown="onMove"
     >
-      <div
-        class="transform-handler"
-        :class="handlerClass"
-        :style="handlerStyle"
-      >
+      <div class="transform-handler" :class="handlerClass" :style="handlerStyle">
         <div class="dv-com">
           <slot></slot>
           <!--事件阻止蒙版-->
-          <div
-            class="dv-event-disable"
-            :style="wrapperStyle"
-            @contextmenu="showMenu"
-          ></div>
+          <div class="dv-event-disable" :style="wrapperStyle" @contextmenu="showMenu"></div>
         </div>
         <template v-for="(v, k) in points" :key="k">
           <i v-if="v.rotateStyle" :class="`${v.name}-handler`" data-html2canvas-ignore>
-            <span
-              class="rotate-handler"
-              :style="v.rotateStyle"
-              @mousedown.prevent.stop="onRotate"
-            >
-              <span
-                class="control-point"
-                :style="v.style"
-                @mousedown.prevent.stop="onZoom($event, k)"
-              ></span>
+            <span class="rotate-handler" :style="v.rotateStyle" @mousedown.prevent.stop="onRotate">
+              <span class="control-point" :style="v.style" @mousedown.prevent.stop="onZoom($event, k)"></span>
             </span>
           </i>
           <i v-else :class="`${v.name}-handler`" data-html2canvas-ignore>
-            <span
-              class="control-point"
-              :style="v.style"
-              @mousedown.prevent.stop="onZoom($event, k)"
-            ></span>
+            <span class="control-point" :style="v.style" @mousedown.prevent.stop="onZoom($event, k)"></span>
           </i>
         </template>
         <div class="transform-bg"></div>
@@ -67,6 +39,8 @@ import { getCursors, handleMove, handleRotate, handleZoom } from './util'
 import ReferLine from './refer-line.vue'
 import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 
+import { useStore } from '@/pinia'
+
 export default {
   name: 'dv-transform',
   components: { ReferLine },
@@ -78,23 +52,15 @@ export default {
   },
   setup(props) {
     const instance = getCurrentInstance()
-    const {
-      canvas,
-      store,
-      comps,
-      pageConfig,
-      selectedCom,
-      hoveredCom,
-      onCompHovered,
-      onCompSelected,
-      toolbox,
-    } = useSchemaStore()
+    const { canvas, store, comps, pageConfig, selectedCom, hoveredComId, onCompHovered, selectedCom, toolbox } =
+      useSchemaStore()
     const { showMenu } = useSchemaContextMenu()
+
+    const { schemaStore } = useStore() // 执行获取schema专属store
     // 是否悬停当前
-    const isHovered = computed(() => hoveredCom.value === props.data.id)
+    const isHovered = computed(() => hoveredComId.value === props.data.id)
     // 是否选中当前当前
     const isSelected = computed(() => !isEmpty(selectedCom.value) && selectedCom.value.id === props.data.id)
-    const spaceDown = computed(() => store.state.schema.shortcuts.spaceKey)
 
     const transformClass = computed(() => ({
       locked: props.data.locked,
@@ -179,11 +145,11 @@ export default {
       if (isSelected.value) {
         return
       }
-      onCompSelected(props.data)
+      selectedCom(props.data)
     }
     // 单击选中组件
-    const onMove = (e) => {
-      if (spaceDown.value) return
+    const onMove = e => {
+      if (schemaStore.spaceDown.value) return
       e.stopPropagation()
       e.preventDefault()
       selectCom()
@@ -195,14 +161,14 @@ export default {
       handleZoom(e, dir, props.data, scale.value)
     }
 
-    const onRotate = (e) => {
+    const onRotate = e => {
       handleRotate(e, instance.vnode.el, props.data)
     }
     return {
       // store
       comps,
       selectedCom,
-      hoveredCom,
+      hoveredComId,
       toolbox,
       // 自有属性
       isHovered,

@@ -1,30 +1,28 @@
+import { defineStore } from 'pinia'
 import page from './page'
 import canvas from './canvas'
 import contextmenu from './contextmenu'
 import shortcuts from './shortcuts'
 import snapshot from './snapshot'
 
-export default {
-  namespaced: true,
-  state: {
+const useSchema = defineStore('schema', {
+  state: () => ({
     ...page.state,
     ...canvas.state,
-    ...contextmenu.state,
     ...shortcuts.state,
+    ...contextmenu.state,
     ...snapshot.state,
-  },
-  mutations: {
-    ...page.mutations,
-    ...canvas.mutations,
-    ...contextmenu.mutations,
-    ...shortcuts.mutations,
-    ...snapshot.mutations,
+  }),
+  getters: {
+    ...shortcuts.getters,
   },
   actions: {
     ...page.actions,
     ...canvas.actions,
-    ...contextmenu.actions,
     ...shortcuts.actions,
+    ...contextmenu.actions,
     ...snapshot.actions,
   },
-}
+})
+
+export default useSchema

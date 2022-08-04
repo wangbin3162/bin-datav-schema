@@ -1,11 +1,6 @@
 <template>
   <div class="canvas-main">
-    <div
-      id="canvas-wp"
-      ref="canvasWpRef"
-      class="canvas-panel-wrap"
-      @mousedown.stop="cancelSelectCom"
-    >
+    <div id="canvas-wp" ref="canvasWpRef" class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
       <div class="screen-shot" :style="screenShotStyle">
         <mark-line :style="screenShotStyle" v-if="toolbox.markLine" />
         <action-bar />
@@ -17,11 +12,7 @@
           @dragover="dragOver"
           @drop="dropToAddCom"
         >
-          <dv-transform
-            v-for="comp in comps"
-            :key="comp.id"
-            :data="comp"
-          >
+          <dv-transform v-for="comp in comps" :key="comp.id" :data="comp">
             <component
               :is="comp.name"
               :data="comp"
@@ -48,6 +39,7 @@ import ActionBar from '@/views/schema/screen-editor/canvas-main/action-bar/index
 import { createComponent } from '@/config/components-cfg'
 import { ApiType } from '@/config/data-source'
 import { getStaticData } from '@/api/database.api'
+import { useStore } from '@/pinia'
 
 export default {
   name: 'canvas-main',
@@ -59,20 +51,22 @@ export default {
       pageConfig,
       autoCanvasScale,
       comps,
-      onCompSelected,
+      selectedCom,
       getPanelOffsetLeft,
       getPanelOffsetTop,
       selectedCom,
       addCom,
       toolbox,
     } = useSchemaStore()
+
+    const { schemaStore } = useStore() // 执行获取schema专属store
+
     const canvasWpRef = ref(null)
     const dragStatus = reactive({
       drag: false,
       startX: 0,
       startY: 0,
     })
-    const spaceDown = computed(() => store.state.schema.shortcuts.spaceKey)
     const screenShotStyle = computed(() => {
       return {
         width: `${canvas.value.width}px`,
@@ -94,7 +88,7 @@ export default {
     const autoScale = debounce(autoCanvasScale, 50)
 
     // 拖放增加组件
-    const dropToAddCom = async (event) => {
+    const dropToAddCom = async event => {
       event.preventDefault()
       try {
         const name = event.dataTransfer.getData('text')
@@ -107,7 +101,7 @@ export default {
           com.attr.y = Math.round(offsetY - com.attr.h / 2)
           await addCom({ component: com })
           // 选中当前
-          await onCompSelected(com)
+          await selectedCom(com)
           // 如是静态数据，且存在staticPath，则填充一次数据
           if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
             const { data } = await getStaticData(com.id, com.apiData.staticPath)
@@ -119,15 +113,15 @@ export default {
       }
     }
 
-    const dragOver = (ev) => {
+    const dragOver = ev => {
       ev.preventDefault()
       ev.stopPropagation()
       ev.dataTransfer.dropEffect = 'copy'
     }
 
-    const cancelSelectCom = (ev) => {
-      if (!spaceDown.value) {
-        onCompSelected()
+    const cancelSelectCom = ev => {
+      if (!schemaStore.spaceDown.value) {
+        selectedCom()
       }
 
       dragStatus.drag = true
@@ -138,8 +132,8 @@ export default {
       const couldMove = clientWidth < scrollWidth || clientHeight < scrollHeight // 是否出现滚动条
       const attr = { left: scrollLeft, top: scrollTop }
 
-      const move = (e) => {
-        if (!spaceDown.value || !dragStatus.drag || !couldMove) return
+      const move = e => {
+        if (!schemaStore.spaceDown.value || !dragStatus.drag || !couldMove) return
         const curX = e.clientX
         const curY = e.clientY
         const disX = Math.round((curX - startX) / scale)
@@ -163,6 +157,7 @@ export default {
       on(window, 'resize', autoScale)
       autoScale()
     })
+
     onBeforeUnmount(() => {
       off(window, 'resize', autoScale)
     })

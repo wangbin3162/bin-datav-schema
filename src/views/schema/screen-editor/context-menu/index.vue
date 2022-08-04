@@ -1,24 +1,24 @@
 <template>
   <transition name="zoom-in-top">
-    <div
-      v-if="contextMenu.show"
-      class="context-menu-wrap"
-      :style="contextMenuStyle"
-    >
+    <div v-if="contextMenu.show" class="context-menu-wrap" :style="contextMenuStyle">
       <div class="context-menu-item" @click="moveTop">
-        <i class="menu-icon b-iconfont b-icon-vertical-align-botto" style="transform: rotate(180deg);"></i>置顶
+        <i class="menu-icon b-iconfont b-icon-vertical-align-botto" style="transform: rotate(180deg)"></i>
+        置顶
         <span class="key-code">Alt + Home</span>
       </div>
       <div class="context-menu-item" @click="moveBottom">
-        <i class="menu-icon b-iconfont b-icon-vertical-align-botto"></i>置底
+        <i class="menu-icon b-iconfont b-icon-vertical-align-botto"></i>
+        置底
         <span class="key-code">Alt + End</span>
       </div>
       <div class="context-menu-item" @click="moveUp">
-        <i class="menu-icon b-iconfont b-icon-arrowup"></i>上移一层
+        <i class="menu-icon b-iconfont b-icon-arrowup"></i>
+        上移一层
         <span class="key-code">Alt + ↑</span>
       </div>
       <div class="context-menu-item" @click="moveDown">
-        <i class="menu-icon b-iconfont b-icon-arrowdown"></i>下移一层
+        <i class="menu-icon b-iconfont b-icon-arrowdown"></i>
+        下移一层
         <span class="key-code">Alt + ↓</span>
       </div>
 
@@ -26,32 +26,39 @@
 
       <div class="context-menu-item" @click="lockCom">
         <template v-if="isLocked">
-          <i class="menu-icon b-iconfont b-icon-unlock"></i>解锁
+          <i class="menu-icon b-iconfont b-icon-unlock"></i>
+          解锁
         </template>
         <template v-else>
-          <i class="menu-icon b-iconfont b-icon-lock"></i>锁定
+          <i class="menu-icon b-iconfont b-icon-lock"></i>
+          锁定
         </template>
       </div>
       <div class="context-menu-item" @click="hideCom">
         <template v-if="isHided">
-          <i class="menu-icon b-iconfont b-icon-eye"></i>显示
+          <i class="menu-icon b-iconfont b-icon-eye"></i>
+          显示
         </template>
         <template v-else>
-          <i class="menu-icon b-iconfont b-icon-eye-close"></i>隐藏
+          <i class="menu-icon b-iconfont b-icon-eye-close"></i>
+          隐藏
         </template>
       </div>
 
       <div class="context-menu-divider"></div>
       <div class="context-menu-item" @click="renameCom">
-        <i class="menu-icon b-iconfont b-icon-edit"></i>重命名
+        <i class="menu-icon b-iconfont b-icon-edit"></i>
+        重命名
         <span class="key-code">F2</span>
       </div>
       <div class="context-menu-item" @click="toCopyCom">
-        <i class="menu-icon b-iconfont b-icon-file-copy"></i>复制
+        <i class="menu-icon b-iconfont b-icon-file-copy"></i>
+        复制
         <span class="key-code">Ctrl + C,V</span>
       </div>
       <div class="context-menu-item" @click="toDeleteCom">
-        <i class="menu-icon b-iconfont b-icon-delete"></i>删除
+        <i class="menu-icon b-iconfont b-icon-delete"></i>
+        删除
         <span class="key-code">Delete</span>
       </div>
     </div>
@@ -69,19 +76,12 @@ import { MessageBox } from 'bin-ui-next'
 export default {
   name: 'context-menu',
   setup() {
-    const { onCompMoved, deleteCom, copyCom } = useSchemaStore()
-    const {
-      contextMenu,
-      selectedCom,
-      isLocked,
-      isHided,
-      contextMenuStyle,
-      renamingCom,
-    } = useSchemaContextMenu()
+    const { moveCom, deleteCom, copyCom } = useSchemaStore()
+    const { contextMenu, selectedCom, isLocked, isHided, contextMenuStyle, renamingCom } = useSchemaContextMenu()
 
-    const moveCom = (moveType) => {
+    const moveCom = moveType => {
       if (selectedCom.value) {
-        onCompMoved(selectedCom.value.id, moveType)
+        moveCom(selectedCom.value.id, moveType)
       }
     }
 
@@ -108,10 +108,11 @@ export default {
         MessageBox.confirm({
           type: 'error',
           title: '是否删除选中的1个组件',
-        }).then(() => {
-          deleteCom(com.id)
-        }).catch(() => {
         })
+          .then(() => {
+            deleteCom(com.id)
+          })
+          .catch(() => {})
       }
     }
 
@@ -129,7 +130,7 @@ export default {
       }
     }
 
-    const handleContextmenu = (ev) => ev.preventDefault()
+    const handleContextmenu = ev => ev.preventDefault()
     onMounted(() => {
       on(document, 'contextmenu', handleContextmenu)
     })

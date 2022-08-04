@@ -1,16 +1,17 @@
 <template>
-  <div :class="['loading-indicator',{loading}]"></div>
+  <div :class="['loading-indicator', { loading }]"></div>
 </template>
 
 <script>
-import { useStore } from 'vuex'
+import { useStore } from '@/pinia'
 import { computed } from 'vue'
 
 export default {
   name: 'HeadLoading',
   setup() {
-    const $store = useStore()
-    const loading = computed(() => $store.state.schema.toolbar.loading)
+    const { schemaStore } = useStore() // 执行获取schema专属store
+
+    const loading = computed(() => schemaStore.toolbar.value.loading)
     return { loading }
   },
 }

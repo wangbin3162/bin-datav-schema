@@ -5,12 +5,11 @@
 </template>
 
 <script>
-import { useDataCenter } from '@/hooks/schema/useDataCenter'
 import { computed, nextTick, ref, toRefs, watch } from 'vue'
 import { ApiType } from '@/config/data-source'
-import { isEmpty, logger, throwError, toJson } from '@/utils/util'
+import { isEmpty, throwError, toJson } from '@/utils/util'
 import { getModelDataById } from '@/api/modules/analysis-dashboard.api'
-import { useStore } from 'vuex'
+import { useStore } from '@/pinia'
 
 export default {
   name: 'VScrollTable',
@@ -22,6 +21,7 @@ export default {
   },
   setup(props) {
     const { apiData } = toRefs(props.data)
+    const { schemaStore } = useStore() // 执行获取schema专属store
     const dvData = ref({})
     const tableRef = ref(null)
 
@@ -87,11 +87,10 @@ export default {
       }
     })
 
-    const $store = useStore()
     // 设置dvData，读取数据并塞入存储数据
     const setDvData = async (filters = []) => {
       const { type, config: apiCfg } = apiData.value
-      $store.commit('schema/setLoading', true)
+      await schemaStore.setGlobalLoading(true)
       try {
         // 获取源数据
         if (type === ApiType.static) {
@@ -112,7 +111,7 @@ export default {
         throwError('scroll-table/setDvData', e)
       }
       // setTimeout(() => {
-      $store.commit('schema/setLoading', false)
+      await schemaStore.setGlobalLoading(false)
       // }, 800)
     }
 
@@ -129,10 +128,7 @@ export default {
       { deep: true, immediate: true },
     )
     watch(
-      [
-        () => dvData.value,
-        () => config.value,
-      ],
+      [() => dvData.value, () => config.value],
       () => {
         nextTick(() => {
           tableRef.value && tableRef.value.onResize()
