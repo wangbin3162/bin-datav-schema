@@ -106,7 +106,6 @@ const getSearchList = async () => {
   try {
     listData.loading = true
     const res = await getDashboardList({ pid: props.group.pid, ...query })
-    console.log(res)
     listData.rows = (res.rows || []).map(item => {
       let json = {}
       try {

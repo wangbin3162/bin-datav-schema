@@ -2,17 +2,17 @@
   <div class="system-error-page">
     <div class="bin-result">
       <div class="bin-result-icon bin-result-image">
-        <img v-if="$route.path==='/403'" src="@/assets/images/default/auth.svg" alt="403">
-        <img v-else-if="$route.path==='/500'" src="@/assets/images/default/error500.svg" alt="500">
-        <img v-else-if="$route.path==='/error'" src="@/assets/images/default/file-max.svg" alt="error">
-        <img v-else src="@/assets/images/default/error404.svg" alt="404">
+        <img v-if="$route.path === '/403'" src="@/assets/images/default/auth.svg" alt="403" />
+        <img v-else-if="$route.path === '/500'" src="@/assets/images/default/error500.svg" alt="500" />
+        <img v-else-if="$route.path === '/error'" src="@/assets/images/default/file-max.svg" alt="error" />
+        <img v-else src="@/assets/images/default/error404.svg" alt="404" />
       </div>
       <div class="bin-result-title">{{ status }}</div>
       <div class="bin-result-subtitle">{{ errorMessage }}</div>
       <div class="bin-result-extra">
         <b-space>
           <!--<b-button background @click="$router.back()">返回上级</b-button>-->
-          <router-link :to="{name:HOME_PATH}">
+          <router-link :to="{ name: HOME_PATH }">
             <b-button type="primary">返回首页</b-button>
           </router-link>
         </b-space>
@@ -22,9 +22,9 @@
 </template>
 
 <script>
-import useStoreRouter from '@/hooks/store/useStoreRouter'
 import { computed, ref } from 'vue'
 import { ERROR_PATH_LIST, HOME_PATH } from '@/router/menus'
+import { useRoute } from 'vue-router'
 
 /**
  * 通用异常页面，可根据 ERROR_PATH_LIST 默认异常页面列表配置信息，
@@ -40,7 +40,7 @@ export default {
       404: '抱歉，你访问的页面不存在！',
       500: '抱歉，服务器出错了！',
     }
-    const { $route } = useStoreRouter()
+    const $route = useRoute()
 
     const status = ref('')
     const errorMessage = ref('')
@@ -55,10 +55,12 @@ export default {
       if (isErrorPage.value) {
         status.value = path.toUpperCase()
         errorMessage.value = message || errorNormalMsg[path]
-      } else if (path === 'error') { // 通用的错误页面
+      } else if (path === 'error') {
+        // 通用的错误页面
         status.value = no || path
         errorMessage.value = message
-      } else { // 非通用页面的其他错误页面
+      } else {
+        // 非通用页面的其他错误页面
         status.value = '404'
         errorMessage.value = '抱歉，你访问的页面不存在！'
       }

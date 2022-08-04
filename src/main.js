@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router, { setupRouter } from '@/router'
 import { setupStore } from '@/store'
+import { setupStore1 } from '@/pinia'
+import { registerDirectives } from '@/directives'
 import { registerUI } from '@/plugins/bin-ui-next'
 import { registerCharts } from '@/plugins/bin-charts-next'
 import { registerEditor } from '@/plugins/bin-editor-next'
@@ -25,8 +27,7 @@ import './mock'
 // }
 
 const app = createApp(App)
-setupRouter(app)
-setupStore(app)
+registerDirectives(app)
 registerUI(app)
 registerCharts(app)
 registerEditor(app)
@@ -34,6 +35,9 @@ registerCommonComps(app)
 registerDatav(app)
 registerVCharts(app)
 registerGUI(app)
+setupRouter(app)
+setupStore(app)
+setupStore1(app)
 // Mount when the route is ready
 router.isReady().then(() => {
   app.mount('#app', true)

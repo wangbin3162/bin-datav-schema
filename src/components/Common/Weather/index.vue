@@ -66,6 +66,7 @@
 import { Utils } from 'bin-ui-next'
 import axios from 'axios'
 import { computed, ref } from 'vue'
+import useApp from '@/hooks/store/useApp'
 
 const KEY = '9ff1ccd697f149429674a860034faf66'
 const LOCATION = '101190801'
@@ -81,6 +82,7 @@ const PARAMS = { location: LOCATION, key: KEY }
 export default {
   name: 'Weather',
   setup() {
+    const { setWeather } = useApp()
     const weather = ref([])
     const air = ref({
       aqi: '', // 空气质量指数
@@ -111,6 +113,7 @@ export default {
             ...v,
             fxTime: Utils.util.parseTime(new Date(v.fxTime), '{h}:{i}'),
           }))
+          setWeather(current.value)
         }
       } catch (e) {
         console.log(e)

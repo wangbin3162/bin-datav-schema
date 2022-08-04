@@ -20,8 +20,8 @@
           <b-dropdown @command="handleClick" append-to-body>
             <div class="user-link-wrap">
               <img src="@/assets/images/avatar/avatar05.jpeg" class="avatar" alt="avatar" />
-              <span class="user-link" v-if="userInfo">
-                {{ userInfo.realName }}
+              <span class="user-link" v-if="userStore.userInfo">
+                {{ userStore.userInfo.realName }}
                 <b-icon name="down"></b-icon>
               </span>
             </div>
@@ -61,10 +61,10 @@
 </template>
 
 <script>
-import useStoreRouter from '@/hooks/store/useStoreRouter'
-import { computed } from 'vue'
 import { MessageBox } from 'bin-ui-next'
+import { useRoute, useRouter } from 'vue-router'
 import config from '../../../package.json'
+import { useStore } from '@/pinia'
 
 export default {
   name: 'NavHeader',
@@ -75,12 +75,13 @@ export default {
     },
   },
   setup() {
-    const { $store, $router, $route } = useStoreRouter()
-    const userInfo = computed(() => $store.state.user.userInfo)
+    const route = useRoute()
+    const router = useRouter()
+    const { userStore } = useStore()
 
     function handleClick(name) {
       if (name === 'userCenter') {
-        $router.push('/userCenter')
+        router.push('/userCenter')
       }
       if (name === 'logout') {
         MessageBox.confirm({
@@ -88,8 +89,8 @@ export default {
           title: '确认退出登录吗？',
         })
           .then(() => {
-            $store.dispatch('user/clearToken')
-            $router.push(`/login?redirect=${$route.fullPath}`)
+            userStore.clearToken()
+            router.push(`/login?redirect=${route.fullPath}`)
           })
           .catch(e => {
             console.log(e)
@@ -98,11 +99,11 @@ export default {
     }
 
     return {
-      userInfo,
       handleClick,
       welcome: 'Welcome to the data analysis system',
       version: config.version,
       title: config.description,
+      userStore,
     }
   },
 }

@@ -7,6 +7,8 @@ export default {
           el.value = defaultValue
         }
         el.focus()
+        const input = el.querySelector('input')
+        if (input) input.focus()
       },
     })
   },

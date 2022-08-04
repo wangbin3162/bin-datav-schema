@@ -3,7 +3,7 @@
     <nav-header :is-fixed="isFixed"></nav-header>
     <nav-main
       ref="navMainRef"
-      :navs="$store.state.menu.menu"
+      :navs="menuStore.menu"
       :style="{ background: isFixed ? '#171b22' : '' }"
       @change="onNavChange"
     ></nav-main>
@@ -23,6 +23,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import NavHeader from './nav-header.vue'
 import NavMain from './nav-main.vue'
 import { useRouter } from 'vue-router'
+import { useStore } from '@/pinia'
 
 export default {
   name: 'Home',
@@ -31,6 +32,7 @@ export default {
     const navMainRef = ref(null)
     const isFixed = ref(false)
     const router = useRouter()
+    const { menuStore } = useStore()
 
     const scroll = () => {
       isFixed.value = navMainRef.value.$el.offsetTop > 200
@@ -49,6 +51,7 @@ export default {
     })
     return {
       navMainRef,
+      menuStore,
       isFixed,
       onNavChange,
     }

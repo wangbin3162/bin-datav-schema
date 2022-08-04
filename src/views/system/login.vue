@@ -55,13 +55,7 @@
               <!--                  <span class="login-code"><img src="@/assets/images/login-code.png" alt="code"></span>-->
               <!--                </div>-->
               <!--              </b-form-item>-->
-              <b-button
-                @click="submit"
-                :loading="loading"
-                type="primary"
-                class="button-login"
-                size="large"
-              >
+              <b-button @click="submit" :loading="loading" type="primary" class="button-login" size="large">
                 登录
               </b-button>
             </b-form>
@@ -77,14 +71,14 @@
 import { login } from '@/api/modules/login.api'
 import { throwError } from '@/utils/util'
 import { defineAsyncComponent } from 'vue'
+import { mapActions } from 'pinia'
+import userStore from '@/pinia/modules/user'
 import config from '../../../package.json'
 
 export default {
   name: 'Login',
   components: {
-    BackgroundParticles: defineAsyncComponent(() =>
-      import('@/components/Common/BackgroundParticles/index.vue'),
-    ),
+    BackgroundParticles: defineAsyncComponent(() => import('@/components/Common/BackgroundParticles/index.vue')),
   },
   data() {
     return {
@@ -106,9 +100,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(userStore, ['setToken']),
     // 提交登录信息
     submit() {
-      this.$refs.loginForm.validate(async (valid) => {
+      this.$refs.loginForm.validate(async valid => {
         if (valid) {
           try {
             this.loading = true
@@ -124,7 +119,7 @@ export default {
     async loginSuccess(data) {
       if (data.code === '00') {
         const token = data.data.accessToken
-        await this.$store.dispatch('user/setToken', token)
+        await this.setToken(token)
         // 重定向对象不存在则返回顶层路径
         const redirect = this.$route.query.redirect || '/'
         await this.$router.push({ path: redirect })
