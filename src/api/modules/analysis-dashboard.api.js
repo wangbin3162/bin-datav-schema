@@ -1,6 +1,6 @@
 import { fetchData } from '@/api/request'
 import ldb from '@/config/localforage-db'
-import { findIndex, uuid, isEmpty } from '@/utils/util'
+import { findIndex, uuid, isEmpty, deepCopy } from '@/utils/util'
 
 // 文件夹key
 const FOLDER_KEY = 'DASHBOARD_FOLDER'
@@ -8,22 +8,24 @@ const FOLDER_KEY = 'DASHBOARD_FOLDER'
 const LIST_KEY = 'DASHBOARD_LIST'
 // 默认文件夹对象
 const DEFAULT_FOLDER = {
-  'id': '1',
-  'text': '分析看板',
-  'parentId': '0',
-  'children': [{ 'id': '7f0000017da314fa817dbc02cbb800ea', 'text': '我的看板', 'parentId': '1', 'children': [] }],
+  id: '1',
+  text: '分析看板',
+  parentId: '0',
+  children: [{ id: '7f0000017da314fa817dbc02cbb800ea', text: '我的看板', parentId: '1', children: [] }],
 }
 // 默认list
 const DEFAULT_LIST = [
   {
     id: '7f0000017de61662817e03c021cc0047',
-    layout: '{"width":1920,"height":1080,"bgColor":"#0d2a42","bgImage":"https://wangbin3162.gitee.io/bin-files/background/bg6.png","grid":1,"thumbnail":""}',
+    layout:
+      '{"width":1920,"height":1080,"bgColor":"#0d2a42","bgImage":"https://wangbin3162.gitee.io/bin-files/background/bg6.png","grid":1,"thumbnail":""}',
     name: '测试看板',
     pid: '1',
     status: 'edit',
     components: [
       {
-        componentContent: '{"id":"MainTitle_6941","name":"VMainTitle","alias":"通用标题","type":"com","locked":false,"hided":false,"attr":{"x":507,"y":277,"w":300,"h":48,"rotate":0,"opacity":1},"apiData":{},"events":{},"icon":"file-word","config":{"title":"我是标题数据","textStyle":{"fontFamily":"Microsoft Yahei","fontSize":24,"color":"#fff","fontWeight":"normal"},"textAlign":"center","writingMode":"horizontal-tb","backgroundStyle":{"show":false,"bgColor":"#008bff","borderRadius":15,"borderColor":"#fff","borderStyle":"solid","borderWidth":1},"ellipsis":false,"urlConfig":{"url":"","isBlank":false}}}',
+        componentContent:
+          '{"id":"MainTitle_6941","name":"VMainTitle","alias":"通用标题","type":"com","locked":false,"hided":false,"attr":{"x":507,"y":277,"w":300,"h":48,"rotate":0,"opacity":1},"apiData":{},"events":{},"icon":"file-word","config":{"title":"我是标题数据","textStyle":{"fontFamily":"Microsoft Yahei","fontSize":24,"color":"#fff","fontWeight":"normal"},"textAlign":"center","writingMode":"horizontal-tb","backgroundStyle":{"show":false,"bgColor":"#008bff","borderRadius":15,"borderColor":"#fff","borderStyle":"solid","borderWidth":1},"ellipsis":false,"urlConfig":{"url":"","isBlank":false}}}',
         componentDataType: 'static',
         componentId: null,
         componentName: null,
@@ -62,7 +64,8 @@ export async function createFolder(folder) {
   const newObj = { id: uuid(), parentId: folder.pid, text: folder.name, children: [] }
   try {
     const data = await ldb.getItem(FOLDER_KEY)
-    if (data) { // 存在表
+    if (data) {
+      // 存在表
       data.children.push(newObj)
       await ldb.setItem(FOLDER_KEY, data)
     }
@@ -78,7 +81,8 @@ export async function createFolder(folder) {
 export async function modifyFolder(folder) {
   try {
     const data = await ldb.getItem(FOLDER_KEY)
-    if (data) { // 存在表
+    if (data) {
+      // 存在表
       const index = findIndex(data.children, folder.id)
       data.children[index] = { ...data.children[index], text: folder.name }
       await ldb.setItem(FOLDER_KEY, data)
@@ -95,7 +99,8 @@ export async function modifyFolder(folder) {
 export async function removeFolder(id) {
   try {
     const data = await ldb.getItem(FOLDER_KEY)
-    if (data) { // 存在表
+    if (data) {
+      // 存在表
       const index = findIndex(data.children, id)
       data.children.splice(index, 1)
       await ldb.setItem(FOLDER_KEY, data)
@@ -112,7 +117,8 @@ export async function removeFolder(id) {
 export async function removeKanban(id) {
   try {
     const data = await ldb.getItem(LIST_KEY)
-    if (data) { // 存在表
+    if (data) {
+      // 存在表
       const index = findIndex(data, id)
       data.splice(index, 1)
       await ldb.setItem(LIST_KEY, data)
@@ -126,7 +132,7 @@ export async function removeKanban(id) {
 /**
  * 获取分析看板列表
  */
-export async function getDashboardList(data) {
+export async function getDashboardList() {
   try {
     const data = await ldb.getItem(LIST_KEY)
     if (data) return { rows: data, total: data.length }
@@ -163,7 +169,8 @@ export async function saveKanban({ id, name, pid, status, layout, components }) 
   try {
     const data = await ldb.getItem(LIST_KEY)
     if (data) {
-      if (isEmpty(id)) { // 为空的时候新增
+      if (isEmpty(id)) {
+        // 为空的时候新增
         const newId = uuid()
         data.push({
           id: newId,
@@ -173,12 +180,13 @@ export async function saveKanban({ id, name, pid, status, layout, components }) 
           layout,
           components,
         })
-        await ldb.setItem(LIST_KEY, data)
+        await ldb.setItem(LIST_KEY, deepCopy(data))
         return newId
-      } else { // 修改
+      } else {
+        // 修改
         const index = findIndex(data, id)
         data[index] = { id, name, pid, status, layout, components }
-        await ldb.setItem(LIST_KEY, data)
+        await ldb.setItem(LIST_KEY, deepCopy(data))
         return id
       }
     }

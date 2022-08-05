@@ -61,7 +61,7 @@ export const useDataCenter = com => {
   // 组件事件系统
   const dvEmit = (eventName, data) => {
     // 获取点击内容的所在维度索引seriesIndex，name，value
-    const { seriesIndex, name, value } = data
+    const { seriesIndex, name } = data
     // 获取当前点击的x轴维度信息
     const xData = apiData.value.config.x[seriesIndex]
     // 如果x轴维度存在切设置过下钻，则拼装下钻filters信息
@@ -82,7 +82,7 @@ export const useDataCenter = com => {
   }
 
   // 组件上卷事件
-  const dvScrollUp = ({ item, index }) => {
+  const dvScrollUp = ({ index }) => {
     drillIndex.value = index
     if (index === 0) {
       drillFilters.value = []

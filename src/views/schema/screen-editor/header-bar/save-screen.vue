@@ -93,9 +93,9 @@ export default {
             }
             loading.value = false
             visible.value = false
+            Message.success({ message: '保存成功！', showClose: true })
             setTimeout(() => {
               if (id) {
-                Message.success({ message: '保存成功！', showClose: true })
                 const oldId = pageInfo.value.id
                 if (!oldId) {
                   let routeData = router.resolve({

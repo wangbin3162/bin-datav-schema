@@ -59,7 +59,7 @@ export default function useSavePreview() {
   async function previewScreen() {
     let result = {}
     try {
-      await schemaStore.setGlobalLoading(true)
+      schemaStore.setGlobalLoading(true)
       const data = {
         pageInfo: {
           id: pageInfo.value.id,
@@ -73,7 +73,7 @@ export default function useSavePreview() {
     } catch (e) {
       result = {}
     }
-    await schemaStore.setGlobalLoading(false)
+    schemaStore.setGlobalLoading(false)
     return result
   }
 
