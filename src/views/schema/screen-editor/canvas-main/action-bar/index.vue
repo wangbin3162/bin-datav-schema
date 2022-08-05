@@ -18,7 +18,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 const { schemaStore } = useStore() // 执行获取schema专属store
 

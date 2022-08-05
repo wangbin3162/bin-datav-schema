@@ -3,7 +3,7 @@ import { saveKanban } from '@/api/modules/analysis-dashboard.api'
 import { saveScreenPreview } from '@/api/database.api'
 import { ApiType } from '@/config/data-source'
 import { useRoute } from 'vue-router'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 // 保存和预览hook
 export default function useSavePreview() {

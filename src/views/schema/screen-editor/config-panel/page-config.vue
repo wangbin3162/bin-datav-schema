@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { getImagesPath } from '@/utils/env'
 import { mobileScreenMap, webScreenMap } from '@/config/enum'
 import { ref, watch } from 'vue'

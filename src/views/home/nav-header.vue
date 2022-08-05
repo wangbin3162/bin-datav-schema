@@ -64,7 +64,7 @@
 import { MessageBox } from 'bin-ui-next'
 import { useRoute, useRouter } from 'vue-router'
 import config from '../../../package.json'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default {
   name: 'NavHeader',

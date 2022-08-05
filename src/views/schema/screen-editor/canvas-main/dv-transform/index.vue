@@ -38,7 +38,7 @@ import { getCursors, handleMove, handleRotate, handleZoom } from './util'
 import ReferLine from './refer-line.vue'
 import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default {
   name: 'dv-transform',

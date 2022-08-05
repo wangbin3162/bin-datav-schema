@@ -23,7 +23,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import NavHeader from './nav-header.vue'
 import NavMain from './nav-main.vue'
 import { useRouter } from 'vue-router'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default {
   name: 'Home',

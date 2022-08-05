@@ -12,7 +12,7 @@
 
 <script>
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { RulerBuilder } from './builder'
 
 export default {

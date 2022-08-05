@@ -1,6 +1,6 @@
 import { computed, reactive } from 'vue'
 import { on, off } from '@/utils/util'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 const pos = reactive({
   x: 0,

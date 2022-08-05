@@ -2,7 +2,7 @@
 import { off, on } from '@/utils/util'
 import eventBus from '@/utils/event-bus'
 import { nextTick } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 const { schemaStore } = useStore()
 
 const initialDirectionAngle = [

@@ -38,7 +38,7 @@ import ActionBar from '@/views/schema/screen-editor/canvas-main/action-bar/index
 import { createComponent } from '@/config/components-cfg'
 import { ApiType } from '@/config/data-source'
 import { getStaticData } from '@/api/database.api'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default {
   name: 'canvas-main',

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { ref } from 'vue'
 import { loadScreenPreview } from '@/api/database.api'
 import { useRoute, useRouter } from 'vue-router'

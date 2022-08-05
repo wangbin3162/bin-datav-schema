@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { list } from '@/config/components-list'
 import { computed, ref } from 'vue'
 import { createComponent } from '@/config/components-cfg'

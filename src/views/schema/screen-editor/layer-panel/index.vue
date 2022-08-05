@@ -88,7 +88,7 @@
 
 <script>
 import { computed } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 import { MoveType } from '@/config/enum'
 

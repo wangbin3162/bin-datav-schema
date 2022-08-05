@@ -2,7 +2,7 @@ import { toRefs, watch, ref, computed } from 'vue'
 import { ApiType } from '@/config/data-source'
 import { throwError, toJson, isEmpty, logger } from '@/utils/util'
 import { getModelDataById } from '@/api/modules/analysis-dashboard.api'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 /**
  * 数据中心hook

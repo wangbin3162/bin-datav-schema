@@ -9,7 +9,7 @@ import { computed, nextTick, ref, toRefs, watch } from 'vue'
 import { ApiType } from '@/config/data-source'
 import { isEmpty, throwError, toJson } from '@/utils/util'
 import { getModelDataById } from '@/api/modules/analysis-dashboard.api'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default {
   name: 'VScrollTable',

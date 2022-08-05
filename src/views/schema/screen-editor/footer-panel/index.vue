@@ -32,7 +32,7 @@
 
 <script>
 import { ref, watch } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import Shortcut from './shortcut.vue'
 
 export default {

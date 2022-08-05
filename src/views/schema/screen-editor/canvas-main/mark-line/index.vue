@@ -18,7 +18,7 @@
 <script>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import eventBus from '@/utils/event-bus'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { getComponentRotatedStyle } from './util'
 
 const DIFF = 5

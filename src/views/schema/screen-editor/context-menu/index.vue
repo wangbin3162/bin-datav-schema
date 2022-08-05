@@ -70,7 +70,7 @@ import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { on, off } from '@/utils/util'
 import { MoveType } from '@/config/enum'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { MessageBox } from 'bin-ui-next'
 
 export default {

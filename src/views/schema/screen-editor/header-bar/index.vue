@@ -77,7 +77,7 @@ import SaveScreen from './save-screen.vue'
 import SaveTemplate from './save-template.vue'
 import { Message } from 'bin-ui-next'
 import { readFileText } from '@/utils/file-helper'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import useSavePreview from '@/hooks/schema/useSavePreview'
 
 export default {

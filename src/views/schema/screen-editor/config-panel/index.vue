@@ -38,7 +38,7 @@
 <script>
 import { ref, watch } from 'vue'
 import { Message } from 'bin-ui-next'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import PageConfig from '@/views/schema/screen-editor/config-panel/page-config.vue'
 import DataCenterPanel from '@/views/schema/screen-editor/config-panel/data-center-panel/index.vue'
 import SettingPanel from '@/views/schema/screen-editor/config-panel/setting-panel/index.vue'

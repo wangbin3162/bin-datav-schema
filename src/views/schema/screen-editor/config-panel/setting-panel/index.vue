@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import ConfigTitle from '@/views/schema/screen-editor/config-panel/components/config-title.vue'
 import BasicSetting from '@/views/schema/screen-editor/config-panel/components/basic-setting.vue'
 

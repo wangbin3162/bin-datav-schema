@@ -21,7 +21,7 @@
 <script>
 import { computed, ref } from 'vue'
 import DsApi from '@/views/schema/screen-editor/config-panel/data-center-panel/ds-api.vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default {
   name: 'source-drawer',

@@ -1,6 +1,6 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { off, on } from '@/utils/util'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default function useShortcuts() {
   const headerRef = ref(null)

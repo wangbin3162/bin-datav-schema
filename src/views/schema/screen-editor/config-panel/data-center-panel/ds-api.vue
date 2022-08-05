@@ -172,7 +172,7 @@
 import useDsApi from './useDsApi'
 // import fieldTypeIcon from '@/components/Service/LinkNode/field-type-icon.vue'
 import { computed, h } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 const drillComs = ['VBasicBar', 'VHorizontalBar', 'VBasicLine', 'VBasicArea']
 export default {

@@ -46,7 +46,7 @@ export default ({ mode }) => {
         'axios',
         'vue',
         'vue-router',
-        'vuex',
+        'pinia',
         'dayjs',
         'echarts',
         'bin-ui-next',
@@ -68,7 +68,7 @@ export default ({ mode }) => {
             if (id.includes('/node_modules/')) {
               // 设置需要独立打包的npm包
               const expansions = ['bin-ui-next', 'brace']
-              const c = expansions.find((exp) => id.includes(`/node_modules/${exp}`))
+              const c = expansions.find(exp => id.includes(`/node_modules/${exp}`))
               if (c) {
                 return `chunk-${c}`
               } else {

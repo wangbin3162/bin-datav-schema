@@ -1,6 +1,6 @@
 import { useRoute } from 'vue-router'
 import { nextTick, watch, ref } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { loadKanban } from '@/api/modules/analysis-dashboard.api'
 import { loadTemplate } from '@/api/modules/template.api'
 import { getCreateData } from '@/api/database.api'

@@ -29,7 +29,7 @@
 
 <script>
 import { computed, reactive, ref, watch } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { generateId, throwError } from '@/utils/util'
 import { downloadFile } from '@/utils/file-helper'
 import { Message } from 'bin-ui-next'

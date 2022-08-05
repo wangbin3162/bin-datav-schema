@@ -72,7 +72,7 @@ import { login } from '@/api/modules/login.api'
 import { throwError } from '@/utils/util'
 import { defineAsyncComponent } from 'vue'
 import { mapActions } from 'pinia'
-import userStore from '@/pinia/modules/user'
+import userStore from '@/store/modules/user'
 import config from '../../../package.json'
 
 export default {

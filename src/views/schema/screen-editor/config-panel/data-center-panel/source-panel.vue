@@ -34,7 +34,7 @@
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
 import { createDataSources, ApiType } from '@/config/data-source'
 import { loadAsyncComponent } from '@/utils/async-component'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { on, off } from '@/utils/util'
 import { Message } from 'bin-ui-next'
 // import SourceDrawer from './source-drawer.vue'

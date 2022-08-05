@@ -1,5 +1,5 @@
 import { computed, reactive, toRefs, unref } from 'vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { AGGREGATOR_FUN, SORT_FUN } from '@/hooks/schema/useModelEnum'
 import { addClass, deepCopy, removeClass, throwError } from '@/utils/util'
 import { getCubeById } from '@/api/modules/analysis-dashboard.api'

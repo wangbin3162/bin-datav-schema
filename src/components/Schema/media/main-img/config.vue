@@ -33,7 +33,7 @@
 <script>
 import { computed } from 'vue'
 import { repeatTypes } from '@/config/select-options'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default {
   name: 'VMainImgConfig',

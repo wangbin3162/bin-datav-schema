@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { computed, nextTick, ref, watch } from 'vue'
 import { getKanbanDir } from '@/api/modules/analysis-dashboard.api'
 import { copyText, throwError } from '@/utils/util'

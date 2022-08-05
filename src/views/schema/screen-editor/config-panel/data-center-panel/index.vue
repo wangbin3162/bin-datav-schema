@@ -16,7 +16,7 @@
 
 <script>
 import ConfigTitle from '@/views/schema/screen-editor/config-panel/components/config-title.vue'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 import { computed } from 'vue'
 import { loadAsyncComponent } from '@/utils/async-component'
 

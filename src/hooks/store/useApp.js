@@ -1,4 +1,4 @@
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 export default function useApp() {
   const { globalStore, storeToRefs } = useStore()

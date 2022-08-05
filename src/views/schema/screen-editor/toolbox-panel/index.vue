@@ -30,7 +30,7 @@
 
 <script setup>
 import { MessageBox } from 'bin-ui-next'
-import { useStore } from '@/pinia'
+import { useStore } from '@/store'
 
 const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
 const { toolbar, toolbox } = storeToRefs(schemaStore)
