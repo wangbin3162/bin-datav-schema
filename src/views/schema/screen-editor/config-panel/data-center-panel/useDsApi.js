@@ -1,5 +1,5 @@
 import { computed, reactive, toRefs, unref } from 'vue'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 import { AGGREGATOR_FUN, SORT_FUN } from '@/hooks/schema/useModelEnum'
 import { addClass, deepCopy, removeClass, throwError } from '@/utils/util'
 import { getCubeById } from '@/api/modules/analysis-dashboard.api'
@@ -16,13 +16,14 @@ export default function useDsApi(props, emit) {
     filters: [],
     dragging: false,
   })
-  const { selectedCom } = useSchemaStore()
+  const { schemaStore, storeToRefs } = useStore()
+  const { selectedCom } = storeToRefs(schemaStore)
   const apiDataConfig = computed(() => selectedCom.value.apiData)
   const modelId = computed(() => apiDataConfig.value.config.modelId)
   const showDrill = computed(() => status.xColumns.findIndex(v => v.drillEnabled === 'Y') > -1)
 
   // 更新字段数据
-  const updateFieldState = (cubeSchema) => {
+  const updateFieldState = cubeSchema => {
     const { dimension, measure } = cubeSchema || {}
     // 维度、度量树
     status.dimensionTree = dimension || { title: '维度', nodeType: 'root', children: [] }
@@ -47,13 +48,13 @@ export default function useDsApi(props, emit) {
 
   initData()
 
-  const allowDrop = (draggingNode, dropNode, type) => false
+  const allowDrop = () => false
 
-  const allowDrag = (draggingNode) => draggingNode.nodeType === 'attribute'
+  const allowDrag = draggingNode => draggingNode.nodeType === 'attribute'
 
-  const onDragEnter = (e) => addClass(e.target, 'drag-enter')
+  const onDragEnter = e => addClass(e.target, 'drag-enter')
 
-  const onDragLeave = (e) => removeClass(e.target, 'drag-enter')
+  const onDragLeave = e => removeClass(e.target, 'drag-enter')
 
   // 拖拽节点缓存
   let dragNodeType = ''
@@ -96,20 +97,23 @@ export default function useDsApi(props, emit) {
     }
     const drillObj = status.xColumns[index]
     // 追加定义下钻数值
-    status.drill = [{
-      tableId: drillObj.tableId,
-      tableName: drillObj.tableName,
-      field: drillObj.field,
-      fieldId: drillObj.fieldId,
-      title: drillObj.title,
-      type: drillObj.type,
-      dataType: drillObj.dataType,
-    }]
+    status.drill = [
+      {
+        tableId: drillObj.tableId,
+        tableName: drillObj.tableName,
+        field: drillObj.field,
+        fieldId: drillObj.fieldId,
+        title: drillObj.title,
+        type: drillObj.type,
+        dataType: drillObj.dataType,
+      },
+    ]
   }
 
   // 移除一个下钻内容
   function removeDrill(index) {
-    if (index === 0) { // 如果是第0个下钻内容，则需要清空下钻列，并同步修改所有x轴内容为下钻N
+    if (index === 0) {
+      // 如果是第0个下钻内容，则需要清空下钻列，并同步修改所有x轴内容为下钻N
       status.drill = []
       for (let i = 0; i < status.xColumns.length; i++) {
         status.xColumns[i].drillEnabled = 'N'

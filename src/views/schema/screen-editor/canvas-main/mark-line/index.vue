@@ -4,8 +4,12 @@
       v-for="line in lines"
       :key="line"
       class="line"
-      :class="[line.includes('x')? 'xline' : 'yline',line]"
-      :ref="el=>{lineRefs[line]=el}"
+      :class="[line.includes('x') ? 'xline' : 'yline', line]"
+      :ref="
+        el => {
+          lineRefs[line] = el
+        }
+      "
       v-show="lineStatus[line] || false"
     ></div>
   </div>
@@ -14,14 +18,15 @@
 <script>
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import eventBus from '@/utils/event-bus'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
-import { getComponentRotatedStyle } from '@/views/schema/screen-editor/canvas-main/mark-line/util'
+import { useStore } from '@/pinia'
+import { getComponentRotatedStyle } from './util'
 
 const DIFF = 5
 export default {
   name: 'mark-line',
   setup() {
-    const { comps, selectedCom, canvas, setSingleComAttr, toolbox } = useSchemaStore()
+    const { schemaStore, storeToRefs } = useStore()
+    const { comps, selectedCom, canvas, toolbox } = storeToRefs(schemaStore)
     const lineRefs = ref([])
     const lines = ref(['xt', 'xc', 'xb', 'yl', 'yc', 'yr']) // 分别对应三条横线和三条竖线
     const lineStatus = ref({
@@ -37,6 +42,10 @@ export default {
       Object.keys(lineStatus.value).forEach(line => {
         lineStatus.value[line] = false
       })
+    }
+    function setSingleComAttr({ key, value }) {
+      const map = { left: 'x', top: 'y' }
+      schemaStore.setShapeSingleStyle({ key: map[key], value })
     }
 
     const showLine = (isDownward, isRightward) => {
@@ -79,7 +88,7 @@ export default {
               lineNode: lines.xc, // xc
               line: 'xc',
               dragShift: top + componentHalfHeight - curComponentHalfHeight,
-              lineShift: (top + componentHalfHeight),
+              lineShift: top + componentHalfHeight,
             },
             {
               isNearly: isNearly(curComponentStyle.top, bottom),
@@ -117,7 +126,7 @@ export default {
               lineNode: lines.yc, // yc
               line: 'yc',
               dragShift: left + componentHalfWidth - curComponentHalfWidth,
-              lineShift: (left + componentHalfWidth),
+              lineShift: left + componentHalfWidth,
             },
             {
               isNearly: isNearly(curComponentStyle.left, right),
@@ -140,13 +149,12 @@ export default {
         const { rotate } = curComponentStyle
         Object.keys(conditions).forEach(key => {
           // 遍历符合的条件并处理
-          conditions[key].forEach((condition) => {
+          conditions[key].forEach(condition => {
             if (!condition.isNearly) return
             // 修改当前组件位移
-            const value = rotate !== 0
-              ? translateCurComponentShift(key, condition, curComponentStyle)
-              : condition.dragShift
-            console.log(top, left, bottom, right, width, height)
+            const value =
+              rotate !== 0 ? translateCurComponentShift(key, condition, curComponentStyle) : condition.dragShift
+            // console.log(top, left, bottom, right, width, height)
             setSingleComAttr({ key, value })
             condition.lineNode.style[key] = `${condition.lineShift * scale + 60}px`
             needToShow.push(condition.line)
@@ -207,7 +215,7 @@ export default {
       }
     }
 
-    const compStyle = (attr) => ({ left: attr.x, top: attr.y, width: attr.w, height: attr.h, rotate: attr.rotate })
+    const compStyle = attr => ({ left: attr.x, top: attr.y, width: attr.w, height: attr.h, rotate: attr.rotate })
 
     const isNearly = (dragValue, targetValue) => Math.abs(dragValue - targetValue) <= DIFF
 

@@ -74,7 +74,7 @@ export default {
       this.recordSnapshot()
       this.selectedCom = null
     },
-    selectedCom(component) {
+    selectCom(component) {
       this.selectedCom = component
     },
     hoverCom(id) {
@@ -127,6 +127,7 @@ export default {
       this.hoveredComId = ''
       this.renamingCom = ''
       this.comps = []
+      this.recordSnapshot()
     },
   },
 }

@@ -23,7 +23,7 @@ export default function usePage() {
           pageConfig: JSON.parse(layout),
           comps: components.map(c => JSON.parse(c.componentContent)),
         }
-        await schemaStore.loadScreenData(screenData)
+        schemaStore.loadScreenData(screenData)
         await nextTick()
         document.title = name
       }
@@ -43,11 +43,11 @@ export default function usePage() {
         if (data) {
           const screenData = JSON.parse(data.content)
           const { comps, pageConfig } = screenData
-          await schemaStore.loadScreenData({ comps, pageConfig })
+          schemaStore.loadScreenData({ comps, pageConfig })
         }
       } else {
         // 预设创建
-        await schemaStore.setScreenSize(createData)
+        schemaStore.setScreenSize(createData)
       }
     } catch (e) {
       console.log(e)

@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
 import { computed, onBeforeUnmount, onMounted, reactive, ref, toRefs } from 'vue'
 import { on, off, debounce } from '@/utils/util'
 import Ruler from '@/views/schema/screen-editor/canvas-main/ruler/index.vue'
@@ -43,23 +42,11 @@ import { useStore } from '@/pinia'
 
 export default {
   name: 'canvas-main',
-  components: { MarkLine, DvTransform, Ruler, ActionBar },
+  components: { Ruler, ActionBar, MarkLine, DvTransform },
   setup() {
-    const {
-      store,
-      canvas,
-      pageConfig,
-      autoCanvasScale,
-      comps,
-      selectedCom,
-      getPanelOffsetLeft,
-      getPanelOffsetTop,
-      selectedCom,
-      addCom,
-      toolbox,
-    } = useSchemaStore()
-
-    const { schemaStore } = useStore() // 执行获取schema专属store
+    const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
+    const { pageConfig, spaceDown, canvas, selectedCom, comps, toolbox, getPanelOffsetLeft, getPanelOffsetTop } =
+      storeToRefs(schemaStore)
 
     const canvasWpRef = ref(null)
     const dragStatus = reactive({
@@ -67,25 +54,20 @@ export default {
       startX: 0,
       startY: 0,
     })
-    const screenShotStyle = computed(() => {
-      return {
-        width: `${canvas.value.width}px`,
-        height: `${canvas.value.height}px`,
-      }
-    })
+    const screenShotStyle = computed(() => ({
+      width: `${canvas.value.width}px`,
+      height: `${canvas.value.height}px`,
+    }))
+    const canvasPanelStyle = computed(() => ({
+      position: 'absolute',
+      width: `${pageConfig.value.width}px`,
+      height: `${pageConfig.value.height}px`,
+      transform: `scale(${canvas.value.scale}) translate(0px, 0px)`,
+      backgroundImage: `url(${pageConfig.value.bgImage})`,
+      backgroundColor: pageConfig.value.bgColor,
+    }))
 
-    const canvasPanelStyle = computed(() => {
-      return {
-        position: 'absolute',
-        width: `${pageConfig.value.width}px`,
-        height: `${pageConfig.value.height}px`,
-        transform: `scale(${canvas.value.scale}) translate(0px, 0px)`,
-        backgroundImage: `url(${pageConfig.value.bgImage})`,
-        backgroundColor: pageConfig.value.bgColor,
-      }
-    })
-
-    const autoScale = debounce(autoCanvasScale, 50)
+    const autoScale = debounce(schemaStore.autoCanvasScale, 50)
 
     // 拖放增加组件
     const dropToAddCom = async event => {
@@ -99,9 +81,9 @@ export default {
           const offsetY = (event.clientY - getPanelOffsetTop.value + canvasWpRef.value.scrollTop) / scale
           com.attr.x = Math.round(offsetX - com.attr.w / 2)
           com.attr.y = Math.round(offsetY - com.attr.h / 2)
-          await addCom({ component: com })
+          schemaStore.addCom({ component: com })
           // 选中当前
-          await selectedCom(com)
+          schemaStore.selectCom(com)
           // 如是静态数据，且存在staticPath，则填充一次数据
           if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
             const { data } = await getStaticData(com.id, com.apiData.staticPath)
@@ -120,8 +102,8 @@ export default {
     }
 
     const cancelSelectCom = ev => {
-      if (!schemaStore.spaceDown.value) {
-        selectedCom()
+      if (!spaceDown.value) {
+        schemaStore.selectCom()
       }
 
       dragStatus.drag = true
@@ -133,7 +115,7 @@ export default {
       const attr = { left: scrollLeft, top: scrollTop }
 
       const move = e => {
-        if (!schemaStore.spaceDown.value || !dragStatus.drag || !couldMove) return
+        if (!spaceDown.value || !dragStatus.drag || !couldMove) return
         const curX = e.clientX
         const curY = e.clientY
         const disX = Math.round((curX - startX) / scale)

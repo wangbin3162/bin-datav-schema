@@ -3,7 +3,7 @@
     <div class="layer-panel">
       <div class="layer-top">
         <div class="layer-num pl-10">图层</div>
-        <div class="layer-action" @click="toggleLayerPanel(false)">
+        <div class="layer-action" @click="schemaStore.toggleLayerPanel(false)">
           <i class="b-iconfont b-icon-left" title="收起"></i>
         </div>
       </div>
@@ -50,10 +50,10 @@
                 selected: selectedCom && com.id === selectedCom.id,
               },
             ]"
-            @mousedown="selectCom(com.id)"
+            @mousedown="schemaStore.selectCom(com.id)"
             @mouseenter="onEnter(com.id)"
             @mouseleave="onLeave"
-            @dblclick="renamingCom(com.id)"
+            @dblclick="schemaStore.renamingCom(com.id)"
             @contextmenu="showMenu($event)"
           >
             <b-icon :name="com.icon" size="18"></b-icon>
@@ -62,8 +62,8 @@
               v-model.trim="com.alias"
               v-focus
               class="layer-item-input"
-              @blur="renamingCom('')"
-              @keydown.enter="renamingCom('')"
+              @blur="schemaStore.renamingCom('')"
+              @keydown.enter="schemaStore.renamingCom('')"
             />
             <span v-else class="layer-item-span">
               <span class="layer-item-text">{{ com.alias }}</span>
@@ -88,42 +88,36 @@
 
 <script>
 import { computed } from 'vue'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 import { MoveType } from '@/config/enum'
 
 export default {
   name: 'layer-panel',
   setup() {
-    const { toolbar, toggleLayerPanel, comps, selectedCom, hoveredComId, onCompHovered, selectedCom, moveCom } =
-      useSchemaStore()
-    const { showMenu, renamingComId, renamingCom } = useSchemaContextMenu()
+    const { schemaStore, storeToRefs } = useStore()
+    const { comps, toolbar, hoveredComId, selectedCom, renamingComId } = storeToRefs(schemaStore)
+
+    const { showMenu } = useSchemaContextMenu()
 
     const enableBtnClass = computed(() => !!selectedCom.value)
-    const enableBtnStyle = computed(() => {
-      return {
-        opacity: selectedCom.value ? 1 : 0.3,
-      }
-    })
+    const enableBtnStyle = computed(() => ({ opacity: selectedCom.value ? 1 : 0.3 }))
 
-    const enableLockBtnClass = computed(() => {
-      return {
-        enable: !!selectedCom.value,
-        checked: selectedCom.value?.locked,
-      }
-    })
-    const enableHideBtnClass = computed(() => {
-      return {
-        enable: !!selectedCom.value,
-        checked: selectedCom.value?.hided,
-      }
-    })
+    const enableLockBtnClass = computed(() => ({
+      enable: !!selectedCom.value,
+      checked: selectedCom.value?.locked,
+    }))
+
+    const enableHideBtnClass = computed(() => ({
+      enable: !!selectedCom.value,
+      checked: selectedCom.value?.hided,
+    }))
 
     const descComs = computed(() => [...comps.value].reverse())
 
     const moveCom = moveType => {
       if (selectedCom.value) {
-        moveCom(selectedCom.value.id, moveType)
+        schemaStore.moveCom(selectedCom.value.id, moveType)
       }
     }
 
@@ -132,27 +126,22 @@ export default {
     const moveTop = () => moveCom(MoveType.top)
     const moveBottom = () => moveCom(MoveType.bottom)
 
-    const onEnter = id => {
-      onCompHovered(id)
-    }
+    const onEnter = id => schemaStore.hoverCom(id)
 
-    const onLeave = () => {
-      onCompHovered('')
-    }
+    const onLeave = () => schemaStore.hoverCom('')
+
     const selectCom = id => {
       const com = comps.value.find(i => i.id === id)
       if (com) {
-        selectedCom(com)
+        schemaStore.selectCom(com)
       }
     }
-    const cancelSelectCom = () => {
-      selectedCom()
-    }
+    const cancelSelectCom = () => schemaStore.selectCom()
 
     return {
+      schemaStore,
       comps,
       toolbar,
-      toggleLayerPanel,
       enableBtnClass,
       enableBtnStyle,
       moveUp,
@@ -167,10 +156,9 @@ export default {
       selectCom,
       hoveredComId,
       selectedCom,
+      renamingComId,
       showMenu,
       cancelSelectCom,
-      renamingComId,
-      renamingCom,
     }
   },
 }

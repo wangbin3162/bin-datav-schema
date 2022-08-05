@@ -1,12 +1,12 @@
 <template>
   <div class="data-editor">
+    <a class="data-refresh" @click="handleChange">刷新数据</a>
     <b-ace-editor
       v-model="jsonData"
       theme="tomorrow_night"
       wrap
-      :styles="{border:'none'}"
+      :styles="{ border: 'none' }"
       :height="height"
-      @blur="handleChange"
     ></b-ace-editor>
   </div>
 </template>
@@ -42,15 +42,19 @@ export default {
       }
     }
 
-    watch(() => props.modelValue, val => {
-      // 转换为对象
-      try {
-        const obj = JSON.parse(val)
-        jsonData.value = JSON.stringify(obj, null, 2)
-      } catch (e) {
-        // console.log(e)
-      }
-    }, { immediate: true, deep: true })
+    watch(
+      () => props.modelValue,
+      val => {
+        // 转换为对象
+        try {
+          const obj = JSON.parse(val)
+          jsonData.value = JSON.stringify(obj, null, 2)
+        } catch (e) {
+          // console.log(e)
+        }
+      },
+      { immediate: true, deep: true },
+    )
     return {
       jsonData,
       handleChange,
@@ -61,6 +65,7 @@ export default {
 
 <style lang="stylus">
 .data-editor {
+  position: relative;
   margin: 12px 6px;
   border: 1px solid var(--schema-color-border);
   .ace-tomorrow-night .ace_entity.ace_name.ace_tag,
@@ -72,6 +77,13 @@ export default {
   }
   .ace-tomorrow-night .ace_heading, .ace-tomorrow-night .ace_markup.ace_heading, .ace-tomorrow-night .ace_string {
     color: var(--bin-color-success-light2);
+  }
+  .data-refresh {
+    position: absolute;
+    right: 8px;
+    top: 4px;
+    color: #1089ff;
+    z-index :1000;
   }
 }
 </style>

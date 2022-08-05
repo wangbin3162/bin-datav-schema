@@ -22,7 +22,7 @@ import { useStore } from '@/pinia'
 
 const { schemaStore } = useStore() // 执行获取schema专属store
 
-const actionStyle = computed(() => (schemaStore.toolbar.value.config ? { right: '332px' } : { right: 0 }))
+const actionStyle = computed(() => (schemaStore.toolbar.config ? { right: '332px' } : { right: 0 }))
 
 const undo = () => schemaStore.undo()
 const redo = () => schemaStore.redo()

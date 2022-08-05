@@ -11,7 +11,6 @@
       <div class="bin-result-subtitle">{{ errorMessage }}</div>
       <div class="bin-result-extra">
         <b-space>
-          <!--<b-button background @click="$router.back()">返回上级</b-button>-->
           <router-link :to="{ name: HOME_PATH }">
             <b-button type="primary">返回首页</b-button>
           </router-link>

@@ -6,27 +6,18 @@
         <div class="config-data-panel">
           <div class="node-main" :class="{ dragging }">
             <!--类别轴/维度-->
-            <div
-              id="area_type_panel"
-              class="config-data-item"
-              @drop="onDimensionDrop($event)"
-            >
+            <div id="area_type_panel" class="config-data-item" @drop="onDimensionDrop($event)">
               <div class="area-name D"><span>类别轴/维度</span></div>
               <div class="no-column-tip" v-if="xColumns.length === 0">
                 <span title="拖动维度字段至此处">拖动维度字段至此处</span>
               </div>
               <ul v-else class="column-list dimension" id="area_type">
-                <li
-                  v-for="(item,index) in xColumns"
-                  :key="item.id"
-                  class="column-item"
-                  :class="item.type"
-                >
+                <li v-for="(item, index) in xColumns" :key="item.id" class="column-item" :class="item.type">
                   <b-dropdown trigger="contextmenu" append-to-body @command="sortChange">
                     <div class="field-title">
                       <i
                         class="b-iconfont b-icon-expand mr-5"
-                        v-if="showDrill && item.drillEnabled==='Y'"
+                        v-if="showDrill && item.drillEnabled === 'Y'"
                         title="下钻字段"
                       ></i>
                       <field-type-icon :type="item.dataType" size="14px"></field-type-icon>
@@ -34,11 +25,13 @@
                     </div>
                     <template #dropdown>
                       <b-dropdown-menu>
-                        <b-dropdown-item :name="{index,key:''}" :selected="item.sortWay === ''">不排序</b-dropdown-item>
+                        <b-dropdown-item :name="{ index, key: '' }" :selected="item.sortWay === ''">
+                          不排序
+                        </b-dropdown-item>
                         <b-dropdown-item
-                          v-for="(val,key) in SORT_FUN"
+                          v-for="(val, key) in SORT_FUN"
                           :key="key"
-                          :name="{index,key}"
+                          :name="{ index, key }"
                           :selected="item.sortWay === key"
                         >
                           {{ val }}
@@ -49,10 +42,10 @@
                   <i
                     class="b-iconfont b-icon-apartment"
                     title="设置下钻"
-                    v-if="canDrill && !showDrill && item.drillEnabled==='N'"
+                    v-if="canDrill && !showDrill && item.drillEnabled === 'N'"
                     @click="setDrill(index)"
                   ></i>
-                  <i class="b-iconfont b-icon-delete" @click="xColumns.splice(index,1)"></i>
+                  <i class="b-iconfont b-icon-delete" @click="xColumns.splice(index, 1)"></i>
                 </li>
               </ul>
               <div
@@ -63,22 +56,13 @@
               ></div>
             </div>
             <!--值轴/度量-->
-            <div
-              id="area_value_panel"
-              class="config-data-item"
-              @drop="onMeasureDrop($event)"
-            >
+            <div id="area_value_panel" class="config-data-item" @drop="onMeasureDrop($event)">
               <div class="area-name M"><span>值轴/度量</span></div>
               <div class="no-column-tip" v-if="yColumns.length === 0">
                 <span title="拖动度量字段至此处">拖动度量字段至此处</span>
               </div>
               <ul v-else class="column-list measure" id="area_value">
-                <li
-                  v-for="(item,index) in yColumns"
-                  :key="item.id"
-                  class="column-item"
-                  :class="item.type"
-                >
+                <li v-for="(item, index) in yColumns" :key="item.id" class="column-item" :class="item.type">
                   <b-dropdown trigger="contextmenu" append-to-body @command="aggrChange">
                     <div class="field-title">
                       <field-type-icon :type="item.dataType" size="14px"></field-type-icon>
@@ -87,9 +71,9 @@
                     <template #dropdown>
                       <b-dropdown-menu>
                         <b-dropdown-item
-                          v-for="(val,key) in AGGREGATOR_FUN"
+                          v-for="(val, key) in AGGREGATOR_FUN"
                           :key="key"
-                          :name="{index,key}"
+                          :name="{ index, key }"
                           :selected="item.aggregator === key"
                         >
                           {{ val }}
@@ -97,7 +81,7 @@
                       </b-dropdown-menu>
                     </template>
                   </b-dropdown>
-                  <i class="b-iconfont b-icon-delete" @click="yColumns.splice(index,1)"></i>
+                  <i class="b-iconfont b-icon-delete" @click="yColumns.splice(index, 1)"></i>
                 </li>
               </ul>
               <div
@@ -111,7 +95,7 @@
             <div
               id="area_drill_panel"
               class="config-data-item"
-              v-if="showDrill && drill.length>0"
+              v-if="showDrill && drill.length > 0"
               @drop="onDrillDrop($event)"
             >
               <div class="area-name" flex="cross:center">
@@ -120,18 +104,15 @@
               </div>
               <ul class="column-list drill-list">
                 <li
-                  v-for="(item,index) in drill"
+                  v-for="(item, index) in drill"
                   :key="item.id"
                   class="column-item"
                   :class="item.type"
-                  :style="{width: index ===0 ?'100%':'90%'}"
+                  :style="{ width: index === 0 ? '100%' : '90%' }"
                 >
                   <div class="field-title">
-                    <i
-                      class="b-iconfont b-icon-branches mr-5 f-s-14"
-                      v-if="index===0"
-                    ></i>
-                    <field-type-icon :type="item.dataType" size="14px"></field-type-icon>
+                    <i class="b-iconfont b-icon-branches mr-5 f-s-14" v-if="index === 0"></i>
+                    <!-- <field-type-icon :type="item.dataType" size="14px"></field-type-icon> -->
                     <span class="ml-5">{{ item.title }}</span>
                   </div>
                   <i class="b-iconfont b-icon-delete" @click="removeDrill(index)"></i>
@@ -148,7 +129,7 @@
         </div>
         <div class="bottom-menus">
           <div class="refresh-panel">
-            <b-button type="primary" style="width: 100%;" @click="setApiDataConfig">保 存</b-button>
+            <b-button type="primary" style="width: 100%" @click="setApiDataConfig">保 存</b-button>
           </div>
         </div>
       </div>
@@ -191,7 +172,7 @@
 import useDsApi from './useDsApi'
 // import fieldTypeIcon from '@/components/Service/LinkNode/field-type-icon.vue'
 import { computed, h } from 'vue'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 
 const drillComs = ['VBasicBar', 'VHorizontalBar', 'VBasicLine', 'VBasicArea']
 export default {
@@ -209,13 +190,16 @@ export default {
     },
   },
   setup(props, { emit }) {
-    const { selectedCom } = useSchemaStore()
+    const { schemaStore, storeToRefs } = useStore()
+    const { selectedCom } = storeToRefs(schemaStore)
+
     const canDrill = computed(() => drillComs.includes(selectedCom.value.name))
 
     // 维度度量树
-    function renderContent({ root, node, data }) {
+    function renderContent({ data }) {
       const inline = [
-        h('span',
+        h(
+          'span',
           {
             class: `${data.type} t-ellipsis`,
             style: { width: 'calc(100% - 24px)' },
@@ -223,11 +207,15 @@ export default {
             title: `${data.title}-(${data.field})`,
           },
           [
-            ...[data.nodeType !== 'root' ? h('i', {
-              type: data.dataType,
-              size: '14px',
-              style: { marginRight: '6px' },
-            }) : null],
+            ...[
+              data.nodeType !== 'root'
+                ? h('i', {
+                    type: data.dataType,
+                    size: '14px',
+                    style: { marginRight: '6px' },
+                  })
+                : null,
+            ],
             data.title,
           ],
         ),

@@ -6,67 +6,11 @@ import { saveScreenPreview } from '@/api/database.api'
 import { ApiType } from '@/config/data-source'
 import useSchema from '@/hooks/store/useSchema'
 
-const LAYER_WIDTH = 220
-const COMPS_WIDTH = 50
-const CONFIG_WIDTH = 332
-const TOOLBOX_HEIGHT = 40
-const PANEL_PADDING = 60
 // scheam整体相关的内容值，包括schema 存储的pinia信息和全局封装的操作信息
 export default function useSchemaStore() {
   const route = useRoute()
   const schemaStore = useSchema() // 执行获取schema专属store
   const { pageInfo, pageConfig, comps, toolbar } = schemaStore
-
-  const getPanelOffsetX = computed(() => {
-    const toolbarVisible = toolbar.value
-    let offsetX = COMPS_WIDTH
-    if (toolbarVisible.layer) {
-      offsetX += LAYER_WIDTH
-    }
-    if (toolbarVisible.config) {
-      offsetX += CONFIG_WIDTH
-    }
-    return offsetX
-  })
-  const getPanelOffsetY = computed(() => {
-    const toolbarVisible = toolbar.value
-    let offsetY = 0
-    if (toolbarVisible.toolbox) {
-      offsetY += TOOLBOX_HEIGHT
-    }
-    return offsetY
-  })
-  const getPanelOffsetLeft = computed(() => {
-    const toolbarVisible = toolbar.value
-    let offsetX = PANEL_PADDING + COMPS_WIDTH
-    if (toolbarVisible.layer) {
-      offsetX += LAYER_WIDTH
-    }
-    return offsetX
-  })
-  const getPanelOffsetTop = computed(() => {
-    const toolbarVisible = toolbar.value
-    let offsetY = 40 + PANEL_PADDING
-    if (toolbarVisible.toolbox) {
-      offsetY += TOOLBOX_HEIGHT
-    }
-    return offsetY
-  })
-
-  const getPanelOffset = () => ({
-    offsetX: getPanelOffsetX.value,
-    offsetY: getPanelOffsetY.value,
-  })
-
-  // 自适应面板
-  async function autoCanvasScale() {
-    schemaStore.autoCanvasScale(getPanelOffset)
-  }
-
-  // 设置面板
-  async function setCanvasScale(scale) {
-    schemaStore.autoCanvasScale({ scale, ...getPanelOffset() })
-  }
 
   // 设置单个位置
   async function setSingleComAttr({ key, value }) {

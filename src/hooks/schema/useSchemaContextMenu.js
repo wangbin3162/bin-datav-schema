@@ -9,7 +9,7 @@ const pos = reactive({
 
 export default function useSchemaContextMenu(opts = {}) {
   const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-  const { contextMenu, selectedCom, renamingComId } = storeToRefs(schemaStore)
+  const { contextMenu, selectedCom } = storeToRefs(schemaStore)
 
   const isLocked = computed(() => selectedCom.value?.locked)
   const isHided = computed(() => selectedCom.value?.hided)
@@ -41,17 +41,11 @@ export default function useSchemaContextMenu(opts = {}) {
     contextMenu.value.show = false
   }
 
-  const renamingCom = id => {
-    schemaStore.renamingCom(id)
-  }
   return {
-    contextMenu,
     showMenu,
-    renamingComId,
-    renamingCom,
-    selectedCom,
     isLocked,
     isHided,
+    contextMenu,
     contextMenuStyle,
   }
 }

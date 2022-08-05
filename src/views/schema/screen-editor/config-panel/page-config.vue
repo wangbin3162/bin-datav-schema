@@ -41,12 +41,7 @@
       </div>
       <div class="page-config-wp">
         <g-field label="栅格间距" tooltip="每次移动的距离，单位px">
-          <g-input-number
-            v-model="pageConfig.grid"
-            :min="1"
-            :max="20"
-            suffix="px"
-          ></g-input-number>
+          <g-input-number v-model="pageConfig.grid" :min="1" :max="20" suffix="px"></g-input-number>
         </g-field>
       </div>
     </div>
@@ -54,7 +49,7 @@
 </template>
 
 <script>
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 import { getImagesPath } from '@/utils/env'
 import { mobileScreenMap, webScreenMap } from '@/config/enum'
 import { ref, watch } from 'vue'
@@ -62,43 +57,46 @@ import { ref, watch } from 'vue'
 export default {
   name: 'page-config',
   setup() {
-    const { pageConfig, autoCanvasScale, setScreenSize } = useSchemaStore()
+    const { schemaStore, storeToRefs } = useStore()
+    const { pageConfig } = storeToRefs(schemaStore)
     const screenLabel = ref('')
 
     const resetBGImage = () => {
       pageConfig.value.bgColor = '#0d2a42'
-      pageConfig.value.bgImage = getImagesPath('/background/background0.png')
+      pageConfig.value.bgImage = ''
     }
 
-    const onSizeChange = async () => {
-      await autoCanvasScale()
-    }
+    const onSizeChange = () => schemaStore.autoCanvasScale()
 
-    const sizeChange = (value) => {
+    const sizeChange = value => {
       if (value !== 'custom') {
         const val = value.split('x')
         const width = +val[0]
         const height = +val[1]
-        setScreenSize({ width, height })
+        schemaStore.setScreenSize({ width, height })
       }
     }
 
-    watch([() => pageConfig.value.width, () => pageConfig.value.height], () => {
-      const { width, height } = pageConfig.value
-      if (
-        (width === 1920 && height === 1080) ||
-        (width === 2560 && height === 1080) ||
-        (width === 3440 && height === 1080) ||
-        (width === 3440 && height === 1440) ||
-        (width === 414 && height === 736) ||
-        (width === 375 && height === 667) ||
-        (width === 375 && height === 812)
-      ) {
-        screenLabel.value = `${width}x${height}`
-      } else {
-        screenLabel.value = 'custom'
-      }
-    }, { immediate: true })
+    watch(
+      [() => pageConfig.value.width, () => pageConfig.value.height],
+      () => {
+        const { width, height } = pageConfig.value
+        if (
+          (width === 1920 && height === 1080) ||
+          (width === 2560 && height === 1080) ||
+          (width === 3440 && height === 1080) ||
+          (width === 3440 && height === 1440) ||
+          (width === 414 && height === 736) ||
+          (width === 375 && height === 667) ||
+          (width === 375 && height === 812)
+        ) {
+          screenLabel.value = `${width}x${height}`
+        } else {
+          screenLabel.value = 'custom'
+        }
+      },
+      { immediate: true },
+    )
 
     return {
       screenLabel,

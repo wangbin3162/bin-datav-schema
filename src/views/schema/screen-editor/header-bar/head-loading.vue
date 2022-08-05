@@ -9,9 +9,9 @@ import { computed } from 'vue'
 export default {
   name: 'HeadLoading',
   setup() {
-    const { schemaStore } = useStore() // 执行获取schema专属store
-
-    const loading = computed(() => schemaStore.toolbar.value.loading)
+    const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
+    const { toolbar } = storeToRefs(schemaStore)
+    const loading = computed(() => toolbar.value.loading)
     return { loading }
   },
 }

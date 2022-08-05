@@ -1,20 +1,20 @@
 <template>
   <div class="schema-screen-container" @wheel.ctrl.prevent="ctrlMouseWheel">
-    <header-bar ref="headerRef" back-url="/dashboard"></header-bar>
+    <header-bar ref="headerRef" back-url="/dashboard" />
     <div v-if="loading" flex="main:center cross:center" class="full-wrapper">
       <svg-loading name="loading02" />
     </div>
     <div v-else class="editor-main-wrapper">
-      <components-panel></components-panel>
+      <components-panel />
       <layer-panel></layer-panel>
       <div class="edit-main-wp">
-        <toolbox-panel></toolbox-panel>
-        <canvas-main></canvas-main>
-        <footer-panel></footer-panel>
+        <toolbox-panel />
+        <canvas-main />
+        <footer-panel />
       </div>
-      <config-panel></config-panel>
+      <config-panel />
     </div>
-    <context-menu ref="contextMenuRef"></context-menu>
+    <context-menu ref="contextMenuRef" />
   </div>
 </template>
 

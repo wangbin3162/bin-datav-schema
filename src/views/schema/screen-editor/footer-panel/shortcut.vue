@@ -4,7 +4,7 @@
     :model-value="modelValue"
     append-to-body
     custom-class="schema-modal"
-    @close="$emit('update:modelValue',false)"
+    @close="$emit('update:modelValue', false)"
   >
     <div class="shortcut-wp">
       <div class="shortcut-box">

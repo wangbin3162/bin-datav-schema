@@ -1,6 +1,6 @@
 <template>
   <div class="dv-wrapper" :style="wrapperStyle">
-    <div class="bg-inner" style="background: none; width: 100%; height: 100%;"></div>
+    <div class="bg-inner" style="background: none; width: 100%; height: 100%"></div>
   </div>
 </template>
 
@@ -34,7 +34,9 @@ export default {
       }
       const img = boxImages.find(m => m.id === config.value.img)
       if (img) {
-        style['border-image'] = `url(${img.src}) ${img.border.slice} / ${img.border.width} / ${img.border.outset} ${img.border.repeat}`
+        style[
+          'border-image'
+        ] = `url(${img.src}) ${img.border.slice} / ${img.border.width} / ${img.border.outset} ${img.border.repeat}`
       }
       return style
     })

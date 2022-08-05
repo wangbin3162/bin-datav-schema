@@ -2,9 +2,7 @@
   <div class="nav-line">
     <div class="nav-line-top" :style="topLineStyle"></div>
     <div class="nav-line-left" :style="leftLineStyle"></div>
-    <div class="nav-line-account" :style="accountStyle">
-      {{ attr.x }}, {{ attr.y }}
-    </div>
+    <div class="nav-line-account" :style="accountStyle">{{ attr.x }}, {{ attr.y }}</div>
   </div>
 </template>
 
@@ -35,9 +33,9 @@ export default {
     }))
 
     const accountStyle = computed(() => ({
-      fontSize: `${(12 / props.scale)}px`,
-      top: `-${(6 / props.scale)}px`,
-      left: `-${(6 / props.scale)}px`,
+      fontSize: `${12 / props.scale}px`,
+      top: `-${6 / props.scale}px`,
+      left: `-${6 / props.scale}px`,
     }))
 
     return {

@@ -2,7 +2,8 @@
 import { off, on } from '@/utils/util'
 import eventBus from '@/utils/event-bus'
 import { nextTick } from 'vue'
-import useSchema from '@/pinia/schema'
+import { useStore } from '@/pinia'
+const { schemaStore } = useStore()
 
 const initialDirectionAngle = [
   { direction: 'lt', angle: 0 },
@@ -134,7 +135,7 @@ const setAttr = (ev, dir, com, scale, grid) => {
   }
   const up = () => {
     eventBus.emit('unmove')
-    hasMove && useSchema.recordSnapshot()
+    hasMove && schemaStore.recordSnapshot()
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
   }
@@ -169,7 +170,7 @@ export const handleRotate = (ev, el, com) => {
   }
 
   const up = () => {
-    hasMove && useSchema.recordSnapshot()
+    hasMove && schemaStore.recordSnapshot()
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)
   }

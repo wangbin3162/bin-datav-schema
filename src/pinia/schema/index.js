@@ -15,6 +15,7 @@ const useSchema = defineStore('schema', {
   }),
   getters: {
     ...shortcuts.getters,
+    ...canvas.getters,
   },
   actions: {
     ...page.actions,

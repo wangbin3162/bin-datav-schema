@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 import { list } from '@/config/components-list'
 import { computed, ref } from 'vue'
 import { createComponent } from '@/config/components-cfg'
@@ -53,13 +53,14 @@ import { ApiType } from '@/config/data-source'
 export default {
   name: 'components-panel',
   setup() {
-    const { toggleCompsPanel, pageConfig, toolbar, addCom, selectedCom, selectedCom } = useSchemaStore()
+    const { schemaStore, storeToRefs } = useStore()
+    const { pageConfig, toolbar, selectedCom } = storeToRefs(schemaStore)
     const activeIndex = ref(0)
     // 开启的显示组件
     const comps = computed(() => list[activeIndex.value].data)
 
     const changeComp = index => {
-      toggleCompsPanel(true)
+      schemaStore.toggleCompsPanel(true)
       activeIndex.value = index
     }
     const dragStart = (e, comName) => {
@@ -70,9 +71,9 @@ export default {
         const com = createComponent(comName)
         com.attr.x = Math.floor((pageConfig.value.width - com.attr.w) / 2)
         com.attr.y = Math.floor((pageConfig.value.height - com.attr.h) / 2)
-        await addCom({ component: com })
+        schemaStore.addCom({ component: com })
         // 选中当前
-        await selectedCom(com)
+        schemaStore.selectCom(com)
         // 如是静态数据，且存在staticPath，则填充一次数据
         if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
           const { data } = await getStaticData(com.id, com.apiData.staticPath)
@@ -90,13 +91,12 @@ export default {
     }
     const closePanel = () => {
       if (toolbar.value.components) {
-        toggleCompsPanel(false)
+        schemaStore.toggleCompsPanel(false)
       }
     }
 
     return {
       toolbar,
-      toggleCompsPanel,
       activeIndex,
       componentsList: list,
       comps,

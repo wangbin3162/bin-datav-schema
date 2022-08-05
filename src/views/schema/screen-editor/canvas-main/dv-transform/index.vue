@@ -27,13 +27,12 @@
         <div class="transform-bg"></div>
       </div>
     </div>
-    <i v-if="data.locked" class="b-iconfont b-icon-lock" title="解锁" @click.stop="data.locked = false"></i>
+    <i v-if="data.locked" class="b-iconfont b-icon-lock" title="解锁" @click.stop="selectedCom.locked = false"></i>
   </div>
 </template>
 
 <script>
 import { computed, getCurrentInstance } from 'vue'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
 import { isEmpty } from '@/utils/util'
 import { getCursors, handleMove, handleRotate, handleZoom } from './util'
 import ReferLine from './refer-line.vue'
@@ -52,11 +51,10 @@ export default {
   },
   setup(props) {
     const instance = getCurrentInstance()
-    const { canvas, store, comps, pageConfig, selectedCom, hoveredComId, onCompHovered, selectedCom, toolbox } =
-      useSchemaStore()
     const { showMenu } = useSchemaContextMenu()
 
-    const { schemaStore } = useStore() // 执行获取schema专属store
+    const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
+    const { canvas, comps, pageConfig, selectedCom, hoveredComId, toolbox, spaceDown } = storeToRefs(schemaStore)
     // 是否悬停当前
     const isHovered = computed(() => hoveredComId.value === props.data.id)
     // 是否选中当前当前
@@ -133,23 +131,17 @@ export default {
       }
     })
 
-    const onEnter = () => {
-      onCompHovered(props.data.id)
-    }
+    const onEnter = () => schemaStore.hoverCom(props.data.id)
 
-    const onLeave = () => {
-      onCompHovered('')
-    }
+    const onLeave = () => schemaStore.hoverCom('')
 
     const selectCom = () => {
-      if (isSelected.value) {
-        return
-      }
-      selectedCom(props.data)
+      if (isSelected.value) return
+      schemaStore.selectCom(props.data)
     }
     // 单击选中组件
     const onMove = e => {
-      if (schemaStore.spaceDown.value) return
+      if (spaceDown.value) return
       e.stopPropagation()
       e.preventDefault()
       selectCom()

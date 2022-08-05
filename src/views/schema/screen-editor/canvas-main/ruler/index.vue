@@ -1,29 +1,25 @@
 <template>
   <div class="canvas-ruler-wp">
-    <div
-      ref="hRulerWpRef"
-      class="ruler-wrapper h-container"
-      :style="`transform: translateX(-${hScroll}px);`"
-    ></div>
+    <div ref="hRulerWpRef" class="ruler-wrapper h-container" :style="`transform: translateX(-${hScroll}px);`"></div>
     <div
       ref="vRulerWpRef"
       class="ruler-wrapper v-container"
       :style="`transform: rotate(90deg) translateX(-${vScroll}px);`"
     ></div>
-    <div class="ruler-corner">
-    </div>
+    <div class="ruler-corner"></div>
   </div>
 </template>
 
 <script>
 import { onMounted, onUnmounted, ref, watchEffect } from 'vue'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 import { RulerBuilder } from './builder'
 
 export default {
   name: 'ruler',
   setup() {
-    const { canvas } = useSchemaStore()
+    const { schemaStore, storeToRefs } = useStore()
+    const { canvas } = storeToRefs(schemaStore)
     const hRulerWpRef = ref(null)
     const vRulerWpRef = ref(null)
     const hRuler = ref(null)
@@ -54,12 +50,11 @@ export default {
             width: canvas.value.height,
             scale: canvas.value.scale,
           })
-
         }
       }
     })
 
-    const onScroll = (e) => {
+    const onScroll = e => {
       const dom = e.target
       hScroll.value = dom.scrollLeft
       vScroll.value = dom.scrollTop

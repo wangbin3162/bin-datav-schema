@@ -70,14 +70,15 @@ import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 import { onBeforeUnmount, onMounted } from 'vue'
 import { on, off } from '@/utils/util'
 import { MoveType } from '@/config/enum'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 import { MessageBox } from 'bin-ui-next'
 
 export default {
   name: 'context-menu',
   setup() {
-    const { moveCom, deleteCom, copyCom } = useSchemaStore()
-    const { contextMenu, selectedCom, isLocked, isHided, contextMenuStyle, renamingCom } = useSchemaContextMenu()
+    const { schemaStore, storeToRefs } = useStore()
+    const { selectedCom } = storeToRefs(schemaStore)
+    const { isLocked, isHided, contextMenu, contextMenuStyle } = useSchemaContextMenu()
 
     const moveCom = moveType => {
       if (selectedCom.value) {
@@ -110,7 +111,7 @@ export default {
           title: '是否删除选中的1个组件',
         })
           .then(() => {
-            deleteCom(com.id)
+            schemaStore.deleteCom(com.id)
           })
           .catch(() => {})
       }
@@ -119,14 +120,14 @@ export default {
     const renameCom = () => {
       const com = selectedCom.value
       if (com) {
-        renamingCom(com.id)
+        schemaStore.renamingCom(com.id)
       }
     }
 
     const toCopyCom = () => {
       const com = selectedCom.value
       if (com) {
-        copyCom(com.id)
+        schemaStore.copyCom(com.id)
       }
     }
 

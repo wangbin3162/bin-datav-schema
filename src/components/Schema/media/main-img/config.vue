@@ -15,12 +15,7 @@
       <g-select v-model="config.repeat" :data="repeatTypes" />
     </g-field>
     <g-field label="圆角">
-      <g-input-number
-        v-model="config.radius"
-        :min="0"
-        :step="1"
-        suffix="px"
-      />
+      <g-input-number v-model="config.radius" :min="0" :step="1" suffix="px" />
     </g-field>
     <g-field-collapse tooltip="点击标题区域可跳转至设定的超链接" label="超链接配置">
       <g-field label="超链接">
@@ -38,7 +33,7 @@
 <script>
 import { computed } from 'vue'
 import { repeatTypes } from '@/config/select-options'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 
 export default {
   name: 'VMainImgConfig',
@@ -50,9 +45,10 @@ export default {
   },
   setup(props) {
     const config = computed(() => props.data.config)
-    const { selectedCom } = useSchemaStore()
+    const { schemaStore, storeToRefs } = useStore()
+    const { selectedCom } = storeToRefs(schemaStore)
 
-    const imageChange = (img) => {
+    const imageChange = img => {
       if (img.attr) {
         selectedCom.value.attr.w = img.attr.w
         selectedCom.value.attr.h = img.attr.h

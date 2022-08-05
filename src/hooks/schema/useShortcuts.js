@@ -1,24 +1,13 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { off, on } from '@/utils/util'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
-import useSchema from '@/pinia/schema/index'
+import { useStore } from '@/pinia'
 
 export default function useShortcuts() {
   const headerRef = ref(null)
   const contextMenuRef = ref(null) // 右键菜单组件
-  const {
-    canvas,
-    selectedCom,
-    autoCanvasScale,
-    setCanvasScale,
-    toggleLayerPanel,
-    toggleCompsPanel,
-    toggleConfigPanel,
-    toggleToolbox,
-    copyCom,
-  } = useSchemaStore()
 
-  const schemaStore = useSchema()
+  const { schemaStore, storeToRefs } = useStore()
+  const { canvas, selectedCom } = storeToRefs(schemaStore)
 
   let copyTempCom = null
 
@@ -54,27 +43,27 @@ export default function useShortcuts() {
         keyDown('ctrlKey')
         if (key === 'arrowup') {
           // 组件面板
-          toggleCompsPanel()
+          schemaStore.toggleCompsPanel()
           ev.preventDefault()
         } else if (key === 'arrowdown') {
           // 配置面板
-          toggleToolbox()
+          schemaStore.toggleToolbox()
           ev.preventDefault()
         } else if (key === 'arrowleft') {
           // 图层
-          toggleLayerPanel()
+          schemaStore.toggleLayerPanel()
           ev.preventDefault()
         } else if (key === 'arrowright') {
           // 配置面板
-          toggleConfigPanel()
+          schemaStore.toggleConfigPanel()
           ev.preventDefault()
         } else if (key === 'a') {
           // 最佳视窗缩放
-          autoCanvasScale()
+          schemaStore.autoCanvasScale()
           ev.preventDefault()
         } else if (key === 'd') {
           // 100%视角
-          setCanvasScale(100)
+          schemaStore.setCanvasScale(100)
           ev.preventDefault()
         } else if (key === 'c') {
           // 缓存复制组件
@@ -82,7 +71,7 @@ export default function useShortcuts() {
           ev.preventDefault()
         } else if (key === 'v') {
           // 缓存复制组件
-          copyTempCom && copyCom(copyTempCom.id)
+          copyTempCom && schemaStore.copyCom(copyTempCom.id)
           ev.preventDefault()
         } else if (key === 's') {
           // 保存当前面板
@@ -135,7 +124,7 @@ export default function useShortcuts() {
     const zoom = (ev.wheelDelta > 0 ? 1 : -1) * 5
     // 计算缩放比例
     const next = Math.min(Math.max(scale + zoom, 20), 200)
-    setCanvasScale(next)
+    schemaStore.setCanvasScale(next)
   }
 
   onMounted(() => {

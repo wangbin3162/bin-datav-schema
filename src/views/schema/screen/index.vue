@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 import { ref } from 'vue'
 import { loadScreenPreview } from '@/api/database.api'
 import { useRoute, useRouter } from 'vue-router'
@@ -38,9 +38,10 @@ export default {
   name: 'Screen',
   components: { GLoading },
   setup() {
-    const $router = useRouter()
-    const $route = useRoute()
-    const { loadScreenData, pageConfig, comps } = useSchemaStore()
+    const router = useRouter()
+    const route = useRoute()
+    const { schemaStore, storeToRefs } = useStore()
+    const { pageConfig, comps } = storeToRefs(schemaStore)
     const loading = ref(true)
 
     const resize = () => {
@@ -56,10 +57,10 @@ export default {
 
     // 初始化screen数据
     const init = async () => {
-      const id = $route.params.screenId
-      const name = $route.name
+      const id = route.params.screenId
+      const name = route.name
       if (!id) {
-        await $router.push('/notfound')
+        await router.push('/notfound')
         return
       }
       try {
@@ -80,7 +81,7 @@ export default {
           }
         }
         if (data) {
-          await loadScreenData(data)
+          schemaStore.loadScreenData(data)
           setPageStyle(data)
 
           setTimeout(() => {
@@ -90,12 +91,12 @@ export default {
           on(window, 'resize', resize)
         }
       } catch (e) {
-        await $router.push('/notfound')
+        await router.push('/notfound')
       }
     }
 
     // 跟据screen数据设置page style
-    const setPageStyle = (config) => {
+    const setPageStyle = config => {
       const { pageInfo } = config
       document.title = pageInfo.name
       document.querySelector('meta[name="viewport"]').setAttribute('content', `width=${pageConfig.value.width}`)

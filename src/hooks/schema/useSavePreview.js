@@ -6,10 +6,11 @@ import { useRoute } from 'vue-router'
 import { useStore } from '@/pinia'
 
 // 保存和预览hook
-export default function useSchemaStore() {
+export default function useSavePreview() {
   const route = useRoute()
   const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
   const { pageInfo, pageConfig, comps } = storeToRefs(schemaStore)
+
   // 保存screenData
   async function saveScreenData(status = 'edit') {
     const saveData = {

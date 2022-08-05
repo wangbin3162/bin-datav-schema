@@ -25,7 +25,7 @@ export const useDataCenter = com => {
   // 设置dvData，读取数据并塞入存储数据
   const setDvData = async (filters = []) => {
     const { comId, type, config } = apiData.value
-    await schemaStore.setGlobalLoading(true)
+    schemaStore.setGlobalLoading(true)
     try {
       // 获取源数据
       if (type === ApiType.static) {
@@ -53,9 +53,9 @@ export const useDataCenter = com => {
     } catch (e) {
       throwError('useDataCenter/setDvData', e)
     }
-    // setTimeout(() => {
-    await schemaStore.setGlobalLoading(false)
-    // }, 800)
+    setTimeout(() => {
+      schemaStore.setGlobalLoading(false)
+    }, 800)
   }
 
   // 组件事件系统

@@ -6,7 +6,7 @@
         <div class="data-source-config">
           <g-field label="数据来源">
             <b-radio-group v-model="apiDataConfig.type" type="button" size="mini">
-              <b-radio v-for="(val,key) in ApiTypeMap" :key="key" :label="key">{{ val }}</b-radio>
+              <b-radio v-for="(val, key) in ApiTypeMap" :key="key" :label="key">{{ val }}</b-radio>
             </b-radio-group>
           </g-field>
           <!--静态编辑器-->
@@ -20,18 +20,13 @@
           <div v-else class="pt-10">
             <div class="data-result-title">选择分析模型</div>
             <div class="p16">
-              <b-tree
-                :data="modelTree"
-                titleKey="name"
-                default-expand
-                @select-change="handleChange"
-              ></b-tree>
+              <b-tree :data="modelTree" titleKey="name" default-expand @select-change="handleChange"></b-tree>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <source-drawer ref="sourceDrawerRef" />
+    <!-- <source-drawer ref="sourceDrawerRef" /> -->
   </div>
 </template>
 
@@ -39,15 +34,15 @@
 import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
 import { createDataSources, ApiType } from '@/config/data-source'
 import { loadAsyncComponent } from '@/utils/async-component'
-import useSchemaStore from '@/hooks/schema/useSchemaStore'
+import { useStore } from '@/pinia'
 import { on, off } from '@/utils/util'
 import { Message } from 'bin-ui-next'
-import SourceDrawer from '@/views/schema/screen-editor/config-panel/data-center-panel/source-drawer.vue'
+// import SourceDrawer from './source-drawer.vue'
 
 export default {
   name: 'source-panel',
   components: {
-    SourceDrawer,
+    // SourceDrawer,
     DataEditor: loadAsyncComponent(() => import('../components/data-editor.vue')),
   },
   setup() {
@@ -60,7 +55,7 @@ export default {
         const modelId = apiDataConfig.value.config ? apiDataConfig.value.config.modelId : ''
         const mapperNode = {
           ...node,
-          icon: node.directory === 'Y' ? 'folder' : (node.modelType === 'DM' ? 'deploymentunit' : 'database'),
+          icon: node.directory === 'Y' ? 'folder' : node.modelType === 'DM' ? 'deploymentunit' : 'database',
           selected: modelId === node.id,
         }
         if (node.children && node.children.length) {
@@ -71,10 +66,11 @@ export default {
       return treeData.value.map(mapper)
     })
 
-    const { selectedCom } = useSchemaStore()
+    const { schemaStore, storeToRefs } = useStore()
+    const { selectedCom } = storeToRefs(schemaStore)
     const apiDataConfig = computed(() => selectedCom.value.apiData)
 
-    const updateData = (data) => {
+    const updateData = data => {
       apiDataConfig.value.config.data = data
     }
 

@@ -4,7 +4,7 @@
       v-if="config.urlConfig.url"
       :href="config.urlConfig.url"
       :target="config.urlConfig.ifBlank ? '_blank' : '_self'"
-      style="display: block; width: 100%; height: 100%;"
+      style="display: block; width: 100%; height: 100%"
     ></a>
   </div>
 </template>
