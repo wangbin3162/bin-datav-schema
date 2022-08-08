@@ -66,6 +66,29 @@ export const VBasicMap = {
   img: getComPath('2d-china.png'),
   type: 'map',
   used: false,
+} // 基本梯度图
+export const VBasicFunnel = {
+  name: 'VBasicFunnel',
+  alias: '基本梯度图',
+  img: getComPath('basic-funnel.jpg'),
+  type: 'map',
+  used: true,
+}
+// 基本词云图
+export const VBasicWordCloud = {
+  name: 'VBasicWordCloud',
+  alias: '基本词云图',
+  img: getComPath('basic-wordcloud.jpg'),
+  type: 'map',
+  used: true,
+}
+// 基本仪表盘
+export const VBasicGauge = {
+  name: 'VBasicGauge',
+  alias: '基本仪表盘',
+  img: getComPath('basic-gauge.png'),
+  type: 'map',
+  used: true,
 }
 // 信息-通用标题
 export const VMainTitle = {
@@ -167,6 +190,12 @@ export const list = [
     name: '雷达图',
     icon: 'radarchart',
     data: [VBasicRadar],
+  },
+  {
+    type: 'other',
+    name: '其他图表',
+    icon: 'ungroup',
+    data: [VBasicFunnel, VBasicWordCloud, VBasicGauge],
   },
   // {
   //   type: 'map',

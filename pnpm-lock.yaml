@@ -17,6 +17,8 @@ specifiers:
   cross-env: ^7.0.3
   dayjs: ^1.10.7
   echarts: ^5.3.0
+  echarts-stat: ^1.2.0
+  echarts-wordcloud: ^2.0.0
   eslint: ^7.32.0
   eslint-plugin-import: ^2.25.4
   eslint-plugin-vue: ^7.20.0
@@ -48,6 +50,8 @@ dependencies:
   brace: 0.11.1
   dayjs: 1.10.7
   echarts: 5.3.0
+  echarts-stat: 1.2.0
+  echarts-wordcloud: 2.0.0_echarts@5.3.0
   javascript-natural-sort: 0.7.1
   js-cookie: 3.0.1
   localforage: 1.10.0
@@ -1882,6 +1886,18 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /echarts-stat/1.2.0:
+    resolution: {integrity: sha512-zLd7Kgs+tuTSeaK0VQEMNmnMivEkhvHIk1gpBtLzpRerfcIQ+Bd5XudOMmtwpaTc1WDZbA7d1V//iiBccR46Qg==}
+    dev: false
+
+  /echarts-wordcloud/2.0.0_echarts@5.3.0:
+    resolution: {integrity: sha512-K7l6pTklqdW7ZWzT/1CS0KhBSINr/cd7c5N1fVMzZMwLQHEwT7x+nivK7g5hkVh7WNcAv4Dn6/ZS5zMKRozC1g==}
+    peerDependencies:
+      echarts: ^5.0.1
+    dependencies:
+      echarts: 5.3.0
+    dev: false
 
   /echarts/5.3.0:
     resolution: {integrity: sha512-zENufmwFE6WjM+24tW3xQq4ICqQtI0CGj4bDVDNd3BK3LtaA/5wBp+64ykIyKy3QElz0cieKqSYP4FX9Lv9MwQ==}

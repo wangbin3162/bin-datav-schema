@@ -109,6 +109,7 @@ export const useDataCenter = com => {
   )
   return {
     dvData,
+    apiData,
     drillData,
     drillIndex,
     drillFilters,

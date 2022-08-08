@@ -1,0 +1,24 @@
+{
+  "list": [
+    {
+      "value": 60,
+      "name": "类别A"
+    },
+    {
+      "value": 40,
+      "name": "类别B"
+    },
+    {
+      "value": 20,
+      "name": "类别C"
+    },
+    {
+      "value": 100,
+      "name": "类别D"
+    },
+    {
+      "value": 80,
+      "name": "类别E"
+    }
+  ]
+}

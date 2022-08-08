@@ -142,6 +142,23 @@ export const legendLocations = [
   { value: 'bottom-right', label: '底部居右' },
 ]
 
+export const legendLocationsPie = [
+  { value: 'top-auto', label: '顶部' },
+  { value: 'middle-auto', label: '纵向居中' },
+  { value: 'bottom-auto', label: '底部' },
+  { value: 'auto-left', label: '居左' },
+  { value: 'auto-right', label: '居右' },
+  { value: 'auto-center', label: '横向居中' },
+  { value: 'top-left', label: '顶部居左' },
+  { value: 'top-center', label: '顶部居中' },
+  { value: 'top-right', label: '顶部居右' },
+  { value: 'middle-left', label: '左侧居中' },
+  { value: 'middle-right', label: '右侧居中' },
+  { value: 'bottom-left', label: '底部居左' },
+  { value: 'bottom-center', label: '底部居中' },
+  { value: 'bottom-right', label: '底部居右' },
+]
+
 export const legendIcons = [
   { value: 'auto', label: '自适应' },
   { value: 'circle', label: '圆形' },
@@ -194,4 +211,66 @@ export const timeFormats = [
 export const imageTypes = [
   { value: 'bitmap', label: '位图' },
   { value: 'vector', label: '矢量图' },
+]
+
+export const cloudShape = [
+  { value: 'circle', label: '圆形' },
+  { value: 'cardioid', label: '心形' },
+  { value: 'diamond', label: '菱形' },
+  { value: 'triangle-forward', label: '侧三角形' },
+  { value: 'triangle', label: '三角形' },
+  { value: 'pentagon', label: '五边形' },
+  { value: 'star', label: '星形' },
+]
+
+export const sortTypes = [
+  { value: 'ascending', label: '从小到大' },
+  { value: 'descending', label: '从大到小' },
+  { value: 'none', label: '自适应' },
+]
+
+export const alignType = [
+  { value: 'left', label: '左对齐' },
+  { value: 'right', label: '右对齐' },
+  { value: 'center', label: '居中对齐' },
+]
+
+export const funnelLabelPosition = [
+  { value: 'left', label: '左侧' },
+  { value: 'right', label: '右侧' },
+  { value: 'center', label: '内部居中' },
+  { value: 'top', label: '左上侧' },
+  { value: 'bottom', label: '下侧' },
+  { value: 'insideRight', label: '内部右侧' },
+  { value: 'insideLeft', label: '内部左侧' },
+  { value: 'leftTop', label: '左侧上部' },
+  { value: 'leftBottom', label: '左侧下部' },
+  { value: 'rightTop', label: '右侧上部' },
+  { value: 'rightBottom', label: '右侧下部' },
+]
+
+export const overflowTypes = [
+  { value: 'truncate', label: '截断' },
+  { value: 'break', label: '换行' },
+  { value: 'breakAll', label: '强制换行' },
+]
+
+// 回归方式
+export const lineEcStat = [
+  { value: 'linear', label: '线性回归' },
+  { value: 'exponential', label: '指数回归' },
+  { value: 'logarithmic', label: '对数回归' },
+  { value: 'polynomial', label: '多项式回归' },
+]
+
+// 指针类型
+export const pointerIcons = [
+  { value: 'auto', label: '自适应' },
+  { value: 'circle', label: '圆形' },
+  { value: 'rect', label: '矩形' },
+  { value: 'roundRect', label: '圆角矩形' },
+  { value: 'triangle', label: '三矩形' },
+  { value: 'diamond', label: '菱形' },
+  { value: 'arrow', label: '箭头' },
+  { value: 'pin', label: '钉' },
 ]

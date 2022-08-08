@@ -1,11 +1,7 @@
 <template>
   <div class="dv-wrapper" :style="wrapperStyle">
     <b-charts :options="options" style="width: 100%; height: 100%" ref="chartRef" />
-    <g-breadcrumb
-      v-if="couldDrill"
-      v-bind="{ drillData, drillIndex, drillFilters }"
-      @scroll-up="dvScrollUp"
-    />
+    <g-breadcrumb v-if="couldDrill" v-bind="{ drillData, drillIndex, drillFilters }" @scroll-up="dvScrollUp" />
   </div>
 </template>
 
@@ -23,8 +19,9 @@ export default {
     },
   },
   setup(props) {
-    const { dvData, dvEmit, dvScrollUp, drillData, drillIndex, drillFilters, couldDrill } =
-      useDataCenter(props.data)
+    const { dvData, apiData, dvEmit, dvScrollUp, drillData, drillIndex, drillFilters, couldDrill } = useDataCenter(
+      props.data,
+    )
     // config 配置项
     const config = computed(() => props.data.config)
     // attr 属性
@@ -56,11 +53,7 @@ export default {
           left: legendLeft,
           orient: legend.orient,
           textStyle: { ...legend.textStyle },
-          icon: legend.symbol.show
-            ? legend.symbol.icon === 'auto'
-              ? null
-              : legend.symbol.icon
-            : 'none',
+          icon: legend.symbol.show ? (legend.symbol.icon === 'auto' ? null : legend.symbol.icon) : 'none',
           itemWidth: legend.symbol.width,
           itemHeight: legend.symbol.height,
           itemGap: legend.symbol.gap,
@@ -110,15 +103,15 @@ export default {
       })
     }
 
-    const onClick = (params) => {
+    const onClick = params => {
       dvEmit('click', params)
     }
 
     // 设置seriesCount
     watch(
       () => dvData.value,
-      (val) => {
-        props.data.apiData.config.seriesCount = val.yData ? val.yData.length : 0
+      val => {
+        apiData.value.config.seriesCount = val.yData ? val.yData.length : 0
         nextTick(() => {
           chartRef.value && chartRef.value.refresh()
         })

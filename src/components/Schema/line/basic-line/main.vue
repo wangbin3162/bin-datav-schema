@@ -1,11 +1,7 @@
 <template>
   <div class="dv-wrapper" :style="wrapperStyle">
-    <b-charts :options="options" style="width:100%;height: 100%;" ref="chartRef"></b-charts>
-    <g-breadcrumb
-      v-if="couldDrill"
-      v-bind="{drillData, drillIndex, drillFilters}"
-      @scroll-up="dvScrollUp"
-    />
+    <b-charts :options="options" style="width: 100%; height: 100%" ref="chartRef"></b-charts>
+    <g-breadcrumb v-if="couldDrill" v-bind="{ drillData, drillIndex, drillFilters }" @scroll-up="dvScrollUp" />
   </div>
 </template>
 
@@ -25,15 +21,9 @@ export default {
     },
   },
   setup(props) {
-    const {
-      dvData,
-      dvEmit,
-      dvScrollUp,
-      drillData,
-      drillIndex,
-      drillFilters,
-      couldDrill,
-    } = useDataCenter(props.data)
+    const { dvData, apiData, dvEmit, dvScrollUp, drillData, drillIndex, drillFilters, couldDrill } = useDataCenter(
+      props.data,
+    )
     // config 配置项
     const config = computed(() => props.data.config)
     // attr 属性
@@ -55,9 +45,10 @@ export default {
       const { global, xAxis, yAxis, tooltip, legend } = config.value
       const [legendTop, legendLeft] = legend.position.split('-')
       const pointerLineStyle = {
-        type: tooltip.pointer.line.type === 'dashed'
-          ? [tooltip.pointer.line.dashedLength, tooltip.pointer.line.dashedSpace]
-          : tooltip.pointer.line.type,
+        type:
+          tooltip.pointer.line.type === 'dashed'
+            ? [tooltip.pointer.line.dashedLength, tooltip.pointer.line.dashedSpace]
+            : tooltip.pointer.line.type,
         width: tooltip.pointer.line.width,
         color: tooltip.pointer.line.color,
       }
@@ -72,7 +63,7 @@ export default {
           left: legendLeft,
           orient: legend.orient,
           textStyle: { ...legend.textStyle },
-          icon: legend.symbol.show ? legend.symbol.icon === 'auto' ? null : legend.symbol.icon : 'none',
+          icon: legend.symbol.show ? (legend.symbol.icon === 'auto' ? null : legend.symbol.icon) : 'none',
           itemWidth: legend.symbol.width,
           itemHeight: legend.symbol.height,
           itemGap: legend.symbol.gap,
@@ -110,7 +101,7 @@ export default {
             margin: xAxis.axisLabel.display.margin,
             align: xAxis.axisLabel.align,
             ...xAxis.axisLabel.textStyle,
-            formatter: (val) => {
+            formatter: val => {
               if (xAxis.type === 'time') {
                 return dayjs(val).format(xAxis.axisLabel.timeFormat)
               }
@@ -120,9 +111,10 @@ export default {
           splitLine: {
             show: xAxis.grid.show,
             lineStyle: {
-              type: xAxis.grid.line.type === 'dashed'
-                ? [xAxis.grid.line.dashedLength, xAxis.grid.line.dashedSpace]
-                : xAxis.grid.line.type,
+              type:
+                xAxis.grid.line.type === 'dashed'
+                  ? [xAxis.grid.line.dashedLength, xAxis.grid.line.dashedSpace]
+                  : xAxis.grid.line.type,
               width: xAxis.grid.line.width,
               color: xAxis.grid.line.color,
             },
@@ -161,16 +153,17 @@ export default {
             margin: yAxis.axisLabel.display.margin,
             align: yAxis.axisLabel.align,
             ...yAxis.axisLabel.textStyle,
-            formatter: (val) => {
+            formatter: val => {
               return valueFormater(val, yAxis.axisLabel.valueFormat)
             },
           },
           splitLine: {
             show: yAxis.grid.show,
             lineStyle: {
-              type: yAxis.grid.line.type === 'dashed'
-                ? [yAxis.grid.line.dashedLength, yAxis.grid.line.dashedSpace]
-                : yAxis.grid.line.type,
+              type:
+                yAxis.grid.line.type === 'dashed'
+                  ? [yAxis.grid.line.dashedLength, yAxis.grid.line.dashedSpace]
+                  : yAxis.grid.line.type,
               width: yAxis.grid.line.width,
               color: yAxis.grid.line.color,
             },
@@ -220,17 +213,20 @@ export default {
       })
     }
 
-    const onClick = (params) => {
+    const onClick = params => {
       dvEmit('click', params)
     }
 
     // 设置seriesCount
-    watch(() => dvData.value, val => {
-      props.data.apiData.config.seriesCount = val.yData ? val.yData.length : 0
-      nextTick(() => {
-        chartRef.value && chartRef.value.refresh()
-      })
-    })
+    watch(
+      () => dvData.value,
+      val => {
+        apiData.value.config.seriesCount = val.yData ? val.yData.length : 0
+        nextTick(() => {
+          chartRef.value && chartRef.value.refresh()
+        })
+      },
+    )
 
     onMounted(() => {
       // 如果click事件存在，则绑定事件

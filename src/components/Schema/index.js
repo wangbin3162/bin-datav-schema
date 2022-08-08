@@ -13,6 +13,9 @@ import VBorderBox from './media/border-box'
 import VDecoration from './media/decoration'
 import VMainImg from './media/main-img'
 import VScrollTable from './table/scroll-table'
+import VBasicFunnel from './funnel/basic-funnel'
+import VBasicWordCloud from './wordcloud/basic-wordcloud'
+import VBasicGauge from './gauge/base-gauge'
 
 const components = [
   VBasicBar,
@@ -30,11 +33,14 @@ const components = [
   VDecoration,
   VMainImg,
   VScrollTable,
+  VBasicFunnel,
+  VBasicWordCloud,
+  VBasicGauge,
 ]
 
 export function registerVCharts(app) {
   // sync register
-  components.forEach((component) => {
+  components.forEach(component => {
     app.use(component)
   })
 }

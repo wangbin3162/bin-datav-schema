@@ -17,6 +17,9 @@ import { scrollTableConfig } from '@/components/Schema/table/scroll-table/config
 import { basicPieConfig } from '@/components/Schema/pie/basic-pie/config'
 import { basicRingConfig } from '@/components/Schema/pie/basic-ring/config'
 import { basicRadarConfig } from '@/components/Schema/radar/basic-radar/config'
+import { basicFunnel } from '@/components/Schema/funnel/basic-funnel/config'
+import { basicWordCloud } from '@/components/Schema/wordcloud/basic-wordcloud/config'
+import { basicGauge } from '@/components/Schema/gauge/base-gauge/config'
 
 const DatavComponent = {
   id: '',
@@ -83,6 +86,12 @@ export function createComponent(name) {
       return mergeConfig('Decoration', decorationConfig)
     case 'MainImg':
       return mergeConfig('MainImg', mainImgConfig)
+    case 'BasicFunnel':
+      return mergeConfig('BasicFunnel', basicFunnel)
+    case 'BasicWordCloud':
+      return mergeConfig('BasicWordCloud', basicWordCloud)
+    case 'BasicGauge':
+      return mergeConfig('BasicGauge', basicGauge)
     default:
       throw Error(`Unknown component type: ${name}.`)
   }

@@ -31,6 +31,8 @@
     "brace": "^0.11.1",
     "dayjs": "^1.10.7",
     "echarts": "^5.3.0",
+    "echarts-stat": "^1.2.0",
+    "echarts-wordcloud": "^2.0.0",
     "javascript-natural-sort": "^0.7.1",
     "js-cookie": "^3.0.1",
     "localforage": "^1.10.0",
