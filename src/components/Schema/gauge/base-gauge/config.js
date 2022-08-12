@@ -15,6 +15,7 @@ export const BasicSeries = () => {
 }
 
 export const basicGauge = {
+  name: 'VBasicGauge',
   alias: '仪表盘',
   icon: 'dashboard',
   type: ComType.com,
@@ -51,7 +52,7 @@ export const basicGauge = {
       overflow: 'truncate',
       offsetCenter: ['0%', '95%'],
       valueAnimation: true,
-      unit: '%'
+      unit: '%',
     },
     axisLine: {
       show: true,
@@ -136,3 +137,5 @@ export const basicGauge = {
     },
   },
 }
+
+export default basicGauge

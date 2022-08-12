@@ -82,7 +82,7 @@ export default {
 
     const moveCom = moveType => {
       if (selectedCom.value) {
-        moveCom(selectedCom.value.id, moveType)
+        schemaStore.moveCom({ id: selectedCom.value.id, moveType })
       }
     }
 

@@ -2,6 +2,7 @@ import { ComType } from '@/config/data-source'
 import { getCDNPath } from '@/utils/env'
 
 export const mainImgConfig = {
+  name: 'VMainImg',
   alias: '单张图片',
   icon: 'image',
   type: ComType.com,
@@ -18,3 +19,5 @@ export const mainImgConfig = {
   apiData: {},
   events: {},
 }
+
+export default mainImgConfig

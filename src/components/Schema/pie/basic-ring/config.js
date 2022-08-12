@@ -2,6 +2,7 @@
 import { initApiData, ComType } from '@/config/data-source'
 
 export const basicRingConfig = {
+  name: 'VBasicRing',
   alias: '基本环图',
   icon: 'piechart',
   type: ComType.com,
@@ -66,3 +67,4 @@ export const basicRingConfig = {
     },
   },
 }
+export default basicRingConfig

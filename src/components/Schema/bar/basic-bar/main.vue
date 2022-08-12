@@ -240,7 +240,7 @@ export default {
     watch(
       () => dvData.value,
       val => {
-        apiData.vue.config.seriesCount = val.yData ? val.yData.length : 0
+        apiData.value.config.seriesCount = val.yData ? val.yData.length : 0
         nextTick(() => {
           chartRef.value && chartRef.value.refresh()
         })

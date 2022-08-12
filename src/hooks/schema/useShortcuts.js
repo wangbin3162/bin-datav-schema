@@ -92,7 +92,7 @@ export default function useShortcuts() {
       }
       // 组件微调移动
       const step = ev.shiftKey ? 10 : 1
-      if (com) {
+      if (com && !ev.altKey) {
         if (key === 'arrowleft') {
           com.attr.x -= step
           ev.preventDefault()

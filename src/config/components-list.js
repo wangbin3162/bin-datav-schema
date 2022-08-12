@@ -56,7 +56,7 @@ export const VBasicRadar = {
   name: 'VBasicRadar',
   alias: '基本雷达图',
   img: getComPath('basic-radar.jpg'),
-  type: 'map',
+  type: 'radar',
   used: true,
 }
 // 地图-基本地图
@@ -65,13 +65,46 @@ export const VBasicMap = {
   alias: '基本地图',
   img: getComPath('2d-china.png'),
   type: 'map',
-  used: false,
-} // 基本梯度图
+  used: true,
+}
+// 地图-省份地图
+export const VBasicMapEvo = {
+  name: 'VBasicMapEvo',
+  alias: '省份地图',
+  img: getComPath('basic-map-evo.png'),
+  type: 'map',
+  used: true,
+}
+//基本散点图
+export const VBasicScatter = {
+  name: 'VBasicScatter',
+  alias: '基本散点图',
+  img: getComPath('basic-scatter.png'),
+  type: 'scatter',
+  used: true,
+}
+// 散点图
+export const VLineBasicScatter = {
+  name: 'VLineBasicScatter',
+  alias: '散点线图',
+  img: getComPath('line-basic-scatter.png'),
+  type: 'scatter',
+  used: true,
+}
+// 盒须图
+export const VBasicBoxplot = {
+  name: 'VBasicBoxplot',
+  alias: '盒须图',
+  img: getComPath('basic-boxplot.png'),
+  type: 'boxplot',
+  used: true,
+}
+// 基本梯度图
 export const VBasicFunnel = {
   name: 'VBasicFunnel',
   alias: '基本梯度图',
   img: getComPath('basic-funnel.jpg'),
-  type: 'map',
+  type: 'funnel',
   used: true,
 }
 // 基本词云图
@@ -79,7 +112,7 @@ export const VBasicWordCloud = {
   name: 'VBasicWordCloud',
   alias: '基本词云图',
   img: getComPath('basic-wordcloud.jpg'),
-  type: 'map',
+  type: 'wordcloud',
   used: true,
 }
 // 基本仪表盘
@@ -87,7 +120,7 @@ export const VBasicGauge = {
   name: 'VBasicGauge',
   alias: '基本仪表盘',
   img: getComPath('basic-gauge.png'),
-  type: 'map',
+  type: 'gauge',
   used: true,
 }
 // 信息-通用标题
@@ -192,17 +225,29 @@ export const list = [
     data: [VBasicRadar],
   },
   {
+    type: 'scatter',
+    name: '散点图',
+    icon: 'pointmap',
+    data: [VBasicScatter, VLineBasicScatter],
+  },
+  {
+    type: 'boxplot',
+    name: '盒须图',
+    icon: 'boxplot',
+    data: [VBasicBoxplot],
+  },
+  {
+    type: 'map',
+    name: '地图',
+    icon: 'location',
+    data: [VBasicMap, VBasicMapEvo],
+  },
+  {
     type: 'other',
     name: '其他图表',
     icon: 'ungroup',
     data: [VBasicFunnel, VBasicWordCloud, VBasicGauge],
   },
-  // {
-  //   type: 'map',
-  //   name: '地图',
-  //   icon: 'location',
-  //   data: [VBasicMap],
-  // },
   {
     type: 'table',
     name: '表格',

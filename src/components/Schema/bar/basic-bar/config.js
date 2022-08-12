@@ -8,13 +8,14 @@ export const BasicBarSeries = () => {
     color: {
       type: 'solid',
       value: item,
-      from: ColorHelper.alpha(item, .8),
-      to: ColorHelper.alpha(item, .2),
+      from: ColorHelper.alpha(item, 0.8),
+      to: ColorHelper.alpha(item, 0.2),
     },
   }))
 }
 
 export const basicBarConfig = {
+  name: 'VBasicBar',
   alias: '基本柱图',
   icon: 'barchart',
   type: ComType.com,
@@ -210,3 +211,5 @@ export const basicBarConfig = {
     },
   },
 }
+
+export default basicBarConfig

@@ -2,6 +2,7 @@
 import { initApiData, ComType } from '@/config/data-source'
 
 export const basicPieConfig = {
+  name: 'VBasicPie',
   alias: '基本饼图',
   icon: 'piechart',
   type: ComType.com,
@@ -66,3 +67,4 @@ export const basicPieConfig = {
     },
   },
 }
+export default basicPieConfig

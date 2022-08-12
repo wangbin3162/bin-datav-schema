@@ -13,6 +13,7 @@ export const BasicLineSeries = () => {
 }
 
 export const basicLineConfig = {
+  name: 'VBasicLine',
   alias: '基本线图',
   icon: 'linechart',
   type: ComType.com,
@@ -204,3 +205,5 @@ export const basicLineConfig = {
     },
   },
 }
+
+export default basicLineConfig

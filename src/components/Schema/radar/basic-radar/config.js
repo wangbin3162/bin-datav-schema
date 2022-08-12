@@ -3,6 +3,7 @@ import { initApiData, ComType } from '@/config/data-source'
 import { defaultColors } from '@/config/colors'
 
 export const basicRadarConfig = {
+  name: 'VBasicRadar',
   alias: '基本雷达图',
   icon: 'radarchart',
   type: ComType.com,
@@ -92,3 +93,4 @@ export const basicRadarConfig = {
     },
   },
 }
+export default basicRadarConfig

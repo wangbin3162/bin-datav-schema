@@ -50,7 +50,7 @@
                 selected: selectedCom && com.id === selectedCom.id,
               },
             ]"
-            @mousedown="schemaStore.selectCom(com.id)"
+            @mousedown="selectCom(com.id)"
             @mouseenter="onEnter(com.id)"
             @mouseleave="onLeave"
             @dblclick="schemaStore.renamingCom(com.id)"
@@ -117,7 +117,7 @@ export default {
 
     const moveCom = moveType => {
       if (selectedCom.value) {
-        schemaStore.moveCom(selectedCom.value.id, moveType)
+        schemaStore.moveCom({ id: selectedCom.value.id, moveType })
       }
     }
 

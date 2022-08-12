@@ -1,6 +1,7 @@
 import { initApiData, ComType } from '@/config/data-source'
 
 export const numberTitleFlopConfig = {
+  name: 'VNumberTitleFlop',
   alias: '数字指标',
   icon: 'orderedlist',
   type: ComType.com,
@@ -41,3 +42,5 @@ export const numberTitleFlopConfig = {
   apiData: initApiData({ staticPath: 'text/number-title-flop' }),
   events: {},
 }
+
+export default numberTitleFlopConfig

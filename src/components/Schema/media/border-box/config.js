@@ -1,6 +1,7 @@
 import { ComType } from '@/config/data-source'
 
 export const borderBoxConfig = {
+  name: 'VBorderBox',
   alias: '边框',
   icon: 'gateway',
   type: ComType.com,
@@ -11,3 +12,4 @@ export const borderBoxConfig = {
   apiData: {},
   events: {},
 }
+export default borderBoxConfig

@@ -4,7 +4,7 @@ import { defaultColors } from '@/config/colors'
 import { ColorHelper } from '@/utils/util'
 
 export const BasicBarSeries = () => {
-  return defaultColors.map((item,index) => ({
+  return defaultColors.map((item, index) => ({
     color: {
       type: 'solid',
       value: item,
@@ -15,8 +15,9 @@ export const BasicBarSeries = () => {
 }
 
 export const basicFunnel = {
+  name: 'VBasicFunnel',
   alias: '梯度图',
-  icon: 'funnelchart',
+  icon: 'funnelplot',
   type: ComType.com,
   componentType: 'funnel',
   attr: { w: 500, h: 300 },
@@ -119,3 +120,5 @@ export const basicFunnel = {
     },
   },
 }
+
+export default basicFunnel

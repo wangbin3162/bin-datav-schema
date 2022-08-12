@@ -1,6 +1,7 @@
 import { ComType } from '@/config/data-source'
 
 export const decorationConfig = {
+  name: 'VDecoration',
   alias: '装饰器',
   icon: 'pushpin',
   type: ComType.com,
@@ -11,3 +12,5 @@ export const decorationConfig = {
   apiData: {},
   events: {},
 }
+
+export default decorationConfig

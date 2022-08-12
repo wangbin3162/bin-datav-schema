@@ -2,8 +2,9 @@
 import { initApiData, ComType } from '@/config/data-source'
 
 export const basicWordCloud = {
+  name: 'VBasicWordCloud',
   alias: '词云图',
-  icon: 'wordcloudchart',
+  icon: 'cloud',
   type: ComType.com,
   componentType: 'other',
   attr: { w: 500, h: 300 },
@@ -53,3 +54,5 @@ export const basicWordCloud = {
     },
   },
 }
+
+export default basicWordCloud

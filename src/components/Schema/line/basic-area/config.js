@@ -11,14 +11,15 @@ export const BasicAreaSeries = () => {
       type: 'solid',
     },
     areaStyle: {
-      from: ColorHelper.alpha(item, .8),
-      to: ColorHelper.alpha(item, .2),
+      from: ColorHelper.alpha(item, 0.8),
+      to: ColorHelper.alpha(item, 0.2),
       opacity: 0.8,
     },
   }))
 }
 
 export const basicAreaConfig = {
+  name: 'VBasicArea',
   alias: '基本区域图',
   icon: 'linechart',
   type: ComType.com,
@@ -210,3 +211,5 @@ export const basicAreaConfig = {
     },
   },
 }
+
+export default basicAreaConfig

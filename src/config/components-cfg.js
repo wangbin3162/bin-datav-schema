@@ -2,25 +2,18 @@
  * 基础组件类
  */
 import { deepCopy, deepMerge, generateId, isEmpty } from '@/utils/util'
-import { basicBarConfig } from '@/components/Schema/bar/basic-bar/config'
-import { mainTitleConfig } from '@/components/Schema/text/main-title/config'
-import { numberTitleFlopConfig } from '@/components/Schema/text/number-title-flop/config'
-import { decorationConfig } from '@/components/Schema/media/decoration/config'
-import { borderBoxConfig } from '@/components/Schema/media/border-box/config'
-import { mainImgConfig } from '@/components/Schema/media/main-img/config'
-import { timerConfig } from '@/components/Schema/text/timer/config'
-import { bgBoxConfig } from '@/components/Schema/media/bg-box/config'
-import { horiBasicBarConfig } from '@/components/Schema/bar/hori-basic-bar/config'
-import { basicLineConfig } from '@/components/Schema/line/basic-line/config'
-import { basicAreaConfig } from '@/components/Schema/line/basic-area/config'
-import { scrollTableConfig } from '@/components/Schema/table/scroll-table/config'
-import { basicPieConfig } from '@/components/Schema/pie/basic-pie/config'
-import { basicRingConfig } from '@/components/Schema/pie/basic-ring/config'
-import { basicRadarConfig } from '@/components/Schema/radar/basic-radar/config'
-import { basicFunnel } from '@/components/Schema/funnel/basic-funnel/config'
-import { basicWordCloud } from '@/components/Schema/wordcloud/basic-wordcloud/config'
-import { basicGauge } from '@/components/Schema/gauge/base-gauge/config'
 
+const cfgs = import.meta.globEager('../components/Schema/*/*/config.js')
+const configMap = new Map()
+// 便利执行
+Object.keys(cfgs).forEach(key => {
+  const config = cfgs[key].default
+  if (config?.name) {
+    configMap.set(config.name, config)
+  }
+})
+
+// 基础配置项
 const DatavComponent = {
   id: '',
   name: '',
@@ -40,10 +33,10 @@ const DatavComponent = {
   events: {},
 }
 
-function mergeConfig(name, config) {
-  const mergeObj = deepMerge(deepCopy(DatavComponent), config || {})
+function mergeConfig(name) {
+  const config = configMap.get(name) || {}
+  const mergeObj = deepMerge(deepCopy(DatavComponent), config)
   mergeObj.id = `${name}_${generateId()}`
-  mergeObj.name = `V${name}`
   if (!isEmpty(mergeObj.apiData)) {
     mergeObj.apiData.comId = mergeObj.id
   }
@@ -55,44 +48,7 @@ function mergeConfig(name, config) {
  * @param name
  */
 export function createComponent(name) {
-  switch (name.substr(1)) {
-    case 'BasicBar':
-      return mergeConfig('BasicBar', basicBarConfig)
-    case 'HorizontalBar':
-      return mergeConfig('HorizontalBar', horiBasicBarConfig)
-    case 'BasicLine':
-      return mergeConfig('BasicLine', basicLineConfig)
-    case 'BasicArea':
-      return mergeConfig('BasicArea', basicAreaConfig)
-    case 'BasicPie':
-      return mergeConfig('BasicPie', basicPieConfig)
-    case 'BasicRing':
-      return mergeConfig('BasicRing', basicRingConfig)
-    case 'BasicRadar':
-      return mergeConfig('BasicRadar', basicRadarConfig)
-    case 'ScrollTable':
-      return mergeConfig('ScrollTable', scrollTableConfig)
-    case 'MainTitle':
-      return mergeConfig('MainTitle', mainTitleConfig)
-    case 'NumberTitleFlop':
-      return mergeConfig('NumberTitleFlop', numberTitleFlopConfig)
-    case 'Timer':
-      return mergeConfig('Timer', timerConfig)
-    case 'BgBox':
-      return mergeConfig('BgBox', bgBoxConfig)
-    case 'BorderBox':
-      return mergeConfig('BorderBox', borderBoxConfig)
-    case 'Decoration':
-      return mergeConfig('Decoration', decorationConfig)
-    case 'MainImg':
-      return mergeConfig('MainImg', mainImgConfig)
-    case 'BasicFunnel':
-      return mergeConfig('BasicFunnel', basicFunnel)
-    case 'BasicWordCloud':
-      return mergeConfig('BasicWordCloud', basicWordCloud)
-    case 'BasicGauge':
-      return mergeConfig('BasicGauge', basicGauge)
-    default:
-      throw Error(`Unknown component type: ${name}.`)
-  }
+  const config = mergeConfig(name)
+  console.log(`----------createComponent[${name}]: `, config)
+  return config
 }

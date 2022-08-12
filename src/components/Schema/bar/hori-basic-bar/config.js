@@ -3,6 +3,7 @@ import { initApiData, ComType } from '@/config/data-source'
 import { BasicBarSeries } from '@/components/Schema/bar/basic-bar/config'
 
 export const horiBasicBarConfig = {
+  name: 'VHorizontalBar',
   alias: '基本条形图',
   icon: 'menu',
   type: ComType.com,
@@ -198,3 +199,5 @@ export const horiBasicBarConfig = {
     },
   },
 }
+
+export default horiBasicBarConfig

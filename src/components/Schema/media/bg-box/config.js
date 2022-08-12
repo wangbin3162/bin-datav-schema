@@ -1,18 +1,17 @@
 import { ComType } from '@/config/data-source'
 import { getImagesPath } from '@/utils/env'
 
-const getImgUrl = (name) => getImagesPath(`/box/${name}`)
+const getImgUrl = name => getImagesPath(`/box/${name}`)
 
 export const bgBoxConfig = {
+  name: 'VBgBox',
   alias: '背景块',
   icon: 'bg-colors',
   type: ComType.com,
   attr: { w: 300, h: 180 },
   config: {
     borderRadius: 0,
-    fills: [
-      { fill: '#003a8c', opacity: 10 },
-    ],
+    fills: [{ fill: '#003a8c', opacity: 10 }],
     border: {
       show: true,
       type: 'flat',
@@ -57,3 +56,4 @@ export const borderTypes = [
   { value: 'linearGradient', label: '渐变' },
   { value: 'image', label: '图片' },
 ]
+export default bgBoxConfig

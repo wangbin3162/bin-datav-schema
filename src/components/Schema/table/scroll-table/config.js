@@ -1,6 +1,7 @@
 import { ComType, initApiData } from '@/config/data-source'
 
 export const scrollTableConfig = {
+  name: 'VScrollTable',
   alias: '滚动表格',
   icon: 'table',
   type: ComType.com,
@@ -25,3 +26,5 @@ export const scrollTableConfig = {
   apiData: initApiData({ staticPath: 'table/scroll-table' }),
   events: {},
 }
+
+export default scrollTableConfig
