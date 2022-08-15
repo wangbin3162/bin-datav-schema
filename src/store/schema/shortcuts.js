@@ -23,6 +23,18 @@ export default {
       this.shortcuts.shiftKey = false
       this.shortcuts.spaceKey = false
     },
+    doRotate(type) {
+      const com = this.selectedCom
+      if (type === 'rotate-left') {
+        com.attr.rotate -= 90
+      } else if (type === 'sync') {
+        com.attr.rotate = 0
+      } else if (type === 'rotate-right') {
+        com.attr.rotate += 90
+      }
+      com.attr.rotate = com.attr.rotate < 0 ? com.attr.rotate + 360 : com.attr.rotate
+      if (com.attr.rotate === 360) com.attr.rotate = 0
+    },
     // 单组件设置吸附位置和顶点
     doAdsorption(type) {
       const com = this.selectedCom

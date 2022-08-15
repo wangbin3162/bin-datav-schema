@@ -275,6 +275,7 @@ export const pointerIcons = [
   { value: 'pin', label: '钉' },
 ]
 
+// 吸附位置
 export const positionOptions = [
   { value: 'align-to-top', label: '移至顶部' },
   { value: 'align-to-center', label: '垂直居中' },
@@ -282,4 +283,16 @@ export const positionOptions = [
   { value: 'align-to-left', label: '移至左侧' },
   { value: 'align-to-middle', label: '水平居中' },
   { value: 'align-to-right', label: '移至右侧' },
+]
+// 宽度高设置
+export const rotateOptions = [
+  { value: 'rotate-left', label: '左旋转90°' },
+  { value: 'sync', label: '重置旋转' },
+  { value: 'rotate-right', label: '右旋转90°' },
+]
+// 宽度高设置
+export const widthHeightOptions = [
+  { value: 'width-full', label: '宽度撑满' },
+  { value: 'height-full', label: '高度撑满' },
+  { value: 'original', label: '原始宽高' },
 ]

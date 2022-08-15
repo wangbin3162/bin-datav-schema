@@ -11,7 +11,17 @@
     <g-field label="旋转角度" flat>
       <g-input-number v-model="data.rotate" :min="0" :max="360" :step="1" inline />
       <div style="width: 50%">
-        <b-button size="small" @click="data.rotate = 0">重置旋转</b-button>
+        <b-button-group>
+          <b-button
+            v-for="em in rotateOptions"
+            :key="em.value"
+            size="mini"
+            :title="em.label"
+            @click="schemaStore.doRotate(em.value)"
+          >
+            <i :class="`b-iconfont b-icon-${em.value}`" />
+          </b-button>
+        </b-button-group>
       </div>
     </g-field>
     <g-field label="透明度">
@@ -26,7 +36,7 @@
           :title="em.label"
           @click="schemaStore.doAdsorption(em.value)"
         >
-          <i :class="`iconfont-align b-icon-${em.value}-vs`" style="position: relative; top: -1px" />
+          <i :class="`iconfont-align b-icon-${em.value}-vs`" />
         </b-button>
       </b-button-group>
     </g-field>
@@ -35,7 +45,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { positionOptions } from '@/config/select-options'
+import { positionOptions, rotateOptions } from '@/config/select-options'
 import { useStore } from '@/store'
 
 const emit = defineEmits(['update:attr'])
