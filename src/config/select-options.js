@@ -274,3 +274,12 @@ export const pointerIcons = [
   { value: 'arrow', label: '箭头' },
   { value: 'pin', label: '钉' },
 ]
+
+export const positionOptions = [
+  { value: 'align-to-top', label: '移至顶部' },
+  { value: 'align-to-center', label: '垂直居中' },
+  { value: 'align-to-bottom', label: '移至底部' },
+  { value: 'align-to-left', label: '移至左侧' },
+  { value: 'align-to-middle', label: '水平居中' },
+  { value: 'align-to-right', label: '移至右侧' },
+]

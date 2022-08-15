@@ -45,8 +45,14 @@ export default {
     pageConfig: { ...defaultPageCfg },
     comps: [], // 画布中的组件，默认插入一个用于调试可动态添加，暂时写死，后期用lowdb缓存
     selectedCom: null, // 单选选中的可拖拽组件
+    selectedComList: [],
     hoveredComId: '', // 悬停的组件缓存，保存的内容为id
     renamingComId: '', // 重命名的id
+  },
+  getters: {
+    multiSelect() {
+      return this.selectedComList.length > 1
+    },
   },
   actions: {
     setPageInfo(info) {

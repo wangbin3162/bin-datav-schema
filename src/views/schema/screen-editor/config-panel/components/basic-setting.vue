@@ -17,11 +17,27 @@
     <g-field label="透明度">
       <g-slider v-model="data.opacity" :min="0" :max="1" :step="0.05" />
     </g-field>
+    <g-field label="位置">
+      <b-button-group>
+        <b-button
+          v-for="em in positionOptions"
+          :key="em.value"
+          size="mini"
+          :title="em.label"
+          @click="schemaStore.doAdsorption(em.value)"
+        >
+          <i :class="`iconfont-align b-icon-${em.value}-vs`" style="position: relative; top: -1px" />
+        </b-button>
+      </b-button-group>
+    </g-field>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
+import { positionOptions } from '@/config/select-options'
+import { useStore } from '@/store'
+
 const emit = defineEmits(['update:attr'])
 const props = defineProps({
   attr: {
@@ -33,4 +49,6 @@ const data = computed({
   get: () => props.attr,
   set: val => emit('update:attr', val),
 })
+
+const { schemaStore } = useStore()
 </script>

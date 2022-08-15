@@ -9,9 +9,9 @@ const useSchema = defineStore('schema', {
   state: () => ({
     ...page.state,
     ...canvas.state,
-    ...shortcuts.state,
     ...contextmenu.state,
     ...snapshot.state,
+    ...shortcuts.state,
   }),
   getters: {
     ...shortcuts.getters,
@@ -20,9 +20,9 @@ const useSchema = defineStore('schema', {
   actions: {
     ...page.actions,
     ...canvas.actions,
-    ...shortcuts.actions,
     ...contextmenu.actions,
     ...snapshot.actions,
+    ...shortcuts.actions,
   },
 })
 
