@@ -54,11 +54,16 @@ export default {
     const { showMenu } = useSchemaContextMenu()
 
     const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-    const { canvas, comps, pageConfig, selectedCom, hoveredComId, toolbox, spaceDown } = storeToRefs(schemaStore)
+    const { canvas, comps, pageConfig, selectedCom, hoveredComId, toolbox, spaceDown, multiSelect, multipleComs } =
+      storeToRefs(schemaStore)
     // 是否悬停当前
     const isHovered = computed(() => hoveredComId.value === props.data.id)
     // 是否选中当前当前
-    const isSelected = computed(() => !isEmpty(selectedCom.value) && selectedCom.value.id === props.data.id)
+    const isSelected = computed(() => {
+      // 判断是否是多选模式
+      if (multiSelect.value) return multipleComs.value.map(i => i.id).includes(props.data.id)
+      return !isEmpty(selectedCom.value) && selectedCom.value.id === props.data.id
+    })
 
     const transformClass = computed(() => ({
       locked: props.data.locked,
@@ -136,7 +141,6 @@ export default {
     const onLeave = () => schemaStore.hoverCom('')
 
     const selectCom = () => {
-      if (isSelected.value) return
       schemaStore.selectCom(props.data)
     }
     // 单击选中组件

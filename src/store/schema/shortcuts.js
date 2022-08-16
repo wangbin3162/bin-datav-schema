@@ -61,5 +61,8 @@ export default {
 
       this.recordSnapshot()
     },
+    doAlign(type) {
+      console.log(type)
+    },
   },
 }

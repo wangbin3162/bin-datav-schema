@@ -45,13 +45,13 @@ export default {
     pageConfig: { ...defaultPageCfg },
     comps: [], // 画布中的组件，默认插入一个用于调试可动态添加，暂时写死，后期用lowdb缓存
     selectedCom: null, // 单选选中的可拖拽组件
-    selectedComList: [],
+    multipleComs: [],
     hoveredComId: '', // 悬停的组件缓存，保存的内容为id
     renamingComId: '', // 重命名的id
   },
   getters: {
     multiSelect() {
-      return this.selectedComList.length > 1
+      return this.multipleComs.length > 1
     },
   },
   actions: {
@@ -82,6 +82,22 @@ export default {
     },
     selectCom(component) {
       this.selectedCom = component
+      if (!component) {
+        this.multipleComs = []
+        return
+      }
+      // 判断当前点击的时候有没有按下shift，如果按下了之后就追加，否则的话就只更新一个选项
+      if (this.shortcuts.shiftKey) {
+        if (this.multipleComs.length === 0) {
+          this.multipleComs = [component]
+        } else {
+          // 先判断是否包含当前组件，如没有再新增
+          const i = findComIndex(this.multipleComs, component.id)
+          if (i === -1) this.multipleComs.push(component)
+        }
+      } else {
+        this.multipleComs = [component]
+      }
     },
     hoverCom(id) {
       this.hoveredComId = id

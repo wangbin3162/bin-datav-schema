@@ -40,12 +40,25 @@
         </b-button>
       </b-button-group>
     </g-field>
+    <g-field label="对齐" v-show="multiSelect">
+      <b-button-group>
+        <b-button
+          v-for="em in multiplAlignOptions"
+          :key="em.value"
+          size="mini"
+          :title="em.label"
+          @click="schemaStore.doAlign(em.value)"
+        >
+          <i :class="`iconfont-align b-icon-${em.value}`" />
+        </b-button>
+      </b-button-group>
+    </g-field>
   </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import { positionOptions, rotateOptions } from '@/config/select-options'
+import { positionOptions, rotateOptions, multiplAlignOptions } from '@/config/select-options'
 import { useStore } from '@/store'
 
 const emit = defineEmits(['update:attr'])
@@ -60,5 +73,6 @@ const data = computed({
   set: val => emit('update:attr', val),
 })
 
-const { schemaStore } = useStore()
+const { schemaStore, storeToRefs } = useStore()
+const { multiSelect } = storeToRefs(schemaStore)
 </script>

@@ -284,15 +284,27 @@ export const positionOptions = [
   { value: 'align-to-middle', label: '水平居中' },
   { value: 'align-to-right', label: '移至右侧' },
 ]
+
 // 宽度高设置
 export const rotateOptions = [
   { value: 'rotate-left', label: '左旋转90°' },
   { value: 'sync', label: '重置旋转' },
   { value: 'rotate-right', label: '右旋转90°' },
 ]
+
 // 宽度高设置
 export const widthHeightOptions = [
   { value: 'width-full', label: '宽度撑满' },
   { value: 'height-full', label: '高度撑满' },
   { value: 'original', label: '原始宽高' },
+]
+
+// 多选对齐设置
+export const multiplAlignOptions = [
+  { value: 'align-top', label: '顶对齐' },
+  { value: 'align-center', label: '垂直居中对齐' },
+  { value: 'align-bottom', label: '底对齐' },
+  { value: 'align-left', label: '左对齐' },
+  { value: 'align-middle', label: '水平居中对齐' },
+  { value: 'align-right', label: '右对齐' },
 ]
