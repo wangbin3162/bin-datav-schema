@@ -47,7 +47,7 @@
                 hided: com.hided,
                 locked: com.locked,
                 hovered: com.id === hoveredComId,
-                selected: selectedCom && com.id === selectedCom.id,
+                selected: isSelected(com),
               },
             ]"
             @mousedown="selectCom(com.id)"
@@ -91,12 +91,14 @@ import { computed } from 'vue'
 import { useStore } from '@/store'
 import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 import { MoveType } from '@/config/enum'
+import { isEmpty } from '@/utils/util'
 
 export default {
   name: 'layer-panel',
   setup() {
     const { schemaStore, storeToRefs } = useStore()
-    const { comps, toolbar, hoveredComId, selectedCom, renamingComId } = storeToRefs(schemaStore)
+    const { comps, toolbar, hoveredComId, selectedCom, renamingComId, multiSelect, multipleComs } =
+      storeToRefs(schemaStore)
 
     const { showMenu } = useSchemaContextMenu()
 
@@ -112,6 +114,11 @@ export default {
       enable: !!selectedCom.value,
       checked: selectedCom.value?.hided,
     }))
+
+    function isSelected(com) {
+      if (multiSelect.value) return multipleComs.value.map(i => i.id).includes(com.id)
+      return !isEmpty(selectedCom.value) && selectedCom.value.id === com.id
+    }
 
     const descComs = computed(() => [...comps.value].reverse())
 
@@ -159,6 +166,7 @@ export default {
       renamingComId,
       showMenu,
       cancelSelectCom,
+      isSelected,
     }
   },
 }

@@ -58,11 +58,15 @@ export default {
       storeToRefs(schemaStore)
     // 是否悬停当前
     const isHovered = computed(() => hoveredComId.value === props.data.id)
-    // 是否选中当前当前
+    // 是否多选选中当前当前
     const isSelected = computed(() => {
       // 判断是否是多选模式
-      if (multiSelect.value) return multipleComs.value.map(i => i.id).includes(props.data.id)
+      if (multiSelect.value) return false
       return !isEmpty(selectedCom.value) && selectedCom.value.id === props.data.id
+    })
+    const isMultiSelted = computed(() => {
+      if (multiSelect.value) return multipleComs.value.map(i => i.id).includes(props.data.id)
+      return false
     })
 
     const transformClass = computed(() => ({
@@ -175,6 +179,7 @@ export default {
       // 自有属性
       isHovered,
       isSelected,
+      isMultiSelted,
       hideStyle,
       transformClass,
       transformStyle,

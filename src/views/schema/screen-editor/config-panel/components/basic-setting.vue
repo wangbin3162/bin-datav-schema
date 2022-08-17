@@ -40,7 +40,7 @@
         </b-button>
       </b-button-group>
     </g-field>
-    <g-field label="对齐" v-show="multiSelect">
+    <g-field label="对齐" v-if="multiSelect">
       <b-button-group>
         <b-button
           v-for="em in multiplAlignOptions"

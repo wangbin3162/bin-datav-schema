@@ -81,22 +81,25 @@ export default {
       this.selectedCom = null
     },
     selectCom(component) {
-      this.selectedCom = component
       if (!component) {
+        this.selectedCom = null
         this.multipleComs = []
         return
       }
+      console.log(this.shortcuts)
       // 判断当前点击的时候有没有按下shift，如果按下了之后就追加，否则的话就只更新一个选项
       if (this.shortcuts.shiftKey) {
-        if (this.multipleComs.length === 0) {
-          this.multipleComs = [component]
-        } else {
-          // 先判断是否包含当前组件，如没有再新增
-          const i = findComIndex(this.multipleComs, component.id)
-          if (i === -1) this.multipleComs.push(component)
+        // 判断该上一次如果有单选切多选数组中位空则需要先新增一下，在执行追加
+        if (this.selectedCom && this.multipleComs.length === 0) {
+          this.multipleComs = [this.selectedCom]
+          this.selectedCom = null
         }
+        // 判断是否包含当前组件，如没有再新增
+        const i = findComIndex(this.multipleComs, component.id)
+        if (i === -1) this.multipleComs.push(component)
       } else {
-        this.multipleComs = [component]
+        this.selectedCom = component
+        this.multipleComs = []
       }
     },
     hoverCom(id) {
