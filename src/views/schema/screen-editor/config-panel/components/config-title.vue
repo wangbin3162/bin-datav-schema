@@ -26,17 +26,15 @@ export default {
   props: {
     comName: {
       type: String,
-      required: true,
     },
     comAlias: {
       type: String,
-      required: true,
     },
   },
   setup(props) {
     const comTitle = computed(() => {
       const obj = findComByName(props.comName)
-      return obj?.com.name
+      return obj ? obj.com.name : props.comName
     })
     const toSearch = () => {
       window.open('https://echarts.apache.org/zh/option.html#title', '_blank')

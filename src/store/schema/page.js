@@ -86,7 +86,6 @@ export default {
         this.multipleComs = []
         return
       }
-      console.log(this.shortcuts)
       // 判断当前点击的时候有没有按下shift，如果按下了之后就追加，否则的话就只更新一个选项
       if (this.shortcuts.shiftKey) {
         // 判断该上一次如果有单选切多选数组中位空则需要先新增一下，在执行追加

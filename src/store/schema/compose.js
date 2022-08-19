@@ -1,7 +1,13 @@
 // page页面需要保存的信息
 export default {
   state: {
-    areaData: { h: 0, left: 0, top: 0, width: 0 },
+    editorEL: null,
+    areaData: { left: 0, top: 0, width: 0, height: 0 },
   },
-  actions: {},
+  getters: {},
+  actions: {
+    getEditor() {
+      this.editorEL = document.querySelector('#canvas-wp')
+    },
+  },
 }
