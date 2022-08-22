@@ -1,12 +1,6 @@
 <template>
   <div class="canvas-main">
-    <div
-      id="canvas-wp"
-      ref="canvasWpRef"
-      class="canvas-panel-wrap"
-      @mousedown.stop="cancelSelectCom"
-      @mouseup.stop="cancelSelectCom"
-    >
+    <div id="canvas-wp" ref="canvasWpRef" class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
       <div class="screen-shot" :style="screenShotStyle">
         <mark-line :style="screenShotStyle" v-if="toolbox.markLine" />
         <action-bar />

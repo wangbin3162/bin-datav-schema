@@ -121,7 +121,7 @@ export const basicScatterConfig = {
         line: {
           type: 'dashed',
           width: 1,
-          color: 'rgba(111, 107, 107, 0.3)',
+          color: 'rgba(233, 228, 228, 0.1)',
           dashedLength: 4,
           dashedSpace: 4,
         },
@@ -182,7 +182,7 @@ export const basicScatterConfig = {
         line: {
           type: 'dashed',
           width: 1,
-          color: 'rgba(111, 107, 107, 0.3)',
+          color: 'rgba(233, 228, 228, 0.1)',
           dashedLength: 4,
           dashedSpace: 4,
         },

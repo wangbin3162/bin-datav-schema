@@ -88,6 +88,17 @@ export default {
           splitArea: {
             show: xAxis.splitArea.show,
           },
+          splitLine: {
+            show: xAxis.grid.show,
+            lineStyle: {
+              type:
+                xAxis.grid.line.type === 'dashed'
+                  ? [xAxis.grid.line.dashedLength, xAxis.grid.line.dashedSpace]
+                  : xAxis.grid.line.type,
+              width: xAxis.grid.line.width,
+              color: xAxis.grid.line.color,
+            },
+          },
           data: chartData.value.xData,
         },
         yAxis: {

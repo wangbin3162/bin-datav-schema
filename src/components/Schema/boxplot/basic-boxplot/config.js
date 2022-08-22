@@ -20,7 +20,7 @@ export const basicBoxplotConfig = {
   alias: '盒须图',
   icon: 'boxplot',
   type: ComType.com,
-  componentType: 'scatter',
+  componentType: 'boxplot',
   attr: { w: 500, h: 300 },
   config: {
     global: {
@@ -73,6 +73,16 @@ export const basicBoxplotConfig = {
           fontSize: 12,
           color: '#90a0ae',
           fontWeight: 'normal',
+        },
+      },
+      grid: {
+        show: false,
+        line: {
+          type: 'dashed',
+          width: 1,
+          color: 'rgba(233, 228, 228, 0.1)',
+          dashedLength: 4,
+          dashedSpace: 4,
         },
       },
       splitArea: {
@@ -160,14 +170,14 @@ export const basicBoxplotConfig = {
         line: {
           type: 'dashed',
           width: 1,
-          color: 'rgba(111, 107, 107, 0.3)',
+          color: 'rgba(233, 228, 228, 0.1)',
           dashedLength: 4,
           dashedSpace: 4,
         },
       },
       splitArea: {
-        show: true,
-        color: ['rgba(255,255,255,0.3)', 'rgba(200,200,200,0.2)'],
+        show: false,
+        color: ['rgba(13, 42, 66, 1)', 'rgba(255, 255, 255, 0.2)'],
       },
     },
     tooltip: {

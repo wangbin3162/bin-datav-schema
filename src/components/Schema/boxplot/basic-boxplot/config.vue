@@ -103,6 +103,7 @@
           <g-color-picker v-model="config.xAxis.title.textStyle.color" label="颜色" inline="inline-single" />
         </g-field>
       </g-field-collapse>
+
       <g-field-collapse label="轴线" v-model="config.xAxis.axisLine.show" toggle>
         <g-field label="轴线样式" flat>
           <g-input-number
@@ -149,6 +150,42 @@
           />
           <g-select v-model="config.xAxis.axisLabel.textStyle.fontWeight" :data="fontWeights" inline label="字体粗细" />
           <g-color-picker v-model="config.xAxis.axisLabel.textStyle.color" label="颜色" inline="inline-single" />
+        </g-field>
+      </g-field-collapse>
+
+      <g-field-collapse label="网格线" v-model="config.xAxis.grid.show" toggle>
+        <g-field label="线型样式" flat>
+          <g-select v-model="config.xAxis.grid.line.type" :data="lineStyles" inline="inline" label="类型" />
+          <g-input-number
+            v-model="config.xAxis.grid.line.width"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="粗细"
+          />
+          <g-color-picker v-model="config.xAxis.grid.line.color" inline="inline-single" label="颜色" />
+          <g-input-number
+            v-if="config.xAxis.grid.line.type === 'dashed'"
+            v-model="config.xAxis.grid.line.dashedLength"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="长度"
+          />
+          <g-input-number
+            v-if="config.xAxis.grid.line.type === 'dashed'"
+            v-model="config.xAxis.grid.line.dashedSpace"
+            :min="0"
+            :max="100"
+            :step="1"
+            suffix="px"
+            inline="inline"
+            label="间距"
+          />
         </g-field>
       </g-field-collapse>
     </g-field-collapse>

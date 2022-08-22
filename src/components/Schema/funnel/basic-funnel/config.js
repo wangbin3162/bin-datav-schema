@@ -29,7 +29,7 @@ export const basicFunnel = {
       sort: 'descending', //ascending从小到大/descending从大到小/none数组顺序
       gap: 5, //数据图形间距
       margin: {
-        left: '20',
+        left: '60',
         top: '20',
         right: '20',
         bottom: '20',
