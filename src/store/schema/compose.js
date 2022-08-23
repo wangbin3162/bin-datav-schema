@@ -7,7 +7,7 @@ export default {
   getters: {},
   actions: {
     getEditor() {
-      this.editorEL = document.querySelector('#canvas-wp')
+      this.editorEL = document.querySelector('#canvas-components')
     },
   },
 }

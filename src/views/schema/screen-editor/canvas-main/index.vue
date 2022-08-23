@@ -11,6 +11,7 @@
           :style="canvasPanelStyle"
           @dragover="dragOver"
           @drop="dropToAddCom"
+          @mousedown="handleMouseDown"
         >
           <dv-transform v-for="comp in comps" :key="comp.id" :data="comp">
             <component
@@ -42,9 +43,10 @@ import { ApiType } from '@/config/data-source'
 import { getStaticData } from '@/api/database.api'
 import { useStore } from '@/store'
 import SelectArea from './select-area/index.vue'
+import { getTransArea } from './select-area/uitl'
 
 const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-const { pageConfig, spaceDown, canvas, selectedCom, comps, toolbox, getPanelOffsetLeft, getPanelOffsetTop } =
+const { pageConfig, spaceDown, canvas, selectedCom, comps, toolbox, getPanelOffsetLeft, getPanelOffsetTop, editorEL } =
   storeToRefs(schemaStore)
 
 const canvasWpRef = ref(null)
@@ -61,6 +63,9 @@ const areaData = reactive({
   height: 0,
   showArea: false,
 })
+
+let editorX = 0
+let editorY = 0
 
 const screenShotStyle = computed(() => ({
   width: `${canvas.value.width}px`,
@@ -143,8 +148,73 @@ function cancelSelectCom(ev) {
   on(document, 'mouseup', up)
 }
 
+// 框选多个组件
+function handleMouseDown(e) {
+  // 如果没有选中组件 在画布上点击时需要调用 e.preventDefault() 防止触发 drop 事件
+  if (!selectedCom.value) {
+    e.preventDefault()
+  }
+  hideArea()
+  const rectInfo = editorEL.value.getBoundingClientRect()
+  editorX = rectInfo.x
+  editorY = rectInfo.y
+  const startX = e.clientX
+  const startY = e.clientY
+  areaData.x = startX - editorX + 60
+  areaData.y = startY - editorY + 60
+  areaData.showArea = true
+
+  const move = e => {
+    areaData.width = Math.abs(e.clientX - startX)
+    areaData.height = Math.abs(e.clientY - startY)
+    if (e.clientX < startX) {
+      areaData.x = e.clientX - editorX + 60
+    }
+    if (e.clientY < startY) {
+      areaData.y = e.clientY - editorY + 60
+    }
+  }
+
+  const up = e => {
+    off(document, 'mousemove', move)
+    off(document, 'mouseup', up)
+    if (e.clientX === startX && e.clientY === startY) {
+      hideArea()
+      return
+    }
+    createGroup() // 打组内容
+  }
+  on(document, 'mousemove', move)
+  on(document, 'mouseup', up)
+}
+
+function createGroup() {
+  // 获取选中区域的组件数据
+  const areaData = getSelectArea()
+  console.log(areaData)
+}
+
+function getSelectArea() {
+  const result = []
+  // 区域起点坐标 // 转换区域缩放位置和大小
+  const { x, y, width, height } = getTransArea(areaData)
+  console.log(x, y, width, height)
+  // 计算所有的组件数据，判断是否在选中区域内
+  comps.value.forEach(component => {
+    console.log(component)
+    if (component.hided || component.locked) return
+
+    const { x: left, y: top, w, h } = component.attr
+    if (x <= left && y <= top && left + w <= x + width && top + h <= y + height) {
+      result.push(component)
+    }
+  })
+
+  return result
+}
+
 function hideArea() {
-  areaData.showArea = 0
+  areaData.showArea = false
   areaData.width = 0
   areaData.height = 0
 }
