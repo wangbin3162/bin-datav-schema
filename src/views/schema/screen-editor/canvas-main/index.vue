@@ -23,9 +23,9 @@
               }"
             />
           </dv-transform>
+          <SelectArea v-bind="areaData" />
         </div>
       </div>
-      <SelectArea v-bind="areaData" />
     </div>
   </div>
 </template>
@@ -43,11 +43,21 @@ import { ApiType } from '@/config/data-source'
 import { getStaticData } from '@/api/database.api'
 import { useStore } from '@/store'
 import SelectArea from './select-area/index.vue'
-import { getTransArea } from './select-area/uitl'
+import { getSelectArea } from './select-area/uitl'
 
 const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-const { pageConfig, spaceDown, canvas, selectedCom, comps, toolbox, getPanelOffsetLeft, getPanelOffsetTop, editorEL } =
-  storeToRefs(schemaStore)
+const {
+  pageConfig,
+  spaceDown,
+  canvas,
+  selectedCom,
+  comps,
+  toolbox,
+  getPanelOffsetLeft,
+  getPanelOffsetTop,
+  editorEL,
+  areaData,
+} = storeToRefs(schemaStore)
 
 const canvasWpRef = ref(null)
 
@@ -55,13 +65,6 @@ const dragStatus = reactive({
   drag: false,
   startX: 0,
   startY: 0,
-})
-const areaData = reactive({
-  x: 0,
-  y: 0,
-  width: 0,
-  height: 0,
-  showArea: false,
 })
 
 let editorX = 0
@@ -155,23 +158,27 @@ function handleMouseDown(e) {
     e.preventDefault()
   }
   hideArea()
+
   const rectInfo = editorEL.value.getBoundingClientRect()
   editorX = rectInfo.x
   editorY = rectInfo.y
   const startX = e.clientX
   const startY = e.clientY
-  areaData.x = startX - editorX + 60
-  areaData.y = startY - editorY + 60
-  areaData.showArea = true
+  areaData.value.showArea = true
+
+  const _scale = canvas.value.scale
+
+  areaData.value.x = (startX - editorX) / _scale
+  areaData.value.y = (startY - editorY) / _scale
 
   const move = e => {
-    areaData.width = Math.abs(e.clientX - startX)
-    areaData.height = Math.abs(e.clientY - startY)
+    areaData.value.width = Math.abs((e.clientX - startX) / _scale)
+    areaData.value.height = Math.abs((e.clientY - startY) / _scale)
     if (e.clientX < startX) {
-      areaData.x = e.clientX - editorX + 60
+      areaData.value.x = (e.clientX - editorX) / _scale
     }
     if (e.clientY < startY) {
-      areaData.y = e.clientY - editorY + 60
+      areaData.value.y = (e.clientY - editorY) / _scale
     }
   }
 
@@ -188,35 +195,28 @@ function handleMouseDown(e) {
   on(document, 'mouseup', up)
 }
 
+// 创建分组包围盒
 function createGroup() {
   // 获取选中区域的组件数据
-  const areaData = getSelectArea()
-  console.log(areaData)
-}
-
-function getSelectArea() {
-  const result = []
-  // 区域起点坐标 // 转换区域缩放位置和大小
-  const { x, y, width, height } = getTransArea(areaData)
-  console.log(x, y, width, height)
-  // 计算所有的组件数据，判断是否在选中区域内
-  comps.value.forEach(component => {
-    console.log(component)
-    if (component.hided || component.locked) return
-
-    const { x: left, y: top, w, h } = component.attr
-    if (x <= left && y <= top && left + w <= x + width && top + h <= y + height) {
-      result.push(component)
-    }
-  })
-
-  return result
+  const selectAreaComps = getSelectArea(areaData.value, comps.value, canvas.value.scale)
+  if (selectAreaComps.length === 0) {
+    hideArea()
+    return
+  }
+  // 选中项只有一个的时候设置为单选
+  if (selectAreaComps.length === 1) {
+    schemaStore.selectCom(selectAreaComps[0])
+    hideArea()
+    return
+  }
+  // 设置选中区域大小，和多选选中的组件数据
+  schemaStore.setAreaData(selectAreaComps)
 }
 
 function hideArea() {
-  areaData.showArea = false
-  areaData.width = 0
-  areaData.height = 0
+  areaData.value.showArea = false
+  areaData.value.width = 0
+  areaData.value.height = 0
 }
 
 onMounted(() => {

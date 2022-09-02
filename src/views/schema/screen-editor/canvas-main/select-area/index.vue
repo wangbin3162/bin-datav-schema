@@ -8,26 +8,16 @@
       height: height + 'px',
     }"
     class="area"
-  >
-    <span>{{ realData }}</span>
-  </div>
+  />
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { getTransArea } from './uitl'
-
-const props = defineProps({
+defineProps({
   x: Number,
   y: Number,
   width: Number,
   height: Number,
   showArea: Boolean,
-})
-
-const realData = computed(() => {
-  const { x, y, width, height } = getTransArea(props)
-  return `x:${x}, y:${y}, w:${width}, h:${height}`
 })
 </script>
 
@@ -35,5 +25,6 @@ const realData = computed(() => {
 .area {
   position: absolute;
   border: 1px solid #70c0ff;
+  background-color: rgba(36,63,162,0.08);
 }
 </style>
