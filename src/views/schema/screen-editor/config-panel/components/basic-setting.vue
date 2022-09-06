@@ -1,14 +1,14 @@
 <template>
   <div class="basic-setting-wp">
     <g-field label="图表尺寸" flat>
-      <g-input-number v-model="data.w" label="宽度" :min="10" :max="4000" inline suffix="px" />
-      <g-input-number v-model="data.h" label="高度" :min="10" :max="4000" inline suffix="px" />
+      <g-input-number v-model="data.w" label="宽度" :min="10" :max="4000" inline suffix="px" :disabled="readonly" />
+      <g-input-number v-model="data.h" label="高度" :min="10" :max="4000" inline suffix="px" :disabled="readonly" />
     </g-field>
     <g-field label="图表位置" flat>
-      <g-input-number v-model="data.x" label="X" inline suffix="px" />
-      <g-input-number v-model="data.y" label="Y" inline suffix="px" />
+      <g-input-number v-model="data.x" label="X" inline suffix="px" :disabled="readonly" />
+      <g-input-number v-model="data.y" label="Y" inline suffix="px" :disabled="readonly" />
     </g-field>
-    <g-field label="旋转角度" flat>
+    <g-field label="旋转角度" flat v-if="!multiSelect">
       <g-input-number v-model="data.rotate" :min="0" :max="360" :step="1" inline />
       <div style="width: 50%">
         <b-button-group>
@@ -24,10 +24,10 @@
         </b-button-group>
       </div>
     </g-field>
-    <g-field label="透明度">
+    <g-field label="透明度" v-if="!multiSelect">
       <g-slider v-model="data.opacity" :min="0" :max="1" :step="0.05" />
     </g-field>
-    <g-field label="位置">
+    <g-field label="位置" v-if="!multiSelect">
       <b-button-group>
         <b-button
           v-for="em in positionOptions"
@@ -66,6 +66,10 @@ const props = defineProps({
   attr: {
     type: Object,
     required: true,
+  },
+  readonly: {
+    type: Boolean,
+    default: false,
   },
 })
 const data = computed({

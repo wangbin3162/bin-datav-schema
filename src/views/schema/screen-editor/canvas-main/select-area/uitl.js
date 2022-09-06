@@ -1,9 +1,9 @@
 // 获取转换的选中区域
-export const getTransArea = ({ x, y, width, height }, scale) => {
-  const X = x | 0
-  const Y = y | 0
-  const W = (width / scale) | 0
-  const H = (height / scale) | 0
+export const getTransArea = ({ x, y, width, height }) => {
+  const X = x
+  const Y = y
+  const W = width
+  const H = height
   return {
     x: X,
     y: Y,
@@ -12,10 +12,10 @@ export const getTransArea = ({ x, y, width, height }, scale) => {
   }
 }
 
-export function getSelectArea(areaData, comps, scale) {
+export function getSelectArea(areaData, comps) {
   const result = []
   // 区域起点坐标 // 转换区域缩放位置和大小
-  const { x, y, width, height } = getTransArea(areaData, scale)
+  const { x, y, width, height } = getTransArea(areaData)
   // 计算所有的组件数据，判断是否在选中区域内
   comps.forEach(component => {
     if (component.hided || component.locked) return

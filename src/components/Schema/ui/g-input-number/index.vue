@@ -1,21 +1,25 @@
 <template>
-  <div class="dv-gui g-input-number" :class="[
+  <div
+    class="dv-gui g-input-number"
+    :class="[
       {
         'is-inline': !!inline,
         'is-single': inline === 'inline-single',
         'has-suffix': !!suffix,
-      }
-  ]">
+      },
+    ]"
+  >
     <b-input-number
       :model-value="modelValue"
       :size="size"
       :min="min"
       :max="max"
       :step="step"
+      :disabled="disabled"
       arrow-up-icon="plus"
       arrow-down-icon="minus"
       @update:model-value="handleInput"
-      style="width: 100%;"
+      style="width: 100%"
       @change="handleChange"
     />
     <span v-if="label" class="g-input__caption">
@@ -60,10 +64,11 @@ export default {
       default: false,
     },
     suffix: String,
+    disabled: Boolean,
   },
   emits: ['update:modelValue', 'change'],
   setup(props, ctx) {
-    const handleInput = (value) => {
+    const handleInput = value => {
       ctx.emit('update:modelValue', value)
     }
 

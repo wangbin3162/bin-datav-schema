@@ -158,6 +158,7 @@ function handleMouseDown(e) {
     e.preventDefault()
   }
   hideArea()
+  if (spaceDown.value) return
 
   const rectInfo = editorEL.value.getBoundingClientRect()
   editorX = rectInfo.x
@@ -198,7 +199,8 @@ function handleMouseDown(e) {
 // 创建分组包围盒
 function createGroup() {
   // 获取选中区域的组件数据
-  const selectAreaComps = getSelectArea(areaData.value, comps.value, canvas.value.scale)
+  const selectAreaComps = getSelectArea(areaData.value, comps.value)
+  // 如果没有选中的组件则隐藏区域
   if (selectAreaComps.length === 0) {
     hideArea()
     return
@@ -209,8 +211,8 @@ function createGroup() {
     hideArea()
     return
   }
-  // 设置选中区域大小，和多选选中的组件数据
-  schemaStore.setAreaData(selectAreaComps)
+  // 设置多选，并进行计算区域
+  schemaStore.multiSelectComs(selectAreaComps)
 }
 
 function hideArea() {
