@@ -52,3 +52,27 @@ export function createComponent(name) {
   console.log(`----------createComponent[${name}]: `, config)
   return config
 }
+
+/**
+ * 获取组配置信息
+ * @param areaData 组区域边界信息
+ * @param components 组内数据
+ */
+export function createGroup(areaData, components) {
+  const id = generateId()
+  const config = deepMerge(deepCopy(DatavComponent), {
+    id: `group_${id}`,
+    name: 'Group',
+    type: 'group',
+    alias: `组合_${id}`,
+    attr: {
+      x: areaData.x,
+      y: areaData.y,
+      w: areaData.width,
+      h: areaData.height,
+    },
+    components,
+  })
+  console.log('----------createGroup: ', config)
+  return config
+}

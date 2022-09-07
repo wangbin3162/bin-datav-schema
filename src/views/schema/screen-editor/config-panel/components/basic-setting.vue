@@ -1,8 +1,24 @@
 <template>
   <div class="basic-setting-wp">
     <g-field label="图表尺寸" flat>
-      <g-input-number v-model="data.w" label="宽度" :min="10" :max="4000" inline suffix="px" :disabled="readonly" />
-      <g-input-number v-model="data.h" label="高度" :min="10" :max="4000" inline suffix="px" :disabled="readonly" />
+      <g-input-number
+        v-model="data.w"
+        label="宽度"
+        :min="10"
+        :max="4000"
+        inline
+        suffix="px"
+        :disabled="readonly"
+      />
+      <g-input-number
+        v-model="data.h"
+        label="高度"
+        :min="10"
+        :max="4000"
+        inline
+        suffix="px"
+        :disabled="readonly"
+      />
     </g-field>
     <g-field label="图表位置" flat>
       <g-input-number v-model="data.x" label="X" inline suffix="px" :disabled="readonly" />
@@ -40,7 +56,7 @@
         </b-button>
       </b-button-group>
     </g-field>
-    <g-field label="对齐" v-if="multiSelect">
+    <g-field label="对齐" v-if="multiSelect || curComIsGroup">
       <b-button-group>
         <b-button
           v-for="em in multiplAlignOptions"
@@ -50,6 +66,22 @@
           @click="schemaStore.doAlign(em.value)"
         >
           <i :class="`iconfont-align b-icon-${em.value}`" />
+        </b-button>
+      </b-button-group>
+    </g-field>
+
+    <g-field label="组合拆分" v-if="multiSelect || curComIsGroup">
+      <b-button-group>
+        <b-button size="mini" icon="group" :disabled="!multiSelect" @click="schemaStore.group()">
+          组合
+        </b-button>
+        <b-button
+          size="mini"
+          icon="ungroup"
+          :disabled="!curComIsGroup"
+          @click="schemaStore.ungroup()"
+        >
+          拆分
         </b-button>
       </b-button-group>
     </g-field>
@@ -78,5 +110,5 @@ const data = computed({
 })
 
 const { schemaStore, storeToRefs } = useStore()
-const { multiSelect } = storeToRefs(schemaStore)
+const { curComIsGroup, multiSelect } = storeToRefs(schemaStore)
 </script>

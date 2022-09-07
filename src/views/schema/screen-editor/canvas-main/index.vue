@@ -1,6 +1,11 @@
 <template>
   <div class="canvas-main">
-    <div id="canvas-wp" ref="canvasWpRef" class="canvas-panel-wrap" @mousedown.stop="cancelSelectCom">
+    <div
+      id="canvas-wp"
+      ref="canvasWpRef"
+      class="canvas-panel-wrap"
+      @mousedown.stop="cancelSelectCom"
+    >
       <div class="screen-shot" :style="screenShotStyle">
         <mark-line :style="screenShotStyle" v-if="toolbox.markLine" />
         <action-bar />
@@ -21,6 +26,7 @@
                 transform: 'translateZ(0px)',
                 opacity: comp.attr.opacity,
               }"
+              :id="`component_${comp.id}`"
             />
           </dv-transform>
           <SelectArea v-bind="areaData" />
@@ -93,8 +99,10 @@ const dropToAddCom = async event => {
     if (name) {
       const com = createComponent(name)
       const { scale } = canvas.value
-      const offsetX = (event.clientX - getPanelOffsetLeft.value + canvasWpRef.value.scrollLeft) / scale
-      const offsetY = (event.clientY - getPanelOffsetTop.value + canvasWpRef.value.scrollTop) / scale
+      const offsetX =
+        (event.clientX - getPanelOffsetLeft.value + canvasWpRef.value.scrollLeft) / scale
+      const offsetY =
+        (event.clientY - getPanelOffsetTop.value + canvasWpRef.value.scrollTop) / scale
       com.attr.x = Math.round(offsetX - com.attr.w / 2)
       com.attr.y = Math.round(offsetY - com.attr.h / 2)
       schemaStore.addCom({ component: com })
@@ -126,7 +134,8 @@ function cancelSelectCom(ev) {
   const startX = ev.clientX
   const startY = ev.clientY
   const scale = canvas.value.scale
-  const { scrollLeft, scrollTop, clientWidth, scrollWidth, clientHeight, scrollHeight } = canvasWpRef.value
+  const { scrollLeft, scrollTop, clientWidth, scrollWidth, clientHeight, scrollHeight } =
+    canvasWpRef.value
   const couldMove = clientWidth < scrollWidth || clientHeight < scrollHeight // 是否出现滚动条
   const attr = { left: scrollLeft, top: scrollTop }
 

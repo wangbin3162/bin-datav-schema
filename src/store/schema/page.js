@@ -53,6 +53,10 @@ export default {
     multiSelect() {
       return this.multipleComs.length > 1
     },
+    // 当前选中的组件是不是group组
+    curComIsGroup() {
+      return this.selectedCom && this.selectedCom.name === 'Group'
+    },
   },
   actions: {
     setPageInfo(info) {
@@ -77,7 +81,16 @@ export default {
     },
     deleteCom(id) {
       this.comps.splice(findComIndex(this.comps, id), 1)
+      this.selectedCom = null
       this.recordSnapshot()
+    },
+    batchDeleteComs(deleteData) {
+      deleteData.forEach(component => {
+        this.comps.splice(findComIndex(this.comps, component.id), 1)
+      })
+    },
+    deleteSeletedCom() {
+      this.comps.splice(findComIndex(this.comps, this.selectedCom.id), 1)
       this.selectedCom = null
     },
     selectCom(component) {
