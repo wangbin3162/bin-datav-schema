@@ -8,12 +8,7 @@
       xmlns="http://www.w3.org/2000/svg"
       :style="iconStyle"
     >
-      <g
-        stroke="none"
-        stroke-width="1"
-        fill="none"
-        fill-rule="evenodd"
-      >
+      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g
           transform="translate(-920.000000, -643.000000)"
           :fill="config.iconStyle.color"
@@ -45,14 +40,10 @@ export default {
   setup(props) {
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
 
     const wrapperStyle = computed(() => {
       const { textStyle, horizontal, vertical } = config.value.time
       return {
-        width: `${attr.value.w}px`,
-        height: `${attr.value.h}px`,
         'font-size': `${textStyle.fontSize}px`,
         'font-family': textStyle.fontFamily,
         'font-weight': textStyle.fontWeight,
@@ -92,7 +83,6 @@ export default {
         updateDateTime()
       }, duration)
     }
-
 
     const clearDateTime = () => {
       if (timerId.value) {

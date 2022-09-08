@@ -59,8 +59,6 @@ export default {
         }
       }
       return {
-        width: `${attr.value.w}px`,
-        height: `${attr.value.h}px`,
         ...style,
       }
     })
@@ -128,12 +126,16 @@ export default {
 
     const render = ref(true)
 
-    watch(() => config.value, () => {
-      render.value = false
-      setTimeout(() => {
-        render.value = true
-      }, 50)
-    }, { deep: true })
+    watch(
+      () => config.value,
+      () => {
+        render.value = false
+        setTimeout(() => {
+          render.value = true
+        }, 50)
+      },
+      { deep: true },
+    )
     return {
       render,
       realNumber,

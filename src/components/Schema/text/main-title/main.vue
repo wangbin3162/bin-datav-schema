@@ -10,7 +10,6 @@
 </template>
 
 <script>
-import { useDataCenter } from '@/hooks/schema/useDataCenter'
 import { computed } from 'vue'
 
 export default {
@@ -24,13 +23,9 @@ export default {
   setup(props) {
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
 
     const titleStyle = computed(() => {
       const style = {
-        width: `${attr.value.w}px`,
-        height: `${attr.value.h}px`,
         'font-family': `${config.value.textStyle.fontFamily}, Arial, sans-serif`,
         'font-size': `${config.value.textStyle.fontSize}px`,
         'font-weight': config.value.textStyle.fontWeight,
@@ -104,7 +99,7 @@ export default {
 
     const urlText = computed(() => config.value.urlConfig.url)
 
-    const urlTarget = computed(() => config.value.urlConfig.isBlank ? '_blank' : '_self')
+    const urlTarget = computed(() => (config.value.urlConfig.isBlank ? '_blank' : '_self'))
     return {
       titleStyle,
       wordStyle,

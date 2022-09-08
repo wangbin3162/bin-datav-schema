@@ -1,7 +1,11 @@
 <template>
-  <div class="dv-wrapper" :style="wrapperStyle">
+  <div class="dv-wrapper">
     <b-charts :options="options" style="width: 100%; height: 100%" ref="chartRef"></b-charts>
-    <g-breadcrumb v-if="couldDrill" v-bind="{ drillData, drillIndex, drillFilters }" @scroll-up="dvScrollUp" />
+    <g-breadcrumb
+      v-if="couldDrill"
+      v-bind="{ drillData, drillIndex, drillFilters }"
+      @scroll-up="dvScrollUp"
+    />
   </div>
 </template>
 
@@ -21,20 +25,14 @@ export default {
     },
   },
   setup(props) {
-    const { dvData, apiData, dvEmit, dvScrollUp, drillData, drillIndex, drillFilters, couldDrill } = useDataCenter(
-      props.data,
-    )
+    const { dvData, apiData, dvEmit, dvScrollUp, drillData, drillIndex, drillFilters, couldDrill } =
+      useDataCenter(props.data)
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
     // event属性
     const events = computed(() => props.data.events)
 
     const chartRef = ref(null)
-
-    // 容器style
-    const wrapperStyle = computed(() => ({ width: `${attr.value.w}px`, height: `${attr.value.h}px` }))
 
     const chartData = computed(() => ({
       xData: dvData.value.xData ?? [],
@@ -63,7 +61,11 @@ export default {
           left: legendLeft,
           orient: legend.orient,
           textStyle: { ...legend.textStyle },
-          icon: legend.symbol.show ? (legend.symbol.icon === 'auto' ? null : legend.symbol.icon) : 'none',
+          icon: legend.symbol.show
+            ? legend.symbol.icon === 'auto'
+              ? null
+              : legend.symbol.icon
+            : 'none',
           itemWidth: legend.symbol.width,
           itemHeight: legend.symbol.height,
           itemGap: legend.symbol.gap,
@@ -256,9 +258,7 @@ export default {
 
     return {
       chartRef,
-      attr,
       config,
-      wrapperStyle,
       options,
       drillData,
       drillIndex,

@@ -1,17 +1,13 @@
 <template>
   <div class="dv-wrapper" :style="wrapperStyle">
     <template v-if="fillsStyles.length > 0">
-      <div
-        v-for="(fs, idx) in fillsStyles"
-        :key="idx"
-        :style="borderStyle"
-      >
+      <div v-for="(fs, idx) in fillsStyles" :key="idx" :style="borderStyle">
         <div :style="fs">
           <a
             v-if="idx === 0 && config.urlConfig.url"
             :href="config.urlConfig.url"
             :target="config.urlConfig.ifBlank ? '_blank' : '_self'"
-            style="display: block; width: 100%; height: 100%;"
+            style="display: block; width: 100%; height: 100%"
           ></a>
         </div>
       </div>
@@ -21,7 +17,7 @@
         v-if="config.urlConfig.url"
         :href="config.urlConfig.url"
         :target="config.urlConfig.ifBlank ? '_blank' : '_self'"
-        style="display: block; width: 100%; height: 100%;"
+        style="display: block; width: 100%; height: 100%"
       ></a>
     </div>
   </div>
@@ -42,15 +38,9 @@ export default {
   setup(props) {
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
-
 
     const wrapperStyle = computed(() => {
       return {
-        transform: 'translateZ(0px)',
-        width: `${attr.value.w}px`,
-        height: `${attr.value.h}px`,
         'border-radius': `${config.value.borderRadius}px`,
         filter: `blur(${config.value.filter.blur})`,
         'backdrop-filter': `blur(${config.value.backdropFilter.blur})`,

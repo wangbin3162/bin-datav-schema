@@ -1,5 +1,5 @@
 <template>
-  <div class="dv-wrapper" :style="wrapperStyle">
+  <div class="dv-wrapper">
     <b-charts :options="options" style="width: 100%; height: 100%" ref="chartRef"></b-charts>
   </div>
 </template>
@@ -22,16 +22,11 @@ export default {
 
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
     const chartRef = ref(null)
 
     const chartData = computed(() => ({
       list: dvData.value.list ?? [],
     }))
-
-    // 容器style
-    const wrapperStyle = computed(() => ({ width: `${attr.value.w}px`, height: `${attr.value.h}px` }))
 
     const options = computed(() => {
       const { global, legend, tooltip, xAxis, yAxis } = config.value
@@ -52,7 +47,11 @@ export default {
           left: legendLeft,
           orient: legend.orient,
           textStyle: { ...legend.textStyle },
-          icon: legend.symbol.show ? (legend.symbol.icon === 'auto' ? null : legend.symbol.icon) : 'none',
+          icon: legend.symbol.show
+            ? legend.symbol.icon === 'auto'
+              ? null
+              : legend.symbol.icon
+            : 'none',
           itemWidth: legend.symbol.width,
           itemHeight: legend.symbol.height,
           itemGap: legend.symbol.gap,
@@ -234,9 +233,7 @@ export default {
 
     return {
       chartRef,
-      attr,
       config,
-      wrapperStyle,
       options,
     }
   },

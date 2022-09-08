@@ -1,5 +1,5 @@
 <template>
-  <div class="dv-wrapper" :style="wrapperStyle">
+  <div class="dv-wrapper">
     <b-charts :options="options" style="width: 100%; height: 100%" ref="chartRef"></b-charts>
   </div>
 </template>
@@ -23,17 +23,13 @@ export default {
 
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
+
     const chartRef = ref(null)
 
     const chartData = computed(() => ({
       xData: dvData.value.xData ?? [],
       yData: dvData.value.yData ?? [],
     }))
-
-    // 容器style
-    const wrapperStyle = computed(() => ({ width: `${attr.value.w}px`, height: `${attr.value.h}px` }))
 
     const options = computed(() => {
       const { tooltip, geo, series, global, label } = config.value
@@ -116,9 +112,7 @@ export default {
 
     return {
       chartRef,
-      attr,
       config,
-      wrapperStyle,
       options,
     }
   },

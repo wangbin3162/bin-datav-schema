@@ -1,16 +1,12 @@
 <template>
-  <div class="dv-wrapper" :style="wrapperStyle">
+  <div class="dv-wrapper">
     <b-charts :options="options" style="width: 100%; height: 100%" ref="chartRef"></b-charts>
-    <!-- <g-breadcrumb v-if="couldDrill" v-bind="{ drillData, drillIndex, drillFilters }" @scroll-up="dvScrollUp" /> -->
   </div>
 </template>
 
 <script>
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { computed, nextTick, ref, watch } from 'vue'
 import { useDataCenterOther } from '@/hooks/schema/useDataCenterOther'
-import dayjs from 'dayjs'
-import { getAutoValue, getLimitValue, valueFormater } from '@/utils/echarts-utils'
-import { defaultColors } from '@/config/colors'
 
 export default {
   name: 'VBasicGauge',
@@ -25,16 +21,11 @@ export default {
 
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
     const chartRef = ref(null)
 
     const chartData = computed(() => ({
       list: dvData.value.list ?? [],
     }))
-
-    // 容器style
-    const wrapperStyle = computed(() => ({ width: `${attr.value.w}px`, height: `${attr.value.h}px` }))
 
     const options = computed(() => {
       const {
@@ -159,9 +150,7 @@ export default {
 
     return {
       chartRef,
-      attr,
       config,
-      wrapperStyle,
       options,
     }
   },

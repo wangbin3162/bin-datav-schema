@@ -19,14 +19,9 @@ export default {
   setup(props) {
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
 
     const wrapperStyle = computed(() => {
       const style = {
-        transform: 'translateZ(0px)',
-        width: `${attr.value.w}px`,
-        height: `${attr.value.h}px`,
         'border-radius': 0,
         'border-style': 'solid',
         'border-width': `1px`,

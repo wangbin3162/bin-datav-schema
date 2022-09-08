@@ -1,7 +1,9 @@
 <template>
-  <div class="dv-wrapper" :style="wrapperStyle">
+  <div class="dv-wrapper">
     <div class="back-btn">
-      <b-button v-if="showBackBtn" size="mini" round @click="handleBackBtnClick" type="primary">返回</b-button>
+      <b-button v-if="showBackBtn" size="mini" round @click="handleBackBtnClick" type="primary">
+        返回
+      </b-button>
     </div>
     <b-charts :options="{}" style="width: 100%; height: 100%" ref="bChartsRef"></b-charts>
   </div>
@@ -25,17 +27,12 @@ export default {
 
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
     const chartRef = ref(null)
 
     const chartData = computed(() => ({
       xData: dvData.value.xData ?? [],
       yData: dvData.value.yData ?? [],
     }))
-
-    // 容器style
-    const wrapperStyle = computed(() => ({ width: `${attr.value.w}px`, height: `${attr.value.h}px` }))
 
     const { bChartsRef, showBackBtn, handleBackBtnClick } = useMap(props.data)
 
@@ -55,9 +52,7 @@ export default {
 
     return {
       bChartsRef,
-      attr,
       config,
-      wrapperStyle,
       handleBackBtnClick,
       showBackBtn,
     }

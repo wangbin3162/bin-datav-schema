@@ -23,8 +23,10 @@
               :is="comp.name"
               :data="comp"
               :style="{
-                transform: 'translateZ(0px)',
+                width: comp.attr.w + 'px',
+                height: comp.attr.h + 'px',
                 opacity: comp.attr.opacity,
+                transform: 'translateZ(0px)',
               }"
               :id="`component_${comp.id}`"
             />

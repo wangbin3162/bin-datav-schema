@@ -1,5 +1,5 @@
 <template>
-  <div class="dv-wrapper" :style="wrapperStyle">
+  <div class="dv-wrapper">
     <div :id="idname" style="width: 100%; height: 100%" />
   </div>
 </template>
@@ -36,9 +36,6 @@ export default {
 
     const chartRef = ref(null)
 
-    // 容器style
-    const wrapperStyle = computed(() => ({ width: `${attr.value.w}px`, height: `${attr.value.h}px` }))
-
     const options = computed(() => {
       const { tooltip } = config.value
       return {
@@ -52,7 +49,8 @@ export default {
       if (chartRef.value) {
         chartRef.value.dispose()
       }
-      chartRef.value = document.getElementById(idname.value) && echarts.init(document.getElementById(idname.value))
+      chartRef.value =
+        document.getElementById(idname.value) && echarts.init(document.getElementById(idname.value))
     }
     const init_view_data = () => {
       // prop.value.series[0].data = filterList(list.value)
@@ -105,7 +103,11 @@ export default {
     function getColor() {
       return (
         'rgb(' +
-        [Math.round(Math.random() * 255), Math.round(Math.random() * 255), Math.round(Math.random() * 255)].join(',') +
+        [
+          Math.round(Math.random() * 255),
+          Math.round(Math.random() * 255),
+          Math.round(Math.random() * 255),
+        ].join(',') +
         ')'
       )
     }
@@ -144,7 +146,6 @@ export default {
     return {
       attr,
       config,
-      wrapperStyle,
       idname,
       options,
       chartRef,

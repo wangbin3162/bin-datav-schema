@@ -23,8 +23,6 @@ export default {
   setup(props) {
     // config 配置项
     const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
 
     const wrapperStyle = computed(() => {
       let background = `url(${config.value.backgroundImage}) 0% 0% / `
@@ -40,8 +38,6 @@ export default {
         background += 'auto no-repeat'
       }
       return {
-        width: `${attr.value.w}px`,
-        height: `${attr.value.h}px`,
         'image-rendering': '-webkit-optimize-contrast',
         background,
         '-webkit-mask-image': 'none',

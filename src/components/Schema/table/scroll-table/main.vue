@@ -1,5 +1,5 @@
 <template>
-  <div class="dv-wrapper" :style="wrapperStyle">
+  <div class="dv-wrapper">
     <bv-scroll-table :config="options" :style="wrapperStyle" ref="tableRef"></bv-scroll-table>
   </div>
 </template>
@@ -30,7 +30,10 @@ export default {
     // attr 属性
     const attr = computed(() => props.data.attr)
     // 容器style
-    const wrapperStyle = computed(() => ({ width: `${attr.value.w}px`, height: `${attr.value.h}px` }))
+    const wrapperStyle = computed(() => ({
+      width: `${attr.value.w}px`,
+      height: `${attr.value.h}px`,
+    }))
 
     function getTableData() {
       // 静态数据，直接返回header和data
@@ -90,7 +93,7 @@ export default {
     // 设置dvData，读取数据并塞入存储数据
     const setDvData = async (filters = []) => {
       const { type, config: apiCfg } = apiData.value
-      await schemaStore.setGlobalLoading(true)
+      schemaStore.setGlobalLoading(true)
       try {
         // 获取源数据
         if (type === ApiType.static) {
@@ -111,7 +114,7 @@ export default {
         throwError('scroll-table/setDvData', e)
       }
       // setTimeout(() => {
-      await schemaStore.setGlobalLoading(false)
+      schemaStore.setGlobalLoading(false)
       // }, 800)
     }
 
@@ -138,7 +141,6 @@ export default {
     )
     return {
       tableRef,
-      attr,
       config,
       wrapperStyle,
       options,
