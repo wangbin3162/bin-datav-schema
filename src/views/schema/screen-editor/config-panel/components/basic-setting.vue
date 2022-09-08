@@ -40,7 +40,7 @@
         </b-button-group>
       </div>
     </g-field>
-    <g-field label="透明度" v-if="!multiSelect">
+    <g-field label="透明度" v-if="!(multiSelect || curComIsGroup)">
       <g-slider v-model="data.opacity" :min="0" :max="1" :step="0.05" />
     </g-field>
     <g-field label="位置" v-if="!multiSelect">
@@ -56,7 +56,7 @@
         </b-button>
       </b-button-group>
     </g-field>
-    <g-field label="对齐" v-if="multiSelect || curComIsGroup">
+    <g-field label="对齐" v-if="multiSelect">
       <b-button-group>
         <b-button
           v-for="em in multiplAlignOptions"

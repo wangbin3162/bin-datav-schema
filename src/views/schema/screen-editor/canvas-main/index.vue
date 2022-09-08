@@ -51,7 +51,7 @@ import { ApiType } from '@/config/data-source'
 import { getStaticData } from '@/api/database.api'
 import { useStore } from '@/store'
 import SelectArea from './select-area/index.vue'
-import { getSelectArea } from './select-area/uitl'
+import { getSelectArea } from './select-area/util'
 
 const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
 const {

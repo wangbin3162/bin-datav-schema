@@ -1,6 +1,7 @@
 import { createGroup } from '@/config/components-cfg'
 import { getComponentRotatedStyle } from '@/utils/style'
-import { getTransArea } from '@/views/schema/screen-editor/canvas-main/select-area/uitl'
+import { mod360 } from '@/utils/translate'
+import { getTransArea } from '@/views/schema/screen-editor/canvas-main/select-area/util'
 import eventBus from '@/utils/event-bus'
 
 // 根据多个组件计算包围盒的内容
@@ -73,22 +74,23 @@ const getStyleComsRect = (component, editor) => {
 }
 
 // 将组件数据返还至父级画布
-const decomposeComponent = (component, editorRect, parentStyle) => {
-  const componentRect = document.querySelector(`#component${component.id}`).getBoundingClientRect()
-  console.log(componentRect)
-  // // 获取元素的中心点坐标
-  // const center = {
-  //     x: componentRect.left - editorRect.left + componentRect.width / 2,
-  //     y: componentRect.top - editorRect.top + componentRect.height / 2,
-  // }
+const decomposeComponent = (component, editorRect, parentStyle, scale) => {
+  const comDom = document.querySelector(`#component_${component.id}`)
+  if (!comDom) return
+  const componentRect = comDom.getBoundingClientRect()
+  // 获取元素的中心点坐标
+  const center = {
+    x: (componentRect.left - editorRect.left + componentRect.width / 2) / scale,
+    y: (componentRect.top - editorRect.top + componentRect.height / 2) / scale,
+  }
 
-  // component.style.rotate = mod360(component.style.rotate + parentStyle.rotate)
-  // component.style.width = parseFloat(component.groupStyle.width) / 100 * parentStyle.width
-  // component.style.height = parseFloat(component.groupStyle.height) / 100 * parentStyle.height
-  // // 计算出元素新的 top left 坐标
-  // component.style.left = center.x - component.style.width / 2
-  // component.style.top = center.y - component.style.height / 2
-  // component.groupStyle = {}
+  component.attr.rotate = mod360(component.attr.rotate + parentStyle.rotate)
+  component.attr.w = ((parseFloat(component.groupStyle.width) / 100) * parentStyle.w) | 0
+  component.attr.h = ((parseFloat(component.groupStyle.height) / 100) * parentStyle.h) | 0
+  // 计算出元素新的 top left 坐标
+  component.attr.x = (center.x - component.attr.w / 2) | 0
+  component.attr.y = (center.y - component.attr.h / 2) | 0
+  component.groupStyle = {}
 }
 
 // 组合多选的状态
@@ -178,34 +180,49 @@ export default {
     },
     // 组合
     group() {
-      const comps = this.multipleComs // 缓存多选的组件
       const areaData = this.areaData // 缓存多选组件区域
       const editor = this.editorEL // 缓存编辑器dom
 
       const components = [] // 临时存储组合
-      comps.forEach(com => {
+      this.multipleComs.forEach(com => {
         // 判断是否是group组件
         if (com.name !== 'Group') {
           components.push(com)
         } else {
           // 如果要组合的组件中，已经存在组合数据，则需要提前拆分
+          // 1、拆散当前组
+          const { parentStyle, subComponents, editorRect } = getStyleComsRect(com, editor)
+          // 2、移除当前组
+          this.removeCom(com.id)
+          // console.log(subComponents)
+          // 3、分别再返还设置一下组合的组件
+          subComponents.forEach(component => {
+            decomposeComponent(component, editorRect, parentStyle, this.canvas.scale)
+            this.comps.push(component)
+          })
+
+          components.push(...com.components)
+
+          //  4、批量移除刚刚拆开的组件
+          this.batchDeleteComs(com.components)
         }
       })
       // 1、获取组配置
-      const component = createGroup(areaData, comps)
-      // 2、将组新增至画布
-      this.addCom({ component })
-      // 3、批量移除刚刚组合的组件
-      this.batchDeleteComs(comps)
-      // 4、移除多选组件和区域
+      const component = createGroup(areaData, components)
+      console.log('我是合成的：', component)
+      // 2、批量移除刚刚组合的组件
+      this.batchDeleteComs(this.multipleComs)
+      // 3、移除多选组件和区域
       this.multipleComs = []
       eventBus.emit('hideArea')
+      // 4、将组新增至画布
+      this.comps.push(component)
       // 5、设置单选选中当前组
       this.selectCom(component)
     },
     // 拆分组
     ungroup() {
-      // 1、获取基本信息
+      // 1、拆散当前选中组
       const { parentStyle, subComponents, editorRect } = getStyleComsRect(
         this.selectedCom,
         this.editorEL,
@@ -214,10 +231,10 @@ export default {
       this.deleteSeletedCom()
       // 3、分别再返还设置一下组合的组件
       subComponents.forEach(component => {
-        decomposeComponent(component, editorRect, parentStyle)
-        // store.commit('addComponent', { component })
+        decomposeComponent(component, editorRect, parentStyle, this.canvas.scale)
+        this.comps.push(component)
       })
-      console.log('do ungroup', { parentStyle, subComponents, editorRect })
+      this.recordSnapshot()
     },
   },
 }

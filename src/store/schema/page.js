@@ -79,8 +79,9 @@ export default {
         this.recordSnapshot()
       }
     },
+    // 移除一个组件并清空选中，且记录操作
     deleteCom(id) {
-      this.comps.splice(findComIndex(this.comps, id), 1)
+      this.removeCom(id)
       this.selectedCom = null
       this.recordSnapshot()
     },
@@ -89,8 +90,13 @@ export default {
         this.comps.splice(findComIndex(this.comps, component.id), 1)
       })
     },
+    // 仅仅移除一个组件（不记录操作和选中)
+    removeCom(id) {
+      this.comps.splice(findComIndex(this.comps, id), 1)
+    },
+    // 移除当前选中的组件（并清空选中）
     deleteSeletedCom() {
-      this.comps.splice(findComIndex(this.comps, this.selectedCom.id), 1)
+      this.removeCom(this.selectedCom.id)
       this.selectedCom = null
     },
     selectCom(component) {
@@ -104,7 +110,6 @@ export default {
       if (this.shortcuts.shiftKey) {
         // 判断是否包含当前组件，如没有再新增
         const i = findComIndex(this.multipleComs, component.id)
-        console.log(i)
         if (i === -1) {
           this.multipleComs.push(component)
         } else {

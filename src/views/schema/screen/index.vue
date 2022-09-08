@@ -99,7 +99,9 @@ export default {
     const setPageStyle = config => {
       const { pageInfo } = config
       document.title = pageInfo.name
-      document.querySelector('meta[name="viewport"]').setAttribute('content', `width=${pageConfig.value.width}`)
+      document
+        .querySelector('meta[name="viewport"]')
+        .setAttribute('content', `width=${pageConfig.value.width}`)
 
       setStyle(document.documentElement, {
         overflowX: 'hidden',
@@ -155,9 +157,28 @@ body::-webkit-scrollbar {
   height: 100%;
   visibility: hidden;
 
-  .dv-com.absolute {
-    position: absolute !important;
-    margin: 0 !important;
+  .dv-com {
+    &.absolute {
+      position: absolute !important;
+      margin: 0 !important;
+    }
+    .dv-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+
+    .group {
+      width: 100%;
+      height: 100%;
+      & > div {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        .component {
+          position: absolute;
+        }
+      }
+    }
   }
 }
 </style>
