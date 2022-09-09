@@ -194,7 +194,6 @@ export default {
           const { parentStyle, subComponents, editorRect } = getStyleComsRect(com, editor)
           // 2、移除当前组
           this.removeCom(com.id)
-          // console.log(subComponents)
           // 3、分别再返还设置一下组合的组件
           subComponents.forEach(component => {
             decomposeComponent(component, editorRect, parentStyle, this.canvas.scale)
@@ -209,7 +208,6 @@ export default {
       })
       // 1、获取组配置
       const component = createGroup(areaData, components)
-      console.log('我是合成的：', component)
       // 2、批量移除刚刚组合的组件
       this.batchDeleteComs(this.multipleComs)
       // 3、移除多选组件和区域
