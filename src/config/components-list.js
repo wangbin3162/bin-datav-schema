@@ -75,7 +75,7 @@ export const VBasicMapEvo = {
   type: 'map',
   used: true,
 }
-//基本散点图
+// 基本散点图
 export const VBasicScatter = {
   name: 'VBasicScatter',
   alias: '基本散点图',
@@ -121,6 +121,15 @@ export const VBasicGauge = {
   alias: '基本仪表盘',
   img: getComPath('basic-gauge.png'),
   type: 'gauge',
+  used: true,
+}
+
+// 进度环
+export const VProgressCircle = {
+  name: 'VProgressCircle',
+  alias: '进度环',
+  img: getComPath('basic-gauge.png'),
+  type: 'circle',
   used: true,
 }
 // 信息-通用标题
@@ -231,12 +240,6 @@ export const list = [
     data: [VBasicScatter, VLineBasicScatter],
   },
   {
-    type: 'boxplot',
-    name: '盒须图',
-    icon: 'boxplot',
-    data: [VBasicBoxplot],
-  },
-  {
     type: 'map',
     name: '地图',
     icon: 'location',
@@ -246,7 +249,7 @@ export const list = [
     type: 'other',
     name: '其他图表',
     icon: 'ungroup',
-    data: [VBasicFunnel, VBasicWordCloud, VBasicGauge],
+    data: [VBasicBoxplot, VBasicFunnel, VBasicWordCloud, VBasicGauge, VProgressCircle],
   },
   {
     type: 'table',
