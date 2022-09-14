@@ -33,7 +33,7 @@ export const basicBarConfig = {
       innerPadding: 20,
       outerPadding: 30,
       barWidth: 'auto',
-      borderRadius: 0,
+      borderRadius: [5, 5, 0, 0],
       background: { show: true, color: 'rgba(255, 255, 255, 0.1)' },
     },
     label: {

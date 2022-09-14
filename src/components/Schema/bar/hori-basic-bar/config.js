@@ -21,7 +21,7 @@ export const horiBasicBarConfig = {
       innerPadding: 20,
       outerPadding: 30,
       barWidth: 'auto',
-      borderRadius: 0,
+      borderRadius: [0, 4, 4, 0],
       background: { show: true, color: 'rgba(255, 255, 255, 0.1)' },
     },
     label: {
