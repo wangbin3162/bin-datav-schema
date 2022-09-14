@@ -1,5 +1,6 @@
 // 基本饼图配置项
 import { initApiData, ComType } from '@/config/data-source'
+import { defaultColors } from '@/config/colors'
 
 export const basicPieConfig = {
   name: 'VBasicPie',
@@ -58,6 +59,7 @@ export const basicPieConfig = {
         color: 'rgba(0, 0, 0, 0.65)',
       },
     },
+    color: defaultColors,
   },
   apiData: initApiData({ staticPath: 'pie/basic-pie' }),
   events: {

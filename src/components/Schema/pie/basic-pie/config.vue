@@ -197,6 +197,19 @@
         />
       </g-field>
     </g-field-collapse>
+
+    <g-field-collapse label="色板设置">
+      <template v-for="(s, index) in config.color" :key="index">
+        <g-field flat :label="`颜色${index + 1}`">
+          <template #label>
+            <div class="series-title" style="top: -8px">
+              <span>颜色{{ index + 1 }}</span>
+            </div>
+          </template>
+          <g-color-picker v-model="config.color[index]" inline="inline-single" />
+        </g-field>
+      </template>
+    </g-field-collapse>
   </div>
 </template>
 

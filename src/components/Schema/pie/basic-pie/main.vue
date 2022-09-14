@@ -38,7 +38,7 @@ export default {
     }))
 
     const options = computed(() => {
-      const { global, tooltip, legend } = config.value
+      const { global, tooltip, legend, color } = config.value
       const [legendTop, legendLeft] = legend.position.split('-')
       return {
         textStyle: { fontFamily: global.fontFamily },
@@ -66,7 +66,7 @@ export default {
           borderWidth: 0,
         },
         series: getSeries(),
-        color: defaultColors,
+        color,
       }
     })
 

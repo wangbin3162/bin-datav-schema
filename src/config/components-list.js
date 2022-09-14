@@ -128,7 +128,7 @@ export const VBasicGauge = {
 export const VProgressCircle = {
   name: 'VProgressCircle',
   alias: '进度环',
-  img: getComPath('basic-gauge.png'),
+  img: getComPath('pie-one-value.png'),
   type: 'circle',
   used: true,
 }
