@@ -19,6 +19,14 @@ export const VHorizontalBar = {
   type: 'bar',
   used: true,
 }
+// 柱图-胶囊柱图
+export const VCapsuleBar = {
+  name: 'VCapsuleBar',
+  alias: '胶囊柱图',
+  img: getComPath('capsule-bar.png'),
+  type: 'bar',
+  used: true,
+}
 // 线图-基本线图
 export const VBasicLine = {
   name: 'VBasicLine',
@@ -123,7 +131,6 @@ export const VBasicGauge = {
   type: 'gauge',
   used: true,
 }
-
 // 进度环
 export const VProgressCircle = {
   name: 'VProgressCircle',
@@ -213,7 +220,7 @@ export const list = [
     type: 'bar',
     name: '柱图',
     icon: 'barchart',
-    data: [VBasicBar, VHorizontalBar],
+    data: [VBasicBar, VHorizontalBar, VCapsuleBar],
   },
   {
     type: 'line',
