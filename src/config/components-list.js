@@ -163,6 +163,14 @@ export const VTimer = {
   type: 'info',
   used: true,
 }
+// 下拉框组件
+export const VSelect = {
+  name: 'VSelect',
+  alias: '下拉控件',
+  img: getComPath('number-title-flop.png'),
+  type: 'control',
+  used: true,
+}
 // 媒体-背景块
 export const VBgBox = {
   name: 'VBgBox',
@@ -268,7 +276,7 @@ export const list = [
     type: 'info',
     name: '信息',
     icon: 'info-circle',
-    data: [VMainTitle, VNumberTitleFlop, VTimer],
+    data: [VMainTitle, VNumberTitleFlop, VTimer, VSelect],
   },
   {
     type: 'media',

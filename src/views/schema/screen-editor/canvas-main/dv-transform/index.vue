@@ -17,11 +17,19 @@
         <template v-for="(v, k) in points" :key="k">
           <i v-if="v.rotateStyle" :class="`${v.name}-handler`" data-html2canvas-ignore>
             <span class="rotate-handler" :style="v.rotateStyle" @mousedown.prevent.stop="onRotate">
-              <span class="control-point" :style="v.style" @mousedown.prevent.stop="onZoom($event, k)"></span>
+              <span
+                class="control-point"
+                :style="v.style"
+                @mousedown.prevent.stop="onZoom($event, k)"
+              ></span>
             </span>
           </i>
           <i v-else :class="`${v.name}-handler`" data-html2canvas-ignore>
-            <span class="control-point" :style="v.style" @mousedown.prevent.stop="onZoom($event, k)"></span>
+            <span
+              class="control-point"
+              :style="v.style"
+              @mousedown.prevent.stop="onZoom($event, k)"
+            ></span>
           </i>
         </template>
         <div class="transform-bg"></div>
@@ -54,8 +62,17 @@ export default {
     const { showMenu } = useSchemaContextMenu()
 
     const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-    const { canvas, comps, pageConfig, selectedCom, hoveredComId, toolbox, spaceDown, multiSelect, multipleComs } =
-      storeToRefs(schemaStore)
+    const {
+      canvas,
+      comps,
+      pageConfig,
+      selectedCom,
+      hoveredComId,
+      toolbox,
+      spaceDown,
+      multiSelect,
+      multipleComs,
+    } = storeToRefs(schemaStore)
     // 是否悬停当前
     const isHovered = computed(() => hoveredComId.value === props.data.id)
     // 是否多选选中当前当前
@@ -84,7 +101,10 @@ export default {
 
     const handlerClass = computed(() => ({ 'is-hide': !isSelected.value || props.data.locked }))
 
-    const handlerStyle = computed(() => ({ cursor: 'move', transform: `rotate(${props.data.attr.rotate}deg)` }))
+    const handlerStyle = computed(() => ({
+      cursor: 'move',
+      transform: `rotate(${props.data.attr.rotate}deg)`,
+    }))
 
     const wrapperStyle = computed(() => ({
       width: `${props.data.attr.w}px`,
