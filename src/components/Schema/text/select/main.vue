@@ -35,7 +35,6 @@ export default {
     const wrapperStyle = computed(() => {
       const { background, bgPopperColor, color, fontSize, borderColor, arrowColor, borderRadius } =
         config.value
-      console.log(bgPopperColor)
 
       return {
         '--font-color': color,
