@@ -167,7 +167,7 @@ export const VTimer = {
 export const VSelect = {
   name: 'VSelect',
   alias: '下拉控件',
-  img: getComPath('number-title-flop.png'),
+  img: getComPath('select.png'),
   type: 'control',
   used: true,
 }
