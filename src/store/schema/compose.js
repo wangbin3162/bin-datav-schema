@@ -14,22 +14,7 @@ const calcBoundingBox = comps => {
   // 计算边界位置
   comps.forEach(component => {
     let style = {}
-    // 如果当前选中的组件为组
-    if (component.componentType === 'Group') {
-      // component.propValue.forEach(item => {
-      //     const rectInfo = $(`#component${item.id}`).getBoundingClientRect()
-      //     style.left = rectInfo.left - this.editorX
-      //     style.top = rectInfo.top - this.editorY
-      //     style.right = rectInfo.right - this.editorX
-      //     style.bottom = rectInfo.bottom - this.editorY
-      //     if (style.left < left) left = style.left
-      //     if (style.top < top) top = style.top
-      //     if (style.right > right) right = style.right
-      //     if (style.bottom > bottom) bottom = style.bottom
-      // })
-    } else {
-      style = getComponentRotatedStyle(component.attr)
-    }
+    style = getComponentRotatedStyle(component.attr)
     if (style.left < left) left = style.left
     if (style.top < top) top = style.top
     if (style.right > right) right = style.right
