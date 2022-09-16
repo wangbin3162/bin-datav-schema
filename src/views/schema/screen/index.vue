@@ -45,9 +45,11 @@ export default {
     const loading = ref(true)
 
     const resize = () => {
+      const dom = document.querySelector('#app')
+      if (!dom) return
       const width = pageConfig.value.width
       const ratio = document.documentElement.clientWidth / width
-      setStyle(document.body, {
+      setStyle(dom, {
         transform: `scale(${ratio})`,
         transformOrigin: 'left top',
         backgroundSize: '100%',
@@ -97,6 +99,8 @@ export default {
 
     // 跟据screen数据设置page style
     const setPageStyle = config => {
+      const dom = document.querySelector('#app')
+      if (!dom) return
       const { pageInfo } = config
       document.title = pageInfo.name
       document
@@ -107,7 +111,7 @@ export default {
         overflowX: 'hidden',
         overflowY: 'visible',
       })
-      setStyle(document.body, {
+      setStyle(dom, {
         width: `${pageConfig.value.width}px`,
         height: `${pageConfig.value.height}px`,
         backgroundImage: `url(${pageConfig.value.bgImage})`,
@@ -157,28 +161,9 @@ body::-webkit-scrollbar {
   height: 100%;
   visibility: hidden;
 
-  .dv-com {
-    &.absolute {
-      position: absolute !important;
-      margin: 0 !important;
-    }
-    .dv-wrapper {
-      width: 100%;
-      height: 100%;
-    }
-
-    .group {
-      width: 100%;
-      height: 100%;
-      & > div {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        .component {
-          position: absolute;
-        }
-      }
-    }
+  .dv-com.absolute {
+    position: absolute !important;
+    margin: 0 !important;
   }
 }
 </style>
