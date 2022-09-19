@@ -1,10 +1,17 @@
 <template>
   <div class="setting-panel">
-    <config-title :com-name="selectedCom.name" :com-alias="selectedCom.alias"></config-title>
+    <config-title
+      :com-name="selectedCom.name"
+      :com-alias="selectedCom.alias"
+      :com="selectedCom"
+    ></config-title>
     <div class="setting-panel-content">
       <div class="scroll-container">
         <b-scrollbar>
-          <basic-setting :key="`${selectedCom.id}'_basic-setting`" :attr="selectedCom.attr"></basic-setting>
+          <basic-setting
+            :key="`${selectedCom.id}'_basic-setting`"
+            :attr="selectedCom.attr"
+          ></basic-setting>
           <component :is="selectedCom.name + 'Config'" :key="selectedCom.id" :data="selectedCom" />
         </b-scrollbar>
       </div>

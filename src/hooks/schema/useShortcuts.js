@@ -1,5 +1,5 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { off, on } from '@/utils/util'
+import { off, on, copyText } from '@/utils/util'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { Message } from 'bin-ui-next'
@@ -74,6 +74,8 @@ export default function useShortcuts() {
         } else if (key === 'c') {
           // 缓存复制组件
           copyTempCom = selectedCom.value
+          // 复制到剪切板内容
+          copyText(JSON.stringify(copyTempCom))
           ev.preventDefault()
         } else if (key === 'v') {
           // 缓存复制组件

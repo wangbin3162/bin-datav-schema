@@ -62,28 +62,3 @@ export default {
   },
 }
 </script>
-
-<style lang="stylus">
-.data-editor {
-  position: relative;
-  margin: 12px 6px;
-  border: 1px solid var(--schema-color-border);
-  .ace-tomorrow-night .ace_entity.ace_name.ace_tag,
-  .ace-tomorrow-night .ace_entity.ace_other.ace_attribute-name,
-  .ace-tomorrow-night .ace_meta.ace_tag,
-  .ace-tomorrow-night .ace_string.ace_regexp,
-  .ace-tomorrow-night .ace_variable {
-    color: var(--bin-color-primary-light2);
-  }
-  .ace-tomorrow-night .ace_heading, .ace-tomorrow-night .ace_markup.ace_heading, .ace-tomorrow-night .ace_string {
-    color: var(--bin-color-success-light2);
-  }
-  .data-refresh {
-    position: absolute;
-    right: 8px;
-    top: 4px;
-    color: #1089ff;
-    z-index :1000;
-  }
-}
-</style>
