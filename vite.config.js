@@ -15,7 +15,7 @@ export default ({ mode }) => {
   const env = loadEnv(mode, dirRoot)
 
   return defineConfig({
-    base: process.env.NODE_ENV === 'production' ? env.VITE_PUBLIC_PATH : '',
+    base: env.VITE_PUBLIC_PATH,
     plugins: [vue()],
     server: {
       host: '0.0.0.0',

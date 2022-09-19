@@ -97,7 +97,7 @@ export const basicBarConfig = {
       axisLabel: {
         show: true,
         timeFormat: 'MM/DD',
-        interval: 'auto',
+        interval: '0', // 间隔，0为强制显示所有
         display: {
           rotate: 0,
           margin: 10,

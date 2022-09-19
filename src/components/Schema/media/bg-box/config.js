@@ -11,7 +11,7 @@ export const bgBoxConfig = {
   attr: { w: 300, h: 180 },
   config: {
     borderRadius: 0,
-    fills: [{ fill: '#003a8c', opacity: 10 }],
+    fills: [{ fill: '#003a8c', opacity: 0.1 }],
     border: {
       show: true,
       type: 'flat',
@@ -33,12 +33,17 @@ export const bgBoxConfig = {
       imageType: 'preset',
       presetImage: 'box38',
       customImage: {
-        source: getImgUrl('box1.png'),
+        source: '',
         slice: '32 37 fill',
         width: '32px 37px',
         outset: '0',
         repeat: 'no-repeat',
       },
+    },
+    shadow: {
+      show: false,
+      size: '0 0 5px',
+      color: '#003a8c',
     },
     filter: { blur: '0px' },
     backdropFilter: { blur: '0px' },

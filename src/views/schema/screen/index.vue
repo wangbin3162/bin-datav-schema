@@ -16,6 +16,7 @@
             height: com.attr.h + 'px',
             opacity: com.attr.opacity,
             transform: `rotate(${com.attr.rotate}deg)`,
+            pointerEvents: com.name === 'Group' ? 'none' : null,
           }"
         >
           <component :is="com.name" :data="com" />
@@ -164,6 +165,16 @@ body::-webkit-scrollbar {
   .dv-com.absolute {
     position: absolute !important;
     margin: 0 !important;
+    .dv-wrapper , .group {
+      width: 100%;
+      height: 100%;
+    }
+    .group {
+      pointer-events: none;
+    }
+    .dv-wrapper.component {
+      pointer-events: auto;
+    }
   }
 }
 </style>

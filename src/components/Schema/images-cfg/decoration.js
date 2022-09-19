@@ -1,6 +1,6 @@
 import { getCDNPath } from '@/utils/env'
 
-const getImgUrl = (name) => getCDNPath(`/decoration/${name}`)
+const getImgUrl = name => getCDNPath(`/decoration/${name}`)
 
 export const decorationImages = [
   {
@@ -304,4 +304,3 @@ export const decorationImages = [
     css: { 'background-position': 'center', 'background-size': 'contain' },
   },
 ]
-

@@ -1,13 +1,19 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { off, on } from '@/utils/util'
 import { useStore } from '@/store'
+import { useRoute } from 'vue-router'
+import { Message } from 'bin-ui-next'
+import useSavePreview from './useSavePreview'
 
 export default function useShortcuts() {
   const headerRef = ref(null)
   const contextMenuRef = ref(null) // 右键菜单组件
+  const { saveScreenData } = useSavePreview()
 
   const { schemaStore, storeToRefs } = useStore()
-  const { canvas, selectedCom } = storeToRefs(schemaStore)
+  const { pageInfo, canvas, selectedCom } = storeToRefs(schemaStore)
+
+  const route = useRoute()
 
   let copyTempCom = null
 
@@ -74,8 +80,14 @@ export default function useShortcuts() {
           copyTempCom && schemaStore.copyCom(copyTempCom.id)
           ev.preventDefault()
         } else if (key === 's') {
-          // 保存当前面板
-          headerRef.value && headerRef.value.handleSaveScreen()
+          const isEdit = pageInfo.value.id || route.query.id
+          if (isEdit) {
+            // 保存当前面板
+            Message('正在保存...')
+            saveScreenData('edit').then(() => Message.success('保存成功！'))
+          } else {
+            headerRef.value && headerRef.value.handleSaveScreen()
+          }
           ev.preventDefault()
         } else if (key === 'z') {
           // 撤销

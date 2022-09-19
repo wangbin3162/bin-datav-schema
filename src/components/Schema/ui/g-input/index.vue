@@ -1,10 +1,13 @@
 <template>
-  <div class="dv-gui g-input" :class="[
-    {
+  <div
+    class="dv-gui g-input"
+    :class="[
+      {
         'is-inline': !!inline,
         'is-single': inline === 'inline-single',
-      }
-  ]">
+      },
+    ]"
+  >
     <b-input
       :model-value="modelValue"
       :size="size"
@@ -13,6 +16,7 @@
       :type="type"
       :autosize="autosize"
       :rows="rows"
+      clearable
       @update:model-value="handleInput"
       @change="handleChange"
     />
@@ -62,7 +66,7 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   setup(props, ctx) {
-    const handleInput = (value) => {
+    const handleInput = value => {
       ctx.emit('update:modelValue', value)
     }
 

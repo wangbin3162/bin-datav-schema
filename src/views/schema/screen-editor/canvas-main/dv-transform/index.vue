@@ -35,7 +35,7 @@
         <div class="transform-bg"></div>
       </div>
     </div>
-    <i v-if="data.locked" class="b-iconfont b-icon-lock" title="解锁" @click.stop="unLock"></i>
+    <i v-if="data.locked" class="b-iconfont b-icon-lock" title="解锁"></i>
   </div>
 </template>
 
@@ -173,6 +173,7 @@ export default {
       e.stopPropagation()
       e.preventDefault()
       selectCom()
+      if (props.data.locked) return
       handleMove(e, props.data, scale.value, pageConfig.value.grid)
     }
 
@@ -185,11 +186,6 @@ export default {
       handleRotate(e, instance.vnode.el, props.data)
     }
 
-    // 解锁
-    function unLock() {
-      selectCom()
-      selectedCom.value.locked = false
-    }
     return {
       // store
       comps,
@@ -214,7 +210,6 @@ export default {
       points,
       scale,
       showMenu,
-      unLock,
     }
   },
 }

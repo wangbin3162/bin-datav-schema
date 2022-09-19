@@ -116,21 +116,29 @@
         <g-color-picker v-model="config.global.shadowColor" inline="inline" label="阴影颜色" />
       </g-field>
     </g-field-collapse>
-    <g-field-collapse label="标注">
-      <g-field label="单位">
-        <g-input v-model="config.global.unit" />
-      </g-field>
-      <g-field label="数值显示">
-        <div class="pt-5">
-          <b-switch v-model="config.global.showValue" size="small" />
-        </div>
-      </g-field>
+    <g-field-collapse label="标签" toggle v-model="config.label.show">
       <g-field label="显示位置">
-        <b-radio-group v-model="config.global.valuePosition" type="button" size="mini">
+        <b-radio-group v-model="config.label.position" type="button" size="mini">
           <b-radio label="default">默认</b-radio>
           <b-radio label="right">右侧</b-radio>
           <b-radio label="inner">内部</b-radio>
         </b-radio-group>
+      </g-field>
+      <g-field label="文本颜色">
+        <g-color-picker v-model="config.label.color" />
+      </g-field>
+    </g-field-collapse>
+    <g-field-collapse label="X轴" toggle v-model="config.xAxis.show">
+      <g-field label="标题单位">
+        <g-input v-model="config.global.unit" />
+      </g-field>
+      <g-field label="文本颜色">
+        <g-color-picker v-model="config.xAxis.color" />
+      </g-field>
+    </g-field-collapse>
+    <g-field-collapse label="Y轴" toggle v-model="config.yAxis.show">
+      <g-field label="文本颜色">
+        <g-color-picker v-model="config.yAxis.color" />
       </g-field>
     </g-field-collapse>
 

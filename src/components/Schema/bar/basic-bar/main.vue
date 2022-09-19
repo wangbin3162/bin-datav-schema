@@ -51,7 +51,6 @@ export default {
         color: tooltip.pointer.line.color,
       }
       const { xData } = chartData.value
-
       return {
         textStyle: { fontFamily: global.fontFamily },
         grid: { ...global.margin },

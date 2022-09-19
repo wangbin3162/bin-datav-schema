@@ -10,8 +10,6 @@ const getNewCom = com => {
   const ncom = deepCopy(com)
   ncom.id = `${ncom.name}_${generateId()}`
   ncom.alias += '_copy'
-  ncom.attr.x += 50
-  ncom.attr.y += 50
 
   if (!isEmpty(ncom.apiData)) {
     ncom.apiData.id = `api_${generateId()}`
@@ -72,12 +70,23 @@ export default {
     },
     copyCom(id) {
       const ocom = findCom(this.comps, id)
-      if (ocom) {
-        const ncom = getNewCom(ocom)
+      if (!ocom) return
+      let ncom = getNewCom(ocom)
+      // 需要判断当前复制的内容是否是组合
+      if (ocom.name === 'Group') {
+        // 如果要组合的组件中，已经存在组合数据，需要更新一下子子元素的id
+        ncom.components.forEach(component => {
+          component.id = `${ncom.name}_${generateId()}` // 新生成id
+        })
+      }
+      // 如果复制成功之后则偏移一点位置
+      if (ncom) {
+        ncom.attr.x += 50
+        ncom.attr.y += 50
         this.comps.push(ncom)
         this.selectedCom = ncom
-        this.recordSnapshot()
       }
+      this.recordSnapshot()
     },
     // 移除一个组件并清空选中，且记录操作
     deleteCom(id) {

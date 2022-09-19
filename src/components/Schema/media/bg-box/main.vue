@@ -57,13 +57,14 @@ export default {
         borderRadius: 'inherit',
       }
 
-      const { border } = config.value
+      const { border, shadow } = config.value
       if (border.show) {
         if (border.type === 'flat') {
           const bd = border.flat
           style.borderWidth = `${bd.width}px`
           style.borderStyle = bd.style
           style.color = bd.color
+          style.boxShadow = shadow?.show ? `${shadow.size} inset ${shadow.color}` : null
         } else if (border.type === 'linearGradient') {
           const bd = border.linearGradient
           const { angle, stops } = border.linearGradient.color
@@ -113,7 +114,7 @@ export default {
           width: '100%',
           height: '100%',
           borderRadius: 'inherit',
-          opacity: item.opacity / 100,
+          opacity: item.opacity,
           backgroundColor: item.fill,
         })
       })

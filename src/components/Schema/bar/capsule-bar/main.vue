@@ -1,6 +1,10 @@
 <template>
   <div class="dv-wrapper">
-    <bv-capsule-chart :config="options" :style="wrapperStyle"></bv-capsule-chart>
+    <bv-capsule-chart
+      :config="options"
+      :style="wrapperStyle"
+      :class="[{ 'x-hide': !config.xAxis.show }, { 'y-hide': !config.yAxis.show }]"
+    ></bv-capsule-chart>
   </div>
 </template>
 
@@ -25,31 +29,33 @@ export default {
     const attr = computed(() => props.data.attr)
     // 容器style
     const wrapperStyle = computed(() => {
-      const { global } = config.value
+      const { global, xAxis, yAxis, label } = config.value
       const { top, right, bottom, left } = global.margin
       const radius = global.borderRadius
       return {
         width: `${attr.value.w}px`,
         height: `${attr.value.h}px`,
         fontFamily: global.fontFamily,
-        color: global.fontColor,
         padding: `${top}px ${right}px ${bottom}px ${left}px`,
         '--bar-radius': `${radius[0]}px ${radius[1]}px ${radius[2]}px ${radius[3]}px`,
         '--bar-height': global.barHeight + 'px',
         '--bar-margin': `${global.barMargin}px 0`,
         '--bar-bg': global.barBg,
         '--bar-shadow': global.shadow ? `${global.shadow} ${global.shadowColor}` : 'none',
+        '--x-font-color': xAxis.color,
+        '--y-font-color': yAxis.color,
         '--label-height': global.barHeight + global.barMargin * 2 + 'px',
+        '--label-color': label.color,
       }
     })
 
     const options = computed(() => {
-      const { global, color } = config.value
+      const { global, color, label } = config.value
       return {
         data: dvData.value,
         unit: global.unit,
-        showValue: global.showValue,
-        valuePosition: global.valuePosition,
+        showValue: label.show,
+        valuePosition: label.position,
         colors: color,
       }
     })
@@ -74,6 +80,16 @@ export default {
     line-height: var(--label-height);
     flex-shrink: 0;
     flex-grow: 0;
+    color: var(--y-font-color);
+  }
+  .unit-label {
+    color: var(--x-font-color);
+  }
+  &.x-hide .unit-label {
+    display: none;
+  }
+  &.y-hide .label-column {
+    display: none;
   }
   .capsule-item {
     height: var(--bar-height);
@@ -84,6 +100,9 @@ export default {
     .capsule-item-column {
       height: calc(var(--bar-height) - 2px);
       border-radius: var(--bar-radius)
+      .capsule-item-value.inner {
+        color: var(--label-color);
+      }
     }
   }
 }

@@ -4,7 +4,7 @@ import { defaultColors } from '@/config/colors'
 
 export const capsuleBarConfig = {
   name: 'VCapsuleBar',
-  alias: '基本柱图',
+  alias: '胶囊柱图',
   icon: 'barchart',
   type: ComType.com,
   componentType: 'bar',
@@ -15,19 +15,29 @@ export const capsuleBarConfig = {
       margin: {
         top: 10,
         bottom: 10,
-        left: 20,
-        right: 20,
+        left: 30,
+        right: 30,
       },
       borderRadius: [5, 5, 5, 5],
-      fontColor: '#fff',
       barHeight: 10,
       barMargin: 5,
       barBg: null,
       shadow: '0 0 3px',
       shadowColor: '#999',
       unit: '',
-      showValue: false,
-      valuePosition: 'right',
+    },
+    label: {
+      show: false,
+      color: '#fff',
+      position: 'right',
+    },
+    xAxis: {
+      show: true,
+      color: '#fff',
+    },
+    yAxis: {
+      show: true,
+      color: '#fff',
     },
     color: defaultColors,
   },
