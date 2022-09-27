@@ -49,8 +49,8 @@ export const basicWordCloud = {
   apiData: initApiData({ staticPath: 'wordcloud/basic-wordcloud' }),
   events: {
     click: {
-      description: '当点击数据项时',
-      fields: [],
+      name: '当点击数据项时',
+      params: [],
     },
   },
 }

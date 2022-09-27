@@ -88,8 +88,8 @@ export const basicRadarConfig = {
   apiData: initApiData({ staticPath: 'radar/basic-radar' }),
   events: {
     click: {
-      description: '当点击数据项时',
-      fields: [],
+      name: '当点击数据项时',
+      params: [],
     },
   },
 }

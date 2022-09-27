@@ -25,11 +25,10 @@
           <multi-setting></multi-setting>
         </div>
         <div class="page-config-content" v-else>
-          <div v-if="curTabIndex === 0" style="height: 100%">
-            <setting-panel :key="selectedCom.id" />
-          </div>
-          <div v-if="curTabIndex === 1" style="height: 100%">
-            <data-center-panel :key="selectedCom.id" />
+          <div style="height: 100%">
+            <SettingPanel :key="selectedCom.id" v-if="curTabIndex === 0" />
+            <DataCenterPanel :key="selectedCom.id" v-if="curTabIndex === 1" />
+            <EventsPanel :key="selectedCom.id" v-if="curTabIndex === 2" />
           </div>
         </div>
       </div>
@@ -40,12 +39,12 @@
 
 <script setup>
 import { ref, watch } from 'vue'
-import { Message } from 'bin-ui-next'
 import { useStore } from '@/store'
 import PageConfig from '@/views/schema/screen-editor/config-panel/page-config.vue'
 import DataCenterPanel from '@/views/schema/screen-editor/config-panel/data-center-panel/index.vue'
 import SettingPanel from '@/views/schema/screen-editor/config-panel/setting-panel/index.vue'
 import MultiSetting from '@/views/schema/screen-editor/config-panel/setting-panel/multi-setting.vue'
+import EventsPanel from './events-panel/index.vue'
 
 const { schemaStore, storeToRefs } = useStore()
 const { toolbar, selectedCom, multiSelect } = storeToRefs(schemaStore)
@@ -53,10 +52,7 @@ const { toolbar, selectedCom, multiSelect } = storeToRefs(schemaStore)
 const curTabIndex = ref(0)
 const changeTab = index => {
   if (multiSelect.value && index > 0) return
-  if (index === 2) {
-    Message.warning('暂未开放!')
-    return
-  }
+
   if (curTabIndex.value !== index) {
     curTabIndex.value = index
   }

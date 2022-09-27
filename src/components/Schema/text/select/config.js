@@ -17,7 +17,16 @@ export const selectConfig = {
     borderRadius: 0,
   },
   apiData: initApiData({ staticPath: 'text/select-options' }),
-  events: {},
+  events: {
+    change: {
+      name: '选项改变',
+      params: [
+        { desc: '已选数据值', name: 'value', type: 'STRING' },
+        { desc: '已选数据名', name: 'label', type: 'STRING' },
+      ],
+      enable: false,
+    },
+  },
 }
 
 export default selectConfig

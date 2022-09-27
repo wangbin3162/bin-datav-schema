@@ -132,8 +132,8 @@ export const basicGauge = {
   apiData: initApiData({ staticPath: 'funnel/basic-funnel' }),
   events: {
     click: {
-      description: '当点击数据项时',
-      fields: [],
+      name: '当点击数据项时',
+      params: [],
     },
   },
 }

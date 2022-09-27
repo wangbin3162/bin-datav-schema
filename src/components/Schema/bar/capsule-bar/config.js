@@ -44,8 +44,8 @@ export const capsuleBarConfig = {
   apiData: initApiData({ staticPath: 'bar/capsule-bar' }),
   events: {
     click: {
-      description: '当点击数据项时',
-      fields: [],
+      name: '当点击数据项时',
+      params: [],
     },
   },
 }

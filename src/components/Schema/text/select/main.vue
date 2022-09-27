@@ -14,6 +14,7 @@
 <script>
 import { computed, ref, watch } from 'vue'
 import { useDataCenter } from '@/hooks/schema/useDataCenter'
+import { useEventBus } from '@/hooks/schema/useEventBus'
 
 export default {
   name: 'VSelect',
@@ -52,6 +53,9 @@ export default {
       () => config.value.default,
       val => (select.value = val),
     )
+
+    // 事件系统增加
+    useEventBus(props.data)
 
     return {
       select,

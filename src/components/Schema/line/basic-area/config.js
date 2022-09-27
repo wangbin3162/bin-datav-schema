@@ -206,8 +206,8 @@ export const basicAreaConfig = {
   apiData: initApiData({ staticPath: 'line/basic-line' }),
   events: {
     click: {
-      description: '当点击数据项时',
-      fields: [''],
+      name: '当点击数据项时',
+      params: [],
     },
   },
 }
