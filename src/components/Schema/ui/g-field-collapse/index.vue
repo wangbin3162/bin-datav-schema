@@ -1,20 +1,15 @@
 <template>
-  <div class="g-field-toggle" :class="{'disable':toggle && !modelValue}">
-    <div class="g-field-header" :class="[{active:show}]" flex="cross:center" @click="toggleShow">
-      <div class="bin-switch--mini" @click.stop style="width: 16px;">
-        <b-switch
-          v-if="toggle"
-          :model-value="modelValue"
-          class="--mini"
-          @change="toggleVisible"
-        />
+  <div class="g-field-toggle" :class="{ disable: toggle && !modelValue }">
+    <div class="g-field-header" :class="[{ active: show }]" flex="cross:center" @click="toggleShow">
+      <div class="bin-switch--mini" @click.stop style="width: 16px">
+        <b-switch v-if="toggle" :model-value="modelValue" class="--mini" @change="toggleVisible" />
       </div>
       <div class="wrap-name">
         <span class="wrap-label">{{ label }}</span>
         <span class="wrap-right" v-if="$slots.add" @click.stop>
           <slot name="add"></slot>
         </span>
-        <span class="wrap-arrow" :class="[{show}]">
+        <span class="wrap-arrow" :class="[{ show }]">
           <b-icon name="right" size="12"></b-icon>
         </span>
       </div>
@@ -37,6 +32,10 @@ export default {
       type: String,
       required: true,
     },
+    defaultOpen: {
+      type: Boolean,
+      default: false,
+    },
     modelValue: {
       type: Boolean,
       default: true,
@@ -48,7 +47,7 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   setup(props, ctx) {
-    const show = ref(false)
+    const show = ref(props.defaultOpen)
 
     const toggleVisible = () => {
       show.value = !props.modelValue

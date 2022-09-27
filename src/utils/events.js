@@ -15,7 +15,7 @@
  * -----------------------------------------[动作事件属性]-----------------------------------------
  * actions:[]   动作列表，每个组件提供单独的动作，以供触发不动的动作
  */
-const defaultEvent = {
+export const defaultEvent = {
   init: {
     name: '初始化事件',
     enable: false,
@@ -33,3 +33,5 @@ const defaultEvent = {
   onEvents: [],
   actions: [],
 }
+
+export const baseEventsList = ['init', 'click', 'change']

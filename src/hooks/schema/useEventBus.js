@@ -1,3 +1,4 @@
+import { baseEventsList } from '@/utils/events'
 import mitt from 'mitt'
 import { reactive, watch, computed, onUnmounted, nextTick } from 'vue'
 
@@ -103,7 +104,7 @@ function useEventBus(data) {
 }
 
 // 批量注册事件至缓存emitMap
-function registerEvents(events, alias, id, list = ['init', 'click', 'change']) {
+function registerEvents(events, alias, id, list = baseEventsList) {
   if (!list || list.length === 0) return
   const eventList = []
   list.forEach(key => {
@@ -121,13 +122,12 @@ function registerEvents(events, alias, id, list = ['init', 'click', 'change']) {
       }
     }
   })
-  console.log(eventList)
   addEmitEvent(id, {
     compName: alias,
     events: eventList,
   })
 
-  console.log(eventSourceList.value)
+  console.log('注册事件至缓存emitMap：', eventSourceList.value)
 }
 
 export { useEventBus }
