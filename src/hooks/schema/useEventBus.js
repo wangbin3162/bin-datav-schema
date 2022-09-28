@@ -32,6 +32,18 @@ const eventSourceList = computed(() => {
 })
 
 /**
+ * 可用于渲染的待触发事件map的list形式
+ */
+const emitList = computed(() => {
+  const res = []
+  const values = [...emitMap.values()]
+  values.forEach(item => {
+    res.push(...item.events)
+  })
+  return res
+})
+
+/**
  * 向待触发事件列表(map)添加一个待触发事件
  * @param {*} indexId 组件id
  * @param {*} events 组件启用的触发事件
@@ -63,6 +75,7 @@ function bindEvent(eventName, callback) {
  * @param {*} params
  */
 function emitEvent(eventName, params = undefined) {
+  console.log('---emitEvent---', eventName, params)
   eventBus.emit(eventName, params)
 }
 
@@ -122,12 +135,57 @@ function registerEvents(events, alias, id, list = baseEventsList) {
       }
     }
   })
-  addEmitEvent(id, {
-    compName: alias,
-    events: eventList,
-  })
-
-  console.log('注册事件至缓存emitMap：', eventSourceList.value)
+  if (eventList.length > 0) {
+    addEmitEvent(id, {
+      compName: alias,
+      events: eventList,
+    })
+    console.log('注册事件至缓存emitMap：', eventSourceList.value)
+  }
 }
 
-export { useEventBus }
+/**
+ * 根据对应事件从对应的emitList内配置的事件发送params参数生成实际的参数对象
+ * @param {*} eventName 待发送事件名称
+ * @param {*} emitList 待发送事件列表
+ * @returns
+ */
+function generateEventParams(eventParams) {
+  const params = {}
+  eventParams.forEach(item => (params[item.name] = ''))
+  return params
+}
+
+/**
+ * 创建用于绑定、发送事件的eventName
+ * @param {*} indexId 组件indexId
+ * @param {*} eventName 事件名
+ * @returns
+ */
+function generateEventName(indexId, eventName) {
+  return indexId + '-' + eventName
+}
+
+/**
+ * 用于组件内发送事件，该函数会根据传递的eventName与组件的emitListi列表判断是否可以发送事件
+ * @param {*} compId 组件的compId
+ * @param {*} eventName 事件名
+ * @param {*} events 事件配置项
+ * @param {*} params 发送事件携带的参数
+ */
+function emitEventIfAllowed(compId, eventName, events, params = undefined) {
+  const event = events[eventName]
+  if (event && event.enable) {
+    const key = generateEventName(compId, eventName)
+    emitEvent(key, params)
+  }
+}
+
+export {
+  useEventBus,
+  eventSourceList,
+  emitList,
+  generateEventParams,
+  emitEvent,
+  emitEventIfAllowed,
+}

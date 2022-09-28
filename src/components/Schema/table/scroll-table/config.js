@@ -1,4 +1,5 @@
 import { ComType, initApiData } from '@/config/data-source'
+import { getBaseActions } from '@/utils/events'
 
 export const scrollTableConfig = {
   name: 'VScrollTable',
@@ -24,7 +25,10 @@ export const scrollTableConfig = {
     align: [],
   },
   apiData: initApiData({ staticPath: 'table/scroll-table' }),
-  events: {},
+  events: {
+    onEvents: [],
+    actions: getBaseActions(),
+  },
 }
 
 export default scrollTableConfig

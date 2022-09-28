@@ -1,3 +1,5 @@
+import { deepMerge } from './util'
+
 /**
  * 事件系统设计主要分为发送事件和监听事件，触发事件默认可以有三种类别
  * -----------------------------------------[触发事件类型]-----------------------------------------
@@ -13,7 +15,7 @@
  * onEvents:[]   数组类型，监听事件列表
  *
  * -----------------------------------------[动作事件属性]-----------------------------------------
- * actions:[]   动作列表，每个组件提供单独的动作，以供触发不动的动作
+ * actions: {},  动作列表，每个组件提供单独的动作，以供触发不同的动作
  */
 export const defaultEvent = {
   init: {
@@ -31,7 +33,19 @@ export const defaultEvent = {
     enable: false,
   },
   onEvents: [],
-  actions: [],
+  actions: {
+    getData: { title: '更新数据', params: [] },
+  },
 }
 
 export const baseEventsList = ['init', 'click', 'change']
+
+// 获取基本的动作
+export function getBaseActions(actions) {
+  return deepMerge(
+    {
+      getData: { title: '更新数据', params: [] },
+    },
+    actions,
+  )
+}

@@ -6,22 +6,18 @@
         'is-inline': !!inline,
         'is-single': inline === 'inline-single',
         'is-disabled': disabled,
-      }
+      },
     ]"
   >
     <b-select
       :model-value="modelValue"
       :size="size"
       :disabled="disabled"
+      clearable
       @update:model-value="handleInput"
       @change="handleChange"
     >
-      <b-option
-        v-for="item in data"
-        :key="item.value"
-        :label="item.label"
-        :value="item.value"
-      />
+      <b-option v-for="item in data" :key="item.value" :label="item.label" :value="item.value" />
     </b-select>
     <span v-if="label" class="g-input__caption">
       {{ label }}
@@ -57,11 +53,11 @@ export default {
   },
   emits: ['update:modelValue', 'change'],
   setup(props, ctx) {
-    const handleInput = (value) => {
+    const handleInput = value => {
       ctx.emit('update:modelValue', value)
     }
 
-    const handleChange = (currentValue) => {
+    const handleChange = currentValue => {
       ctx.emit('change', currentValue)
     }
 
@@ -72,7 +68,6 @@ export default {
   },
 }
 </script>
-
 
 <style scoped lang="stylus">
 .dv-gui {

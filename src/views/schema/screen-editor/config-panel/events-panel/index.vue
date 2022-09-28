@@ -11,6 +11,7 @@
         <b-scrollbar>
           <div class="setting-panel-gui">
             <TriggerConfig :events="events" />
+            <ResponseConfig :events="events" :comp-id="selectedCom.id" />
           </div>
         </b-scrollbar>
       </div>
@@ -23,6 +24,7 @@ import { computed } from 'vue'
 import { useStore } from '@/store'
 import ConfigTitle from '@/views/schema/screen-editor/config-panel/components/config-title.vue'
 import TriggerConfig from './trigger-config.vue'
+import ResponseConfig from './response-config.vue'
 
 const { schemaStore, storeToRefs } = useStore()
 

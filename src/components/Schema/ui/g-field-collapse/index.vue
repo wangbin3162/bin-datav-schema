@@ -89,7 +89,7 @@ export default {
       .wrap-right {
         position: absolute;
         right: 30px;
-        top: 6px;
+        top: 8px;
       }
       .wrap-arrow {
         transition: .2s;

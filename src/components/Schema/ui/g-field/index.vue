@@ -1,6 +1,6 @@
 <template>
   <div class="g-field-wp">
-    <div class="g-field" :style="{width:labelWidth}">
+    <div class="g-field" :style="{ width: labelWidth }">
       <slot name="label">
         <template v-if="tooltip">
           <label class="g-field-title-with-description" :title="tooltip">
@@ -12,7 +12,11 @@
         </label>
       </slot>
     </div>
-    <div class="g-field-container" :class="{ 'is-flat': flat }" :style="{width:`calc(100% - ${labelWidth})`}">
+    <div
+      class="g-field-container"
+      :class="{ 'is-flat': flat }"
+      :style="{ width: `calc(100% - ${labelWidth})` }"
+    >
       <slot></slot>
       <span v-if="caption" class="g-field-caption" :title="caption">
         {{ caption }}
@@ -36,9 +40,6 @@ export default {
       default: '110px',
     },
     flat: Boolean,
-  },
-  setup(props) {
-    return {}
   },
 }
 </script>

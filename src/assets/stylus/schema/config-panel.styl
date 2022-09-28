@@ -241,4 +241,22 @@
   .scroll-container{
     height: calc(100% - 36px);
   }
+  .setting-panel-gui {
+    .series-title {
+      position: relative;
+      padding: 16px 5px 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      &:before {
+        content: '';
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 6px;
+        height: 6px;
+        background: var(--bin-color-primary);
+      }
+    }
+  }
 }

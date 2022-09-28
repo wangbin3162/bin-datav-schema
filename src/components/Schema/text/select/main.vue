@@ -1,6 +1,6 @@
 <template>
   <div class="dv-wrapper" :style="wrapperStyle">
-    <b-select v-model="select" clearable>
+    <b-select v-model="select" clearable @change="handleChage">
       <b-option
         v-for="item in options"
         :key="item.value"
@@ -15,6 +15,7 @@
 import { computed, ref, watch } from 'vue'
 import { useDataCenter } from '@/hooks/schema/useDataCenter'
 import { useEventBus } from '@/hooks/schema/useEventBus'
+import { useEvent } from './useEvent'
 
 export default {
   name: 'VSelect',
@@ -53,14 +54,21 @@ export default {
       () => config.value.default,
       val => (select.value = val),
     )
-
     // 事件系统增加
     useEventBus(props.data)
+    // 事件系统触发
+    const { emitChange } = useEvent(props.data)
 
+    // 下拉框change事件
+    function handleChage(value) {
+      const label = options.value.find(item => item.value === value)?.label
+      emitChange(label, value)
+    }
     return {
       select,
       options,
       wrapperStyle,
+      handleChage,
     }
   },
 }

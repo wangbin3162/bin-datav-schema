@@ -1,9 +1,5 @@
 <template>
   <g-field-collapse v-if="hasTriggerEvent" label="触发事件" default-open>
-    触发 事件配置
-    {{ eventList }}
-    {{ config }}
-
     <template v-for="key in eventList" :key="key">
       <g-field v-if="config[key]" :label="config[key].name">
         <div flex="main:justify cross:center">
@@ -41,7 +37,6 @@ const config = computed(() => props.events)
 const hasTriggerEvent = computed(() => {
   let flag = false
   props.eventList.forEach(key => {
-    console.log(key, config.value[key])
     if (!isEmpty(config.value[key])) {
       flag = true
       return
