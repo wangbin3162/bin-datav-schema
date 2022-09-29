@@ -11,6 +11,7 @@ import { isEmpty, throwError, toJson } from '@/utils/util'
 import { getModelDataById } from '@/api/modules/analysis-dashboard.api'
 import { useStore } from '@/store'
 import { useEventBus } from '@/hooks/schema/useEventBus'
+import { Message } from 'bin-ui-next'
 
 export default {
   name: 'VScrollTable',
@@ -25,9 +26,6 @@ export default {
     const { schemaStore } = useStore() // 执行获取schema专属store
     const dvData = ref({})
     const tableRef = ref(null)
-
-    // 事件系统增加
-    useEventBus(props.data)
 
     // config 配置项
     const config = computed(() => props.data.config)
@@ -143,6 +141,17 @@ export default {
       },
       { deep: true, immediate: true },
     )
+
+    // 获取响应事件
+    const actions = {
+      getData(params, onEvent) {
+        console.log('-----获取响应参数-----', params, onEvent)
+        Message(`已接收参数：${params.value}，并进行响应设置函数调用！`)
+        setDvData()
+      },
+    }
+    // 事件系统增加
+    useEventBus(props.data, actions)
 
     return {
       tableRef,

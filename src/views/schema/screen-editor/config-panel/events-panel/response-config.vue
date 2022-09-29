@@ -78,8 +78,8 @@
 </template>
 
 <script setup>
-import { deepCopy, isEmpty } from '@/utils/util'
-import { computed, ref } from 'vue'
+import { deepCopy } from '@/utils/util'
+import { computed } from 'vue'
 import { emitList, eventSourceList } from '@/hooks/schema/useEventBus'
 import { Message } from 'bin-ui-next'
 

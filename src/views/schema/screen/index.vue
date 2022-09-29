@@ -28,7 +28,7 @@
 
 <script>
 import { useStore } from '@/store'
-import { ref } from 'vue'
+import { ref, provide } from 'vue'
 import { loadScreenPreview } from '@/api/database.api'
 import { useRoute, useRouter } from 'vue-router'
 import GLoading from '@/components/Schema/ui/g-loading/index.vue'
@@ -44,6 +44,8 @@ export default {
     const { schemaStore, storeToRefs } = useStore()
     const { pageConfig, comps } = storeToRefs(schemaStore)
     const loading = ref(true)
+
+    provide('RenderModel', 'runtime')
 
     const resize = () => {
       const dom = document.querySelector('#app')

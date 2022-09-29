@@ -1,6 +1,6 @@
 import { baseEventsList } from '@/utils/events'
 import mitt from 'mitt'
-import { reactive, watch, computed, onUnmounted, nextTick } from 'vue'
+import { reactive, watch, computed, onUnmounted, nextTick, inject } from 'vue'
 
 /**
  * 事件总线
@@ -98,22 +98,49 @@ function clearEvent() {
 /**
  *  每个组件中都需要添加的事件hook
  */
-function useEventBus(data) {
-  console.log('-----事件系统hook-----', data)
+function useEventBus(data, actions) {
+  const mode = inject('RenderModel', 'editor')
+  console.log('-----事件系统hook-----', data, mode)
   onUnmounted(() => {
     delEmitEvent(data.id)
   })
 
-  // 当配置项中事件配置事件项变化和别名 更改时触发监听，并注册事件
-  watch(
-    [() => data.events, () => data.alias],
-    async ([events, alias]) => {
-      // 很有趣，目前来看，watch内使用nextTick，比watch自身的flush选项设置为post执行的实际更靠后
-      await nextTick()
-      registerEvents(events, alias, data.id)
-    },
-    { immediate: true, deep: true },
-  )
+  if (mode === 'editor') {
+    // 当配置项中事件配置事件项变化和别名 更改时触发监听，并注册事件
+    watch(
+      [() => data.events, () => data.alias],
+      async ([events, alias]) => {
+        // 很有趣，目前来看，watch内使用nextTick，比watch自身的flush选项设置为post执行的实际更靠后
+        await nextTick()
+        registerEvents(events, alias, data.id)
+      },
+      { immediate: true, deep: true },
+    )
+  }
+
+  if (mode === 'runtime') {
+    watch(
+      () => data.events.onEvents,
+      events => {
+        if (!events) return
+        events.forEach(item => {
+          if (item.register) {
+            console.log('-----注册事件处理器-----', item)
+
+            // 注册事件
+            bindEvent(item.eventName, params => {
+              actions[item.actionName](params, item)
+            })
+          }
+        })
+      },
+      {
+        immediate: true,
+        deep: true,
+        flush: 'post',
+      },
+    )
+  }
 }
 
 // 批量注册事件至缓存emitMap
@@ -140,7 +167,7 @@ function registerEvents(events, alias, id, list = baseEventsList) {
       compName: alias,
       events: eventList,
     })
-    console.log('注册事件至缓存emitMap：', eventSourceList.value)
+    console.log('-----注册事件至缓存emitMap-----', eventSourceList.value)
   }
 }
 

@@ -7,7 +7,7 @@ import { getComPath } from '@/utils/env'
 export const VBasicBar = {
   name: 'VBasicBar',
   alias: '基本柱图',
-  img: getComPath('basic-bar.jpg'),
+  img: getComPath('basic-bar.svg'),
   type: 'bar',
   used: true,
 }
@@ -15,7 +15,7 @@ export const VBasicBar = {
 export const VHorizontalBar = {
   name: 'VHorizontalBar',
   alias: '基本条形图',
-  img: getComPath('hori-basic-bar.jpg'),
+  img: getComPath('hori-basic-bar.svg'),
   type: 'bar',
   used: true,
 }
@@ -23,7 +23,7 @@ export const VHorizontalBar = {
 export const VCapsuleBar = {
   name: 'VCapsuleBar',
   alias: '胶囊柱图',
-  img: getComPath('capsule-bar.png'),
+  img: getComPath('capsule-bar.svg'),
   type: 'bar',
   used: true,
 }
@@ -31,7 +31,7 @@ export const VCapsuleBar = {
 export const VBasicLine = {
   name: 'VBasicLine',
   alias: '基本折线图',
-  img: getComPath('basic-line.jpg'),
+  img: getComPath('basic-line.svg'),
   type: 'line',
   used: true,
 }
@@ -39,7 +39,7 @@ export const VBasicLine = {
 export const VBasicArea = {
   name: 'VBasicArea',
   alias: '基本区域图',
-  img: getComPath('basic-area.jpg'),
+  img: getComPath('basic-area.svg'),
   type: 'line',
   used: true,
 }
@@ -47,7 +47,7 @@ export const VBasicArea = {
 export const VBasicPie = {
   name: 'VBasicPie',
   alias: '基本饼图',
-  img: getComPath('basic-pie.jpg'),
+  img: getComPath('basic-pie.svg'),
   type: 'pie',
   used: true,
 }
@@ -55,7 +55,7 @@ export const VBasicPie = {
 export const VBasicRing = {
   name: 'VBasicRing',
   alias: '基本环图',
-  img: getComPath('basic-ring.jpg'),
+  img: getComPath('basic-ring.svg'),
   type: 'pie',
   used: true,
 }
@@ -63,7 +63,7 @@ export const VBasicRing = {
 export const VBasicRadar = {
   name: 'VBasicRadar',
   alias: '基本雷达图',
-  img: getComPath('basic-radar.jpg'),
+  img: getComPath('basic-radar.svg'),
   type: 'radar',
   used: true,
 }
@@ -71,7 +71,7 @@ export const VBasicRadar = {
 export const VBasicMap = {
   name: 'VBasicMap',
   alias: '基本地图',
-  img: getComPath('2d-china.png'),
+  img: getComPath('2d-china.svg'),
   type: 'map',
   used: true,
 }
@@ -79,7 +79,7 @@ export const VBasicMap = {
 export const VBasicMapEvo = {
   name: 'VBasicMapEvo',
   alias: '省份地图',
-  img: getComPath('basic-map-evo.png'),
+  img: getComPath('basic-map-evo.svg'),
   type: 'map',
   used: true,
 }
@@ -87,7 +87,7 @@ export const VBasicMapEvo = {
 export const VBasicScatter = {
   name: 'VBasicScatter',
   alias: '基本散点图',
-  img: getComPath('basic-scatter.png'),
+  img: getComPath('basic-scatter.svg'),
   type: 'scatter',
   used: true,
 }
@@ -95,7 +95,7 @@ export const VBasicScatter = {
 export const VLineBasicScatter = {
   name: 'VLineBasicScatter',
   alias: '散点线图',
-  img: getComPath('line-basic-scatter.png'),
+  img: getComPath('line-basic-scatter.svg'),
   type: 'scatter',
   used: true,
 }
@@ -103,7 +103,7 @@ export const VLineBasicScatter = {
 export const VBasicBoxplot = {
   name: 'VBasicBoxplot',
   alias: '盒须图',
-  img: getComPath('basic-boxplot.png'),
+  img: getComPath('basic-boxplot.svg'),
   type: 'boxplot',
   used: true,
 }
@@ -111,7 +111,7 @@ export const VBasicBoxplot = {
 export const VBasicFunnel = {
   name: 'VBasicFunnel',
   alias: '基本梯度图',
-  img: getComPath('basic-funnel.jpg'),
+  img: getComPath('basic-funnel.svg'),
   type: 'funnel',
   used: true,
 }
@@ -119,7 +119,7 @@ export const VBasicFunnel = {
 export const VBasicWordCloud = {
   name: 'VBasicWordCloud',
   alias: '基本词云图',
-  img: getComPath('basic-wordcloud.jpg'),
+  img: getComPath('basic-wordcloud.svg'),
   type: 'wordcloud',
   used: true,
 }
@@ -127,7 +127,7 @@ export const VBasicWordCloud = {
 export const VBasicGauge = {
   name: 'VBasicGauge',
   alias: '基本仪表盘',
-  img: getComPath('basic-gauge.png'),
+  img: getComPath('basic-gauge.svg'),
   type: 'gauge',
   used: true,
 }
@@ -135,7 +135,7 @@ export const VBasicGauge = {
 export const VProgressCircle = {
   name: 'VProgressCircle',
   alias: '进度环',
-  img: getComPath('pie-one-value.png'),
+  img: getComPath('pie-one-value.svg'),
   type: 'circle',
   used: true,
 }
@@ -143,7 +143,7 @@ export const VProgressCircle = {
 export const VMainTitle = {
   name: 'VMainTitle',
   alias: '通用标题',
-  img: getComPath('main-title.png'),
+  img: getComPath('main-title.svg'),
   type: 'info',
   used: true,
 }
@@ -151,7 +151,7 @@ export const VMainTitle = {
 export const VNumberTitleFlop = {
   name: 'VNumberTitleFlop',
   alias: '数字指标',
-  img: getComPath('number-title-flop.png'),
+  img: getComPath('number-title-flop.svg'),
   type: 'info',
   used: true,
 }
@@ -159,7 +159,7 @@ export const VNumberTitleFlop = {
 export const VTimer = {
   name: 'VTimer',
   alias: '时间器',
-  img: getComPath('timer.png'),
+  img: getComPath('timer.svg'),
   type: 'info',
   used: true,
 }
@@ -167,7 +167,7 @@ export const VTimer = {
 export const VSelect = {
   name: 'VSelect',
   alias: '下拉控件',
-  img: getComPath('select.png'),
+  img: getComPath('select.svg'),
   type: 'control',
   used: true,
 }
@@ -175,7 +175,7 @@ export const VSelect = {
 export const VBgBox = {
   name: 'VBgBox',
   alias: '背景块',
-  img: getComPath('bg-box.png'),
+  img: getComPath('bg-box.svg'),
   type: 'media',
   used: true,
 }
@@ -183,7 +183,7 @@ export const VBgBox = {
 export const VBorderBox = {
   name: 'VBorderBox',
   alias: '边框',
-  img: getComPath('border-box.png'),
+  img: getComPath('border-box.svg'),
   type: 'media',
   used: true,
 }
@@ -191,7 +191,7 @@ export const VBorderBox = {
 export const VDecoration = {
   name: 'VDecoration',
   alias: '装饰器',
-  img: getComPath('decoration.png'),
+  img: getComPath('decoration.svg'),
   type: 'media',
   used: true,
 }
@@ -199,7 +199,7 @@ export const VDecoration = {
 export const VMainImg = {
   name: 'VMainImg',
   alias: '单张图片',
-  img: getComPath('img.png'),
+  img: getComPath('img.svg'),
   type: 'media',
   used: true,
 }
@@ -207,7 +207,7 @@ export const VMainImg = {
 export const VScrollTable = {
   name: 'VScrollTable',
   alias: '基础表格',
-  img: getComPath('scroll-table.jpg'),
+  img: getComPath('scroll-table.svg'),
   type: 'table',
   used: true,
 }
@@ -215,7 +215,7 @@ export const VScrollTable = {
 export const VCrossTable = {
   name: 'VCrossTable',
   alias: '交叉表',
-  img: getComPath('carousel-table.png'),
+  img: getComPath('carousel-table.svg'),
   type: 'table',
   used: false,
 }
