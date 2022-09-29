@@ -12,7 +12,7 @@ specifiers:
   bin-charts-next: ^1.1.0
   bin-datav: ^0.2.0
   bin-editor-next: ^1.1.0
-  bin-ui-next: ^1.2.6
+  bin-ui-next: ^1.2.7
   brace: ^0.11.1
   cross-env: ^7.0.3
   dayjs: ^1.11.5
@@ -46,7 +46,7 @@ dependencies:
   bin-charts-next: 1.1.0_echarts@5.3.3+vue@3.2.39
   bin-datav: 0.2.0_vue@3.2.39
   bin-editor-next: 1.1.0
-  bin-ui-next: 1.2.6_vue@3.2.39
+  bin-ui-next: 1.2.7_vue@3.2.39
   brace: 0.11.1
   dayjs: 1.11.5
   echarts: 5.3.3
@@ -1625,8 +1625,8 @@ packages:
       brace: 0.11.1
     dev: false
 
-  /bin-ui-next/1.2.6_vue@3.2.39:
-    resolution: {integrity: sha512-qfXTPjm6ztgWtdRBEPMlSwxYT1q4ouyKA8tO2weijUFsUtWJ7GkzVcR9qztQPIWsSZWe4AcHBjlX6773bWjydw==}
+  /bin-ui-next/1.2.7_vue@3.2.39:
+    resolution: {integrity: sha512-CTdyQpfg8biPZY6uLy/LLwFE3Rnhek70xEvIBCpieTTHmey+py1a8TlWmGe3qdfU1KMzrLUdsAExSGE7DSLqgA==}
     peerDependencies:
       vue: ^3.2.0
     dependencies:
