@@ -68,12 +68,12 @@
     >
       暂无响应事件
     </div>
-    <b-ace-editor
+    <!-- <b-ace-editor
       :model-value="JSON.stringify(config, null, 2)"
       theme="tomorrow_night"
       wrap
       :styles="{ border: 'none' }"
-    ></b-ace-editor>
+    ></b-ace-editor> -->
   </g-field-collapse>
 </template>
 
