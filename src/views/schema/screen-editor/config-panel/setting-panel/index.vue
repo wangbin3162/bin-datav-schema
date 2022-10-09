@@ -4,6 +4,7 @@
       :com-name="selectedCom.name"
       :com-alias="selectedCom.alias"
       :com="selectedCom"
+      show-cfg
     ></config-title>
     <div class="setting-panel-content">
       <div class="scroll-container">

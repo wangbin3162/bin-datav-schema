@@ -9,7 +9,7 @@
       </div>
     </div>
     <slot>
-      <div class="search-config" @click="openDetail" title="查看配置项">
+      <div v-if="showCfg" class="search-config" @click="openDetail" title="查看配置项">
         <b-icon name="filesearch" size="14" />
         <span>配置项</span>
       </div>
@@ -58,6 +58,10 @@ export default {
     com: {
       type: Object,
       default: () => ({}),
+    },
+    showCfg: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {

@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel">
-    <config-title com-alias="多选区域"><span></span></config-title>
+    <config-title com-alias="多选区域" />
     <div class="setting-panel-content">
       <div class="scroll-container">
         <b-scrollbar>
