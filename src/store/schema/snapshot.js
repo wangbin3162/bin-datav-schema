@@ -6,6 +6,15 @@ export default {
     snapshotData: [], // 编辑器快照数据
     snapshotIndex: -1, // 快照索引
   },
+  getters: {
+    undoDisable() {
+      return this.snapshotIndex === 0
+    },
+    // 当前选中的组件是不是group组
+    redoDisable() {
+      return this.snapshotData.length === 0 || this.snapshotIndex === this.snapshotData.length - 1
+    },
+  },
   actions: {
     undo() {
       if (this.snapshotIndex > 0) {

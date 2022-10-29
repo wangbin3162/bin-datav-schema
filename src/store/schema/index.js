@@ -19,6 +19,7 @@ const useSchema = defineStore('schema', {
     ...shortcuts.getters,
     ...canvas.getters,
     ...page.getters,
+    ...snapshot.getters,
     ...compose.getters,
   },
   actions: {

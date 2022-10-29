@@ -99,4 +99,10 @@ export const widgetImages = [
     src: getImgUrl('widget15.png'),
     css: { 'background-position': 'center', 'background-size': 'auto' },
   },
+  {
+    id: 'widget16',
+    name: '部件16',
+    src: getImgUrl('widget16.png'),
+    css: { 'background-position': 'center', 'background-size': 'auto' },
+  },
 ]

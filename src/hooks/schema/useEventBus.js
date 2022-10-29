@@ -100,7 +100,7 @@ function clearEvent() {
  */
 function useEventBus(data, actions) {
   const mode = inject('RenderModel', 'editor')
-  console.log('-----事件系统hook-----', data, mode)
+  // console.log('-----事件系统hook-----', data, mode)
   onUnmounted(() => {
     delEmitEvent(data.id)
   })

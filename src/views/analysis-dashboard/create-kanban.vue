@@ -11,7 +11,7 @@
       <div class="preset-wp">
         <div
           class="preset-item web-box"
-          :class="{selected:createValue.type ==='web' }"
+          :class="{ selected: createValue.type === 'web' }"
           @click="selectPreset('web')"
         >
           <i class="b-iconfont b-icon-laptop"></i>
@@ -22,18 +22,14 @@
           <b-dropdown
             trigger="click"
             placement="bottom-end"
-            style="width: 24px;height: 46px;line-height: 46px;"
+            style="width: 24px; height: 46px; line-height: 46px"
             @command="handleWebTrigger"
           >
             <b-icon name="down" type="button"></b-icon>
             <template #dropdown>
               <b-dropdown-menu>
-                <b-dropdown-item
-                  v-for="item in webScreenMap"
-                  :key="item.label"
-                  :name="item"
-                >
-                  <div flex="main:justify" style="width: 180px;">
+                <b-dropdown-item v-for="item in webScreenMap" :key="item.label" :name="item">
+                  <div flex="main:justify" style="width: 180px">
                     <span>{{ item.label }}</span>
                     <span>{{ item.width }}x{{ item.height }}</span>
                   </div>
@@ -44,7 +40,7 @@
         </div>
         <div
           class="preset-item mobile-box"
-          :class="{selected:createValue.type ==='mobile' }"
+          :class="{ selected: createValue.type === 'mobile' }"
           @click="selectPreset('mobile')"
         >
           <i class="b-iconfont b-icon-mobile"></i>
@@ -55,18 +51,14 @@
           <b-dropdown
             trigger="click"
             placement="bottom-end"
-            style="width: 24px;height: 46px;line-height: 46px;"
+            style="width: 24px; height: 46px; line-height: 46px"
             @command="handleMobileTrigger"
           >
             <b-icon name="down" type="button"></b-icon>
             <template #dropdown>
               <b-dropdown-menu>
-                <b-dropdown-item
-                  v-for="item in mobileScreenMap"
-                  :key="item.label"
-                  :name="item"
-                >
-                  <div flex="main:justify" style="width: 180px;">
+                <b-dropdown-item v-for="item in mobileScreenMap" :key="item.label" :name="item">
+                  <div flex="main:justify" style="width: 180px">
                     <span>{{ item.label }}</span>
                     <span>{{ item.width }}x{{ item.height }}</span>
                   </div>
@@ -77,7 +69,7 @@
         </div>
         <div
           class="preset-item custom-box"
-          :class="{selected:createValue.type ==='custom' }"
+          :class="{ selected: createValue.type === 'custom' }"
           @click="selectPreset('custom')"
         >
           <i class="b-iconfont b-icon-gateway"></i>
@@ -104,7 +96,7 @@
               />
             </p>
           </div>
-          <div style="width: 24px;"></div>
+          <div style="width: 24px"></div>
         </div>
       </div>
       <h2 class="title-bar">模板</h2>
@@ -112,16 +104,21 @@
         <div class="template-grid" v-for="tpl in templates" :key="tpl.id">
           <div
             class="template-item"
-            :class="{selected: createValue.type==='tpl'&& createValue.tpl === tpl.id}"
+            :class="{ selected: createValue.type === 'tpl' && createValue.tpl === tpl.id }"
             @click="selectTpl(tpl)"
           >
             <div class="template-image">
               <div class="preview-image">
-                <img :src="tpl.pageConfig.bgImage" alt="" />
+                <img :src="getThumb(tpl.pageConfig)" alt="" />
               </div>
               <div class="tpl-remove">
-                <b-button type="text" text-color="#f5222d" title="移除模板" icon="delete"
-                          @click="removeTpl(tpl)"></b-button>
+                <b-button
+                  type="text"
+                  text-color="#f5222d"
+                  title="移除模板"
+                  icon="delete"
+                  @click="removeTpl(tpl)"
+                ></b-button>
               </div>
             </div>
             <div class="template-info">
@@ -191,7 +188,7 @@ const openCreate = () => {
   visible.value = true
 }
 
-const selectTpl = (tpl) => {
+const selectTpl = tpl => {
   createValue.type = 'tpl'
   createValue.tpl = tpl.id
 }
@@ -203,7 +200,7 @@ const changeSize = ({ width, height }) => {
   createValue.tpl = ''
 }
 
-const handleWebTrigger = (item) => {
+const handleWebTrigger = item => {
   webValue.label = item.label
   webValue.width = item.width
   webValue.height = item.height
@@ -215,7 +212,7 @@ const handleWebTrigger = (item) => {
   createValue.tpl = ''
 }
 
-const handleMobileTrigger = (item) => {
+const handleMobileTrigger = item => {
   mobileValue.label = item.label
   mobileValue.width = item.width
   mobileValue.height = item.height
@@ -245,23 +242,24 @@ const getTplList = () => {
   })
 }
 
-const removeTpl = (tpl) => {
+const removeTpl = tpl => {
   MessageBox.confirm({
     type: 'error',
     title: '确定删除当前模板吗？',
-  }).then(async () => {
-    try {
-      await removeTemplate(tpl.id)
-      getTplList()
-      Message.success('移除模板成功！')
-    } catch (e) {
-      throwError('create-screen/removeTpl', e)
-    }
-  }).catch(() => {
   })
+    .then(async () => {
+      try {
+        await removeTemplate(tpl.id)
+        getTplList()
+        Message.success('移除模板成功！')
+      } catch (e) {
+        throwError('create-screen/removeTpl', e)
+      }
+    })
+    .catch(() => {})
 }
 
-const selectPreset = (type) => {
+const selectPreset = type => {
   if (type === 'web') {
     createValue.label = webValue.label
     createValue.width = webValue.width
@@ -283,6 +281,10 @@ const createScreen = async () => {
   closeModal()
   await saveCreateData(createValue)
   await router.push({ path: '/schema/screen' })
+}
+
+function getThumb(pageConfig) {
+  return pageConfig.thumbnail || pageConfig.bgImage
 }
 
 defineExpose({
@@ -373,6 +375,12 @@ defineExpose({
     border: 1px solid #0b0c0d;
     margin-bottom: 16px;
     transition: 0.2s;
+    &:hover {
+      border: 1px solid var(--bin-color-primary);
+      .preview-image img {
+        transform: scale(1.15);
+      }
+    }
     .template-image {
       width: 100%;
       height: 146px;

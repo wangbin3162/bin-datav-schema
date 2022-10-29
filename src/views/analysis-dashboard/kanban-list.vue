@@ -9,7 +9,13 @@
         <h2>{{ group ? group.name : '' }} ({{ listData.total }})</h2>
       </div>
       <div class="header-manager">
-        <b-input v-model="query.name" size="small" placeholder="搜索" search @search="getSearchList"></b-input>
+        <b-input
+          v-model="query.name"
+          size="small"
+          placeholder="搜索"
+          search
+          @search="getSearchList"
+        ></b-input>
       </div>
     </div>
     <!--列表-->
@@ -18,31 +24,54 @@
         <div class="list-item-inner">
           <div class="list-item-img">
             <div class="preview-image">
-              <img v-if="item.pageConfig.bgImage" :src="item.pageConfig.bgImage" alt="" />
-              <img v-else src="@/assets/images/logo/logo.png" alt="default" style="width: 147px; height: 147px" />
+              <img v-if="getThumb(item.pageConfig)" :src="getThumb(item.pageConfig)" alt="" />
+              <img
+                v-else
+                src="@/assets/images/logo/logo.png"
+                alt="default"
+                style="width: 147px; height: 147px"
+              />
             </div>
             <div class="list-item-mask">
               <div class="action">
-                <b-button type="primary" icon="edit-square" @click="handleEdit(item)">编辑看板</b-button>
+                <b-button type="primary" icon="edit-square" @click="handleEdit(item)">
+                  编辑看板
+                </b-button>
                 <div class="icon-ctrl pt-10">
                   <i class="b-iconfont b-icon-file-copy" @click="handleCopy(item)" title="复制"></i>
-                  <i class="b-iconfont b-icon-delete" @click="removeDashboard(item.id)" title="删除"></i>
+                  <i
+                    class="b-iconfont b-icon-delete"
+                    @click="removeDashboard(item.id)"
+                    title="删除"
+                  ></i>
                 </div>
               </div>
               <div class="icon-box">
-                <i class="b-iconfont b-icon-View" @click="handlePreview(item)" title="预览"></i>
+                <i
+                  class="b-iconfont b-icon-View"
+                  @click="handlePreview(item)"
+                  title="预览"
+                  style="font-size: 18px"
+                ></i>
                 <i class="b-iconfont b-icon-send" @click="handlePublish(item)" title="发布"></i>
               </div>
             </div>
           </div>
           <div class="list-item-info">
             <div class="item-title" t-ellipsis>
-              <iconfont icon="linechart" />
+              <iconfont
+                :icon="item.directory === 'Y' ? 'folder' : 'linechart'"
+                :color="item.directory === 'Y' ? '#fa8c16' : '#1089ff'"
+              />
               <span>
                 {{ item.name }}
               </span>
             </div>
-            <b-tag :type="item.status === 'audited' ? 'success' : 'primary'" dot :tag-style="{ color: '#999' }">
+            <b-tag
+              :type="item.status === 'audited' ? 'success' : 'primary'"
+              dot
+              :tag-style="{ color: '#999' }"
+            >
               {{ item.status === 'audited' ? '已发布' : '待发布' }}
             </b-tag>
           </div>
@@ -55,7 +84,12 @@
     </div>
     <b-empty v-show="!listData.loading && listData.rows.length === 0">该分组下没有看板</b-empty>
     <div class="t-center pb-24" v-show="!listData.loading && listData.total > query.size">
-      <b-page :total="listData.total" :current="query.page" :page-size="query.size" @change="pageChange"></b-page>
+      <b-page
+        :total="listData.total"
+        :current="query.page"
+        :page-size="query.size"
+        @change="pageChange"
+      ></b-page>
     </div>
   </div>
   <create-kanban ref="createRef"></create-kanban>
@@ -73,7 +107,9 @@ import {
 } from '@/api/modules/analysis-dashboard.api'
 import { useRouter } from 'vue-router'
 import { Message, MessageBox } from 'bin-ui-next'
-import CreateKanban from '@/views/analysis-dashboard/create-kanban.vue'
+import SvgLoading from '@/components/Common/SvgLoading/index.vue'
+import Iconfont from '@/components/Common/Iconfont/iconfont.vue'
+import CreateKanban from './create-kanban.vue'
 
 const props = defineProps({
   group: {
@@ -83,6 +119,7 @@ const props = defineProps({
 })
 const router = useRouter()
 const createRef = ref(null)
+const authRef = ref(null)
 
 // 列表数据查询
 const query = reactive({
@@ -137,6 +174,9 @@ const handlePreview = item => {
   window.open(routeData.href, '_blank')
 }
 
+function getThumb(pageConfig) {
+  return pageConfig.thumbnail || pageConfig.bgImage
+}
 // 重置
 const resetModelObj = () => {
   modelObj.pid = ''
@@ -157,6 +197,9 @@ const gotoDashboard = id => {
 const handleCreate = () => {
   createRef.value && createRef.value.openCreate()
   // router.push({ path: '/schema/create-screen' })
+}
+const handleShowAuth = item => {
+  authRef.value && authRef.value.open(item)
 }
 
 // 编辑按钮
@@ -187,6 +230,7 @@ const handleCopy = async item => {
 const handlePublish = async item => {
   if (item.status === 'audited') return
   try {
+    Message(`正在发布[${item.name}]`)
     await publishKanban(item.id)
     await getSearchList()
     Message.success('发布成功！')
@@ -377,7 +421,7 @@ watch(
         .icon-box {
           position: absolute;
           top: 6px;
-          right: 0;
+          right: 6px;
           width: 50px;
           display: flex;
           justify-content: center;

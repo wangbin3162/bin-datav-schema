@@ -2,11 +2,11 @@
   <div :class="['toolbox-panel-wp', { 'is-hide': !toolbar.toolbox }]">
     <div class="toolbox-panel" flex="main:justify">
       <div style="width: 500px" flex>
-        <b-button size="mini" @click="undo">
+        <b-button size="mini" :disabled="undoDisable" @click="undo">
           <i class="action-btn b-iconfont b-icon-rollback"></i>
           撤销
         </b-button>
-        <b-button size="mini" @click="redo">
+        <b-button size="mini" :disabled="redoDisable" @click="redo">
           <i class="action-btn b-iconfont b-icon-rollback" style="transform: rotateY(180deg)" />
           重做
         </b-button>
@@ -38,7 +38,7 @@ import { useStore } from '@/store'
 import { generateId } from '@/utils/util'
 
 const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-const { toolbar, toolbox } = storeToRefs(schemaStore)
+const { toolbar, toolbox, undoDisable, redoDisable } = storeToRefs(schemaStore)
 
 const paseVisible = ref(false)
 const textpasteRef = ref(null)

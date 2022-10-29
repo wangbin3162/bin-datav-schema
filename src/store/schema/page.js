@@ -94,6 +94,12 @@ export default {
       this.selectedCom = null
       this.recordSnapshot()
     },
+    // 替换一个组件
+    replaceCom(id, data) {
+      this.comps.splice(findComIndex(this.comps, id), 1, data)
+      this.selectedCom = data
+      this.recordSnapshot()
+    },
     batchDeleteComs(deleteData) {
       deleteData.forEach(component => {
         this.comps.splice(findComIndex(this.comps, component.id), 1)

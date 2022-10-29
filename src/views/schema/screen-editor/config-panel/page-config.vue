@@ -44,15 +44,35 @@
           <g-input-number v-model="pageConfig.grid" :min="1" :max="20" suffix="px"></g-input-number>
         </g-field>
       </div>
+      <div class="page-config-wp">
+        <g-field label="缩略图" tooltip="截取当前画布存为缩略图">
+          <div class="image-thumb-wrap">
+            <img v-if="pageConfig.thumbnail" :src="pageConfig.thumbnail" alt="" />
+            <div v-else class="tip" flex="dir:top main:center cross:center">
+              <b-icon name="image" size="52"></b-icon>
+              <p>暂未截取缩略图</p>
+            </div>
+          </div>
+          <div class="pt-5">
+            <b-button type="primary" size="small" :loading="thumbLoading" @click="createThumb">
+              截取
+            </b-button>
+            <b-button size="small" :loading="thumbLoading" @click="pageConfig.thumbnail = ''">
+              清除
+            </b-button>
+          </div>
+        </g-field>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import { useStore } from '@/store'
-import { getImagesPath } from '@/utils/env'
 import { mobileScreenMap, webScreenMap } from '@/config/enum'
 import { ref, watch } from 'vue'
+import { createPreviewThumb } from '@/hooks/usePreviewImg'
+import { Message } from 'bin-ui-next'
 
 export default {
   name: 'page-config',
@@ -60,6 +80,7 @@ export default {
     const { schemaStore, storeToRefs } = useStore()
     const { pageConfig } = storeToRefs(schemaStore)
     const screenLabel = ref('')
+    const thumbLoading = ref(false)
 
     const resetBGImage = () => {
       pageConfig.value.bgColor = '#0d2a42'
@@ -75,6 +96,31 @@ export default {
         const height = +val[1]
         schemaStore.setScreenSize({ width, height })
       }
+    }
+
+    // 截屏操作
+    async function createThumb() {
+      Message.warning('正在截取画布缩略图，请勿进行其他操作！')
+
+      thumbLoading.value = true
+      const pageEl = document.getElementById('canvas-components')
+      pageEl.style.top = 0
+      pageEl.style.left = 0
+      schemaStore.setCanvasScale(100)
+      setTimeout(async () => {
+        try {
+          // 截取缩略图
+          const thumb = await createPreviewThumb(pageEl)
+          pageConfig.value.thumbnail = thumb
+          Message.success('截取缩略图成功！')
+        } catch (error) {
+          console.log(error)
+        }
+        pageEl.style.top = '60px'
+        pageEl.style.left = '60px'
+        schemaStore.autoCanvasScale()
+        thumbLoading.value = false
+      }, 300)
     }
 
     watch(
@@ -115,6 +161,9 @@ export default {
         { group: '其他', data: [{ value: 'custom', label: '自定义' }] },
       ],
       sizeChange,
+      createPreviewThumb,
+      createThumb,
+      thumbLoading,
     }
   },
 }
@@ -131,6 +180,22 @@ export default {
     width: 91%;
     height: 1px;
     background: #262c33;
+  }
+  .image-thumb-wrap {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    margin-top: 5px;
+    background: var(--schema-ui-bg);
+    border: 1px solid var(--schema-ui-border);
+    > img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
 }
 </style>

@@ -53,9 +53,9 @@ export const useDataCenter = com => {
     } catch (e) {
       throwError('useDataCenter/setDvData', e)
     }
-    setTimeout(() => {
-      schemaStore.setGlobalLoading(false)
-    }, 800)
+    // setTimeout(() => {
+    schemaStore.setGlobalLoading(false)
+    // }, 800)
   }
 
   // 组件事件系统

@@ -133,14 +133,14 @@ export const headerImages = [
     id: 'header19',
     name: '头部19',
     src: getImgUrl('header19.png'),
-    attr: { w: 311, h: 60 },
+    attr: { w: 1920, h: 80 },
     css: { 'background-position': 'center', 'background-size': 'contain' },
   },
   {
     id: 'header20',
     name: '头部20',
     src: getImgUrl('header20.png'),
-    attr: { w: 466, h: 48 },
+    attr: { w: 1920, h: 80 },
     css: { 'background-position': 'center', 'background-size': 'contain' },
   },
 ]
