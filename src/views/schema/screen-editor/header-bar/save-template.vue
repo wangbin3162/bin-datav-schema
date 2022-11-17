@@ -17,10 +17,22 @@
       </b-form-item>
     </b-form>
     <div class="t-center">
-      <b-button type="primary" icon="vertical-align-botto" transparent style="width: 120px" @click="downloadCfg">
+      <b-button
+        type="primary"
+        icon="vertical-align-botto"
+        transparent
+        style="width: 120px"
+        @click="downloadCfg"
+      >
         配置文件
       </b-button>
-      <b-button type="primary" icon="save" style="width: 120px" :loading="formStatus.loading" @click="saveAsTemplate">
+      <b-button
+        type="primary"
+        icon="save"
+        style="width: 120px"
+        :loading="formStatus.loading"
+        @click="saveAsTemplate"
+      >
         保存模板
       </b-button>
     </div>

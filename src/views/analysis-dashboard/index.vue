@@ -4,23 +4,22 @@
       <div class="folder-manage">
         <div class="folder-manage-group">
           <span>看板分组</span>
-          <i class="b-iconfont b-icon-plus btn-add-icon" title="新增文件夹" @click="adding = true"></i>
+          <i
+            class="b-iconfont b-icon-plus btn-add-icon"
+            title="新增文件夹"
+            @click="adding = true"
+          ></i>
         </div>
         <div class="folder-manage-main">
           <div
             class="folder-item folder-all"
             :class="{ 'folder-item-checked-color': selectedPid === '1' }"
-            @click="toggleProject({id:'1',name:'缺省目录'})"
+            @click="toggleProject({ id: '1', name: '缺省目录' })"
           >
             <span>缺省目录</span>
           </div>
           <div v-if="adding" class="folder-item new-group">
-            <input
-              v-focus
-              class="edit-input"
-              @blur="onAddInputBlur"
-              @keyup.enter="addGroup"
-            >
+            <input v-focus class="edit-input" @blur="onAddInputBlur" @keyup.enter="addGroup" />
           </div>
           <div
             v-for="item in folderList"
@@ -34,22 +33,26 @@
                 v-focus
                 :default-value="item.name"
                 class="edit-input"
-                @blur="onEditInputBlur($event,item)"
+                @blur="onEditInputBlur($event, item)"
                 @keyup.enter="editGroup($event, item)"
-              >
+              />
             </template>
             <template v-else>
               <span class="folder-name">{{ item.name }}</span>
               <span class="group-btns">
                 <i class="b-iconfont b-icon-edit" title="编辑" @click="item.editing = true"></i>
-                <i class="b-iconfont b-icon-delete" title="删除" @click="confirmDeleteGroup(item)"></i>
+                <i
+                  class="b-iconfont b-icon-delete"
+                  title="删除"
+                  @click="confirmDeleteGroup(item)"
+                ></i>
               </span>
             </template>
           </div>
         </div>
       </div>
       <div class="right-list">
-        <kanban-list :group="{pid:selectedPid,name:selectedName}"></kanban-list>
+        <kanban-list :group="{ pid: selectedPid, name: selectedName }"></kanban-list>
       </div>
     </div>
   </div>

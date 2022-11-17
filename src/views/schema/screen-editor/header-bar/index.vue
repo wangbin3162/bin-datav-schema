@@ -3,22 +3,42 @@
     <div class="left-actions">
       <b-space size="mini">
         <b-tooltip content="组件" :open-delay="500">
-          <div class="head-btn" :class="{ active: toolbar.components }" @click="schemaStore.toggleCompsPanel()">
-            <b-icon name="hourglass" class="com-list-icon" :class="{ 'is-rotate': !toolbar.components }"></b-icon>
+          <div
+            class="head-btn"
+            :class="{ active: toolbar.components }"
+            @click="schemaStore.toggleCompsPanel()"
+          >
+            <b-icon
+              name="hourglass"
+              class="com-list-icon"
+              :class="{ 'is-rotate': !toolbar.components }"
+            ></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="图层" :open-delay="500">
-          <div class="head-btn" :class="{ active: toolbar.layer }" @click="schemaStore.toggleLayerPanel()">
+          <div
+            class="head-btn"
+            :class="{ active: toolbar.layer }"
+            @click="schemaStore.toggleLayerPanel()"
+          >
             <b-icon name="container"></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="右侧面板" :open-delay="500">
-          <div class="head-btn" :class="{ active: toolbar.config }" @click="schemaStore.toggleConfigPanel()">
+          <div
+            class="head-btn"
+            :class="{ active: toolbar.config }"
+            @click="schemaStore.toggleConfigPanel()"
+          >
             <b-icon name="control"></b-icon>
           </div>
         </b-tooltip>
         <b-tooltip content="工具箱" :open-delay="500">
-          <div class="head-btn" :class="{ active: toolbar.toolbox }" @click="schemaStore.toggleToolbox()">
+          <div
+            class="head-btn"
+            :class="{ active: toolbar.toolbox }"
+            @click="schemaStore.toggleToolbox()"
+          >
             <b-icon name="shopping"></b-icon>
           </div>
         </b-tooltip>
@@ -30,7 +50,13 @@
       </b-tooltip>
       <span>分析看板</span>
       <span style="padding: 0 6px 0 12px">-</span>
-      <input class="header-input" placeholder="请输入名称" maxlength="50" type="text" v-model="pageInfo.name" />
+      <input
+        class="header-input"
+        placeholder="请输入名称"
+        maxlength="50"
+        type="text"
+        v-model="pageInfo.name"
+      />
     </div>
     <div class="global-actions">
       <b-space size="mini">
@@ -89,7 +115,7 @@ export default {
     },
     backTarget: {
       type: String,
-      default: '_blank', // _self
+      default: '_self', // _self
       validator: val => ['_self', '_blank'].includes(val),
     },
     pageStatus: {

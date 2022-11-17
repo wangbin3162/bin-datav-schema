@@ -43,6 +43,7 @@ import { copyText, throwError } from '@/utils/util'
 import { useRoute, useRouter } from 'vue-router'
 import { Message } from 'bin-ui-next'
 import useSavePreview from '@/hooks/schema/useSavePreview'
+import { getPublicPath } from '@/utils/env'
 
 export default {
   name: 'save-screen',
@@ -72,7 +73,10 @@ export default {
     const dirTree = ref([])
     const formRef = ref(null)
     const loading = ref(false)
-    const shareUrl = computed(() => `${window.location.origin}/#/screen/${route.query.id}`)
+
+    const shareUrl = computed(
+      () => window.location.origin + getPublicPath(`/#/screen/${route.query.id}`),
+    )
 
     getKanbanDir().then(res => {
       dirTree.value = res.data ? [res.data] : []
@@ -81,33 +85,27 @@ export default {
     const btnText = computed(() => (props.status === 'edit' ? '保存看板' : '发布看板'))
 
     const saveKanban = () => {
-      formRef.value &&
-        formRef.value.validate(async valid => {
-          if (valid) {
-            let id = ''
-            try {
-              loading.value = true
-              id = await saveScreenData(props.status)
-            } catch (e) {
-              throwError('save-screes/saveKanban', e)
-            }
-            loading.value = false
-            visible.value = false
-            Message.success({ message: '保存成功！', showClose: true })
-            setTimeout(() => {
-              if (id) {
-                const oldId = pageInfo.value.id
-                if (!oldId) {
-                  let routeData = router.resolve({
-                    path: '/schema/screen',
-                    query: { id },
-                  })
-                  window.location.replace(routeData.href)
-                }
-              }
-            }, 300)
+      formRef.value.validate(async valid => {
+        if (valid) {
+          let id = ''
+          try {
+            loading.value = true
+            id = await saveScreenData(props.status)
+            console.log(id)
+          } catch (e) {
+            throwError('save-screes/saveKanban', e)
           }
-        })
+          pageInfo.value.id = id
+          loading.value = false
+          visible.value = false
+          Message.success({ message: '保存成功！', showClose: true })
+          let routeData = router.resolve({
+            path: '/schema/screen',
+            query: { id },
+          })
+          window.location.replace(routeData.href)
+        }
+      })
     }
 
     const copyUrl = () => {

@@ -1,6 +1,6 @@
 <template>
   <div class="schema-screen-container" @wheel.ctrl.prevent="ctrlMouseWheel">
-    <header-bar ref="headerRef" back-url="/analysisDashboard" />
+    <header-bar ref="headerRef" back-url="/dashboard" />
     <div v-if="loading" flex="main:center cross:center" class="full-wrapper">
       <svg-loading name="loading02" />
     </div>

@@ -11,7 +11,9 @@ const DEFAULT_FOLDER = {
   id: '1',
   text: '分析看板',
   parentId: '0',
-  children: [{ id: '7f0000017da314fa817dbc02cbb800ea', text: '我的看板', parentId: '1', children: [] }],
+  children: [
+    { id: '7f0000017da314fa817dbc02cbb800ea', text: '我的看板', parentId: '1', children: [] },
+  ],
 }
 // 默认list
 const DEFAULT_LIST = [

@@ -58,7 +58,7 @@
             </div>
           </div>
           <div class="list-item-info">
-            <div class="item-title" t-ellipsis>
+            <div class="item-title" t-ellipsis :title="item.name">
               <iconfont
                 :icon="item.directory === 'Y' ? 'folder' : 'linechart'"
                 :color="item.directory === 'Y' ? '#fa8c16' : '#1089ff'"
@@ -105,7 +105,7 @@ import {
   removeKanban,
   saveKanban,
 } from '@/api/modules/analysis-dashboard.api'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { Message, MessageBox } from 'bin-ui-next'
 import SvgLoading from '@/components/Common/SvgLoading/index.vue'
 import Iconfont from '@/components/Common/Iconfont/iconfont.vue'
@@ -118,6 +118,7 @@ const props = defineProps({
   },
 })
 const router = useRouter()
+const route = useRoute()
 const createRef = ref(null)
 const authRef = ref(null)
 
@@ -198,6 +199,7 @@ const handleCreate = () => {
   createRef.value && createRef.value.openCreate()
   // router.push({ path: '/schema/create-screen' })
 }
+
 const handleShowAuth = item => {
   authRef.value && authRef.value.open(item)
 }
@@ -258,7 +260,7 @@ const removeDashboard = id => {
 }
 
 watch(
-  () => props.group,
+  [props.group, route.path],
   () => {
     query.page = 1
     getSearchList()

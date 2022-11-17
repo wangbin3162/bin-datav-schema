@@ -1,7 +1,7 @@
 <template>
   <b-modal
     v-model="visible"
-    title="创建看板"
+    title="新建看板"
     width="1000px"
     custom-class="schema-modal"
     destroy-on-close
@@ -109,7 +109,13 @@
           >
             <div class="template-image">
               <div class="preview-image">
-                <img :src="getThumb(tpl.pageConfig)" alt="" />
+                <img v-if="getThumb(tpl.pageConfig)" :src="getThumb(tpl.pageConfig)" alt="" />
+                <img
+                  v-else
+                  src="@/assets/images/logo/logo.png"
+                  alt="default"
+                  style="width: 147px; height: 147px"
+                />
               </div>
               <div class="tpl-remove">
                 <b-button
@@ -122,7 +128,7 @@
               </div>
             </div>
             <div class="template-info">
-              <div class="template-name">{{ tpl.name }}</div>
+              <div class="template-name" t-ellipsis :title="tpl.name">{{ tpl.name }}</div>
               <div class="template-size">
                 <p>画布尺寸</p>
                 <p>{{ tpl.pageConfig.width }}x{{ tpl.pageConfig.height }}px</p>
@@ -410,6 +416,7 @@ defineExpose({
       height: 100%;
       position: relative;
       overflow: hidden;
+      text-align: center;
       img {
         width: 100%;
         height: 100%;
