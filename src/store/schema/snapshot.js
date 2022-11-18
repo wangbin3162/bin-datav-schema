@@ -31,6 +31,13 @@ export default {
     setCompsSelectedAndMultipleComs() {
       this.comps = deepCopy(this.snapshotData[this.snapshotIndex])
       this.selectedCom = null
+      this.selectedComIds = []
+
+      this.areaData.x = 0
+      this.areaData.y = 0
+      this.areaData.width = 0
+      this.areaData.height = 0
+      this.areaData.showArea = false
     },
     recordSnapshot() {
       // 添加新的快照

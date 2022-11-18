@@ -65,6 +65,7 @@ const {
   getPanelOffsetTop,
   editorEL,
   areaData,
+  isMultiSelect,
 } = storeToRefs(schemaStore)
 
 const canvasWpRef = ref(null)
@@ -128,38 +129,39 @@ const dragOver = ev => {
 }
 
 function cancelSelectCom(ev) {
-  if (!spaceDown.value) {
+  if (spaceDown.value) {
+    dragStatus.drag = true
+    const startX = ev.clientX
+    const startY = ev.clientY
+    const scale = canvas.value.scale
+    const { scrollLeft, scrollTop, clientWidth, scrollWidth, clientHeight, scrollHeight } =
+      canvasWpRef.value
+    const couldMove = clientWidth < scrollWidth || clientHeight < scrollHeight // 是否出现滚动条
+    const attr = { left: scrollLeft, top: scrollTop }
+
+    const move = e => {
+      if (couldMove) {
+        const curX = e.clientX
+        const curY = e.clientY
+        const disX = Math.round((curX - startX) / scale)
+        const disY = Math.round((curY - startY) / scale)
+
+        canvasWpRef.value.scrollLeft = attr.left - disX
+        canvasWpRef.value.scrollTop = attr.top - disY
+      }
+    }
+
+    const up = () => {
+      dragStatus.drag = false
+      off(document, 'mousemove', move)
+      off(document, 'mouseup', up)
+    }
+
+    on(document, 'mousemove', move)
+    on(document, 'mouseup', up)
+  } else {
     schemaStore.selectCom()
   }
-
-  dragStatus.drag = true
-  const startX = ev.clientX
-  const startY = ev.clientY
-  const scale = canvas.value.scale
-  const { scrollLeft, scrollTop, clientWidth, scrollWidth, clientHeight, scrollHeight } =
-    canvasWpRef.value
-  const couldMove = clientWidth < scrollWidth || clientHeight < scrollHeight // 是否出现滚动条
-  const attr = { left: scrollLeft, top: scrollTop }
-
-  const move = e => {
-    if (!spaceDown.value || !dragStatus.drag || !couldMove) return
-    const curX = e.clientX
-    const curY = e.clientY
-    const disX = Math.round((curX - startX) / scale)
-    const disY = Math.round((curY - startY) / scale)
-
-    canvasWpRef.value.scrollLeft = attr.left - disX
-    canvasWpRef.value.scrollTop = attr.top - disY
-  }
-
-  const up = () => {
-    dragStatus.drag = false
-    off(document, 'mousemove', move)
-    off(document, 'mouseup', up)
-  }
-
-  on(document, 'mousemove', move)
-  on(document, 'mouseup', up)
 }
 
 // 框选多个组件
@@ -168,8 +170,11 @@ function handleMouseDown(e) {
   if (!selectedCom.value) {
     e.preventDefault()
   }
+
+  // 如果空格按下移动或者是按下时触发了select-area
+  if (spaceDown.value || e.target.className === 'select-area') return
+
   hideArea()
-  if (spaceDown.value) return
 
   const rectInfo = editorEL.value.getBoundingClientRect()
   editorX = rectInfo.x

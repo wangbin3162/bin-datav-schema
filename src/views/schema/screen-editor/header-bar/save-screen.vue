@@ -91,7 +91,6 @@ export default {
           try {
             loading.value = true
             id = await saveScreenData(props.status)
-            console.log(id)
           } catch (e) {
             throwError('save-screes/saveKanban', e)
           }
