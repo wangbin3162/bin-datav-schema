@@ -260,7 +260,7 @@ const removeDashboard = id => {
 }
 
 watch(
-  [props.group, route.path],
+  [() => props.group, () => route.path],
   () => {
     query.page = 1
     getSearchList()

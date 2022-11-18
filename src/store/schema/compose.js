@@ -134,7 +134,7 @@ export default {
     // 多组件设置对齐内容
     doAlign(type) {
       const isGroup = this.curComIsGroup
-      const coms = isGroup ? this.selectedCom.components : this.multipleComs
+      const coms = isGroup ? this.selectedCom.components : this.selectedComs
       const { x, y, w, h } = this.selectedCom ? this.selectedCom.attr : {}
       let area = isGroup ? { x, y, width: w, height: h } : this.areaData
 
@@ -169,7 +169,7 @@ export default {
       const editor = this.editorEL // 缓存编辑器dom
 
       const components = [] // 临时存储组合
-      this.multipleComs.forEach(com => {
+      this.selectedComs.forEach(com => {
         // 判断是否是group组件
         if (com.name !== 'Group') {
           components.push(com)
@@ -184,9 +184,7 @@ export default {
             decomposeComponent(component, editorRect, parentStyle, this.canvas.scale)
             this.comps.push(component)
           })
-
           components.push(...com.components)
-
           //  4、批量移除刚刚拆开的组件
           this.batchDeleteComs(com.components)
         }
@@ -194,14 +192,16 @@ export default {
       // 1、获取组配置
       const component = createGroup(areaData, components)
       // 2、批量移除刚刚组合的组件
-      this.batchDeleteComs(this.multipleComs)
+      this.batchDeleteComs(this.selectedComs)
       // 3、移除多选组件和区域
-      this.multipleComs = []
+      this.selectedComIds = []
       eventBus.emit('hideArea')
       // 4、将组新增至画布
       this.comps.push(component)
       // 5、设置单选选中当前组
       this.selectCom(component)
+
+      this.recordSnapshot()
     },
     // 拆分组
     ungroup() {

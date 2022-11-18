@@ -52,8 +52,8 @@ export default {
         position: 'absolute',
         top: 0,
         left: 0,
-        width: 'inherit',
-        height: 'inherit',
+        width: '100%',
+        height: '100%',
         borderRadius: 'inherit',
       }
 
@@ -70,7 +70,7 @@ export default {
           const { angle, stops } = border.linearGradient.color
           style.width = '100%'
           style.height = '100%'
-          style.borderRadius = 0
+          style.borderRadius = 'inherit'
           style.borderWidth = `${bd.width}px`
           style.borderStyle = 'solid'
           const color = stops.map(m => `${m.color} ${m.offset}%`).join(', ')
@@ -78,7 +78,7 @@ export default {
         } else if (border.type === 'image') {
           style.width = '100%'
           style.height = '100%'
-          style.borderRadius = 0
+          style.borderRadius = 'inherit'
           style.borderWidth = '2px'
           style.borderStyle = 'solid'
           if (border.imageType === 'preset') {

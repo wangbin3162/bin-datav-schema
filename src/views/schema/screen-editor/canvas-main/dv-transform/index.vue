@@ -70,20 +70,15 @@ export default {
       hoveredComId,
       toolbox,
       spaceDown,
-      multiSelect,
-      multipleComs,
+      isMultiSelect,
     } = storeToRefs(schemaStore)
     // 是否悬停当前
     const isHovered = computed(() => hoveredComId.value === props.data.id)
     // 是否多选选中当前当前
     const isSelected = computed(() => {
       // 判断是否是多选模式
-      if (multiSelect.value) return false
+      if (isMultiSelect.value) return false
       return !isEmpty(selectedCom.value) && selectedCom.value.id === props.data.id
-    })
-    const isMultiSelted = computed(() => {
-      if (multiSelect.value) return multipleComs.value.map(i => i.id).includes(props.data.id)
-      return false
     })
 
     const transformClass = computed(() => ({
@@ -127,8 +122,8 @@ export default {
         },
         rt: {
           name: 'top-right',
-          style: { cursor: cursor.value.rt },
-          rotateStyle: { 'transform-origin': '25% 75%', transform },
+          style: { cursor: cursor.value.rt, transform },
+          // rotateStyle: { 'transform-origin': '25% 75%', transform },
         },
         r: {
           name: 'right',
@@ -136,8 +131,8 @@ export default {
         },
         rb: {
           name: 'bottom-right',
-          style: { cursor: cursor.value.rb },
-          rotateStyle: { 'transform-origin': '25% 25%', transform },
+          style: { cursor: cursor.value.rb, transform },
+          // rotateStyle: { 'transform-origin': '25% 25%', transform },
         },
         b: {
           name: 'bottom',
@@ -145,8 +140,8 @@ export default {
         },
         lb: {
           name: 'bottom-left',
-          style: { cursor: cursor.value.lb },
-          rotateStyle: { 'transform-origin': '75% 25%', transform },
+          style: { cursor: cursor.value.lb, transform },
+          // rotateStyle: { 'transform-origin': '75% 25%', transform },
         },
         l: {
           name: 'left',
@@ -154,8 +149,8 @@ export default {
         },
         lt: {
           name: 'top-left',
-          style: { cursor: cursor.value.lt },
-          rotateStyle: { 'transform-origin': '75% 75%', transform },
+          style: { cursor: cursor.value.lt, transform },
+          // rotateStyle: { 'transform-origin': '75% 75%', transform },
         },
       }
     })
@@ -179,7 +174,7 @@ export default {
 
     const onZoom = (e, dir) => {
       selectCom()
-      handleZoom(e, dir, props.data, scale.value)
+      handleZoom(e, dir, props.data, scale.value, pageConfig.value.grid)
     }
 
     const onRotate = e => {
@@ -195,7 +190,6 @@ export default {
       // 自有属性
       isHovered,
       isSelected,
-      isMultiSelted,
       hideStyle,
       transformClass,
       transformStyle,

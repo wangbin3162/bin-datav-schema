@@ -24,7 +24,7 @@
       <g-input-number v-model="data.x" label="X" inline suffix="px" :disabled="readonly" />
       <g-input-number v-model="data.y" label="Y" inline suffix="px" :disabled="readonly" />
     </g-field>
-    <g-field label="旋转角度" flat v-if="!multiSelect">
+    <g-field label="旋转角度" flat v-if="!isMultiSelect">
       <g-input-number v-model="data.rotate" :min="0" :max="360" :step="1" inline />
       <div style="width: 50%">
         <b-button-group>
@@ -40,10 +40,10 @@
         </b-button-group>
       </div>
     </g-field>
-    <g-field label="透明度" v-if="!(multiSelect || curComIsGroup)">
+    <g-field label="透明度" v-if="!(isMultiSelect || curComIsGroup)">
       <g-slider v-model="data.opacity" :min="0" :max="1" :step="0.05" />
     </g-field>
-    <g-field label="位置" v-if="!multiSelect">
+    <g-field label="位置" v-if="!isMultiSelect">
       <b-button-group>
         <b-button
           v-for="em in positionOptions"
@@ -56,7 +56,7 @@
         </b-button>
       </b-button-group>
     </g-field>
-    <g-field label="对齐" v-if="multiSelect">
+    <g-field label="对齐" v-if="isMultiSelect">
       <b-button-group>
         <b-button
           v-for="em in multiplAlignOptions"
@@ -70,9 +70,9 @@
       </b-button-group>
     </g-field>
 
-    <g-field label="组合拆分" v-if="multiSelect || curComIsGroup">
+    <g-field label="组合拆分" v-if="isMultiSelect || curComIsGroup">
       <b-button-group>
-        <b-button size="mini" icon="group" :disabled="!multiSelect" @click="schemaStore.group()">
+        <b-button size="mini" icon="group" :disabled="!isMultiSelect" @click="schemaStore.group()">
           组合
         </b-button>
         <b-button
@@ -110,5 +110,5 @@ const data = computed({
 })
 
 const { schemaStore, storeToRefs } = useStore()
-const { curComIsGroup, multiSelect } = storeToRefs(schemaStore)
+const { curComIsGroup, isMultiSelect } = storeToRefs(schemaStore)
 </script>

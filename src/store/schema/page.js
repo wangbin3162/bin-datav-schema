@@ -43,13 +43,18 @@ export default {
     pageConfig: { ...defaultPageCfg },
     comps: [], // 画布中的组件，默认插入一个用于调试可动态添加，暂时写死，后期用lowdb缓存
     selectedCom: null, // 单选选中的可拖拽组件
-    multipleComs: [],
+    selectedComIds: [], // 多选选中的ids
     hoveredComId: '', // 悬停的组件缓存，保存的内容为id
     renamingComId: '', // 重命名的id
   },
   getters: {
-    multiSelect() {
-      return this.multipleComs.length > 1
+    // 是否是多选模式
+    isMultiSelect() {
+      return this.selectedComIds.length > 1 // 判定选中ids数组大于1则为多选模式
+    },
+    // 多选选中的组件列表（有顺序的）
+    selectedComs() {
+      return this.comps.filter(com => this.selectedComIds.includes(com.id))
     },
     // 当前选中的组件是不是group组
     curComIsGroup() {
@@ -84,8 +89,11 @@ export default {
         ncom.attr.x += 50
         ncom.attr.y += 50
         this.comps.push(ncom)
-        this.selectedCom = ncom
       }
+    },
+    // 复制多个组件
+    copyComs(coms) {
+      coms.forEach(item => this.copyCom(item.id))
       this.recordSnapshot()
     },
     // 移除一个组件并清空选中，且记录操作
@@ -117,36 +125,36 @@ export default {
     selectCom(component) {
       if (!component) {
         this.selectedCom = null
-        this.multipleComs = []
+        this.selectedComIds = []
         return
       }
       this.selectedCom = component
       // 判断当前点击的时候有没有按下shift，如果按下了之后就追加，否则的话就只更新一个选项
       if (this.shortcuts.shiftKey) {
         // 判断是否包含当前组件，如没有再新增
-        const i = findComIndex(this.multipleComs, component.id)
+        const i = this.selectedComIds.findIndex(id => id === component.id)
         if (i === -1) {
-          this.multipleComs.push(component)
+          this.selectedComIds.push(component.id)
         } else {
-          this.multipleComs.splice(i, 1)
+          this.selectedComIds.splice(i, 1)
           // 判断剩余几个，如剩余一个则设置为单选，
-          if (this.multipleComs.length === 1) {
+          if (this.selectedComIds.length === 1) {
             this.areaData.showArea = false
-            this.selectedCom = this.multipleComs[0]
+            this.selectedCom = findCom(this.comps, this.selectedComIds[0])
           }
         }
       } else {
         // 如果是单选模式则需要隐藏上次的多选区域
         this.areaData.showArea = false
-        this.multipleComs = [component]
+        this.selectedComIds = [component.id]
       }
       // 判断多选后，需要设置areaData多选区域
-      if (this.multipleComs.length > 1) {
-        this.setAreaData(this.multipleComs)
+      if (this.isMultiSelect) {
+        this.setAreaData(this.selectedComs)
       }
     },
     multiSelectComs(components) {
-      this.multipleComs = components
+      this.selectedComIds = components.map(i => i.id)
       this.setAreaData(components)
     },
     hoverCom(id) {

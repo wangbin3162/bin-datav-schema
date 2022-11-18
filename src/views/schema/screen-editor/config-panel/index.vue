@@ -1,7 +1,7 @@
 <template>
   <div class="config-panel-wp" :class="{ 'is-hide': !toolbar.config }">
     <div class="config-panel">
-      <div v-if="selectedCom || multiSelect" class="page-config-panel">
+      <div v-if="selectedCom || isMultiSelect" class="page-config-panel">
         <div class="page-config-top">
           <div class="tabs-wrapper">
             <div class="tab-item" :class="{ active: curTabIndex === 0 }" @click="changeTab(0)">
@@ -21,7 +21,7 @@
             </div>
           </div>
         </div>
-        <div class="page-config-content" v-if="multiSelect">
+        <div class="page-config-content" v-if="isMultiSelect">
           <multi-setting></multi-setting>
         </div>
         <div class="page-config-content" v-else>
@@ -47,11 +47,11 @@ import MultiSetting from '@/views/schema/screen-editor/config-panel/setting-pane
 import EventsPanel from './events-panel/index.vue'
 
 const { schemaStore, storeToRefs } = useStore()
-const { toolbar, selectedCom, multiSelect } = storeToRefs(schemaStore)
+const { toolbar, selectedCom, isMultiSelect } = storeToRefs(schemaStore)
 // tab切换
 const curTabIndex = ref(0)
 const changeTab = index => {
-  if (multiSelect.value && index > 0) return
+  if (isMultiSelect.value && index > 0) return
 
   if (curTabIndex.value !== index) {
     curTabIndex.value = index

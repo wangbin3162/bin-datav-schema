@@ -114,15 +114,19 @@ const setAttr = (ev, dir, com, scale, grid) => {
 
   let hasMove = false
   const move = e => {
-    hasMove = true
     const curX = e.clientX
     const curY = e.clientY
+    // 每次移动固定格数
+    const moveX = Math.round((curX - startX) / scale / grid) * grid
+    const moveY = Math.round((curY - startY) / scale / grid) * grid
+
+    hasMove = Math.abs(moveX) >= 1 || Math.abs(moveY) >= 1
+
     if (dir) {
       calcResizeForNormal(dir, attr, { x: startX, y: startY }, { x: curX, y: curY }, scale, pos)
     } else {
-      // 每次移动固定格数
-      pos.x = attr.x + Math.round((curX - startX) / scale / grid) * grid
-      pos.y = attr.y + Math.round((curY - startY) / scale / grid) * grid
+      pos.x = attr.x + moveX
+      pos.y = attr.y + moveY
     }
 
     com.attr = { ...com.attr, ...pos }
@@ -148,8 +152,8 @@ export const handleMove = (ev, com, scale, grid) => {
   setAttr(ev, null, com, scale, grid)
 }
 
-export const handleZoom = (ev, dir, com, scale) => {
-  setAttr(ev, dir, com, scale)
+export const handleZoom = (ev, dir, com, scale, grid) => {
+  setAttr(ev, dir, com, scale, grid)
 }
 
 export const handleRotate = (ev, el, com) => {
@@ -158,13 +162,15 @@ export const handleRotate = (ev, el, com) => {
   const centerX = rect.left + rect.width / 2
   const centerY = rect.top + rect.height / 2
 
-  const startAngle = (Math.atan2(centerY - ev.clientY, centerX - ev.clientX) * 180) / Math.PI - com.attr.rotate
+  const startAngle =
+    (Math.atan2(centerY - ev.clientY, centerX - ev.clientX) * 180) / Math.PI - com.attr.rotate
 
   // 如果元素没有移动，则不保存快照
   let hasMove = false
   const move = e => {
     hasMove = true
-    const angle = (Math.atan2(centerY - e.clientY, centerX - e.clientX) * 180) / Math.PI - startAngle
+    const angle =
+      (Math.atan2(centerY - e.clientY, centerX - e.clientX) * 180) / Math.PI - startAngle
     const rotate = Math.round(angle % 360)
     com.attr.rotate = rotate < 0 ? rotate + 360 : rotate
   }

@@ -2,7 +2,10 @@
   <transition name="zoom-in-top">
     <div v-if="contextMenu.show" class="context-menu-wrap" :style="contextMenuStyle">
       <div class="context-menu-item" @click="moveTop">
-        <i class="menu-icon b-iconfont b-icon-vertical-align-botto" style="transform: rotate(180deg)"></i>
+        <i
+          class="menu-icon b-iconfont b-icon-vertical-align-botto"
+          style="transform: rotate(180deg)"
+        ></i>
         置顶
         <span class="key-code">Alt + Home</span>
       </div>
@@ -77,7 +80,7 @@ export default {
   name: 'context-menu',
   setup() {
     const { schemaStore, storeToRefs } = useStore()
-    const { selectedCom } = storeToRefs(schemaStore)
+    const { selectedCom, selectedComs } = storeToRefs(schemaStore)
     const { isLocked, isHided, contextMenu, contextMenuStyle } = useSchemaContextMenu()
 
     const moveCom = moveType => {
@@ -125,10 +128,7 @@ export default {
     }
 
     const toCopyCom = () => {
-      const com = selectedCom.value
-      if (com) {
-        schemaStore.copyCom(com.id)
-      }
+      schemaStore.copyComs(selectedComs.value)
     }
 
     const handleContextmenu = ev => ev.preventDefault()

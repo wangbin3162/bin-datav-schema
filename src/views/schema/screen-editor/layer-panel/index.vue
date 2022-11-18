@@ -69,7 +69,11 @@
               <span class="layer-item-text">{{ com.alias }}</span>
             </span>
             <i
-              :class="['b-iconfont', `b-icon-${com.hided ? 'eye-close' : 'eye'}`, 'show-toggle-btn']"
+              :class="[
+                'b-iconfont',
+                `b-icon-${com.hided ? 'eye-close' : 'eye'}`,
+                'show-toggle-btn',
+              ]"
               :title="com.hided ? '显示' : '隐藏'"
               @click="com.hided = !com.hided"
             ></i>
@@ -97,8 +101,15 @@ export default {
   name: 'layer-panel',
   setup() {
     const { schemaStore, storeToRefs } = useStore()
-    const { comps, toolbar, hoveredComId, selectedCom, renamingComId, multiSelect, multipleComs } =
-      storeToRefs(schemaStore)
+    const {
+      comps,
+      toolbar,
+      hoveredComId,
+      selectedCom,
+      renamingComId,
+      isMultiSelect,
+      selectedComs,
+    } = storeToRefs(schemaStore)
 
     const { showMenu } = useSchemaContextMenu()
 
@@ -116,7 +127,7 @@ export default {
     }))
 
     function isSelected(com) {
-      if (multiSelect.value) return multipleComs.value.map(i => i.id).includes(com.id)
+      if (isMultiSelect.value) return selectedComs.value.map(i => i.id).includes(com.id)
       return !isEmpty(selectedCom.value) && selectedCom.value.id === com.id
     }
 

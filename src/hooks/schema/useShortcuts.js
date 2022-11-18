@@ -11,7 +11,7 @@ export default function useShortcuts() {
   const { saveScreenData } = useSavePreview()
 
   const { schemaStore, storeToRefs } = useStore()
-  const { pageInfo, canvas, selectedCom } = storeToRefs(schemaStore)
+  const { pageInfo, canvas, selectedCom, selectedComs } = storeToRefs(schemaStore)
 
   const route = useRoute()
 
@@ -72,14 +72,15 @@ export default function useShortcuts() {
           schemaStore.setCanvasScale(100)
           ev.preventDefault()
         } else if (key === 'c') {
-          // 缓存复制组件
-          copyTempCom = selectedCom.value
+          // 缓存复制组件,判断有无多选
+          copyTempCom = selectedComs.value
+          console.log(copyTempCom)
           // 复制到剪切板内容
           copyText(JSON.stringify(copyTempCom))
           ev.preventDefault()
         } else if (key === 'v') {
           // 缓存复制组件
-          copyTempCom && schemaStore.copyCom(copyTempCom.id)
+          copyTempCom && schemaStore.copyComs(copyTempCom)
           ev.preventDefault()
         } else if (key === 's') {
           const isEdit = pageInfo.value.id || route.query.id
@@ -109,15 +110,19 @@ export default function useShortcuts() {
       if (com && !ev.altKey) {
         if (key === 'arrowleft') {
           com.attr.x -= step
+          schemaStore.recordSnapshot()
           ev.preventDefault()
         } else if (key === 'arrowright') {
           com.attr.x += step
+          schemaStore.recordSnapshot()
           ev.preventDefault()
         } else if (key === 'arrowup') {
           com.attr.y -= step
+          schemaStore.recordSnapshot()
           ev.preventDefault()
         } else if (key === 'arrowdown') {
           com.attr.y += step
+          schemaStore.recordSnapshot()
           ev.preventDefault()
         }
       }
