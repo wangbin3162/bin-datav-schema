@@ -19,13 +19,13 @@ const getNewCom = com => {
   return ncom
 }
 
-const defaultInfo = {
+export const defaultInfo = {
   pid: '1',
   id: '',
   name: '',
 }
 
-const defaultPageCfg = {
+export const defaultPageCfg = {
   width: 1920,
   height: 1080,
   bgColor: '#0d2a42',

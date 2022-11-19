@@ -5,6 +5,7 @@ import compose from './compose'
 import contextmenu from './contextmenu'
 import shortcuts from './shortcuts'
 import snapshot from './snapshot'
+import { defaultInfo, defaultPageCfg } from './page'
 
 const useSchema = defineStore('schema', {
   state: () => ({
@@ -29,6 +30,20 @@ const useSchema = defineStore('schema', {
     ...contextmenu.actions,
     ...snapshot.actions,
     ...shortcuts.actions,
+    // store状态清空
+    clearStore() {
+      // 当前页面信息
+      this.pageInfo = { ...defaultInfo }
+      // 页面存储数据
+      this.pageConfig = { ...defaultPageCfg }
+      this.comps = []
+      this.selectedCom = null
+      this.selectedComIds = []
+      this.hoveredComId = ''
+      this.renamingComId = ''
+      this.snapshotData = []
+      this.snapshotIndex = -1
+    },
   },
 })
 

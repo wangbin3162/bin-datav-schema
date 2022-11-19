@@ -286,7 +286,9 @@ const selectPreset = type => {
 const createScreen = async () => {
   closeModal()
   await saveCreateData(createValue)
-  await router.push({ path: '/schema/screen' })
+
+  const route = router.resolve('/schema/screen')
+  window.open(route.href, '_blank')
 }
 
 function getThumb(pageConfig) {

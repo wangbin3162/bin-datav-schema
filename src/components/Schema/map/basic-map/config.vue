@@ -22,7 +22,7 @@
         />
       </g-field>
       <g-field label="阴影颜色">
-        <g-color-picker v-model="config.global.shadowColor" inline="inline-single"></g-color-picker>
+        <g-color-picker v-model="config.global.shadowColor"></g-color-picker>
       </g-field>
       <g-field-collapse label="区域">
         <g-field label="区域样式" flat>
@@ -35,11 +35,13 @@
             inline
           ></g-input-number>
           <g-select v-model="config.global.borderType" :data="lineStyles" inline label="类型" />
-          <g-color-picker v-model="config.global.borderColor" inline="inline-single" label="颜色"></g-color-picker>
+          <g-color-picker v-model="config.global.borderColor" label="颜色"></g-color-picker>
         </g-field>
         <g-field label="布局方式">
           <b-radio-group v-model="config.global.areaColor.type" type="button" size="mini">
-            <b-radio v-for="em in fillTypes" :key="em.value" :label="em.value">{{ em.label }}</b-radio>
+            <b-radio v-for="em in fillTypes" :key="em.value" :label="em.value">
+              {{ em.label }}
+            </b-radio>
           </b-radio-group>
         </g-field>
         <g-field label="颜色配置" v-if="config.global.areaColor.type === 'solid'">
@@ -68,8 +70,13 @@
             inline
             label="粗细"
           />
-          <g-select v-model="config.global.itemStyle.borderType" :data="lineStyles" inline label="类型" />
-          <g-color-picker v-model="config.global.itemStyle.borderColor" label="颜色" inline="inline-single" />
+          <g-select
+            v-model="config.global.itemStyle.borderType"
+            :data="lineStyles"
+            inline
+            label="类型"
+          />
+          <g-color-picker v-model="config.global.itemStyle.borderColor" label="颜色" />
         </g-field>
       </g-field-collapse>
     </g-field-collapse>
@@ -79,9 +86,17 @@
         <g-select v-model="config.label.position" :data="echartsLabelPositions" />
       </g-field>
       <g-field label="文本样式" flat>
-        <g-input-number v-model="config.label.fontSize" :min="10" :max="24" :step="1" suffix="px" inline label="字号" />
+        <g-input-number
+          v-model="config.label.fontSize"
+          :min="10"
+          :max="24"
+          :step="1"
+          suffix="px"
+          inline
+          label="字号"
+        />
         <g-select v-model="config.label.fontWeight" :data="fontWeights" inline label="字体粗细" />
-        <g-color-picker v-model="config.label.color" label="颜色" inline="inline-single" />
+        <g-color-picker v-model="config.label.color" label="颜色" />
       </g-field>
     </g-field-collapse>
 
@@ -99,8 +114,13 @@
           inline
           label="字号"
         />
-        <g-select v-model="config.label.emphasis.fontWeight" :data="fontWeights" inline label="字体粗细" />
-        <g-color-picker v-model="config.label.emphasis.color" label="颜色" inline="inline-single" />
+        <g-select
+          v-model="config.label.emphasis.fontWeight"
+          :data="fontWeights"
+          inline
+          label="字体粗细"
+        />
+        <g-color-picker v-model="config.label.emphasis.color" label="颜色" />
       </g-field>
     </g-field-collapse>
   </div>

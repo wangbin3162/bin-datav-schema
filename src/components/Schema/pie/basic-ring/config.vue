@@ -23,8 +23,8 @@
         flat
         tooltip="环图的中心（圆心）坐标，数组的第一项是横坐标，第二项是纵坐标/支持设置成百分比"
       >
-        <g-input v-model="config.global.center[0]" inline="inline" label="水平位置" />
-        <g-input v-model="config.global.center[1]" inline="inline" label="垂直位置" />
+        <g-input v-model="config.global.center[0]" inline label="水平位置" />
+        <g-input v-model="config.global.center[1]" inline label="垂直位置" />
       </g-field>
 
       <g-field
@@ -32,8 +32,8 @@
         flat
         tooltip="环图的半径，值为<number|string>，可设置可视区域百分比"
       >
-        <g-input v-model="config.global.radius[0]" inline="inline" label="内半径" />
-        <g-input v-model="config.global.radius[1]" inline="inline" label="外半径" />
+        <g-input v-model="config.global.radius[0]" inline label="内半径" />
+        <g-input v-model="config.global.radius[1]" inline label="外半径" />
       </g-field>
 
       <g-field label="南丁格尔图">
@@ -62,11 +62,7 @@
           inline
           label="字体粗细"
         />
-        <g-color-picker
-          v-model="config.label.textStyle.color"
-          label="颜色"
-          inline="inline-single"
-        />
+        <g-color-picker v-model="config.label.textStyle.color" label="颜色" />
       </g-field>
       <g-field
         label="内容格式器"
@@ -109,11 +105,7 @@
           inline
           label="字体粗细"
         />
-        <g-color-picker
-          v-model="config.legend.textStyle.color"
-          label="颜色"
-          inline="inline-single"
-        />
+        <g-color-picker v-model="config.legend.textStyle.color" label="颜色" />
       </g-field>
       <g-field-collapse label="图形" v-model="config.legend.symbol.show" toggle>
         <g-field label="图例" flat>
@@ -165,11 +157,7 @@
           inline
           label="字体粗细"
         />
-        <g-color-picker
-          v-model="config.tooltip.textStyle.color"
-          label="颜色"
-          inline="inline-single"
-        />
+        <g-color-picker v-model="config.tooltip.textStyle.color" label="颜色" />
       </g-field>
       <g-field label="背景样式" flat>
         <g-input-number
@@ -178,7 +166,7 @@
           :max="100"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="水平边距"
         />
         <g-input-number
@@ -187,14 +175,10 @@
           :max="100"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="垂直边距"
         />
-        <g-color-picker
-          v-model="config.tooltip.background.color"
-          label="背景颜色"
-          inline="inline-single"
-        />
+        <g-color-picker v-model="config.tooltip.background.color" label="背景颜色" />
       </g-field>
     </g-field-collapse>
     <g-field-collapse label="色板设置">
@@ -205,7 +189,7 @@
               <span>颜色{{ index + 1 }}</span>
             </div>
           </template>
-          <g-color-picker v-model="config.color[index]" inline="inline-single" />
+          <g-color-picker v-model="config.color[index]" />
         </g-field>
       </template>
     </g-field-collapse>

@@ -30,16 +30,11 @@
             :max="100"
             :step="1"
             suffix="px"
-            inline="inline"
+            inline
             label="粗细"
           />
-          <g-select
-            v-model="config.border.flat.style"
-            :data="lineStyles"
-            inline="inline"
-            label="样式"
-          />
-          <g-color-picker v-model="config.border.flat.color" inline="inline-single" label="颜色" />
+          <g-select v-model="config.border.flat.style" :data="lineStyles" inline label="样式" />
+          <g-color-picker v-model="config.border.flat.color" label="颜色" />
         </g-field>
       </template>
       <!--渐变色-->
@@ -68,12 +63,12 @@
             :min="0"
             :max="100"
             :step="1"
-            inline="inline"
+            inline
             label="位置"
           />
           <g-color-picker
             v-model="config.border.linearGradient.color.stops[0].color"
-            inline="inline"
+            inline
             label="颜色"
           />
         </g-field>
@@ -83,12 +78,12 @@
             :min="0"
             :max="100"
             :step="1"
-            inline="inline"
+            inline
             label="位置"
           />
           <g-color-picker
             v-model="config.border.linearGradient.color.stops[1].color"
-            inline="inline"
+            inline
             label="颜色"
           />
         </g-field>

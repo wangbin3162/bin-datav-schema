@@ -18,7 +18,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="顶部"
         />
         <g-input-number
@@ -27,7 +27,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="底部"
         />
         <g-input-number
@@ -36,7 +36,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="左侧"
         />
         <g-input-number
@@ -45,7 +45,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="右侧"
         />
       </g-field>
@@ -59,7 +59,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="左上"
         />
         <g-input-number
@@ -68,7 +68,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="右上"
         />
         <g-input-number
@@ -77,7 +77,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="右下"
         />
         <g-input-number
@@ -86,7 +86,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="左下"
         />
       </g-field>
@@ -112,8 +112,8 @@
         <g-color-picker v-model="config.global.barBg" />
       </g-field>
       <g-field label="柱子阴影" flat>
-        <g-input v-model="config.global.shadow" inline="inline" label="阴影偏移" />
-        <g-color-picker v-model="config.global.shadowColor" inline="inline" label="阴影颜色" />
+        <g-input v-model="config.global.shadow" inline label="阴影偏移" />
+        <g-color-picker v-model="config.global.shadowColor" inline label="阴影颜色" />
       </g-field>
     </g-field-collapse>
     <g-field-collapse label="标签" toggle v-model="config.label.show">
@@ -150,7 +150,7 @@
               <span>颜色{{ index + 1 }}</span>
             </div>
           </template>
-          <g-color-picker v-model="config.color[index]" inline="inline-single" />
+          <g-color-picker v-model="config.color[index]" />
         </g-field>
       </template>
     </g-field-collapse>

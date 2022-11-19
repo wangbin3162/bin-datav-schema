@@ -2,13 +2,13 @@
   <div class="setting-panel-gui">
     <g-field-collapse label="行号" toggle v-model="config.index">
       <g-field label="表头" flat>
-        <g-input v-model="config.indexHeader" inline="inline" label="行号文字" />
+        <g-input v-model="config.indexHeader" inline label="行号文字" />
         <g-input-number
           v-model="config.indexWidth"
           :min="1"
           :max="100"
           :step="1"
-          inline="inline"
+          inline
           label="行号列宽"
         />
       </g-field>

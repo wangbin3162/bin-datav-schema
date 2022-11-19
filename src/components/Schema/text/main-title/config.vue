@@ -16,13 +16,8 @@
         inline
         label="字号"
       />
-      <g-select
-        v-model="config.textStyle.fontWeight"
-        :data="fontWeights"
-        inline
-        label="字体粗细"
-      />
-      <g-color-picker v-model="config.textStyle.color" label="颜色" inline="inline-single" />
+      <g-select v-model="config.textStyle.fontWeight" :data="fontWeights" inline label="字体粗细" />
+      <g-color-picker v-model="config.textStyle.color" label="颜色" />
       <g-select v-model="config.textAlign" :data="justifyContents" label="对齐方式" inline />
       <g-select v-model="config.writingMode" :data="writingModes" label="文字排列方式" inline />
     </g-field>
@@ -55,7 +50,7 @@
           label="边框线"
           inline
         />
-        <g-color-picker v-model="config.backgroundStyle.borderColor" label="颜色" inline="inline-single" />
+        <g-color-picker v-model="config.backgroundStyle.borderColor" label="颜色" />
       </g-field>
     </g-field-collapse>
     <g-field tooltip="溢出文本加省略号" label="省略号">

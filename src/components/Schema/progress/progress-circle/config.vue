@@ -7,15 +7,8 @@
       </b-radio-group>
     </g-field>
     <g-field label="环形样式" flat>
-      <g-input-number
-        v-model="config.width"
-        :min="1"
-        :max="20"
-        :step="1"
-        inline="inline"
-        label="线宽"
-      />
-      <g-color-picker v-model="config.color" inline="inline" label="颜色" />
+      <g-input-number v-model="config.width" :min="1" :max="20" :step="1" inline label="线宽" />
+      <g-color-picker v-model="config.color" inline label="颜色" />
     </g-field>
     <g-field label="背景样式" flat>
       <g-input-number
@@ -23,10 +16,10 @@
         :min="0"
         :max="20"
         :step="1"
-        inline="inline"
+        inline
         label="线宽"
       />
-      <g-color-picker v-model="config.trailColor" inline="inline" label="颜色" />
+      <g-color-picker v-model="config.trailColor" inline label="颜色" />
     </g-field>
     <g-field label="仪表盘模式">
       <div class="pt-5">

@@ -12,9 +12,7 @@
       style="width: 100%"
       @change="handleChange"
     />
-    <span v-if="suffix" class="g-input-number__suffix">
-      {{ suffix }}
-    </span>
+    <span v-if="suffix" class="g-input-number__suffix">{{ suffix }}</span>
     <span v-if="label" class="g-input__caption">{{ label }}</span>
   </div>
 </template>

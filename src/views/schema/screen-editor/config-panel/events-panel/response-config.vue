@@ -17,7 +17,6 @@
           v-model="event.eventSource"
           :data="eventSourceListNoHasSelf"
           :disabled="event.register"
-          inline="inline-single"
           label="事件源"
         />
 

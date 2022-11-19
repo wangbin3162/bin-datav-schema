@@ -15,7 +15,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="顶部"
         />
         <g-input-number
@@ -24,7 +24,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="底部"
         />
         <g-input-number
@@ -33,7 +33,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="左侧"
         />
         <g-input-number
@@ -42,7 +42,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="右侧"
         />
       </g-field>
@@ -78,7 +78,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="左上"
         />
         <g-input-number
@@ -87,7 +87,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="右上"
         />
         <g-input-number
@@ -96,7 +96,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="右下"
         />
         <g-input-number
@@ -105,7 +105,7 @@
           :max="300"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="左下"
         />
       </g-field>
@@ -137,11 +137,7 @@
           inline
           label="字体粗细"
         />
-        <g-color-picker
-          v-model="config.label.textStyle.color"
-          label="颜色"
-          inline="inline-single"
-        />
+        <g-color-picker v-model="config.label.textStyle.color" label="颜色" />
       </g-field>
       <g-field label="水平偏移">
         <g-slider v-model="config.label.offsetX" :min="-100" :max="100" :step="1" />
@@ -176,11 +172,7 @@
           inline
           label="字体粗细"
         />
-        <g-color-picker
-          v-model="config.legend.textStyle.color"
-          label="颜色"
-          inline="inline-single"
-        />
+        <g-color-picker v-model="config.legend.textStyle.color" label="颜色" />
       </g-field>
       <g-field-collapse label="图形" v-model="config.legend.symbol.show" toggle>
         <g-field label="图例" flat>
@@ -268,11 +260,7 @@
             inline
             label="字体粗细"
           />
-          <g-color-picker
-            v-model="config.yAxis.title.textStyle.color"
-            label="颜色"
-            inline="inline-single"
-          />
+          <g-color-picker v-model="config.yAxis.title.textStyle.color" label="颜色" />
         </g-field>
       </g-field-collapse>
 
@@ -288,11 +276,7 @@
             label="粗细"
           />
           <g-select v-model="config.yAxis.axisLine.type" :data="lineStyles" inline label="类型" />
-          <g-color-picker
-            v-model="config.yAxis.axisLine.color"
-            label="颜色"
-            inline="inline-single"
-          />
+          <g-color-picker v-model="config.yAxis.axisLine.color" label="颜色" />
         </g-field>
       </g-field-collapse>
 
@@ -308,11 +292,7 @@
             label="粗细"
           />
           <g-select v-model="config.yAxis.axisTick.type" :data="lineStyles" inline label="类型" />
-          <g-color-picker
-            v-model="config.yAxis.axisTick.color"
-            label="颜色"
-            inline="inline-single"
-          />
+          <g-color-picker v-model="config.yAxis.axisTick.color" label="颜色" />
         </g-field>
       </g-field-collapse>
 
@@ -374,36 +354,23 @@
             inline
             label="字体粗细"
           />
-          <g-color-picker
-            v-model="config.yAxis.axisLabel.textStyle.color"
-            label="颜色"
-            inline="inline-single"
-          />
+          <g-color-picker v-model="config.yAxis.axisLabel.textStyle.color" label="颜色" />
         </g-field>
       </g-field-collapse>
 
       <g-field-collapse label="网格线" v-model="config.yAxis.grid.show" toggle>
         <g-field label="线型样式" flat>
-          <g-select
-            v-model="config.yAxis.grid.line.type"
-            :data="lineStyles"
-            inline="inline"
-            label="类型"
-          />
+          <g-select v-model="config.yAxis.grid.line.type" :data="lineStyles" inline label="类型" />
           <g-input-number
             v-model="config.yAxis.grid.line.width"
             :min="0"
             :max="100"
             :step="1"
             suffix="px"
-            inline="inline"
+            inline
             label="粗细"
           />
-          <g-color-picker
-            v-model="config.yAxis.grid.line.color"
-            inline="inline-single"
-            label="颜色"
-          />
+          <g-color-picker v-model="config.yAxis.grid.line.color" label="颜色" />
           <g-input-number
             v-if="config.yAxis.grid.line.type === 'dashed'"
             v-model="config.yAxis.grid.line.dashedLength"
@@ -411,7 +378,7 @@
             :max="100"
             :step="1"
             suffix="px"
-            inline="inline"
+            inline
             label="长度"
           />
           <g-input-number
@@ -421,7 +388,7 @@
             :max="100"
             :step="1"
             suffix="px"
-            inline="inline"
+            inline
             label="间距"
           />
         </g-field>
@@ -430,8 +397,8 @@
 
     <g-field-collapse label="X轴" toggle v-model="config.xAxis.show">
       <g-field label="显示范围" flat tooltip="默认可以填写auto，或者自行输入数值">
-        <g-input v-model="config.xAxis.extent.min" inline="inline" label="最小值" />
-        <g-input v-model="config.xAxis.extent.max" inline="inline" label="最大值" />
+        <g-input v-model="config.xAxis.extent.min" inline label="最小值" />
+        <g-input v-model="config.xAxis.extent.max" inline label="最大值" />
       </g-field>
 
       <g-field
@@ -484,11 +451,7 @@
             inline
             label="字体粗细"
           />
-          <g-color-picker
-            v-model="config.xAxis.title.textStyle.color"
-            label="颜色"
-            inline="inline-single"
-          />
+          <g-color-picker v-model="config.xAxis.title.textStyle.color" label="颜色" />
         </g-field>
       </g-field-collapse>
 
@@ -504,11 +467,7 @@
             label="粗细"
           />
           <g-select v-model="config.xAxis.axisLine.type" :data="lineStyles" inline label="类型" />
-          <g-color-picker
-            v-model="config.xAxis.axisLine.color"
-            label="颜色"
-            inline="inline-single"
-          />
+          <g-color-picker v-model="config.xAxis.axisLine.color" label="颜色" />
         </g-field>
       </g-field-collapse>
 
@@ -524,11 +483,7 @@
             label="粗细"
           />
           <g-select v-model="config.xAxis.axisTick.type" :data="lineStyles" inline label="类型" />
-          <g-color-picker
-            v-model="config.xAxis.axisTick.color"
-            label="颜色"
-            inline="inline-single"
-          />
+          <g-color-picker v-model="config.xAxis.axisTick.color" label="颜色" />
         </g-field>
       </g-field-collapse>
 
@@ -552,7 +507,7 @@
             :max="360"
             :step="1"
             suffix="度"
-            inline="inline"
+            inline
             label="旋转"
           />
           <g-input-number
@@ -561,7 +516,7 @@
             :max="100"
             :step="1"
             suffix="px"
-            inline="inline"
+            inline
             label="偏移"
           />
         </g-field>
@@ -584,36 +539,23 @@
             inline
             label="字体粗细"
           />
-          <g-color-picker
-            v-model="config.xAxis.axisLabel.textStyle.color"
-            label="颜色"
-            inline="inline-single"
-          />
+          <g-color-picker v-model="config.xAxis.axisLabel.textStyle.color" label="颜色" />
         </g-field>
       </g-field-collapse>
 
       <g-field-collapse label="网格线" v-model="config.xAxis.grid.show" toggle>
         <g-field label="线型样式" flat>
-          <g-select
-            v-model="config.xAxis.grid.line.type"
-            :data="lineStyles"
-            inline="inline"
-            label="类型"
-          />
+          <g-select v-model="config.xAxis.grid.line.type" :data="lineStyles" inline label="类型" />
           <g-input-number
             v-model="config.xAxis.grid.line.width"
             :min="0"
             :max="100"
             :step="1"
             suffix="px"
-            inline="inline"
+            inline
             label="粗细"
           />
-          <g-color-picker
-            v-model="config.xAxis.grid.line.color"
-            inline="inline-single"
-            label="颜色"
-          />
+          <g-color-picker v-model="config.xAxis.grid.line.color" label="颜色" />
           <g-input-number
             v-if="config.xAxis.grid.line.type === 'dashed'"
             v-model="config.xAxis.grid.line.dashedLength"
@@ -621,7 +563,7 @@
             :max="100"
             :step="1"
             suffix="px"
-            inline="inline"
+            inline
             label="长度"
           />
           <g-input-number
@@ -631,7 +573,7 @@
             :max="100"
             :step="1"
             suffix="px"
-            inline="inline"
+            inline
             label="间距"
           />
         </g-field>
@@ -655,11 +597,7 @@
           inline
           label="字体粗细"
         />
-        <g-color-picker
-          v-model="config.tooltip.textStyle.color"
-          label="颜色"
-          inline="inline-single"
-        />
+        <g-color-picker v-model="config.tooltip.textStyle.color" label="颜色" />
       </g-field>
       <g-field label="背景样式" flat>
         <g-input-number
@@ -668,7 +606,7 @@
           :max="100"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="水平边距"
         />
         <g-input-number
@@ -677,20 +615,16 @@
           :max="100"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="垂直边距"
         />
-        <g-color-picker
-          v-model="config.tooltip.background.color"
-          label="背景颜色"
-          inline="inline-single"
-        />
+        <g-color-picker v-model="config.tooltip.background.color" label="背景颜色" />
       </g-field>
       <g-field label="轴指示器" flat>
         <g-select
           v-model="config.tooltip.pointer.line.type"
           :data="lineStyles"
-          inline="inline"
+          inline
           label="类型"
         />
         <g-input-number
@@ -699,7 +633,7 @@
           :max="100"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="粗细"
         />
         <g-input-number
@@ -709,7 +643,7 @@
           :max="100"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="长度"
         />
         <g-input-number
@@ -719,14 +653,10 @@
           :max="100"
           :step="1"
           suffix="px"
-          inline="inline"
+          inline
           label="间距"
         />
-        <g-color-picker
-          v-model="config.tooltip.pointer.line.color"
-          inline="inline-single"
-          label="颜色"
-        />
+        <g-color-picker v-model="config.tooltip.pointer.line.color" label="颜色" />
       </g-field>
     </g-field-collapse>
 

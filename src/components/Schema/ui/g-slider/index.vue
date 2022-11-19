@@ -9,9 +9,8 @@
       :show-tooltip="false"
       :class="{ 'is-controls-right': controlsPosition === 'right' }"
     />
-    <span v-if="label" class="g-input__caption">
-      {{ label }}
-    </span>
+    <span v-if="label" class="g-input__caption">{{ label }}</span>
+    <span v-if="suffix" class="g-input-number__suffix">{{ suffix }}</span>
     <span class="g-input-number__number">
       <input v-model="inputValue" type="number" />
     </span>
@@ -95,7 +94,7 @@ export default {
   }
   :deep(.bin-slider ) {
     .bin-slider__runway {
-      width: 160px;
+      width: 154px;
       margin: 12px 0;
     }
   }
@@ -105,14 +104,25 @@ export default {
     right: 0;
     line-height: 24px;
     > input {
-      width: 40px;
+      width: 50px;
       font-size: 12px;
-      text-align: center;
+      text-align: left;
       background: #262c33;
       border: 1px solid #0b0c0d;
       color: #bcc9d4;
-      padding: 0 8px;
+      padding: 0 10px 0 4px;
     }
+  }
+  .g-input-number__suffix {
+    position: absolute;
+    font-size: 12px;
+    color: var(--schema-ui-color);
+    top: 0;
+    right: 2px;
+    line-height: 26px;
+    width: 20px;
+    text-align: right;
+    z-index: 1;
   }
 }
 </style>

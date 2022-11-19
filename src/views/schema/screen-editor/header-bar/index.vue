@@ -139,6 +139,7 @@ export default {
         window.open(route.href, props.backTarget)
       } else {
         router.push(path)
+        schemaStore.clearStore()
       }
     }
 

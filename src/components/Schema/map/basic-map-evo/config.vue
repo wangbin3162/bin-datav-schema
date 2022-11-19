@@ -14,8 +14,13 @@
           suffix="px"
           label="字体大小"
         ></g-input-number>
-        <g-select v-model="config.label.fontWeight" :data="fontWeights" inline label="字体粗细"></g-select>
-        <g-color-picker v-model="config.label.color" label="颜色" inline="inline-single"></g-color-picker>
+        <g-select
+          v-model="config.label.fontWeight"
+          :data="fontWeights"
+          inline
+          label="字体粗细"
+        ></g-select>
+        <g-color-picker v-model="config.label.color" label="颜色"></g-color-picker>
       </g-field>
     </g-field-collapse>
 
@@ -33,7 +38,7 @@
           inline
         ></g-input-number>
         <g-select v-model="config.itemStyle.borderType" :data="lineStyles" inline label="类型" />
-        <g-color-picker v-model="config.itemStyle.borderColor" inline="inline-single" label="颜色"></g-color-picker>
+        <g-color-picker v-model="config.itemStyle.borderColor" label="颜色"></g-color-picker>
       </g-field>
     </g-field-collapse>
 
@@ -50,10 +55,14 @@
           label="粗细"
           inline
         ></g-input-number>
-        <g-select v-model="config.emphasis.itemStyle.borderType" :data="lineStyles" inline label="类型" />
+        <g-select
+          v-model="config.emphasis.itemStyle.borderType"
+          :data="lineStyles"
+          inline
+          label="类型"
+        />
         <g-color-picker
           v-model="config.emphasis.itemStyle.borderColor"
-          inline="inline-single"
           label="颜色"
         ></g-color-picker>
       </g-field>
