@@ -58,28 +58,15 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { toRef } from 'vue'
 import { fontFamilys, fontWeights, justifyContents, aligns } from '@/config/select-options'
 
-export default {
-  name: 'VTimerConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = toRef(props.data, 'config')
-
-    return {
-      config,
-      fontFamilys,
-      fontWeights,
-      justifyContents,
-      aligns,
-    }
-  },
-}
+})
+const config = toRef(props.data, 'config')
 </script>

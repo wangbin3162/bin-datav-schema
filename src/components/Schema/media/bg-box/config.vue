@@ -136,29 +136,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { toRef } from 'vue'
 import { lineStyles, repeatTypes } from '@/config/select-options'
 import { borderTypes, imageTypes } from '@/components/Schema/media/bg-box/config'
 
-export default {
-  name: 'VBgBoxConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = toRef(props.data, 'config')
-
-    return {
-      config,
-      lineStyles,
-      repeatTypes,
-      borderTypes,
-      imageTypes,
-    }
-  },
-}
+})
+const config = toRef(props.data, 'config')
 </script>

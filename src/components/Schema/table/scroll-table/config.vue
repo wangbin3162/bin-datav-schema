@@ -93,36 +93,24 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { hAligns } from '@/config/select-options'
 
-export default {
-  name: 'VScrollTableConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = computed(() => props.data.config)
+})
+const config = computed(() => props.data.config)
 
-    const addSeries = () => {
-      config.value.columnWidth.push(100)
-      config.value.align.push('left')
-    }
-    const deleteLast = () => {
-      config.value.columnWidth.pop()
-      config.value.align.pop()
-    }
-
-    return {
-      config,
-      hAligns,
-      addSeries,
-      deleteLast,
-    }
-  },
+const addSeries = () => {
+  config.value.columnWidth.push(100)
+  config.value.align.push('left')
+}
+const deleteLast = () => {
+  config.value.columnWidth.pop()
+  config.value.align.pop()
 }
 </script>

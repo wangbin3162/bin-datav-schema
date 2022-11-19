@@ -638,12 +638,11 @@
   </div>
 </template>
 
-<script>
-import { computed, toRef } from 'vue'
+<script setup>
+import { computed } from 'vue'
 import {
   axisTypes,
   echartsLabelPositions,
-  fillTypes,
   fontFamilys,
   fontWeights,
   hAligns,
@@ -655,38 +654,15 @@ import {
   titleLocations,
   valueFormats,
 } from '@/config/select-options'
-import { BasicLineSeries } from '@/components/Schema/line/basic-line/config'
 
-export default {
-  name: 'VBasicAreaConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = computed(() => props.data.config)
-    const seriesCount = computed(() => props.data.apiData.config.seriesCount)
-    const xAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
+})
 
-    return {
-      config,
-      seriesCount,
-      fontFamilys,
-      fontWeights,
-      echartsLabelPositions,
-      legendLocations,
-      orients,
-      legendIcons,
-      xAxisTypes,
-      titleLocations,
-      lineStyles,
-      hAligns,
-      timeFormats,
-      valueFormats,
-      fillTypes,
-    }
-  },
-}
+const config = computed(() => props.data.config)
+const seriesCount = computed(() => props.data.apiData.config.seriesCount)
+const xAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
 </script>

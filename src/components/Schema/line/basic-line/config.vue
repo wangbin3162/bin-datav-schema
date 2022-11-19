@@ -625,12 +625,11 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import {
   axisTypes,
   echartsLabelPositions,
-  fillTypes,
   fontFamilys,
   fontWeights,
   hAligns,
@@ -643,36 +642,14 @@ import {
   valueFormats,
 } from '@/config/select-options'
 
-export default {
-  name: 'VBasicLineConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = computed(() => props.data.config)
-    const seriesCount = computed(() => props.data.apiData.config.seriesCount)
-    const xAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
+})
 
-    return {
-      config,
-      seriesCount,
-      fontFamilys,
-      fontWeights,
-      echartsLabelPositions,
-      legendLocations,
-      orients,
-      legendIcons,
-      xAxisTypes,
-      titleLocations,
-      lineStyles,
-      hAligns,
-      timeFormats,
-      valueFormats,
-      fillTypes,
-    }
-  },
-}
+const config = computed(() => props.data.config)
+const seriesCount = computed(() => props.data.apiData.config.seriesCount)
+const xAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
 </script>

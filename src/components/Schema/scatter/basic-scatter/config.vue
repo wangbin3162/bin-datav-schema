@@ -619,12 +619,10 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import {
-  fontFamilys,
   fontWeights,
-  pieLabelAlign,
   echartsLabelPositions,
   legendLocations,
   orients,
@@ -636,35 +634,13 @@ import {
   fillTypes,
 } from '@/config/select-options'
 
-export default {
-  name: 'VBasicScatterConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
-    const seriesCount = computed(() => props.data.apiData.config.seriesCount)
-
-    return {
-      config,
-      seriesCount,
-      fontFamilys,
-      fontWeights,
-      echartsLabelPositions,
-      pieLabelAlign,
-      legendLocations,
-      orients,
-      legendIcons,
-      pointerIcons,
-      lineStyles,
-      hAligns,
-      titleLocations,
-      fillTypes,
-    }
-  },
-}
+})
+// config 配置项
+const config = computed(() => props.data.config)
+const seriesCount = computed(() => props.data.apiData.config.seriesCount)
 </script>

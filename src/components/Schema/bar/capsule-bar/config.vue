@@ -157,27 +157,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
-import { fontFamilys, fontWeights } from '@/config/select-options'
-
-export default {
-  name: 'VCapsuleBarConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+import { fontFamilys } from '@/config/select-options'
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
+})
 
-    return {
-      config,
-      fontFamilys,
-      fontWeights,
-    }
-  },
-}
+// config 配置项
+const config = computed(() => props.data.config)
 </script>

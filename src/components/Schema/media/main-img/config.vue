@@ -30,36 +30,25 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { repeatTypes } from '@/config/select-options'
 import { useStore } from '@/store'
 
-export default {
-  name: 'VMainImgConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = computed(() => props.data.config)
-    const { schemaStore, storeToRefs } = useStore()
-    const { selectedCom } = storeToRefs(schemaStore)
+})
+const config = computed(() => props.data.config)
+const { schemaStore, storeToRefs } = useStore()
+const { selectedCom } = storeToRefs(schemaStore)
 
-    const imageChange = img => {
-      if (img.attr) {
-        selectedCom.value.attr.w = img.attr.w
-        selectedCom.value.attr.h = img.attr.h
-      }
-    }
-
-    return {
-      config,
-      repeatTypes,
-      imageChange,
-    }
-  },
+const imageChange = img => {
+  if (img.attr) {
+    selectedCom.value.attr.w = img.attr.w
+    selectedCom.value.attr.h = img.attr.h
+  }
 }
 </script>

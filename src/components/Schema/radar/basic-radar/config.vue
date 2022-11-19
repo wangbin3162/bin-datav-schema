@@ -241,48 +241,30 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import {
   fontFamilys,
   fontWeights,
-  pieLabelAlign,
   echartsLabelPositions,
   legendLocations,
   orients,
   legendIcons,
 } from '@/config/select-options'
 
-export default {
-  name: 'VBasicRadarConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
+})
+// config 配置项
+const config = computed(() => props.data.config)
 
-    const addSeries = () => {
-      config.value.global.splitArea.areaStyle.color.push('rgba(250,250,250,0.3)')
-    }
-    const deleteLast = () => {
-      config.value.global.splitArea.areaStyle.color.pop()
-    }
-    return {
-      config,
-      fontFamilys,
-      fontWeights,
-      echartsLabelPositions,
-      pieLabelAlign,
-      legendLocations,
-      orients,
-      legendIcons,
-      addSeries,
-      deleteLast,
-    }
-  },
+const addSeries = () => {
+  config.value.global.splitArea.areaStyle.color.push('rgba(250,250,250,0.3)')
+}
+const deleteLast = () => {
+  config.value.global.splitArea.areaStyle.color.pop()
 }
 </script>

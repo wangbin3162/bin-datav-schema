@@ -6,22 +6,14 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { toRef } from 'vue'
 
-export default {
-  name: 'VBorderBoxConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = toRef(props.data, 'config')
-    return {
-      config,
-    }
-  },
-}
+})
+const config = toRef(props.data, 'config')
 </script>

@@ -530,50 +530,26 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import {
   fontWeights,
-  echartsLabelPositions,
   legendLocations,
   orients,
   legendIcons,
-  pointerIcons,
   lineStyles,
   hAligns,
   titleLocations,
-  lineEcStat,
   fillTypes,
 } from '@/config/select-options'
-
-export default {
-  name: 'VBasicBoxplotConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
-    const seriesCount = computed(() => props.data.apiData.config.seriesCount)
+})
 
-    return {
-      config,
-      seriesCount,
-      fontWeights,
-      echartsLabelPositions,
-      legendLocations,
-      orients,
-      legendIcons,
-      pointerIcons,
-      lineStyles,
-      hAligns,
-      titleLocations,
-      lineEcStat,
-      fillTypes,
-    }
-  },
-}
+// config 配置项
+const config = computed(() => props.data.config)
+const seriesCount = computed(() => props.data.apiData.config.seriesCount)
 </script>

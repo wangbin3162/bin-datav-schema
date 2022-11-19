@@ -24,27 +24,17 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import { useDataCenter } from '@/hooks/schema/useDataCenter'
 
-export default {
-  name: 'VSelectConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const { dvData } = useDataCenter(props.data)
-    const config = computed(() => props.data.config)
-    const options = computed(() => dvData.value ?? config.value.options)
-
-    return {
-      config,
-      options,
-    }
-  },
-}
+})
+const { dvData } = useDataCenter(props.data)
+const config = computed(() => props.data.config)
+const options = computed(() => dvData.value ?? config.value.options)
 </script>

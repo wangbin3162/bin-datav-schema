@@ -690,7 +690,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import {
   fontFamilys,
@@ -707,37 +707,14 @@ import {
   valueFormats,
   fillTypes,
 } from '@/config/select-options'
-
-export default {
-  name: 'VHorizontalBarConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = computed(() => props.data.config)
-    const seriesCount = computed(() => props.data.apiData.config.seriesCount)
-    const yAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
+})
 
-    return {
-      config,
-      seriesCount,
-      fontFamilys,
-      fontWeights,
-      echartsLabelPositions,
-      legendLocations,
-      orients,
-      legendIcons,
-      yAxisTypes,
-      titleLocations,
-      lineStyles,
-      hAligns,
-      timeFormats,
-      valueFormats,
-      fillTypes,
-    }
-  },
-}
+const config = computed(() => props.data.config)
+const seriesCount = computed(() => props.data.apiData.config.seriesCount)
+const yAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
 </script>

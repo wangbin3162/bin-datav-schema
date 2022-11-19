@@ -71,8 +71,8 @@
   </div>
 </template>
 
-<script>
-import { computed, toRef } from 'vue'
+<script setup>
+import { computed } from 'vue'
 import {
   fontFamilys,
   fontWeights,
@@ -81,25 +81,11 @@ import {
   lineStyles,
 } from '@/config/select-options'
 
-export default {
-  name: 'VMainTitleConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = computed(() => props.data.config)
-
-    return {
-      config,
-      fontFamilys,
-      fontWeights,
-      justifyContents,
-      writingModes,
-      lineStyles,
-    }
-  },
-}
+})
+const config = computed(() => props.data.config)
 </script>

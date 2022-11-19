@@ -196,7 +196,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
 import {
   fontFamilys,
@@ -208,28 +208,12 @@ import {
   legendIcons,
 } from '@/config/select-options'
 
-export default {
-  name: 'VBasicRingConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
-
-    return {
-      config,
-      fontFamilys,
-      fontWeights,
-      pieLabelPosition,
-      pieLabelAlign,
-      legendLocations,
-      orients,
-      legendIcons,
-    }
-  },
-}
+})
+// config 配置项
+const config = computed(() => props.data.config)
 </script>

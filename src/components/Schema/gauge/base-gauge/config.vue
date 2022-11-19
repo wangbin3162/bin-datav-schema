@@ -347,77 +347,31 @@
     </g-field-collapse>
   </div>
 </template>
-<script>
+
+<script setup>
 import { computed } from 'vue'
 import {
-  fontFamilys,
   fontWeights,
-  echartsLabelPositions,
-  legendLocations,
-  orients,
-  legendIcons,
-  axisTypes,
-  titleLocations,
   lineStyles,
-  hAligns,
-  timeFormats,
-  valueFormats,
   fillTypes,
-  alignType,
-  sortTypes,
-  funnelLabelPosition,
-  legendLocationsPie,
   overflowTypes,
   pointerIcons,
 } from '@/config/select-options'
 
-export default {
-  name: 'VBasicGaugeConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
-    const seriesCount = computed(() => props.data.apiData.config.seriesCount)
-    const xAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
+})
+// config 配置项
+const config = computed(() => props.data.config)
 
-    function addSeries() {
-      config.value.axisLine.lineStyle.color.push([1, ''])
-    }
+function addSeries() {
+  config.value.axisLine.lineStyle.color.push([1, ''])
+}
 
-    function deleteLast() {
-      config.value.axisLine.lineStyle.color.pop()
-    }
-
-    return {
-      config,
-      seriesCount,
-      fontFamilys,
-      fontWeights,
-      echartsLabelPositions,
-      legendLocations,
-      orients,
-      legendIcons,
-      xAxisTypes,
-      titleLocations,
-      lineStyles,
-      hAligns,
-      timeFormats,
-      valueFormats,
-      fillTypes,
-      alignType,
-      sortTypes,
-      funnelLabelPosition,
-      legendLocationsPie,
-      overflowTypes,
-      pointerIcons,
-      addSeries,
-      deleteLast,
-    }
-  },
+function deleteLast() {
+  config.value.axisLine.lineStyle.color.pop()
 }
 </script>

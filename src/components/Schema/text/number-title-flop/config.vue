@@ -101,7 +101,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { toRef } from 'vue'
 import {
   fontFamilys,
@@ -111,24 +111,11 @@ import {
   hAligns,
 } from '@/config/select-options'
 
-export default {
-  name: 'VNumberTitleFlopConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const config = toRef(props.data, 'config')
-    return {
-      config,
-      fontFamilys,
-      fontWeights,
-      justifyContents,
-      hAligns,
-      arrangements,
-    }
-  },
-}
+})
+const config = toRef(props.data, 'config')
 </script>

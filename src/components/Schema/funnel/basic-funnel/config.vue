@@ -222,21 +222,14 @@
     </g-field-collapse>
   </div>
 </template>
-<script>
+
+<script setup>
 import { computed } from 'vue'
 import {
-  fontFamilys,
   fontWeights,
-  echartsLabelPositions,
-  legendLocations,
   orients,
   legendIcons,
-  axisTypes,
-  titleLocations,
   lineStyles,
-  hAligns,
-  timeFormats,
-  valueFormats,
   fillTypes,
   alignType,
   sortTypes,
@@ -244,41 +237,14 @@ import {
   legendLocationsPie,
 } from '@/config/select-options'
 
-export default {
-  name: 'VBasicFunnelConfig',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
-    const seriesCount = computed(() => props.data.apiData.config.seriesCount)
-    const xAxisTypes = computed(() => axisTypes.filter(m => m.value !== 'value'))
+})
 
-    return {
-      config,
-      seriesCount,
-      fontFamilys,
-      fontWeights,
-      echartsLabelPositions,
-      legendLocations,
-      orients,
-      legendIcons,
-      xAxisTypes,
-      titleLocations,
-      lineStyles,
-      hAligns,
-      timeFormats,
-      valueFormats,
-      fillTypes,
-      alignType,
-      sortTypes,
-      funnelLabelPosition,
-      legendLocationsPie,
-    }
-  },
-}
+// config 配置项
+const config = computed(() => props.data.config)
+const seriesCount = computed(() => props.data.apiData.config.seriesCount)
 </script>
