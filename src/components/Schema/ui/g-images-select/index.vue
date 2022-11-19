@@ -2,7 +2,6 @@
   <b-popover
     v-model:visible="visible"
     :placement="placement"
-    trigger="click"
     :width="288"
     :show-arrow="false"
     :offset="3"
@@ -13,36 +12,39 @@
         <div class="g-select-image-selection">
           <div class="g-select-image-selection__inner">
             <div class="g-select-image-selected-wrap">
-              <img v-if="selectedImg.src" :src="selectedImg.src" class="g-select-image-img">
-              <span :class="{'no-name':!selectedImg.src}">{{ selectedImg.name || '可选择' }}</span>
+              <img v-if="selectedImg.src" :src="selectedImg.src" class="g-select-image-img" />
+              <span :class="{ 'no-name': !selectedImg.src }">
+                {{ selectedImg.name || '可选择' }}
+              </span>
             </div>
           </div>
           <span class="g-select-image-arrow">
-              <i class="b-iconfont b-icon-down"></i>
-            </span>
+            <i class="b-iconfont b-icon-down"></i>
+          </span>
         </div>
       </div>
     </div>
     <template #content>
       <div class="g-select-image-dropdown-menu-wrap">
-        <ul class="g-select-image-tabs" v-if="images.length>1">
+        <ul class="g-select-image-tabs" v-if="images.length > 1">
           <li
             class="tab-item"
             v-for="item in images"
-            :class="{active:item===activeTab}"
+            :class="{ active: item === activeTab }"
             :key="item"
-            @click="activeTab=item"
-          >{{ imagesTitleMap[item] }}
+            @click="activeTab = item"
+          >
+            {{ imagesTitleMap[item] }}
           </li>
         </ul>
         <ul class="g-select-image-dropdown-menu">
           <li
-            v-for="(img,index) in currentImages"
+            v-for="(img, index) in currentImages"
             :key="index"
             class="g-select-image-dropdown-menu-item"
           >
             <div class="image-item" @click="onSelectImg(img)">
-              <img :src="img.src" class="g-select-image-img">
+              <img :src="img.src" class="g-select-image-img" />
               <span>{{ img.name }}</span>
             </div>
           </li>
@@ -67,13 +69,7 @@ const imagesMap = {
   header: headerImages,
   widget: widgetImages,
 }
-const allImages = [
-  ...bgImages,
-  ...boxImages,
-  ...decorationImages,
-  ...headerImages,
-  ...widgetImages,
-]
+const allImages = [...bgImages, ...boxImages, ...decorationImages, ...headerImages, ...widgetImages]
 const imagesTitleMap = {
   bg: '背景',
   box: '边框',
@@ -85,11 +81,13 @@ const imagesTitleMap = {
 export default {
   name: 'GImagesSelect',
   props: {
-    modelValue: {  // 存储的就是src图片名称
+    modelValue: {
+      // 存储的就是src图片名称
       type: String,
       default: '',
     },
-    images: { // 图片预设分类，至少为一个
+    images: {
+      // 图片预设分类，至少为一个
       type: Array,
       default: () => ['bg', 'box', 'decoration', 'header', 'widget'],
     },
@@ -109,19 +107,24 @@ export default {
 
     const currentImages = computed(() => imagesMap[activeTab.value] || [])
 
-    const selectedImg = computed(() => allImages.find(m => m[props.valueKey] === props.modelValue) || {})
+    const selectedImg = computed(
+      () => allImages.find(m => m[props.valueKey] === props.modelValue) || {},
+    )
 
-    const onSelectImg = (img) => {
+    const onSelectImg = img => {
       visible.value = false
       ctx.emit('update:modelValue', img[props.valueKey])
       ctx.emit('change', img)
     }
 
-    watch(() => visible.value, v => {
-      if (v) {
-        activeTab.value = props.images[0]
-      }
-    })
+    watch(
+      () => visible.value,
+      v => {
+        if (v) {
+          activeTab.value = props.images[0]
+        }
+      },
+    )
 
     return {
       imagesMap,

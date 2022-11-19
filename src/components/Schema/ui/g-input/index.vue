@@ -1,15 +1,7 @@
 <template>
-  <div
-    class="dv-gui g-input"
-    :class="[
-      {
-        'is-inline': !!inline,
-        'is-single': inline === 'inline-single',
-      },
-    ]"
-  >
+  <div class="dv-gui g-input" :class="{ inline }">
     <b-input
-      :model-value="modelValue"
+      v-model="inputValue"
       :size="size"
       :placeholder="placeholder"
       :readonly="readonly"
@@ -17,16 +9,15 @@
       :autosize="autosize"
       :rows="rows"
       clearable
-      @update:model-value="handleInput"
       @change="handleChange"
     />
-    <span v-if="label" class="g-input__caption">
-      {{ label }}
-    </span>
+    <span v-if="label" class="g-input__caption">{{ label }}</span>
   </div>
 </template>
 
 <script>
+import { computed } from 'vue'
+
 export default {
   name: 'g-input',
   props: {
@@ -56,7 +47,7 @@ export default {
       type: Number,
     },
     inline: {
-      type: [Boolean, String],
+      type: Boolean,
       default: false,
     },
     readonly: {
@@ -65,38 +56,20 @@ export default {
     },
   },
   emits: ['update:modelValue', 'change'],
-  setup(props, ctx) {
-    const handleInput = value => {
-      ctx.emit('update:modelValue', value)
-    }
+  setup(props, { emit }) {
+    const inputValue = computed({
+      get: () => props.modelValue,
+      set: val => emit('update:modelValue', val),
+    })
 
     const handleChange = (currentValue, oldValue) => {
-      ctx.emit('change', currentValue, oldValue)
+      emit('change', currentValue, oldValue)
     }
 
     return {
-      handleInput,
+      inputValue,
       handleChange,
     }
   },
 }
 </script>
-
-<style scoped lang="stylus">
-.dv-gui {
-  &.g-input {
-    width: 100%;
-    margin-bottom: 4px;
-  }
-  &.is-inline {
-    display: inline-block;
-    width: 50%;
-    padding-right: 8px;
-  }
-  &.is-single {
-    display: inline-block;
-    width: 100%;
-    padding-right: 8px;
-  }
-}
-</style>

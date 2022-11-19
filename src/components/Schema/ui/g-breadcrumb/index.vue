@@ -4,22 +4,19 @@
       <b-breadcrumb-item>
         <span
           class="dv-item"
-          :class="{'dv-link':drillFilters.length}"
-          :style="{color:fontColor}"
-          @click="handleRootClick(drillData[0],0)"
+          :class="{ 'dv-link': drillFilters.length }"
+          :style="{ color: fontColor }"
+          @click="handleRootClick(drillData[0], 0)"
         >
           {{ drillData[0].title }}
         </span>
       </b-breadcrumb-item>
-      <b-breadcrumb-item
-        v-for="(item,index) in drillFilters"
-        :key="item.fieldId"
-      >
+      <b-breadcrumb-item v-for="(item, index) in drillFilters" :key="item.fieldId">
         <span
           class="dv-item"
-          :class="{'dv-link':index<drillFilters.length-1}"
-          :style="{color:fontColor}"
-          @click="handleClick(item,index)"
+          :class="{ 'dv-link': index < drillFilters.length - 1 }"
+          :style="{ color: fontColor }"
+          @click="handleClick(item, index)"
         >
           {{ item.complexFilter.items[0].value }}
         </span>
@@ -29,22 +26,23 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue'
-
 export default {
   name: 'g-breadcrumb',
   props: {
-    drillData: { // 下钻数据
+    drillData: {
+      // 下钻数据
       type: Array,
-      default: () => ([]),
+      default: () => [],
     },
-    drillIndex: { // 下钻层级
+    drillIndex: {
+      // 下钻层级
       type: Number,
       default: 0,
     },
-    drillFilters: { // 下钻数据拼接，（动态的）
+    drillFilters: {
+      // 下钻数据拼接，（动态的）
       type: Array,
-      default: () => ([]),
+      default: () => [],
     },
     fontColor: {
       type: String,

@@ -34,7 +34,7 @@ export default defineComponent({
   props: {
     type: {
       type: String,
-      validator: (val) => ['dna', 'square'].includes(val),
+      validator: val => ['dna', 'square'].includes(val),
       default: 'dna',
     },
     spinning: {

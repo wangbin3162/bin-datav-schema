@@ -24,21 +24,8 @@
       <g-input-number v-model="data.x" label="X" inline suffix="px" :disabled="readonly" />
       <g-input-number v-model="data.y" label="Y" inline suffix="px" :disabled="readonly" />
     </g-field>
-    <g-field label="旋转角度" flat v-if="!isMultiSelect">
-      <g-input-number v-model="data.rotate" :min="0" :max="360" :step="1" inline />
-      <div style="width: 50%">
-        <b-button-group>
-          <b-button
-            v-for="em in rotateOptions"
-            :key="em.value"
-            size="mini"
-            :title="em.label"
-            @click="schemaStore.doRotate(em.value)"
-          >
-            <i :class="`b-iconfont b-icon-${em.value}`" />
-          </b-button>
-        </b-button-group>
-      </div>
+    <g-field label="旋转角度" v-if="!isMultiSelect">
+      <g-slider v-model="data.rotate" :min="0" :max="360" :step="1" />
     </g-field>
     <g-field label="透明度" v-if="!(isMultiSelect || curComIsGroup)">
       <g-slider v-model="data.opacity" :min="0" :max="1" :step="0.05" />

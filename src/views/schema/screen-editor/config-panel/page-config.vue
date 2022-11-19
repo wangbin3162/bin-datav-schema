@@ -16,7 +16,7 @@
               inline
               suffix="px"
               @change="onSizeChange"
-            ></g-input-number>
+            />
             <g-input-number
               v-model="pageConfig.height"
               label="高度"
@@ -25,13 +25,14 @@
               inline
               suffix="px"
               @change="onSizeChange"
-            ></g-input-number>
+            />
           </g-field>
+
           <g-field label="背景颜色">
-            <g-color-picker v-model="pageConfig.bgColor"></g-color-picker>
+            <g-color-picker v-model="pageConfig.bgColor" />
           </g-field>
           <g-field label="背景图" tooltip="支持图片地址、静态路径、base64存储">
-            <g-upload-img v-model="pageConfig.bgImage"></g-upload-img>
+            <g-upload-img v-model="pageConfig.bgImage" />
           </g-field>
           <g-field label="背景预设" tooltip="可以加载对应预设的图片背景">
             <g-images-select v-model="pageConfig.bgImage" :images="['bg']" value-key="src" />
@@ -182,7 +183,7 @@ export default {
   &:not(:last-child)::after {
     content: "";
     position: absolute;
-    bottom: 1px;
+    bottom: 0;
     left: 6%;
     width: 91%;
     height: 1px;
