@@ -2,6 +2,11 @@
   <div class="header-container">
     <div class="left-actions">
       <b-space size="mini">
+        <!-- <b-tooltip content="返回" :open-delay="500">
+          <div class="head-btn" @click="handleBack">
+            <b-icon name="rollback"></b-icon>
+          </div>
+        </b-tooltip> -->
         <b-tooltip content="组件" :open-delay="500">
           <div
             class="head-btn"
@@ -49,14 +54,8 @@
         <b-icon name="laptop" type="button" @click="handleBack"></b-icon>
       </b-tooltip>
       <span>分析看板</span>
-      <span style="padding: 0 6px 0 12px">-</span>
-      <input
-        class="header-input"
-        placeholder="请输入名称"
-        maxlength="50"
-        type="text"
-        v-model="pageInfo.name"
-      />
+      <span style="padding: 0 8px">-</span>
+      <span>{{ pageInfo.name }}</span>
     </div>
     <div class="global-actions">
       <b-space size="mini">
@@ -95,103 +94,90 @@
   <save-template v-model="tempVisible" />
 </template>
 
-<script>
+<script setup>
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import HeadLoading from './head-loading.vue'
 import SaveScreen from './save-screen.vue'
 import SaveTemplate from './save-template.vue'
-import { Message } from 'bin-ui-next'
+import { Message, MessageBox } from 'bin-ui-next'
 import { readFileText } from '@/utils/file-helper'
 import { useStore } from '@/store'
 import useSavePreview from '@/hooks/schema/useSavePreview'
 
-export default {
-  name: 'header-bar',
-  components: { SaveTemplate, SaveScreen, HeadLoading },
-  props: {
-    backUrl: {
-      type: String,
-    },
-    backTarget: {
-      type: String,
-      default: '_self', // _self
-      validator: val => ['_self', '_blank'].includes(val),
-    },
-    pageStatus: {
-      type: Object,
-      default: () => ({}),
-    },
+const props = defineProps({
+  backUrl: {
+    type: String,
   },
-  setup(props) {
-    const router = useRouter()
-    const { schemaStore, storeToRefs } = useStore()
-    const { pageInfo, toolbar } = storeToRefs(schemaStore)
-    const { previewScreen } = useSavePreview()
-    const saveVisible = ref(false)
-    const saveStatus = ref('edit')
-    const tempVisible = ref(false)
+  backTarget: {
+    type: String,
+    default: '_self', // _self
+    validator: val => ['_self', '_blank'].includes(val),
+  },
+  pageStatus: {
+    type: Object,
+    default: () => ({}),
+  },
+})
+const router = useRouter()
+const { schemaStore, storeToRefs } = useStore()
+const { pageInfo, toolbar } = storeToRefs(schemaStore)
+const { previewScreen } = useSavePreview()
+const saveVisible = ref(false)
+const saveStatus = ref('edit')
+const tempVisible = ref(false)
 
-    const handleBack = () => {
-      const path = props.backUrl || '/'
-      if (props.backTarget === '_blank') {
-        const route = router.resolve(path)
-        window.open(route.href, props.backTarget)
-      } else {
+const handleBack = () => {
+  const path = props.backUrl || '/'
+  if (props.backTarget === '_blank') {
+    const route = router.resolve(path)
+    window.open(route.href, props.backTarget)
+  } else {
+    MessageBox.confirm({
+      type: 'warning',
+      title: '确定返回列表吗？',
+    })
+      .then(() => {
         router.push(path)
         schemaStore.clearStore()
-      }
-    }
-
-    const handleUpload = file => {
-      if (file.type !== 'application/json') {
-        Message.warning('请选择正确的json配置文件')
-        return false
-      }
-      readFileText(file).then(data => {
-        try {
-          const screenData = JSON.parse(data)
-          const { comps, pageConfig } = screenData
-          schemaStore.loadScreenData({ comps, pageConfig })
-        } catch (e) {
-          console.warn('The imported file could not be converted to the correct JSON!')
-        }
       })
-      return false
-    }
+      .catch(() => {})
+  }
+}
 
-    // 保存
-    const handleSaveScreen = () => {
-      saveStatus.value = 'edit'
-      saveVisible.value = true
+const handleUpload = file => {
+  if (file.type !== 'application/json') {
+    Message.warning('请选择正确的json配置文件')
+    return false
+  }
+  readFileText(file).then(data => {
+    try {
+      const screenData = JSON.parse(data)
+      const { comps, pageConfig } = screenData
+      schemaStore.loadScreenData({ comps, pageConfig })
+    } catch (e) {
+      console.warn('The imported file could not be converted to the correct JSON!')
     }
+  })
+  return false
+}
 
-    // 发布
-    const handlePublish = () => {
-      saveStatus.value = 'audited'
-      saveVisible.value = true
-    }
+// 保存
+const handleSaveScreen = () => {
+  saveStatus.value = 'edit'
+  saveVisible.value = true
+}
 
-    // 预览
-    const handPreview = async () => {
-      const data = await previewScreen()
-      let routeData = router.resolve({ path: `/screen/preview/${data.pageInfo.id}` })
-      window.open(routeData.href, '_blank')
-    }
+// 发布
+const handlePublish = () => {
+  saveStatus.value = 'audited'
+  saveVisible.value = true
+}
 
-    return {
-      schemaStore,
-      pageInfo,
-      toolbar,
-      saveVisible,
-      saveStatus,
-      tempVisible,
-      handleBack,
-      handleSaveScreen,
-      handPreview,
-      handlePublish,
-      handleUpload,
-    }
-  },
+// 预览
+const handPreview = async () => {
+  const data = await previewScreen()
+  let routeData = router.resolve({ path: `/screen/preview/${data.pageInfo.id}` })
+  window.open(routeData.href, '_blank')
 }
 </script>
