@@ -1,9 +1,11 @@
 .components-panel-wp {
+  position: relative;
   flex: none;
   z-index: 6;
   width: var(--schema-comps-width);
   height: 100%;
-  background: var(--schema-color-bg-deep);
+  background: var(--schema-color-bg);
+    border-right: 1px solid #000;
   user-select: none;
   .components-panel {
     z-index: 9;
@@ -24,7 +26,6 @@
     }
   }
   .components-panel-content {
-    position: relative;
     width: 100%;
     height: calc(100% - 30px);
     .components-type {
@@ -37,88 +38,115 @@
         cursor: pointer;
         width: 100%;
         height: 50px;
-        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: .2s;
         .com-tab-icon {
-          width: 100%;
-          height: 100%;
-          text-align: center;
-          line-height: 50px;
-          font-size: 24px;
+          font-size: 20px;
           color: var(--bin-color-text-secondary);
         }
         .com-tab-title {
-          background: var(--schema-color-bg-dark);
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          line-height: 50px;
           text-align: center;
-          transform: translate(-100%, 0);
-          opacity: 0;
-          transition: .2s;
+          opacity: 1;
+          font-size: 12px;
+          line-height: 18px;
         }
         &:hover {
           color: var(--bin-color-primary);
-          .com-tab-title {
-            opacity: 1;
-            transform: translate(0, 0);
+          background: var(--schema-color-bg-dark);
+        }
+        &.active {
+          color: var(--bin-color-primary);
+          .com-tab-icon {
+            color: var(--bin-color-primary);
           }
+          background: #17191c;
         }
       }
     }
-    .components-list {
+  }
+  .components-list-top {
+    position: relative;
+    height: 30px;
+    line-height: 30px;
+    background: var(--schema-color-bg-light);
+    user-select: none;
+    .action {
       position: absolute;
-      width: 180px;
-      height: 100%;
       top: 0;
-      right: 0;
-      z-index: 1;
-      transform: translateX(100%);
-      background: #0a0b0d;
-      opacity: 1;
-      transition: .2s;
-      overflow: auto;
-      .comp-item {
+      right: 1px;
+      letter-spacing: 4px;
+      > i {
+        text-indent: 0;
         cursor: pointer;
-        color: var(--schema-font-color);
-        width: 100%;
-        vertical-align: top;
-        user-select: none;
-        margin-bottom: 12px;
-        box-sizing: border-box;
+        transition: color 0.2s;
+        width: 20px;
+        height: 30px;
+        display: inline-block;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .components-list-content {
+    height: calc(100% - 30px);
+  }
+  .components-list {
+    position: absolute;
+    width: 200px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    transform: translateX(100%);    
+    background: var(--schema-color-bg-dark);
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    opacity: 1;
+    transition: .2s;
+    overflow: auto;
+    .comp-item {
+      cursor: pointer;
+      color: var(--schema-font-color);
+      width: 100%;
+      vertical-align: top;
+      user-select: none;
+      margin-bottom: 12px;
+      box-sizing: border-box;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid #000;
+      .comp-item-text {
+        font-size: 12px;
+        padding: 0 5px;
+        text-align: left;
         overflow: hidden;
+        background: var(--schema-color-bg);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        line-height: 22px;
+      }
+      .comp-item-img {
+        overflow: hidden;
+        width: 100%;
+        background-clip: content-box;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: #17191c;
         position: relative;
-        .comp-item-text {
-          font-size: 12px;
-          padding: 0 5px;
-          text-align: left;
-          overflow: hidden;
-          background: var(--schema-color-bg);
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          line-height: 22px;
-        }
-        .comp-item-img {
-          overflow: hidden;
-          width: 100%;
-          background-clip: content-box;
-          background-size: contain;
-          background-repeat: no-repeat;
-          background-position: center;
-          background-color: #17191c;
-          position: relative;
-          text-align: center;
-          box-sizing: content-box;
-          transition: border-color 0.2s;
-          height: 72px;
-        }
+        text-align: center;
+        box-sizing: content-box;
+        transition: border-color 0.2s;
+        height: 72px;
       }
-      &.is-hide {
-        opacity: 0;
-        transform: translateX(-50px);
-      }
+    }
+    &.is-hide {
+      opacity: 0;
+      transform: translateX(-50px);
     }
   }
 }

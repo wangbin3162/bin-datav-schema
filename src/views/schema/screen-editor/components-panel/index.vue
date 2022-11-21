@@ -19,7 +19,14 @@
             </div>
           </b-scrollbar>
         </div>
-        <div class="components-list" :class="{ 'is-hide': !toolbar.components }" v-click-outside="closePanel">
+      </div>
+      <div class="components-list" :class="{ 'is-hide': !toolbar.components }">
+        <div class="components-list-top">
+          <div class="action" @click="closePanel">
+            <i class="b-iconfont b-icon-left" title="收起"></i>
+          </div>
+        </div>
+        <div class="components-list-content">
           <b-scrollbar native>
             <div class="p10">
               <div
