@@ -64,7 +64,7 @@ export const basicRingConfig = {
   apiData: initApiData({ staticPath: 'pie/basic-pie' }),
   events: {
     click: {
-      name: '当点击数据项时',
+      name: '点击数据项',
       params: [],
     },
   },

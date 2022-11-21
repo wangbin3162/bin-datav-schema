@@ -65,7 +65,6 @@ const {
   getPanelOffsetTop,
   editorEL,
   areaData,
-  isMultiSelect,
 } = storeToRefs(schemaStore)
 
 const canvasWpRef = ref(null)

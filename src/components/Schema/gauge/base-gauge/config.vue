@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局">
+    <g-field-collapse label="全局" modal>
       <g-field label="圆心坐标" inline tooltip="仪表盘圆心（中心）坐标,支持设置成百分比">
         <g-input v-model="config.global.center[0]" inline label="水平位置"></g-input>
         <g-input v-model="config.global.center[1]" inline label="垂直位置"></g-input>
@@ -34,7 +34,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="标题" toggle v-model="config.title.show">
+    <g-field-collapse label="标题" modal toggle v-model="config.title.show">
       <g-field label="位置" inline>
         <g-input v-model="config.title.offsetCenter[0]" inline label="水平位置"></g-input>
         <g-input v-model="config.title.offsetCenter[1]" inline label="垂直位置"></g-input>
@@ -69,7 +69,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="详情" toggle v-model="config.detail.show">
+    <g-field-collapse label="详情" modal toggle v-model="config.detail.show">
       <g-field label="单位">
         <g-input v-model="config.detail.unit"></g-input>
       </g-field>
@@ -107,7 +107,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="轴线" toggle v-model="config.axisLine.show">
+    <g-field-collapse label="轴线" modal toggle v-model="config.axisLine.show">
       <g-field label="两端圆形">
         <div class="pt-5">
           <b-switch v-model="config.axisLine.roundCap" size="small" />
@@ -130,7 +130,7 @@
         <template v-for="(item, index) in config.axisLine.lineStyle.color" :key="index">
           <g-field flat :label="`区域${index + 1}`">
             <template #label>
-              <div class="series-title" style="top: -8px">
+              <div class="series-title inline">
                 <span>区域{{ index + 1 }}</span>
               </div>
             </template>
@@ -161,7 +161,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="进度条" toggle v-model="config.progress.show">
+    <g-field-collapse label="进度条" modal toggle v-model="config.progress.show">
       <g-field label="是否重叠" tooltip="多组数据时进度条是否重叠">
         <div class="pt-5">
           <b-switch v-model="config.progress.overlap" size="small" />
@@ -187,7 +187,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="分隔线" toggle v-model="config.splitLine.show">
+    <g-field-collapse label="分隔线" modal toggle v-model="config.splitLine.show">
       <g-field flat label="分隔线样式">
         <g-input v-model="config.splitLine.length" inline label="线长"></g-input>
         <g-input-number
@@ -216,7 +216,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="刻度" toggle v-model="config.axisTick.show">
+    <g-field-collapse label="刻度" modal toggle v-model="config.axisTick.show">
       <g-field label="刻度数" tooltip="分隔线之间分隔的刻度数">
         <g-input-number v-model="config.axisTick.splitNumber" :min="0" :max="100" :step="1" />
       </g-field>
@@ -243,7 +243,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="刻度标签" toggle v-model="config.axisLabel.show">
+    <g-field-collapse label="刻度标签" modal toggle v-model="config.axisLabel.show">
       <g-field label="文字样式" flat>
         <g-input-number
           v-model="config.axisLabel.fontSize"
@@ -271,7 +271,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="指针" toggle v-model="config.pointer.show">
+    <g-field-collapse label="指针" modal toggle v-model="config.pointer.show">
       <g-field label="位置" flat>
         <g-input v-model="config.pointer.offsetCenter[0]" inline label="水平位置"></g-input>
         <g-input v-model="config.pointer.offsetCenter[1]" inline label="垂直位置"></g-input>
@@ -290,7 +290,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="固定点" toggle v-model="config.anchor.show">
+    <g-field-collapse label="固定点" modal toggle v-model="config.anchor.show">
       <g-field label="位置" flat>
         <g-input v-model="config.anchor.offsetCenter[0]" inline label="水平位置"></g-input>
         <g-input v-model="config.anchor.offsetCenter[1]" inline label="垂直位置"></g-input>
@@ -318,7 +318,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="系列">
+    <g-field-collapse label="系列" modal>
       <template v-for="(s, index) in config.series" :key="index">
         <div v-if="index < 1">
           <div class="series-title">

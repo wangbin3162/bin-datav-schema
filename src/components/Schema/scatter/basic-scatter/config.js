@@ -218,7 +218,7 @@ export const basicScatterConfig = {
   apiData: initApiData({ staticPath: 'scatter/basic-scatter' }),
   events: {
     click: {
-      name: '当点击数据项时',
+      name: '点击数据项',
       params: [],
     },
   },

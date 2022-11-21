@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="标注" toggle v-model="config.label.show">
+    <g-field-collapse label="标注" modal toggle v-model="config.label.show">
       <g-field label="位置">
         <g-select v-model="config.label.position" :data="echartsLabelPositions"></g-select>
       </g-field>
@@ -24,7 +24,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="区域样式">
+    <g-field-collapse label="区域样式" modal>
       <g-field label="填充颜色">
         <g-color-picker v-model="config.itemStyle.areaColor"></g-color-picker>
       </g-field>
@@ -42,7 +42,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="区域悬浮">
+    <g-field-collapse label="区域悬浮" modal>
       <g-field label="填充颜色">
         <g-color-picker v-model="config.emphasis.itemStyle.areaColor"></g-color-picker>
       </g-field>

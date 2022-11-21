@@ -32,7 +32,7 @@ import { useStore } from '@/store'
 
 const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
 const { undoDisable, redoDisable } = storeToRefs(schemaStore)
-const actionStyle = computed(() => (schemaStore.toolbar.config ? { right: '320px' } : { right: 0 }))
+const actionStyle = computed(() => (schemaStore.toolbar.config ? { right: '330px' } : { right: 0 }))
 
 const undo = () => schemaStore.undo()
 const redo = () => schemaStore.redo()
@@ -42,7 +42,7 @@ const redo = () => schemaStore.redo()
 .action-bar-wrap {
   position: fixed;
   width: 32px;
-  right: 320px;
+  right: 330px;
   z-index: 2;
   min-height: 32px;
   background-color: var(--schema-color-bg-dark);

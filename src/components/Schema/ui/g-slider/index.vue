@@ -104,7 +104,7 @@ export default {
     right: 0;
     line-height: 24px;
     > input {
-      width: 50px;
+      width: 55px;
       font-size: 12px;
       text-align: left;
       background: #262c33;

@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局">
+    <g-field-collapse label="全局" modal>
       <g-field
         label="字体"
         tooltip="请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体"
@@ -42,7 +42,7 @@
         </div>
       </g-field>
     </g-field-collapse>
-    <g-field-collapse label="标注" toggle v-model="config.label.show">
+    <g-field-collapse label="标注" modal toggle v-model="config.label.show">
       <g-field label="位置">
         <g-select v-model="config.label.position" :data="pieLabelPosition" />
       </g-field>
@@ -80,7 +80,7 @@
         <g-slider v-model="config.label.distanceToLabelLine" :min="0" :max="100" :step="1" />
       </g-field>
     </g-field-collapse>
-    <g-field-collapse label="图例" toggle v-model="config.legend.show">
+    <g-field-collapse label="图例" modal toggle v-model="config.legend.show">
       <g-field label="位置">
         <g-select v-model="config.legend.position" :data="legendLocations" />
       </g-field>
@@ -140,7 +140,7 @@
         </g-field>
       </g-field-collapse>
     </g-field-collapse>
-    <g-field-collapse label="提示框" toggle v-model="config.tooltip.show">
+    <g-field-collapse label="提示框" modal toggle v-model="config.tooltip.show">
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.tooltip.textStyle.fontSize"
@@ -182,11 +182,11 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="色板设置">
+    <g-field-collapse label="色板设置" modal>
       <template v-for="(s, index) in config.color" :key="index">
         <g-field flat :label="`颜色${index + 1}`">
           <template #label>
-            <div class="series-title" style="top: -8px">
+            <div class="series-title inline">
               <span>颜色{{ index + 1 }}</span>
             </div>
           </template>

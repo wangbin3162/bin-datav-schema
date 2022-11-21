@@ -14,11 +14,17 @@
         </span>
       </div>
     </div>
-    <b-collapse-transition>
+    <b-collapse-transition v-if="!modal">
       <div v-if="show" class="g-field-content">
         <slot></slot>
       </div>
     </b-collapse-transition>
+
+    <g-modal-config v-else v-model="show" :title="label + '配置项'">
+      <div v-if="show" class="g-field-content">
+        <slot></slot>
+      </div>
+    </g-modal-config>
   </div>
 </template>
 
@@ -41,6 +47,10 @@ export default {
       default: true,
     },
     toggle: {
+      type: Boolean,
+      default: false,
+    },
+    modal: {
       type: Boolean,
       default: false,
     },

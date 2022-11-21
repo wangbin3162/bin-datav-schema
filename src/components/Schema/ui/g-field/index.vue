@@ -35,7 +35,7 @@ export default {
     tooltip: String,
     labelWidth: {
       type: String,
-      default: '90px',
+      default: '95px',
     },
     flat: Boolean,
   },

@@ -115,7 +115,7 @@ export const basicFunnel = {
   apiData: initApiData({ staticPath: 'funnel/basic-funnel' }),
   events: {
     click: {
-      name: '当点击数据项时',
+      name: '点击数据项',
       params: [],
     },
   },

@@ -87,24 +87,6 @@
     border-top: 1px solid var(--schema-color-border);
     border-bottom: 1px solid var(--schema-color-border);
   }
-  .setting-panel-gui {
-    .series-title {
-      position: relative;
-      padding: 16px 16px 8px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      &:before {
-        content: '';
-        position: absolute;
-        top: 20px;
-        left: 16px;
-        width: 6px;
-        height: 6px;
-        background: var(--bin-color-primary);
-      }
-    }
-  }
 }
 // 数据中心面板样式
 .data-center-panel {
@@ -223,6 +205,30 @@
       padding: 10px;
       border-top: 1px solid var(--schema-color-border);
       border-bottom: 1px solid var(--schema-color-border);
+    }
+  }
+}
+
+.series-title {
+  position: relative;
+  padding: 16px 16px 8px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &:before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 16px;
+    width: 6px;
+    height: 6px;
+    background: var(--bin-color-primary);
+  }
+  &.inline {
+    padding: 0 8px 0 10px;
+    &:before {
+      left: 0;
+      top: 12px;
     }
   }
 }

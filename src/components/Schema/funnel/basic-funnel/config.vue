@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局">
+    <g-field-collapse label="全局" modal>
       <g-field
         label="位置"
         flat
@@ -33,7 +33,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="标注" toggle v-model="config.label.show">
+    <g-field-collapse label="标注" modal toggle v-model="config.label.show">
       <g-field label="位置">
         <g-select v-model="config.label.position" :data="funnelLabelPosition" />
       </g-field>
@@ -83,7 +83,7 @@
       </g-field-collapse>
     </g-field-collapse>
 
-    <g-field-collapse label="图例" toggle v-model="config.legend.show">
+    <g-field-collapse label="图例" modal toggle v-model="config.legend.show">
       <g-field label="位置" flat>
         <g-select v-model="config.legend.position" :data="legendLocationsPie" />
         <g-input v-model="config.legend.right" inline label="距右侧" />
@@ -151,7 +151,7 @@
       </g-field-collapse>
     </g-field-collapse>
 
-    <g-field-collapse label="提示框" toggle v-model="config.tooltip.show">
+    <g-field-collapse label="提示框" modal toggle v-model="config.tooltip.show">
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.tooltip.textStyle.fontSize"
@@ -193,7 +193,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="系列">
+    <g-field-collapse label="系列" modal>
       <template v-for="(s, index) in config.series" :key="index">
         <div v-if="index < seriesCount">
           <div class="series-title">

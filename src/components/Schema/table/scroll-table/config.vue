@@ -20,7 +20,7 @@
         </b-radio-group>
       </g-field>
     </g-field-collapse>
-    <g-field-collapse label="通用配置">
+    <g-field-collapse label="通用配置" modal>
       <g-field label="表行数" flat>
         <g-input-number v-model="config.rowNum" :min="1" :max="10" :step="1" />
       </g-field>
@@ -46,13 +46,11 @@
         <g-slider v-model="config.waitTime" :min="1000" :max="3000" :step="100" suffix="ms" />
       </g-field>
       <g-field label="悬停暂停轮播">
-        <div class="pt-5">
-          <b-switch v-model="config.hoverPause" size="small" />
-        </div>
+        <b-switch v-model="config.hoverPause" size="small" />
       </g-field>
     </g-field-collapse>
-    <g-field-collapse label="列配置">
-      <template #add>
+    <g-field-collapse label="列配置" modal>
+      <div class="p8 t-right">
         <b-button type="text" @click="addSeries" title="新增一个列配置">
           <b-icon name="plus" size="16"></b-icon>
         </b-button>
@@ -64,11 +62,11 @@
         >
           <b-icon name="delete" size="16"></b-icon>
         </b-button>
-      </template>
+      </div>
       <template v-for="(s, index) in config.columnWidth" :key="index">
         <g-field flat :label="`列${index + 1}`">
           <template #label>
-            <div class="series-title" style="top: -8px">
+            <div class="series-title inline">
               <span>列{{ index + 1 }}</span>
             </div>
           </template>

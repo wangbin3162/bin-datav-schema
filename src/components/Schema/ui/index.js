@@ -1,8 +1,9 @@
 import GLoading from './g-loading/index.vue'
 import GBreadcrumb from './g-breadcrumb/index.vue'
+import GModalConfig from './g-modal-config/index.vue'
 import { defineAsyncComponent } from 'vue'
 
-const components = [GLoading, GBreadcrumb]
+const components = [GLoading, GBreadcrumb, GModalConfig]
 
 // 注册gui
 export function registerGUI(app) {

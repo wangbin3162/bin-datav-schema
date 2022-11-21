@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局">
+    <g-field-collapse label="全局" modal>
       <g-field
         label="字体"
         tooltip="请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体"
@@ -51,7 +51,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="柱形设置">
+    <g-field-collapse label="柱形设置" modal>
       <g-field label="圆角大小" flat>
         <g-input-number
           v-model="config.global.borderRadius[0]"
@@ -116,7 +116,7 @@
         <g-color-picker v-model="config.global.shadowColor" inline label="阴影颜色" />
       </g-field>
     </g-field-collapse>
-    <g-field-collapse label="标签" toggle v-model="config.label.show">
+    <g-field-collapse label="标签" modal toggle v-model="config.label.show">
       <g-field label="显示位置">
         <b-radio-group v-model="config.label.position" type="button" size="mini">
           <b-radio label="default">默认</b-radio>
@@ -128,7 +128,7 @@
         <g-color-picker v-model="config.label.color" />
       </g-field>
     </g-field-collapse>
-    <g-field-collapse label="X轴" toggle v-model="config.xAxis.show">
+    <g-field-collapse label="X轴" modal toggle v-model="config.xAxis.show">
       <g-field label="标题单位">
         <g-input v-model="config.global.unit" />
       </g-field>
@@ -136,17 +136,17 @@
         <g-color-picker v-model="config.xAxis.color" />
       </g-field>
     </g-field-collapse>
-    <g-field-collapse label="Y轴" toggle v-model="config.yAxis.show">
+    <g-field-collapse label="Y轴" modal toggle v-model="config.yAxis.show">
       <g-field label="文本颜色">
         <g-color-picker v-model="config.yAxis.color" />
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="色板设置">
+    <g-field-collapse label="色板设置" modal>
       <template v-for="(s, index) in config.color" :key="index">
         <g-field flat :label="`颜色${index + 1}`">
           <template #label>
-            <div class="series-title" style="top: -8px">
+            <div class="series-title inline">
               <span>颜色{{ index + 1 }}</span>
             </div>
           </template>

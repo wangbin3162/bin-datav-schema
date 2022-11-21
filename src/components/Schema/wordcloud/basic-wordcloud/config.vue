@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局">
+    <g-field-collapse label="全局" modal>
       <g-field label="超出绘制" tooltip="是否允许词云图在外界渲染">
         <b-switch v-model="global.drawOutOfBound" size="small" />
       </g-field>
@@ -61,7 +61,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="提示框" toggle v-model="config.tooltip.show">
+    <g-field-collapse label="提示框" modal toggle v-model="config.tooltip.show">
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.tooltip.textStyle.fontSize"

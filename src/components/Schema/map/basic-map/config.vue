@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局">
+    <g-field-collapse label="全局" modal>
       <g-field flat label="阴影偏移">
         <g-input-number
           v-model="config.global.shadowOffsetX"
@@ -81,7 +81,7 @@
       </g-field-collapse>
     </g-field-collapse>
 
-    <g-field-collapse label="标注" toggle v-model="config.label.show">
+    <g-field-collapse label="标注" modal toggle v-model="config.label.show">
       <g-field label="位置">
         <g-select v-model="config.label.position" :data="echartsLabelPositions" />
       </g-field>
@@ -100,7 +100,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="提示" toggle v-model="config.label.emphasis.show">
+    <g-field-collapse label="提示" modal toggle v-model="config.label.emphasis.show">
       <g-field label="位置">
         <g-select v-model="config.label.emphasis.position" :data="echartsLabelPositions" />
       </g-field>

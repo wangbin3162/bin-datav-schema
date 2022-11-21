@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局">
+    <g-field-collapse label="全局" modal>
       <g-field label="边距" flat>
         <g-input-number
           v-model="config.global.margin.top"
@@ -90,7 +90,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="X轴" toggle v-model="config.xAxis.show">
+    <g-field-collapse label="X轴" modal toggle v-model="config.xAxis.show">
       <g-field-collapse label="轴标题" v-model="config.xAxis.title.show" toggle>
         <g-field label="标题显示">
           <g-input v-model="config.xAxis.title.name" />
@@ -242,7 +242,7 @@
       </g-field-collapse>
     </g-field-collapse>
 
-    <g-field-collapse label="Y轴" toggle v-model="config.yAxis.show">
+    <g-field-collapse label="Y轴" modal toggle v-model="config.yAxis.show">
       <g-field label="显示范围">
         <g-input v-model="config.yAxis.extent.min" label="最小值" inline></g-input>
         <g-input v-model="config.yAxis.extent.max" label="最大值" inline></g-input>
@@ -422,7 +422,7 @@
       </g-field-collapse>
     </g-field-collapse>
 
-    <g-field-collapse label="标注" toggle v-model="config.label.show">
+    <g-field-collapse label="标注" modal toggle v-model="config.label.show">
       <g-field label="位置">
         <g-select v-model="config.label.position" :data="echartsLabelPositions" />
       </g-field>
@@ -447,7 +447,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="提示框" toggle v-model="config.tooltip.show">
+    <g-field-collapse label="提示框" modal toggle v-model="config.tooltip.show">
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.tooltip.textStyle.fontSize"
@@ -527,7 +527,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="图例" toggle v-model="config.legend.show">
+    <g-field-collapse label="图例" modal toggle v-model="config.legend.show">
       <g-field label="位置">
         <g-select v-model="config.legend.position" :data="legendLocations" />
       </g-field>
@@ -588,7 +588,7 @@
       </g-field-collapse>
     </g-field-collapse>
 
-    <g-field-collapse label="统计线图" toggle v-model="config.line.show">
+    <g-field-collapse label="统计线图" modal toggle v-model="config.line.show">
       <g-field label="统计线图">
         <g-select v-model="config.line.lineEcStat" :data="lineEcStat" />
       </g-field>

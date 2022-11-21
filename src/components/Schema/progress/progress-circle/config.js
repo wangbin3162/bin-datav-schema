@@ -36,7 +36,7 @@ export const progressCircle = {
   apiData: initApiData({ staticPath: 'progress/progress' }),
   events: {
     click: {
-      name: '当点击数据项时',
+      name: '点击数据项',
       params: [],
     },
   },
