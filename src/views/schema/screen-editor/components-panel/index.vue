@@ -33,6 +33,8 @@
             </Collapse>
 
             <Comps :comps="comps" @dragstart="dragStart" @click="toAddCom" />
+
+            <ImagesList v-if="activeIndex === 4" />
           </b-scrollbar>
         </div>
       </div>
@@ -49,6 +51,7 @@ import { getStaticData } from '@/api/database.api'
 import { ApiType } from '@/config/data-source'
 import Comps from './comps.vue'
 import Collapse from './collapse.vue'
+import ImagesList from './images-list.vue'
 
 const { schemaStore, storeToRefs } = useStore()
 const { pageConfig, toolbar, selectedCom } = storeToRefs(schemaStore)

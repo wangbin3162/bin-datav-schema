@@ -1,5 +1,5 @@
 <template>
-  <div class="comp-wrap">
+  <div class="comp-wrap" v-if="comps.length > 0">
     <div class="comp-item" v-for="(com, index) in comps" :key="index" :title="com.alias">
       <div class="inner">
         <div
@@ -68,6 +68,7 @@ const click = name => emit('click', name)
     }
     &:hover{
       border-color: var(--bin-color-primary-light2);
+      background: #2a292f;
     }
   }
 }

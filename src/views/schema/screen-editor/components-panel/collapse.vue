@@ -2,7 +2,26 @@
   <div class="collapse-group">
     <div class="header" :class="[{ active: show }]" flex="cross:center" @click="toggleShow">
       <div class="name">
-        <span class="wrap-label">{{ title }}</span>
+        <div class="wrap-label">
+          <div class="create-box" v-if="edit" @click.stop>
+            <b-input
+              v-model="editName"
+              placeholder="输入名称，回车创建"
+              v-focus
+              size="mini"
+              style="width: 150px; top: -2px"
+              @blur="onAddInputBlur"
+              @keyup.enter="onAddInputEnter"
+            />
+          </div>
+          <div v-else>
+            {{ title }}
+          </div>
+        </div>
+        <span class="wrap-edit" v-if="canEdit && !edit">
+          <i class="b-iconfont b-icon-edit" @click.stop="handleEdit"></i>
+          <i class="b-iconfont b-icon-delete" @click.stop="handleRemove"></i>
+        </span>
         <span class="wrap-arrow" :class="[{ show }]">
           <b-icon name="right" size="12"></b-icon>
         </span>
@@ -19,6 +38,7 @@
 <script setup>
 import { ref } from 'vue'
 
+const emit = defineEmits(['edit', 'remove'])
 const props = defineProps({
   title: {
     type: String,
@@ -28,12 +48,37 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  canEdit: {
+    type: Boolean,
+    default: true,
+  },
 })
 const show = ref(props.defaultOpen)
+const edit = ref(false)
+const editName = ref('')
 
-const toggleShow = () => {
-  show.value = !show.value
+const toggleShow = () => (show.value = !show.value)
+
+function handleEdit() {
+  edit.value = true
+  editName.value = props.title
 }
+
+function onAddInputBlur(e) {
+  const name = (e.target.value || '').trim()
+  if (!name) edit.value = false
+}
+function onAddInputEnter(e) {
+  const name = (e.target.value || '').trim()
+  if (name) editSave()
+  else edit.value = false
+}
+
+function editSave() {
+  edit.value = false
+  emit('edit', editName.value)
+}
+const handleRemove = () => emit('remove')
 </script>
 
 <style lang="stylus" scoped>
@@ -47,6 +92,7 @@ const toggleShow = () => {
       border-bottom: 1px solid var(--schema-color-border);
     }
     .name {
+      width: 100%;
       height: 32px;
       span {
         display: inline-block;
@@ -62,6 +108,23 @@ const toggleShow = () => {
         }
         &.simple {
           cursor: pointer;
+        }
+      }
+      &:hover {
+        .wrap-edit {
+          opacity: 1;
+        }
+      }
+      .wrap-edit {
+        position: absolute;
+        right: 25px;
+        top: 8px;
+        opacity: 0;
+        > i {
+          font-size: 14px;
+          &.b-icon-edit {
+            margin-right: 3px;
+          }
         }
       }
       .wrap-label {

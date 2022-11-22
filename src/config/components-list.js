@@ -177,7 +177,7 @@ const VScrollTable = {
 // 组件列表
 export const componentList = [
   {
-    type: '',
+    type: 'basic',
     name: '基础',
     icon: 'block',
     group: [],
@@ -236,6 +236,13 @@ export const componentList = [
     icon: 'table',
     group: [],
     comps: [VScrollTable],
+  },
+  {
+    type: 'images',
+    name: '图片',
+    icon: 'image',
+    group: [],
+    comps: [],
   },
 ]
 
