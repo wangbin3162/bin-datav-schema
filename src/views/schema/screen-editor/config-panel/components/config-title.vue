@@ -71,7 +71,7 @@ export default {
 
     const comTitle = computed(() => {
       const obj = findComByName(props.comName)
-      return obj ? obj.com.name : props.comName
+      return obj ? obj.name : props.comName
     })
 
     const openDetail = () => {

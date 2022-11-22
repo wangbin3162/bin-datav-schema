@@ -128,7 +128,7 @@ const style = computed(() => {
   return {
     marginTop: props.top,
     width: props.width,
-    left: `${document.documentElement.clientWidth - 320 * 2 - 20}px`,
+    left: `${document.documentElement.clientWidth - 330 * 2 - 20}px`,
   }
 })
 const bodyStyle = computed(() => {

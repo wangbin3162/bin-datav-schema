@@ -108,45 +108,9 @@
     opacity: 1;
     transition: .2s;
     overflow: auto;
-    .comp-item {
-      cursor: pointer;
-      color: var(--schema-font-color);
-      width: 100%;
-      vertical-align: top;
-      user-select: none;
-      margin-bottom: 12px;
-      box-sizing: border-box;
-      overflow: hidden;
-      position: relative;
-      border: 1px solid #000;
-      .comp-item-text {
-        font-size: 12px;
-        padding: 0 5px;
-        text-align: left;
-        overflow: hidden;
-        background: var(--schema-color-bg);
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        line-height: 22px;
-      }
-      .comp-item-img {
-        overflow: hidden;
-        width: 100%;
-        background-clip: content-box;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-color: #17191c;
-        position: relative;
-        text-align: center;
-        box-sizing: content-box;
-        transition: border-color 0.2s;
-        height: 72px;
-      }
-    }
     &.is-hide {
       opacity: 0;
       transform: translateX(-50px);
     }
-  }
+      }
 }
