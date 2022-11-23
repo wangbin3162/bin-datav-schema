@@ -35,6 +35,12 @@
             <Comps :comps="comps" @dragstart="dragStart" @click="toAddCom" />
 
             <ImagesList v-if="activeIndex === 4" />
+
+            <CompList
+              v-if="activeIndex === 5"
+              @dragstart="dragCustomCompStart"
+              @click="toAddCustomComp"
+            />
           </b-scrollbar>
         </div>
       </div>
@@ -49,9 +55,11 @@ import { computed, ref } from 'vue'
 import { createComponent } from '@/config/components-cfg'
 import { getStaticData } from '@/api/database.api'
 import { ApiType } from '@/config/data-source'
+import { getNewCopyCom } from '@/store/schema/page'
 import Comps from './comps.vue'
 import Collapse from './collapse.vue'
 import ImagesList from './images-list.vue'
+import CompList from './comp-list.vue'
 
 const { schemaStore, storeToRefs } = useStore()
 const { pageConfig, toolbar, selectedCom } = storeToRefs(schemaStore)
@@ -64,14 +72,16 @@ const comps = computed(() =>
   activeIndex.value === -1 ? [] : componentList[activeIndex.value].comps,
 )
 
-const changeComp = index => {
+function changeComp(index) {
   schemaStore.toggleCompsPanel(true)
   activeIndex.value = index
 }
 
-const dragStart = (e, name) => e.dataTransfer.setData('text', name)
+function dragStart(e, name) {
+  e.dataTransfer.setData('text', name)
+}
 
-const toAddCom = async comName => {
+async function toAddCom(comName) {
   const com = createComponent(comName)
   com.attr.x = Math.floor((pageConfig.value.width - com.attr.w) / 2)
   com.attr.y = Math.floor((pageConfig.value.height - com.attr.h) / 2)
@@ -85,13 +95,25 @@ const toAddCom = async comName => {
   }
 }
 
-const dragOver = e => {
+// 自定义组件的拖拽和点击
+function dragCustomCompStart(e, comp) {
+  e.dataTransfer.setData('custom-comp', JSON.stringify(getNewCopyCom(comp)))
+}
+
+async function toAddCustomComp(comp) {
+  const com = getNewCopyCom(comp)
+  schemaStore.addCom({ component: com })
+  // 选中当前
+  schemaStore.selectCom(com)
+}
+
+function dragOver(e) {
   e.preventDefault()
   e.stopPropagation()
   e.dataTransfer.dropEffect = 'none'
 }
 
-const closePanel = () => {
+function closePanel() {
   if (toolbar.value.components) {
     schemaStore.toggleCompsPanel(false)
     activeIndex.value = -1

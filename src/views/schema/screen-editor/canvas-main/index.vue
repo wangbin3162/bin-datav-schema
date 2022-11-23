@@ -94,22 +94,21 @@ const canvasPanelStyle = computed(() => ({
 const autoScale = debounce(schemaStore.autoCanvasScale, 50)
 
 // 拖放增加组件
-const dropToAddCom = async event => {
+async function dropToAddCom(event) {
   event.preventDefault()
   try {
+    // 获取自定义组件或者是图片内容
+    const customComp = event.dataTransfer.getData('custom-comp')
+    if (customComp) {
+      const com = JSON.parse(customComp)
+      dropCom(event, com)
+      return
+    }
+
     const name = event.dataTransfer.getData('text')
     if (name) {
       const com = createComponent(name)
-      const { scale } = canvas.value
-      const offsetX =
-        (event.clientX - getPanelOffsetLeft.value + canvasWpRef.value.scrollLeft) / scale
-      const offsetY =
-        (event.clientY - getPanelOffsetTop.value + canvasWpRef.value.scrollTop) / scale
-      com.attr.x = Math.round(offsetX - com.attr.w / 2)
-      com.attr.y = Math.round(offsetY - com.attr.h / 2)
-      schemaStore.addCom({ component: com })
-      // 选中当前
-      schemaStore.selectCom(com)
+      dropCom(event, com)
       // 如是静态数据，且存在staticPath，则填充一次数据
       if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
         const { data } = await getStaticData(com.id, com.apiData.staticPath)
@@ -121,10 +120,22 @@ const dropToAddCom = async event => {
   }
 }
 
-const dragOver = ev => {
-  ev.preventDefault()
-  ev.stopPropagation()
-  ev.dataTransfer.dropEffect = 'copy'
+// 放置组件
+function dropCom(e, com) {
+  const { scale } = canvas.value
+  const offsetX = (e.clientX - getPanelOffsetLeft.value + canvasWpRef.value.scrollLeft) / scale
+  const offsetY = (e.clientY - getPanelOffsetTop.value + canvasWpRef.value.scrollTop) / scale
+  com.attr.x = Math.round(offsetX - com.attr.w / 2)
+  com.attr.y = Math.round(offsetY - com.attr.h / 2)
+  schemaStore.addCom({ component: com })
+  // 选中当前
+  schemaStore.selectCom(com)
+}
+
+function dragOver(e) {
+  e.preventDefault()
+  e.stopPropagation()
+  e.dataTransfer.dropEffect = 'copy'
 }
 
 function cancelSelectCom(ev) {

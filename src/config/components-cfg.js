@@ -61,7 +61,7 @@ export function createComponent(name) {
 export function createGroup(areaData, components) {
   const id = generateId()
   const config = deepMerge(deepCopy(DatavComponent), {
-    id: `group_${id}`,
+    id: `Group_${id}`,
     name: 'Group',
     type: 'group',
     alias: `组合_${id}`,

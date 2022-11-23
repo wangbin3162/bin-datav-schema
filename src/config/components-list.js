@@ -244,6 +244,13 @@ export const componentList = [
     group: [],
     comps: [],
   },
+  {
+    type: 'comps',
+    name: '组件',
+    icon: 'CodeSandbox',
+    group: [],
+    comps: [],
+  },
 ]
 
 /**

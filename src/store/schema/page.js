@@ -6,14 +6,26 @@ const findComIndex = (comps, id) => comps.findIndex(c => c.id === id)
 const findCom = (comps, id) => comps.find(c => c.id === id)
 
 // 模拟后端复制
-const getNewCom = com => {
+export const getNewCopyCom = com => {
   const ncom = deepCopy(com)
   ncom.id = `${ncom.name}_${generateId()}`
-  ncom.alias += '_copy'
 
   if (!isEmpty(ncom.apiData)) {
     ncom.apiData.id = `api_${generateId()}`
     ncom.apiData.comId = ncom.id
+  }
+
+  // 需要判断当前复制的内容是否是组合
+  if (ncom.name === 'Group') {
+    // 如果要组合的组件中，已经存在组合数据，需要更新一下子子元素的id
+    ncom.components.forEach(component => {
+      component.id = `${component.name}_${generateId()}` // 新生成id
+
+      if (!isEmpty(component.apiData)) {
+        component.apiData.id = `api_${generateId()}`
+        component.apiData.comId = component.id
+      }
+    })
   }
 
   return ncom
@@ -76,14 +88,8 @@ export default {
     copyCom(id) {
       const ocom = findCom(this.comps, id)
       if (!ocom) return
-      let ncom = getNewCom(ocom)
-      // 需要判断当前复制的内容是否是组合
-      if (ocom.name === 'Group') {
-        // 如果要组合的组件中，已经存在组合数据，需要更新一下子子元素的id
-        ncom.components.forEach(component => {
-          component.id = `${ncom.name}_${generateId()}` // 新生成id
-        })
-      }
+      let ncom = getNewCopyCom(ocom)
+      ncom.alias += '_copy'
       // 如果复制成功之后则偏移一点位置
       if (ncom) {
         ncom.attr.x += 50

@@ -47,6 +47,10 @@
           隐藏
         </template>
       </div>
+      <div class="context-menu-item" v-if="groups.length" @click="saveCom">
+        <i class="menu-icon b-iconfont b-icon-save"></i>
+        保存
+      </div>
 
       <div class="context-menu-divider"></div>
       <div class="context-menu-item" @click="renameCom">
@@ -68,93 +72,135 @@
   </transition>
 </template>
 
-<script>
+<script setup>
 import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
-import { onBeforeUnmount, onMounted } from 'vue'
-import { on, off } from '@/utils/util'
+import { h, onBeforeUnmount, onMounted, ref } from 'vue'
+import { on, off, copyText } from '@/utils/util'
 import { MoveType } from '@/config/enum'
 import { useStore } from '@/store'
-import { MessageBox } from 'bin-ui-next'
+import { Message, MessageBox, BSelect, BOption } from 'bin-ui-next'
+import * as api from '@/api/comps/comps.api'
+import { createPreviewThumb } from '@/hooks/usePreviewImg'
 
-export default {
-  name: 'context-menu',
-  setup() {
-    const { schemaStore, storeToRefs } = useStore()
-    const { selectedCom, selectedComs } = storeToRefs(schemaStore)
-    const { isLocked, isHided, contextMenu, contextMenuStyle } = useSchemaContextMenu()
+const groups = ref([]) // 组件库
+const selectGroup = ref({})
+const getCompList = () => api.getCompGroup().then(res => (groups.value = res))
 
-    const moveCom = moveType => {
-      if (selectedCom.value) {
-        schemaStore.moveCom({ id: selectedCom.value.id, moveType })
-      }
-    }
+const { schemaStore, storeToRefs } = useStore()
+const { selectedCom, selectedComs } = storeToRefs(schemaStore)
+const { isLocked, isHided, contextMenu, contextMenuStyle } = useSchemaContextMenu()
 
-    const moveUp = () => moveCom(MoveType.up)
-    const moveDown = () => moveCom(MoveType.down)
-    const moveTop = () => moveCom(MoveType.top)
-    const moveBottom = () => moveCom(MoveType.bottom)
-
-    const lockCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.locked = !selectedCom.value.locked
-      }
-    }
-
-    const hideCom = () => {
-      if (selectedCom.value) {
-        selectedCom.value.hided = !selectedCom.value.hided
-      }
-    }
-
-    const toDeleteCom = () => {
-      const com = selectedCom.value
-      if (com) {
-        MessageBox.confirm({
-          type: 'error',
-          title: '是否删除选中的1个组件',
-        })
-          .then(() => {
-            schemaStore.deleteCom(com.id)
-          })
-          .catch(() => {})
-      }
-    }
-
-    const renameCom = () => {
-      const com = selectedCom.value
-      if (com) {
-        schemaStore.renamingCom(com.id)
-      }
-    }
-
-    const toCopyCom = () => {
-      schemaStore.copyComs(selectedComs.value)
-    }
-
-    const handleContextmenu = ev => ev.preventDefault()
-    onMounted(() => {
-      on(document, 'contextmenu', handleContextmenu)
-    })
-    onBeforeUnmount(() => {
-      off(document, 'contextmenu', handleContextmenu)
-    })
-    return {
-      contextMenu,
-      contextMenuStyle,
-      isLocked,
-      isHided,
-      moveUp,
-      moveDown,
-      moveTop,
-      moveBottom,
-      toDeleteCom,
-      renameCom,
-      toCopyCom,
-      lockCom,
-      hideCom,
-    }
-  },
+const moveCom = moveType => {
+  if (selectedCom.value) {
+    schemaStore.moveCom({ id: selectedCom.value.id, moveType })
+  }
 }
+
+const moveUp = () => moveCom(MoveType.up)
+const moveDown = () => moveCom(MoveType.down)
+const moveTop = () => moveCom(MoveType.top)
+const moveBottom = () => moveCom(MoveType.bottom)
+
+const lockCom = () => {
+  if (selectedCom.value) {
+    selectedCom.value.locked = !selectedCom.value.locked
+  }
+}
+
+const hideCom = () => {
+  if (selectedCom.value) {
+    selectedCom.value.hided = !selectedCom.value.hided
+  }
+}
+
+const saveCom = async () => {
+  selectGroup.value = groups.value[0].key // 默认选中第一个组件库
+  MessageBox({
+    title: '指定组件库',
+    message: h(
+      BSelect,
+      {
+        modelValue: selectGroup.value,
+        onChange: val => (selectGroup.value = val),
+      },
+      () =>
+        groups.value.map(i =>
+          h(BOption, {
+            label: i.value,
+            value: i.key,
+          }),
+        ),
+    ),
+    showCancelButton: true,
+    confirmText: '保存',
+    cancelText: '取消',
+    beforeClose: async (action, instance, done) => {
+      if (action === 'confirm') {
+        try {
+          await api.saveComps(selectGroup.value, selectedCom.value)
+          instance.confirmButtonLoading = true
+        } catch (error) {
+          console.log(error)
+        }
+
+        instance.confirmButtonLoading = false
+        done()
+      } else {
+        done()
+      }
+    },
+  })
+    .then(() => Message.success('保存成功!'))
+    .catch(() => {})
+}
+
+const toDeleteCom = () => {
+  const com = selectedCom.value
+  if (com) {
+    MessageBox.confirm({
+      type: 'error',
+      title: '是否删除选中的1个组件',
+    })
+      .then(() => {
+        schemaStore.deleteCom(com.id)
+      })
+      .catch(() => {})
+  }
+}
+
+const renameCom = () => {
+  const com = selectedCom.value
+  if (com) {
+    schemaStore.renamingCom(com.id)
+  }
+}
+
+const toCopyCom = () => {
+  schemaStore.copyComs(selectedComs.value)
+}
+
+const handleContextmenu = ev => {
+  ev.preventDefault()
+  getCompList()
+}
+onMounted(() => {
+  on(document, 'contextmenu', handleContextmenu)
+})
+onBeforeUnmount(() => {
+  off(document, 'contextmenu', handleContextmenu)
+})
+
+defineExpose({
+  moveUp,
+  moveBottom,
+  moveDown,
+  moveTop,
+  lockCom,
+  hideCom,
+  toDeleteCom,
+  renameCom,
+  toCopyCom,
+})
 </script>
 
 <style lang="stylus" scoped>

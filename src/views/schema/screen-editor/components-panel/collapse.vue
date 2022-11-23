@@ -28,7 +28,7 @@
       </div>
     </div>
     <b-collapse-transition>
-      <div v-if="show" class="content">
+      <div v-show="show" class="content">
         <slot></slot>
       </div>
     </b-collapse-transition>
@@ -56,18 +56,21 @@ const props = defineProps({
 const show = ref(props.defaultOpen)
 const edit = ref(false)
 const editName = ref('')
+let cacheName = ''
 
 const toggleShow = () => (show.value = !show.value)
 
 function handleEdit() {
   edit.value = true
   editName.value = props.title
+  cacheName = props.title
 }
 
 function onAddInputBlur(e) {
   const name = (e.target.value || '').trim()
-  if (!name) edit.value = false
+  if (!name || name === cacheName) edit.value = false
 }
+
 function onAddInputEnter(e) {
   const name = (e.target.value || '').trim()
   if (name) editSave()
