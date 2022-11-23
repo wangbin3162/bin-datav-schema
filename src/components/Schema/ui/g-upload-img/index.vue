@@ -6,16 +6,15 @@
       :prefix="prefixIcon"
       size="small"
       @update:model-value="handleInput"
-    >
-    </b-input>
-    <b-upload action="" :before-upload="handleUpload" :show-upload-list="false">
+    ></b-input>
+    <b-upload action="" :before-upload="handleUpload" :show-upload-list="false" type="drag">
       <div
         class="g-upload-image-wrap"
         @mouseenter="handleMouseEnter"
         @mouseleave="handleMouseLeave"
       >
         <div class="g-upload-image-content">
-          <img v-if="modelValue" :src="modelValue" alt="">
+          <img v-if="modelValue" :src="modelValue" alt="" />
           <div v-else class="g-upload-tip" flex="dir:top main:center cross:center">
             <b-icon name="image" size="52"></b-icon>
             <p>点击或拖拽文件到这里更换</p>
@@ -23,7 +22,7 @@
         </div>
         <div v-if="visibleCover" class="g-upload-image-cover">
           <span>更改</span>
-          <p style="padding: 0 10px;">|</p>
+          <p style="padding: 0 10px">|</p>
           <span @click.stop="removeImage">删除</span>
         </div>
       </div>
@@ -50,7 +49,8 @@ export default {
       type: String,
       default: 'jpeg|jpg|png',
     },
-    size: {  // 限制大小2m
+    size: {
+      // 限制大小2m
       type: Number,
       default: 2,
     },
@@ -64,7 +64,7 @@ export default {
     },
     images: {
       type: Array,
-      default: () => ([]),
+      default: () => [],
     },
   },
   emits: ['update:modelValue'],
@@ -72,7 +72,7 @@ export default {
     const loading = ref(false)
     const visibleCover = ref(false)
 
-    const handleUpload = (file) => {
+    const handleUpload = file => {
       const valid = validAllowImg(file, {
         allowType: props.allowType,
         allowSize: props.size,
@@ -97,7 +97,7 @@ export default {
       visibleCover.value = false
     }
 
-    const handleInput = (value) => {
+    const handleInput = value => {
       ctx.emit('update:modelValue', value)
     }
 

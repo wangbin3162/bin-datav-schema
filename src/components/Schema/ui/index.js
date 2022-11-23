@@ -49,6 +49,10 @@ export function registerGUI(app) {
     defineAsyncComponent(() => import('./g-color-picker/index.vue')),
   )
   app.component(
+    'GUpload',
+    defineAsyncComponent(() => import('./g-upload/index.vue')),
+  )
+  app.component(
     'GUploadImg',
     defineAsyncComponent(() => import('./g-upload-img/index.vue')),
   )

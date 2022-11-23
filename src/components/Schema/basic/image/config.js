@@ -12,8 +12,7 @@ export const imageConfig = {
     src: getPublicPath('/images/com/img.svg'),
     repeat: 'no-repeat',
     radius: 2,
-    borderImg: {
-      source: '',
+    border: {
       slice: '32 37 fill',
       width: '32px 37px',
       outset: '0',

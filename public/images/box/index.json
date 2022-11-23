@@ -1,0 +1,332 @@
+[
+  {
+    "name": "框1",
+    "src": "box1.png",
+    "border": { "width": "32px 37px", "outset": "0", "slice": "32 37 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框2",
+    "src": "box2.png",
+    "border": {
+      "width": "65px 740px 88px 560px",
+      "outset": "0",
+      "slice": "65 740 88 561 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框3",
+    "src": "box3.png",
+    "border": {
+      "width": "101px 690px 35px 693px",
+      "outset": "0",
+      "slice": "101 690 35 693 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框4",
+    "src": "box4.png",
+    "border": {
+      "width": "423px 606px 410px 652px",
+      "outset": "0",
+      "slice": "423 606 410 652 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框5",
+    "src": "box5.png",
+    "border": {
+      "width": "220px 664px 460px 500px",
+      "outset": "0",
+      "slice": "220 664 460 500 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框6",
+    "src": "box6.png",
+    "border": {
+      "width": "288px 500px 272px 680px",
+      "outset": "0",
+      "slice": "288 500 272 680 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框7",
+    "src": "box7.png",
+    "border": { "width": "71px 23px", "outset": "0", "slice": "71 23 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框8",
+    "src": "box8.png",
+    "border": {
+      "width": "17px 24px 18px 19px",
+      "outset": "0",
+      "slice": "17 24 18 19 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框9",
+    "src": "box9.png",
+    "border": {
+      "width": "56px 4px 76px 393px",
+      "outset": "0",
+      "slice": "56 4 76 393 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框10",
+    "src": "box10.png",
+    "border": {
+      "width": "152px 27px 127px 354px",
+      "outset": "0",
+      "slice": "152 27 127 354 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框11",
+    "src": "box11.png",
+    "border": {
+      "width": "15px 11px 16px 8px",
+      "outset": "0",
+      "slice": "15 11 16 8 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框12",
+    "src": "box12.png",
+    "border": {
+      "width": "29px 107px 109px 16px",
+      "outset": "0",
+      "slice": "29 107 109 16 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框13",
+    "src": "box13.png",
+    "border": {
+      "width": "45px 103px 51px 29px",
+      "outset": "0",
+      "slice": "45 103 51 29 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框14",
+    "src": "box14.png",
+    "border": {
+      "width": "46px 305px 117px 33px",
+      "outset": "0",
+      "slice": "46 305 117 33 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框15",
+    "src": "box15.png",
+    "border": { "width": "14px 100px", "outset": "0", "slice": "14 100", "repeat": "stretch" }
+  },
+  {
+    "name": "框16",
+    "src": "box16.png",
+    "border": { "width": "14px 14px", "outset": "0", "slice": "14 14", "repeat": "stretch" }
+  },
+  {
+    "name": "框17",
+    "src": "box17.png",
+    "border": {
+      "width": "4px 805px 281px 730px",
+      "outset": "0",
+      "slice": "4 805 281 730 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框18",
+    "src": "box18.png",
+    "border": { "width": "71px 23px", "outset": "0", "slice": "71 23", "repeat": "stretch" }
+  },
+  {
+    "name": "框19",
+    "src": "box19.png",
+    "border": { "width": "24px", "outset": "0", "slice": "24 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框20",
+    "src": "box20.png",
+    "border": { "width": "30px", "outset": "0", "slice": "30 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框21",
+    "src": "box21.png",
+    "border": { "width": "24px", "outset": "0", "slice": "24 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框22",
+    "src": "box22.png",
+    "border": { "width": "10px", "outset": "0", "slice": "10 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框23",
+    "src": "box23.png",
+    "border": { "width": "30px", "outset": "0", "slice": "30 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框24",
+    "src": "box24.png",
+    "border": {
+      "width": "10px 120px 10px 170px",
+      "outset": "0",
+      "slice": "10 120 10 170 fill",
+      "repeat": "stretch"
+    }
+  },
+  {
+    "name": "框25",
+    "src": "box25.png",
+    "border": {
+      "width": "10px 2px 2px 130px",
+      "outset": "0",
+      "slice": "10 2 2 130 fill",
+      "repeat": "stretch"
+    }
+  },
+  {
+    "name": "框26",
+    "src": "box26.png",
+    "border": { "width": "10px", "outset": "0", "slice": "10 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框27",
+    "src": "box27.png",
+    "border": { "width": "20px", "outset": "0", "slice": "20 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框28",
+    "src": "box28.png",
+    "border": { "width": "12px", "outset": "0", "slice": "12 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框29",
+    "src": "box29.png",
+    "border": { "width": "16px", "outset": "0", "slice": "16 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框30",
+    "src": "box30.png",
+    "border": { "width": "10px", "outset": "0", "slice": "10 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框31",
+    "src": "box31.png",
+    "border": { "width": "5px", "outset": "0", "slice": "5 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框32",
+    "src": "box32.png",
+    "border": { "width": "10px", "outset": "0", "slice": "10 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框33",
+    "src": "box33.png",
+    "border": { "width": "30px", "outset": "0", "slice": "30 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框34",
+    "src": "box34.png",
+    "border": { "width": "5px", "outset": "0", "slice": "5 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框35",
+    "src": "box35.png",
+    "border": { "width": "20px", "outset": "0", "slice": "20 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框36",
+    "src": "box36.png",
+    "border": { "width": "1px", "outset": "0", "slice": "1 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框37",
+    "src": "box37.png",
+    "border": { "width": "6px", "outset": "0", "slice": "6 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框38",
+    "src": "box38.png",
+    "border": { "width": "14px", "outset": "0", "slice": "14 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框39",
+    "src": "box39.png",
+    "border": { "width": "14px", "outset": "0", "slice": "14 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框40",
+    "src": "box40.png",
+    "border": { "width": "14px", "outset": "0", "slice": "14 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框41",
+    "src": "box41.png",
+    "border": { "width": "14px", "outset": "0", "slice": "14 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框42",
+    "src": "box42.png",
+    "border": { "width": "14px", "outset": "0", "slice": "14 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框43",
+    "src": "box43.png",
+    "border": { "width": "14px", "outset": "0", "slice": "14 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框44",
+    "src": "box44.png",
+    "border": { "width": "14px", "outset": "0", "slice": "14 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框45",
+    "src": "box45.png",
+    "border": { "width": "20px", "outset": "0", "slice": "20 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框46",
+    "src": "box46.png",
+    "border": { "width": "14px", "outset": "0", "slice": "14 fill", "repeat": "repeat" }
+  },
+  {
+    "name": "框47",
+    "src": "box47.png",
+    "border": {
+      "width": "60px 47px 227px 354px",
+      "outset": "0",
+      "slice": "60 47 227 354 fill",
+      "repeat": "repeat"
+    }
+  },
+  {
+    "name": "框48",
+    "src": "box48.png",
+    "border": { "width": "32px 37px", "outset": "0", "slice": "32 37 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框49",
+    "src": "box49.png",
+    "border": { "width": "32px 37px", "outset": "0", "slice": "32 37 fill", "repeat": "stretch" }
+  },
+  {
+    "name": "框50",
+    "src": "box50.png",
+    "border": { "width": "10px 10px", "outset": "0", "slice": "10 10 fill", "repeat": "stretch" }
+  }
+]

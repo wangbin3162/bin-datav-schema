@@ -4,7 +4,6 @@
     <div class="comp-wrap" v-else>
       <div class="comp-item" v-for="(com, index) in list" :key="index">
         <div class="inner">
-          <!-- {{ com.comp }} -->
           <div
             class="comp-item-img"
             :draggable="true"

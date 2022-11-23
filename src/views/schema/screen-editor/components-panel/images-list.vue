@@ -11,7 +11,7 @@
           @edit="name => modifyGroup(group, name)"
           @remove="removeGroup(group)"
         >
-          {{ group.value }}
+          <ImagesItem :group-id="group.key" />
         </Collapse>
         <div class="create-box" v-if="editStatus.create">
           <b-input
@@ -34,6 +34,7 @@
 <script setup>
 import * as api from '@/api/images/images.api'
 import Collapse from './collapse.vue'
+import ImagesItem from './images-item.vue'
 import { reactive, ref } from 'vue'
 import { generateId } from '@/utils/util'
 import { Message, MessageBox } from 'bin-ui-next'

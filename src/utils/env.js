@@ -7,7 +7,7 @@ export function getPublicPath(path) {
 
 // 获取images/下的图片路径
 export function getImagesPath(imgPath) {
-  return getPublicPath(`/images${imgPath}`)
+  return `${import.meta.env.VITE_PUBLIC_PATH}/images${imgPath}`
 }
 
 // 获取images/com 下的图片路径

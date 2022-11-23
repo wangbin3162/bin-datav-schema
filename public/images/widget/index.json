@@ -1,0 +1,70 @@
+[
+  {
+    "name": "地球",
+    "src": "earth1.png"
+  },
+  {
+    "name": "部件1",
+    "src": "widget1.png"
+  },
+  {
+    "name": "部件2",
+    "src": "widget2.png"
+  },
+  {
+    "name": "部件3",
+    "src": "widget3.png"
+  },
+  {
+    "name": "部件4",
+    "src": "widget4.png"
+  },
+  {
+    "name": "部件5",
+    "src": "widget5.png"
+  },
+  {
+    "name": "部件6",
+    "src": "widget6.png"
+  },
+  {
+    "name": "部件7",
+    "src": "widget7.png"
+  },
+  {
+    "name": "部件8",
+    "src": "widget8.png"
+  },
+  {
+    "name": "部件9",
+    "src": "widget9.png"
+  },
+  {
+    "name": "部件10",
+    "src": "widget10.png"
+  },
+  {
+    "name": "部件11",
+    "src": "widget11.png"
+  },
+  {
+    "name": "部件12",
+    "src": "widget12.png"
+  },
+  {
+    "name": "部件13",
+    "src": "widget13.png"
+  },
+  {
+    "name": "部件14",
+    "src": "widget14.png"
+  },
+  {
+    "name": "部件15",
+    "src": "widget15.png"
+  },
+  {
+    "name": "部件16",
+    "src": "widget16.png"
+  }
+]

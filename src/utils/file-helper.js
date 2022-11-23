@@ -40,7 +40,7 @@ export function readFileText(file) {
   return new Promise((resolve, reject) => {
     try {
       let file_reader = new FileReader()
-      file_reader.onload = (res) => {
+      file_reader.onload = res => {
         const fileResult = res.target.result
         resolve(fileResult)
       }
@@ -56,11 +56,11 @@ export function readFileBase64(file) {
   return new Promise((resolve, reject) => {
     try {
       let file_reader = new FileReader()
-      file_reader.onload = (res) => {
+      file_reader.onload = res => {
         const fileResult = res.target.result
         resolve(fileResult)
       }
-      file_reader.readAsDataURL(file)      // 将图片转换为base64
+      file_reader.readAsDataURL(file) // 将图片转换为base64
     } catch (e) {
       reject(e)
     }

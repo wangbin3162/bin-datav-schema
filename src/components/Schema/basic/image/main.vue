@@ -25,27 +25,7 @@ export default {
     const config = computed(() => props.data.config)
 
     const wrapperStyle = computed(() => {
-      let background = `url(${config.value.backgroundImage}) 0% 0% / `
-      if (config.value.repeat === 'repeat') {
-        background += 'auto repeat'
-      } else if (config.value.repeat === 'repeat-x') {
-        background += 'auto 100% repeat-x'
-      } else if (config.value.repeat === 'repeat-y') {
-        background += '100% repeat-y'
-      } else if (config.value.repeat === 'no-repeat') {
-        background += '100% 100% no-repeat'
-      } else {
-        background += 'auto no-repeat'
-      }
-      return {
-        'image-rendering': '-webkit-optimize-contrast',
-        background,
-        '-webkit-mask-image': 'none',
-        '-webkit-mask-repeat': 'initial',
-        '-webkit-mask-size': 'initial',
-        'border-radius': `${config.value.radius}px`,
-        cursor: config.value.urlConfig.url ? 'pointer' : 'default',
-      }
+      return {}
     })
     return {
       wrapperStyle,
