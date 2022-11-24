@@ -128,6 +128,7 @@ export default {
   color: #fff;
   align-items: flex-start;
   justify-content: space-between;
+  border-bottom: 1px solid var(--schema-color-border);
   .com-title {
     padding-right: 5px;
     padding-left: 10px;

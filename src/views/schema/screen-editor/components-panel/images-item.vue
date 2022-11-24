@@ -13,13 +13,21 @@
         <div class="inner">
           <div
             class="comp-item-img"
+            :class="{ 'can-edit': canEdit }"
             :draggable="true"
             @dragstart="dragStart($event, com)"
             @click="click(com)"
           >
-            <img :src="com.config.src" />
+            <img :src="com.src" />
+            <div class="hover-layer" v-if="canEdit">
+              <i
+                class="b-iconfont b-icon-delete-fill"
+                title="删除图片"
+                @click.stop="removePic(com)"
+              ></i>
+            </div>
           </div>
-          <!-- <div class="comp-item-text" :title="JSON.stringify(com, null, 2)">{{ com.alias }}</div> -->
+          <div class="comp-item-text" :title="JSON.stringify(com, null, 2)">{{ com.name }}</div>
         </div>
       </div>
     </div>
@@ -62,6 +70,16 @@ async function imageUpload(files) {
   }
 }
 
+// 移除一个图片
+async function removePic({ group, id }) {
+  try {
+    await api.removeImage(group, id)
+    getCompList()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const dragStart = (e, comp) => emit('dragstart', e, comp)
 const click = comp => emit('click', comp)
 </script>
@@ -77,7 +95,7 @@ const click = comp => emit('click', comp)
   width: 50%;
   vertical-align: top;
   user-select: none;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
   padding: 0 4px;
   box-sizing: border-box;
   overflow: hidden;
@@ -92,6 +110,7 @@ const click = comp => emit('click', comp)
     line-height: 22px;
   }
   .comp-item-img {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,9 +126,28 @@ const click = comp => emit('click', comp)
       max-width: 100%;
       max-height: 100%;
     }
+    .hover-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(33,33,37,.7);
+      display: none;
+      > i {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        cursor: pointer;
+        color: #fff;
+      }
+    }
     &:hover{
       border-color: var(--bin-color-primary-light2);
       background: #2a292f;
+      .hover-layer {
+        display: block;
+      }
     }
   }
 }

@@ -1,17 +1,18 @@
 <template>
-  <div class="dv-wrapper" :style="wrapperStyle">
-    <a
-      v-if="config.urlConfig.url"
-      :href="config.urlConfig.url"
-      :target="config.urlConfig.ifBlank ? '_blank' : '_self'"
-      style="display: block; width: 100%; height: 100%"
-    ></a>
+  <div class="dv-wrapper">
+    <div class="image-box" :style="imageStyle">
+      <a
+        class="url-a"
+        v-if="config.urlConfig.url"
+        :href="config.urlConfig.url"
+        :target="config.urlConfig.ifBlank ? '_blank' : '_self'"
+      ></a>
+    </div>
   </div>
 </template>
 
 <script>
 import { computed } from 'vue'
-
 export default {
   name: 'VImage',
   props: {
@@ -24,13 +25,38 @@ export default {
     // config 配置项
     const config = computed(() => props.data.config)
 
-    const wrapperStyle = computed(() => {
-      return {}
-    })
+    const imageStyle = computed(() => (config.value.imageType === 'image' ? getImgStyle() : {}))
+
+    function getImgStyle() {
+      const cfg = config.value
+      return {
+        'background-size': cfg.size,
+        'background-position': cfg.position,
+        'background-repeat': cfg.repeat,
+        'background-image': `url(${cfg.src})`,
+        'border-radius': `${cfg.radius}px`,
+        overflow: 'hidden',
+      }
+    }
     return {
-      wrapperStyle,
+      imageStyle,
       config,
     }
   },
 }
 </script>
+
+<style lang="stylus" scoped>
+.image-box{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  .url-a {
+    position: absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+  }
+}
+</style>

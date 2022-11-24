@@ -103,3 +103,21 @@ export async function getCompsByGroup(groupKey) {
     return []
   }
 }
+
+// 删除一个组中的一个组件
+export async function removeCom(groupKey, id) {
+  try {
+    // 先获取全部已存储的组件，并进行筛选
+    const data = await _getCompsList()
+    if (data) {
+      const list = data.filter(i => i.group === groupKey)
+      const index = findIndex(list, id)
+      list.splice(index, 1)
+      await _setComps(list)
+      return true
+    }
+    return false
+  } catch (e) {
+    return false
+  }
+}

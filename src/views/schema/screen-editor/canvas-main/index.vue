@@ -98,6 +98,14 @@ async function dropToAddCom(event) {
   event.preventDefault()
   try {
     // 获取自定义组件或者是图片内容
+    const imageComp = event.dataTransfer.getData('image-comp')
+    if (imageComp) {
+      const com = JSON.parse(imageComp)
+      dropCom(event, com)
+      return
+    }
+
+    // 获取自定义组件或者是图片内容
     const customComp = event.dataTransfer.getData('custom-comp')
     if (customComp) {
       const com = JSON.parse(customComp)
@@ -105,7 +113,7 @@ async function dropToAddCom(event) {
       return
     }
 
-    const name = event.dataTransfer.getData('text')
+    const name = event.dataTransfer.getData('normal-comp')
     if (name) {
       const com = createComponent(name)
       dropCom(event, com)

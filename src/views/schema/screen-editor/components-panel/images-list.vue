@@ -11,7 +11,7 @@
           @edit="name => modifyGroup(group, name)"
           @remove="removeGroup(group)"
         >
-          <ImagesItem :group-id="group.key" />
+          <ImagesItem :group-id="group.key" @dragstart="dragStart" @click="click" />
         </Collapse>
         <div class="create-box" v-if="editStatus.create">
           <b-input
@@ -40,6 +40,7 @@ import { generateId } from '@/utils/util'
 import { Message, MessageBox } from 'bin-ui-next'
 import { defaultGroupKeys } from '@/api/images/default'
 
+const emit = defineEmits(['dragstart', 'click'])
 const groups = ref([]) // 图片分组
 
 const groupObj = ref({
@@ -105,6 +106,8 @@ async function addGroup() {
     console.log(error)
   }
 }
+const dragStart = (e, comp) => emit('dragstart', e, comp)
+const click = comp => emit('click', comp)
 </script>
 
 <style lang="stylus" scoped>

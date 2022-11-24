@@ -154,15 +154,9 @@ const VBorderBox = {
   alias: '边框',
   img: getComPath('border-box.svg'),
 }
-// 媒体-装饰器
-const VDecoration = {
-  name: 'VDecoration',
-  alias: '装饰器',
-  img: getComPath('decoration.svg'),
-}
 // 媒体-图片
 const VMainImg = {
-  name: 'VMainImg',
+  name: 'VImage',
   alias: '单张图片',
   img: getComPath('img.svg'),
 }
@@ -181,7 +175,7 @@ export const componentList = [
     name: '基础',
     icon: 'block',
     group: [],
-    comps: [VMainTitle, VMainImg, VBgBox, VBorderBox, VDecoration],
+    comps: [VMainTitle, VBgBox, VMainImg, VBorderBox],
   },
   {
     type: 'analysis',

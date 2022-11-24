@@ -11,6 +11,13 @@
             @click="click(com.comp)"
           >
             <b-icon :name="com.comp.icon" size="25" />
+            <div class="hover-layer">
+              <i
+                class="b-iconfont b-icon-delete-fill"
+                title="删除图片"
+                @click.stop="removeCom(com)"
+              ></i>
+            </div>
           </div>
           <div class="comp-item-text">{{ com.comp.alias }}</div>
         </div>
@@ -37,6 +44,15 @@ const getCompList = () => api.getCompsByGroup(props.groupId).then(res => (list.v
 
 getCompList()
 
+// 移除一个图片
+async function removeCom({ group, id }) {
+  try {
+    await api.removeCom(group, id)
+    getCompList()
+  } catch (error) {
+    console.log(error)
+  }
+}
 const dragStart = (e, comp) => emit('dragstart', e, comp)
 const click = comp => emit('click', comp)
 </script>
@@ -67,6 +83,7 @@ const click = comp => emit('click', comp)
     line-height: 22px;
   }
   .comp-item-img {
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -79,9 +96,28 @@ const click = comp => emit('click', comp)
     > img {
       width: 100%;
     }
+    .hover-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(33,33,37,.7);
+      display: none;
+      > i {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        cursor: pointer;
+        color: #fff;
+      }
+    }
     &:hover{
       border-color: var(--bin-color-primary-light2);
       background: #2a292f;
+      .hover-layer {
+        display: block;
+      }
     }
   }
 }

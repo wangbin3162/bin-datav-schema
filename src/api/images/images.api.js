@@ -1,6 +1,6 @@
 import ldb from '@/config/localforage-db'
 import { deepCopy, findIndex, uuid } from '@/utils/util'
-import { defaultGroup, defaultGroupKeys, getPresetImages, getLibImages } from './default'
+import { defaultGroup, defaultGroupKeys, getPresetImages } from './default'
 // 图片相关接口存储数据等
 
 const IMAGES_GROUP = 'IMAGES_GROUP' // 图片库分组
@@ -81,12 +81,11 @@ export async function getImagesByGroup(groupKey) {
   try {
     // 获取预设图片，此处可以直接丢入public目录，同事配好配置项，进行载入
     if (defaultGroupKeys.includes(groupKey)) return await getPresetImages(groupKey)
-
-    const data = await _getImagesList() // 先获取全部已存储的组件，并进行筛选
+    // 先获取全部已存储的组件，并进行筛选
+    const data = await _getImagesList()
     if (data) {
-      const images = data.filter(i => i.group === groupKey)
       // 根据返回的图片信息，获取拼接的组件列表
-      return getLibImages(images)
+      return data.filter(i => i.group === groupKey).reverse()
     }
     return []
   } catch (e) {
@@ -94,7 +93,7 @@ export async function getImagesByGroup(groupKey) {
   }
 }
 
-// 保存一个图片至一个组
+// 保存一组图片至一个组
 export async function uploadImagesToGroup(files) {
   try {
     const saveData = files.map(file => ({ id: uuid(), ...file }))
@@ -105,6 +104,24 @@ export async function uploadImagesToGroup(files) {
       return true
     }
     await _setImages(saveData)
+    return false
+  } catch (e) {
+    return false
+  }
+}
+
+// 删除一个组中的一张图片
+export async function removeImage(groupKey, id) {
+  try {
+    // 先获取全部已存储的组件，并进行筛选
+    const data = await _getImagesList()
+    if (data) {
+      const images = data.filter(i => i.group === groupKey)
+      const index = findIndex(images, id)
+      images.splice(index, 1)
+      await _setImages(images)
+      return true
+    }
     return false
   } catch (e) {
     return false

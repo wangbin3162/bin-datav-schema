@@ -34,7 +34,11 @@
 
             <Comps :comps="comps" @dragstart="dragStart" @click="toAddCom" />
 
-            <ImagesList v-if="activeIndex === 4" />
+            <ImagesList
+              v-if="activeIndex === 4"
+              @dragstart="dragImageStart"
+              @click="toAddImageComp"
+            />
 
             <CompList
               v-if="activeIndex === 5"
@@ -56,6 +60,7 @@ import { createComponent } from '@/config/components-cfg'
 import { getStaticData } from '@/api/database.api'
 import { ApiType } from '@/config/data-source'
 import { getNewCopyCom } from '@/store/schema/page'
+import { getDefaultImageConfig } from '@/components/Schema/basic/image/config'
 import Comps from './comps.vue'
 import Collapse from './collapse.vue'
 import ImagesList from './images-list.vue'
@@ -77,22 +82,41 @@ function changeComp(index) {
   activeIndex.value = index
 }
 
-function dragStart(e, name) {
-  e.dataTransfer.setData('text', name)
+function dragStart(e, comName) {
+  e.dataTransfer.setData('normal-comp', comName)
 }
 
 async function toAddCom(comName) {
-  const com = createComponent(comName)
+  try {
+    const com = createComponent(comName)
+    com.attr.x = Math.floor((pageConfig.value.width - com.attr.w) / 2)
+    com.attr.y = Math.floor((pageConfig.value.height - com.attr.h) / 2)
+    schemaStore.addCom({ component: com })
+    // 选中当前
+    schemaStore.selectCom(com)
+    // 如是静态数据，且存在staticPath，则填充一次数据
+    if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
+      const { data } = await getStaticData(com.id, com.apiData.staticPath)
+      schemaStore.value.apiData.config.data = JSON.stringify(data)
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+// 图片专属的拖拽
+function dragImageStart(e, img) {
+  e.dataTransfer.setData('image-comp', JSON.stringify(getDefaultImageConfig(img)))
+}
+
+// 图片专属的点击
+function toAddImageComp(img) {
+  const com = getDefaultImageConfig(img)
   com.attr.x = Math.floor((pageConfig.value.width - com.attr.w) / 2)
   com.attr.y = Math.floor((pageConfig.value.height - com.attr.h) / 2)
   schemaStore.addCom({ component: com })
-  // 选中当前
+  // // 选中当前
   schemaStore.selectCom(com)
-  // 如是静态数据，且存在staticPath，则填充一次数据
-  if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
-    const { data } = await getStaticData(com.id, com.apiData.staticPath)
-    selectedCom.value.apiData.config.data = JSON.stringify(data)
-  }
 }
 
 // 自定义组件的拖拽和点击
@@ -100,7 +124,8 @@ function dragCustomCompStart(e, comp) {
   e.dataTransfer.setData('custom-comp', JSON.stringify(getNewCopyCom(comp)))
 }
 
-async function toAddCustomComp(comp) {
+// 自定义组件的点击
+function toAddCustomComp(comp) {
   const com = getNewCopyCom(comp)
   schemaStore.addCom({ component: com })
   // 选中当前
