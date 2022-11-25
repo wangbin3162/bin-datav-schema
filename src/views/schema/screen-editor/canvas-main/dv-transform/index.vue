@@ -97,7 +97,6 @@ export default {
     const handlerClass = computed(() => ({ 'is-hide': !isSelected.value || props.data.locked }))
 
     const handlerStyle = computed(() => ({
-      cursor: 'move',
       transform: `rotate(${props.data.attr.rotate}deg)`,
     }))
 

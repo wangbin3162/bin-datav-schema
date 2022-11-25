@@ -10,7 +10,7 @@ export const imageConfig = {
   type: ComType.com,
   attr: { w: 500, h: 300 },
   config: {
-    attr: { w: 500, h: 500 },
+    attr: { w: 500, h: 300 },
     imageType: 'image', // 取值为image和border
     src: getPublicPath('/images/com/img.svg'),
     radius: 0,

@@ -21,10 +21,6 @@ export function registerGUI(app) {
     defineAsyncComponent(() => import('./g-field-collapse/index.vue')),
   )
   app.component(
-    'GImagesSelect',
-    defineAsyncComponent(() => import('./g-images-select/index.vue')),
-  )
-  app.component(
     'GInput',
     defineAsyncComponent(() => import('./g-input/index.vue')),
   )
@@ -49,11 +45,19 @@ export function registerGUI(app) {
     defineAsyncComponent(() => import('./g-color-picker/index.vue')),
   )
   app.component(
+    'GImage',
+    defineAsyncComponent(() => import('./g-image/index.vue')),
+  )
+  app.component(
     'GUpload',
     defineAsyncComponent(() => import('./g-upload/index.vue')),
   )
   app.component(
     'GUploadImg',
     defineAsyncComponent(() => import('./g-upload-img/index.vue')),
+  )
+  app.component(
+    'GImagesSelect',
+    defineAsyncComponent(() => import('./g-images-select/index.vue')),
   )
 }

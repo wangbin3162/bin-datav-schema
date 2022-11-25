@@ -8,6 +8,7 @@
       </b-radio-group>
     </g-field>
     <g-field label="原图">
+      <g-image v-model="config.src" />
       <b-icon name="undo" type="button" title="恢复默认图片尺寸" @click="resetSize"></b-icon>
     </g-field>
 
