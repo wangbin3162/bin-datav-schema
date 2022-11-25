@@ -1,6 +1,6 @@
 <template>
   <div class="collapse-group">
-    <div class="header" :class="[{ active: show }]" flex="cross:center" @click="toggleShow">
+    <div class="header" :class="[{ active: isActive }]" flex="cross:center" @click="handleClick">
       <div class="name">
         <div class="wrap-label">
           <div class="create-box" v-if="edit" @click.stop>
@@ -22,13 +22,13 @@
           <i class="b-iconfont b-icon-edit" @click.stop="handleEdit"></i>
           <i class="b-iconfont b-icon-delete" @click.stop="handleRemove"></i>
         </span>
-        <span class="wrap-arrow" :class="[{ show }]">
+        <span class="wrap-arrow" :class="[{ active: isActive }]">
           <b-icon name="right" size="12"></b-icon>
         </span>
       </div>
     </div>
     <b-collapse-transition>
-      <div v-show="show" class="content">
+      <div v-show="isActive" class="content">
         <slot></slot>
       </div>
     </b-collapse-transition>
@@ -37,6 +37,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useCollapseItem } from '@/hooks/collapseHook'
 
 const emit = defineEmits(['edit', 'remove'])
 const props = defineProps({
@@ -44,21 +45,25 @@ const props = defineProps({
     type: String,
     required: true,
   },
-  defaultOpen: {
-    type: Boolean,
-    default: true,
+  name: {
+    type: [String, Number, Object],
+    required: true,
   },
   canEdit: {
     type: Boolean,
-    default: true,
+    default: false,
   },
 })
-const show = ref(props.defaultOpen)
+
+const { isActive, triggerClick } = useCollapseItem(props)
+
 const edit = ref(false)
 const editName = ref('')
 let cacheName = ''
 
-const toggleShow = () => (show.value = !show.value)
+function handleClick() {
+  triggerClick(props.name)
+}
 
 function handleEdit() {
   edit.value = true
@@ -106,7 +111,7 @@ const handleRemove = () => emit('remove')
         position: absolute;
         right: 10px;
         top: 9px;
-        &.show {
+        &.active {
           transform: rotate(90deg)
         }
         &.simple {

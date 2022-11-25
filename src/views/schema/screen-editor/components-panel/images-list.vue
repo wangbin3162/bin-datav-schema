@@ -5,8 +5,8 @@
         <Collapse
           v-for="group in groups"
           :key="group.key"
+          :name="group.key"
           :title="group.value"
-          :default-open="false"
           :can-edit="!defaultGroupKeys.includes(group.key)"
           @edit="name => modifyGroup(group, name)"
           @remove="removeGroup(group)"
@@ -39,9 +39,11 @@ import { reactive, ref } from 'vue'
 import { generateId } from '@/utils/util'
 import { Message, MessageBox } from 'bin-ui-next'
 import { defaultGroupKeys } from '@/api/images/default'
+import { useCollapse } from '@/hooks/collapseHook'
 
 const emit = defineEmits(['dragstart', 'click'])
 const groups = ref([]) // 图片分组
+useCollapse()
 
 const groupObj = ref({
   key: '',

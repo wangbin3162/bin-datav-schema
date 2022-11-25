@@ -28,7 +28,12 @@
         </div>
         <div class="components-list-content">
           <b-scrollbar native>
-            <Collapse v-for="(group, index) in groups" :key="index" :title="group.name">
+            <Collapse
+              v-for="(group, index) in groups"
+              :key="index"
+              :name="index"
+              :title="group.name"
+            >
               <Comps :comps="group.comps" @dragstart="dragStart" @click="toAddCom" />
             </Collapse>
 
@@ -65,10 +70,13 @@ import Comps from './comps.vue'
 import Collapse from './collapse.vue'
 import ImagesList from './images-list.vue'
 import CompList from './comp-list.vue'
+import { useCollapse } from '@/hooks/collapseHook'
 
 const { schemaStore, storeToRefs } = useStore()
 const { pageConfig, toolbar, selectedCom } = storeToRefs(schemaStore)
 const activeIndex = ref(-1)
+
+useCollapse()
 // 当前的分类控件
 const groups = computed(() =>
   activeIndex.value === -1 ? [] : componentList[activeIndex.value].group,
@@ -97,7 +105,7 @@ async function toAddCom(comName) {
     // 如是静态数据，且存在staticPath，则填充一次数据
     if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
       const { data } = await getStaticData(com.id, com.apiData.staticPath)
-      schemaStore.value.apiData.config.data = JSON.stringify(data)
+      selectedCom.value.apiData.config.data = JSON.stringify(data)
     }
   } catch (error) {
     console.log(error)
