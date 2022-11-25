@@ -10,18 +10,44 @@
     <g-field label="原图">
       <b-icon name="undo" type="button" title="恢复默认图片尺寸" @click="resetSize"></b-icon>
     </g-field>
-    <g-field label="圆角">
-      <g-input-number v-model="config.radius" :min="0" :step="1" suffix="px" />
-    </g-field>
-    <g-field label="图片位置" :tooltip="positionTip">
-      <g-input v-model="config.position" />
-    </g-field>
-    <g-field label="图片大小" :tooltip="sizeTip">
-      <g-input v-model="config.size" />
-    </g-field>
-    <g-field label="图片重复">
-      <g-select v-model="config.repeat" :data="repeatTypes" />
-    </g-field>
+
+    <template v-if="config.imageType === 'image'">
+      <g-field label="圆角">
+        <g-input-number v-model="config.radius" :min="0" :step="1" suffix="px" />
+      </g-field>
+      <g-field label="图片位置" :tooltip="positionTip">
+        <g-input v-model="config.position" />
+      </g-field>
+      <g-field label="图片大小" :tooltip="sizeTip">
+        <g-input v-model="config.size" />
+      </g-field>
+      <g-field label="图片重复">
+        <g-select v-model="config.repeat" :data="repeatTypes" />
+      </g-field>
+    </template>
+    <template v-else>
+      <g-field label="宽度" :tooltip="borderWidthTip">
+        <g-input v-model="config.border.width" />
+      </g-field>
+      <g-field label="切片" :tooltip="borderSliceTip">
+        <g-input v-model="config.border.slice" />
+      </g-field>
+      <g-field label="外扩" :tooltip="borderOutsetTip">
+        <g-input v-model="config.border.outset" />
+      </g-field>
+      <g-field label="平铺类型" :tooltip="borderRepeatTip">
+        <g-select v-model="config.border.repeat" :data="borderRepeatTypes" />
+      </g-field>
+    </template>
+
+    <g-field-collapse v-model="config.shadow.show" toggle label="阴影">
+      <g-field label="阴影属性" :tooltip="shadowTip">
+        <g-input v-model="config.shadow.size" />
+      </g-field>
+      <g-field label="阴影颜色">
+        <g-color-picker v-model="config.shadow.color" />
+      </g-field>
+    </g-field-collapse>
     <g-field-collapse label="超链接配置">
       <g-field label="超链接" tooltip="点击标题区域可跳转至设定的超链接">
         <g-input v-model="config.urlConfig.url" placeholder="图片position，默认0 0" />
@@ -39,15 +65,16 @@
 import { computed } from 'vue'
 import { repeatTypes } from './config'
 import { useStore } from '@/store'
-import { imageTypes } from './config'
-
-const positionTip = `可取关键字或具体数值: [top|left|bottom|right|center|%|em|px];
-两个值：一个定义 x 坐标，另一个定义 y 坐标;`
-
-const sizeTip = `cover: 保持宽高比例缩放，超出部分会被剪裁;
-contain: 缩放背景图装入容器，容易会留白;
-一个值: 这个值指定图片的宽度，图片的高度隐式的为 auto ,可取%|em|px|auto;
-两个个值: 第一个值指定图片的宽度，第二个值指定图片的高度  ,可取%|em|px|auto;`
+import { imageTypes, borderRepeatTypes } from './config'
+import {
+  positionTip,
+  sizeTip,
+  shadowTip,
+  borderSliceTip,
+  borderOutsetTip,
+  borderWidthTip,
+  borderRepeatTip,
+} from './tip'
 
 const props = defineProps({
   data: {
@@ -55,6 +82,7 @@ const props = defineProps({
     required: true,
   },
 })
+
 const config = computed(() => props.data.config)
 const { schemaStore, storeToRefs } = useStore()
 const { selectedCom } = storeToRefs(schemaStore)

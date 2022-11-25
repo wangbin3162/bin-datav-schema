@@ -25,7 +25,9 @@ export default {
     // config 配置项
     const config = computed(() => props.data.config)
 
-    const imageStyle = computed(() => (config.value.imageType === 'image' ? getImgStyle() : {}))
+    const imageStyle = computed(() =>
+      config.value.imageType === 'image' ? getImgStyle() : getBorderStyle(),
+    )
 
     function getImgStyle() {
       const cfg = config.value
@@ -38,6 +40,18 @@ export default {
         overflow: 'hidden',
       }
     }
+
+    function getBorderStyle() {
+      const { border } = config.value
+      return {
+        'border-radius': `${config.value.radius}px`,
+        'border-style': 'solid',
+        'border-width': `1px`,
+        background: 'none',
+        'border-image': `url(${config.value.src}) ${border.slice} / ${border.width} / ${border.outset} ${border.repeat}`,
+      }
+    }
+
     return {
       imageStyle,
       config,

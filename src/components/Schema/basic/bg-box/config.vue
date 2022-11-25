@@ -88,30 +88,6 @@
           />
         </g-field>
       </template>
-      <!--图片-->
-      <g-field v-if="config.border.type === 'image'" label="配置方式">
-        <b-radio-group v-model="config.border.imageType" type="button" size="mini">
-          <b-radio v-for="em in imageTypes" :key="em.value" :label="em.value">
-            {{ em.label }}
-          </b-radio>
-        </b-radio-group>
-      </g-field>
-      <g-field
-        v-if="config.border.type === 'image' && config.border.imageType === 'preset'"
-        label="边框配置"
-      >
-        <g-images-select v-model="config.border.presetImage" :images="['box']" />
-      </g-field>
-      <g-field
-        v-if="config.border.type === 'image' && config.border.imageType === 'custom'"
-        label="边框配置"
-      >
-        <g-upload-img v-model="config.border.customImage.source" label="图片" />
-        <g-input v-model="config.border.customImage.slice" label="切片" />
-        <g-input v-model="config.border.customImage.width" label="宽度" />
-        <g-input v-model="config.border.customImage.outset" label="外扩" />
-        <g-select v-model="config.border.customImage.repeat" :data="repeatTypes" label="平铺类型" />
-      </g-field>
     </g-field-collapse>
 
     <g-field-collapse v-model="config.shadow.show" toggle label="阴影">
@@ -138,8 +114,8 @@
 
 <script setup>
 import { toRef } from 'vue'
-import { lineStyles, repeatTypes } from '@/config/select-options'
-import { borderTypes, imageTypes } from './config'
+import { lineStyles } from '@/config/select-options'
+import { borderTypes } from './config'
 
 const props = defineProps({
   data: {

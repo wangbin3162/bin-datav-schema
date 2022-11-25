@@ -1,8 +1,6 @@
 import { ComType } from '@/config/data-source'
 import { getImagesPath } from '@/utils/env'
 
-const getImgUrl = name => getImagesPath(`/box/${name}`)
-
 export const bgBoxConfig = {
   name: 'VBgBox',
   alias: '背景块',
@@ -59,6 +57,5 @@ export const imageTypes = [
 export const borderTypes = [
   { value: 'flat', label: '纯色' },
   { value: 'linearGradient', label: '渐变' },
-  { value: 'image', label: '图片' },
 ]
 export default bgBoxConfig

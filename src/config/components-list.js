@@ -156,7 +156,7 @@ const VBorderBox = {
 }
 // 媒体-图片
 const VMainImg = {
-  name: 'VImage',
+  name: 'VMainImg',
   alias: '单张图片',
   img: getComPath('img.svg'),
 }

@@ -1,7 +1,9 @@
 /**
  * 基础组件类
  */
+import { getDefaultImageConfig } from '@/components/Schema/basic/image/config'
 import { deepCopy, deepMerge, generateId, isEmpty } from '@/utils/util'
+import { getPublicPath } from '@/utils/env'
 
 const cfgs = import.meta.globEager('../components/Schema/*/*/config.js')
 const configMap = new Map()
@@ -48,6 +50,26 @@ function mergeConfig(name) {
  * @param name
  */
 export function createComponent(name) {
+  // 判断当前的拖拽是否是VMainImg和VBorderBox，入是则需要获取图片专属配置并追加部分默认值
+  if (name === 'VMainImg') {
+    const imageCfg = getDefaultImageConfig()
+    return imageCfg
+  }
+  if (name === 'VBorderBox') {
+    const imageCfg = getDefaultImageConfig({
+      name: '边框',
+      group: 'box',
+      src: getPublicPath('/images/box/box1.png'),
+      border: {
+        width: '32px 37px',
+        slice: '32 37 fill',
+        outset: '0',
+        repeat: 'stretch',
+      },
+    })
+    return imageCfg
+  }
+
   const config = mergeConfig(name)
   console.log(`----------createComponent[${name}]: `, config)
   return config

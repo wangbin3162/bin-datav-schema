@@ -8,9 +8,9 @@ export const imageConfig = {
   alias: '图片',
   icon: 'image',
   type: ComType.com,
-  attr: { w: 300, h: 135 },
+  attr: { w: 500, h: 300 },
   config: {
-    attr: { w: 300, h: 135 },
+    attr: { w: 500, h: 500 },
     imageType: 'image', // 取值为image和border
     src: getPublicPath('/images/com/img.svg'),
     radius: 0,
@@ -18,17 +18,14 @@ export const imageConfig = {
     size: '100% 100%',
     repeat: 'no-repeat',
     border: {
-      slice: '32 37 fill',
       width: '32px 37px',
+      slice: '32 37 fill',
       outset: '0',
-      repeat: 'no-repeat',
+      repeat: 'stretch',
     },
     shadow: {
       show: false,
-      x: 0,
-      y: 0,
-      blur: 5, // 模糊值不能为负
-      spread: 0,
+      size: '0 0 5px',
       color: '#003a8c',
     },
     urlConfig: {
@@ -54,24 +51,32 @@ export const repeatTypes = [
   { value: 'repeat-y', label: '垂直重复' },
 ]
 
+export const borderRepeatTypes = [
+  { value: 'stretch', label: '<stretch> 拉伸图片以填充边框' },
+  { value: 'repeat', label: '<repeat> 平铺图片以填充边框' },
+  { value: 'round', label: '<round> 平铺缩放填充边框' },
+  { value: 'space', label: '<space> 平铺空白填充边框' },
+]
+
 // 获取一个默认的图片配置项
-export function getDefaultImageConfig(img = {}) {
+export function getDefaultImageConfig(img) {
   // 创建一个基础的图片组件
   const imageCfg = createComponent(imageConfig.name)
-  const imgCfg = {
-    alias: img.name,
-    attr: img.attr ?? {},
-    config: {
-      imageType: img.group === 'box' ? 'border' : 'image',
-      src: img.src,
-      border: img.border ?? {},
-      attr: img.attr ?? {}, // 原始对象的宽高属性
-      css: img.css ?? {}, // 原始对象的css样式属性
-    },
-  }
-  // 判定原始css有无参数，如有则追加一下
-  if (img?.css?.size) imgCfg.config.size = img?.css?.size
-  if (img?.css?.position) imgCfg.config.position = img?.css?.position
+  const imgCfg = img
+    ? {
+        alias: img.name,
+        attr: img.attr ?? {},
+        config: {
+          imageType: img.group === 'box' ? 'border' : 'image',
+          src: img.src,
+          border: img.border ?? {},
+          attr: img.attr ?? {}, // 原始对象的宽高属性
+          css: img.css ?? {}, // 原始对象的css样式属性
+          size: img.css?.size ?? '100% 100%',
+          position: img.css?.position ?? '0 0',
+        },
+      }
+    : {}
 
   return deepMerge(deepCopy(imageCfg), deepCopy(imgCfg))
 }

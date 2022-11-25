@@ -25,7 +25,6 @@
 
 <script>
 import { computed } from 'vue'
-import { boxImages } from '@/components/Schema/images-cfg/box'
 
 export default {
   name: 'VBgBox',
@@ -75,29 +74,6 @@ export default {
           style.borderStyle = 'solid'
           const color = stops.map(m => `${m.color} ${m.offset}%`).join(', ')
           style.borderImage = `linear-gradient(${angle}deg, ${color}) 10 / ${bd.width}px / 0 stretch`
-        } else if (border.type === 'image') {
-          style.width = '100%'
-          style.height = '100%'
-          style.borderRadius = 'inherit'
-          style.borderWidth = '2px'
-          style.borderStyle = 'solid'
-          if (border.imageType === 'preset') {
-            const img = boxImages.find(m => m.id === border.presetImage)
-            if (img) {
-              style.borderImage = `url(${img.src}) ${img.border.slice} / ${img.border.width} / ${img.border.outset} ${img.border.repeat}`
-            }
-          } else if (border.imageType === 'custom') {
-            const img = border.customImage
-            let repeat = 'stretch'
-            if (img.repeat === 'repeat') {
-              repeat = 'repeat'
-            } else if (img.repeat === 'repeat-x') {
-              repeat = 'repeat stretch'
-            } else if (img.repeat === 'repeat-y') {
-              repeat = 'stretch repeat'
-            }
-            style.borderImage = `url(${img.source}) ${img.slice} / ${img.width} / ${img.outset} ${repeat}`
-          }
         }
       }
 
