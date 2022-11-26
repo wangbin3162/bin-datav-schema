@@ -18,7 +18,7 @@
             @dragstart="dragStart($event, com)"
             @click="click(com)"
           >
-            <img :src="com.src" />
+            <img v-lazy="com.src" />
             <div class="hover-layer" v-if="canEdit">
               <i
                 class="b-iconfont b-icon-delete-fill"

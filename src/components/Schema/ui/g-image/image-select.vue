@@ -28,7 +28,7 @@
               <g-upload @upload="imageUpload"></g-upload>
             </div>
             <div class="comp-item" v-for="(img, index) in list" :key="index" @click="setImg(img)">
-              <img :src="img.src" />
+              <img v-lazy="img.src" />
             </div>
           </template>
           <g-loading v-else spinning type="square"></g-loading>

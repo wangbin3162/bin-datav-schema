@@ -39,6 +39,7 @@ specifiers:
   vite: ^2.9.15
   vue: ^3.2.45
   vue-router: ^4.1.6
+  vue3-lazy: 1.0.0-alpha.1
   vuedraggable: ^4.1.0
 
 dependencies:
@@ -67,6 +68,7 @@ dependencies:
   thenby: registry.npmmirror.com/thenby/1.3.4
   vue: registry.npmmirror.com/vue/3.2.45
   vue-router: registry.npmmirror.com/vue-router/4.1.6_vue@3.2.45
+  vue3-lazy: registry.npmmirror.com/vue3-lazy/1.0.0-alpha.1_vue@3.2.45
   vuedraggable: registry.npmmirror.com/vuedraggable/4.1.0_vue@3.2.45
 
 devDependencies:
@@ -4341,6 +4343,18 @@ packages:
       '@vue/runtime-dom': registry.npmmirror.com/@vue/runtime-dom/3.2.45
       '@vue/server-renderer': registry.npmmirror.com/@vue/server-renderer/3.2.45_vue@3.2.45
       '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.45
+    dev: false
+
+  registry.npmmirror.com/vue3-lazy/1.0.0-alpha.1_vue@3.2.45:
+    resolution: {integrity: sha512-dpjpKK4DC5q+wZVtS/VY3X6pYBJHxRmYanr20s39RB6o6fvbneQ/DNuz37bipYfEdrEvbSZ95Y2SCexuznQNrQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vue3-lazy/-/vue3-lazy-1.0.0-alpha.1.tgz}
+    id: registry.npmmirror.com/vue3-lazy/1.0.0-alpha.1
+    name: vue3-lazy
+    version: 1.0.0-alpha.1
+    engines: {node: '>=6.0.0'}
+    peerDependencies:
+      vue: ^3.0.0-alpha.9
+    dependencies:
+      vue: registry.npmmirror.com/vue/3.2.45
     dev: false
 
   registry.npmmirror.com/vuedraggable/4.1.0_vue@3.2.45:

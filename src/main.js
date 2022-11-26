@@ -3,6 +3,7 @@ import App from './App.vue'
 import router, { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import { registerDirectives } from '@/directives'
+import { registerLazy } from '@/plugins/lazy-load'
 import { registerUI } from '@/plugins/bin-ui-next'
 import { registerCharts } from '@/plugins/bin-charts-next'
 import { registerEditor } from '@/plugins/bin-editor-next'
@@ -26,6 +27,7 @@ import './mock'
 // }
 
 const app = createApp(App)
+registerLazy(app)
 registerDirectives(app)
 registerUI(app)
 registerCharts(app)
