@@ -8,8 +8,7 @@
       </b-radio-group>
     </g-field>
     <g-field label="原图">
-      <g-image v-model="config.src" />
-      <b-icon name="undo" type="button" title="恢复默认图片尺寸" @click="resetSize"></b-icon>
+      <g-image v-model="config.src" @resize="resetSize" @change="imageChange" />
     </g-field>
 
     <template v-if="config.imageType === 'image'">
@@ -88,10 +87,28 @@ const config = computed(() => props.data.config)
 const { schemaStore, storeToRefs } = useStore()
 const { selectedCom } = storeToRefs(schemaStore)
 
-const imageChange = img => {
+function imageChange(img) {
+  const curCom = selectedCom.value
+
+  // 初始化
+  curCom.config.imageType = 'image'
+  curCom.config.size = '100% 100%'
+  curCom.config.position = '0 0'
+  // 如果图片的原始大小存在，则进行结构赋值
   if (img.attr) {
-    selectedCom.value.attr.w = img.attr.w
-    selectedCom.value.attr.h = img.attr.h
+    curCom.attr.w = img.attr.w
+    curCom.attr.h = img.attr.h
+    curCom.config.attr = { ...img.attr }
+  }
+  if (img.css) {
+    curCom.config.css = img.css ?? {}
+    curCom.config.size = img.css.size ?? '100% 100%'
+    curCom.config.position = img.css.position ?? '0 0'
+  }
+  // 如果是边框模式
+  if (img.group === 'box' && img.border) {
+    curCom.config.imageType = 'border'
+    curCom.config.border = { ...img.border }
   }
 }
 

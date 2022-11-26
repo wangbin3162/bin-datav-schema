@@ -31,11 +31,12 @@
           <g-field label="背景颜色">
             <g-color-picker v-model="pageConfig.bgColor" />
           </g-field>
-          <g-field label="背景图" tooltip="支持图片地址、静态路径、base64存储">
-            <g-upload-img v-model="pageConfig.bgImage" />
-          </g-field>
           <g-field label="背景预设" tooltip="可以加载对应预设的图片背景">
-            <g-images-select v-model="pageConfig.bgImage" :images="['bg']" value-key="src" />
+            <g-image
+              :ignore-group-keys="['header', 'box', 'decoration', 'widget']"
+              :show-resize="false"
+              v-model="pageConfig.bgImage"
+            />
           </g-field>
           <g-field label="重置">
             <b-button type="primary" size="small" @click="resetBGImage">恢复默认背景</b-button>

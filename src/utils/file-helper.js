@@ -66,3 +66,29 @@ export function readFileBase64(file) {
     }
   })
 }
+
+// 读取文件内容为base64 IMG
+export function readFileBase64Img(file) {
+  return new Promise((resolve, reject) => {
+    try {
+      let file_reader = new FileReader()
+      file_reader.onload = res => {
+        const fileResult = res.target.result
+        const image = new Image()
+        image.src = fileResult
+        image.onload = () => {
+          resolve({
+            name: file.name,
+            width: image.width,
+            height: image.height,
+            image: fileResult,
+            file: file,
+          })
+        }
+      }
+      file_reader.readAsDataURL(file) // 将图片转换为base64
+    } catch (e) {
+      reject(e)
+    }
+  })
+}

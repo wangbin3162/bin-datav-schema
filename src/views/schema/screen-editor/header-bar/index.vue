@@ -180,4 +180,10 @@ const handPreview = async () => {
   let routeData = router.resolve({ path: `/screen/preview/${data.pageInfo.id}` })
   window.open(routeData.href, '_blank')
 }
+
+defineExpose({
+  handleSaveScreen,
+  handlePublish,
+  handPreview,
+})
 </script>

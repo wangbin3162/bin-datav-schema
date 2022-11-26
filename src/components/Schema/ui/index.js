@@ -52,12 +52,4 @@ export function registerGUI(app) {
     'GUpload',
     defineAsyncComponent(() => import('./g-upload/index.vue')),
   )
-  app.component(
-    'GUploadImg',
-    defineAsyncComponent(() => import('./g-upload-img/index.vue')),
-  )
-  app.component(
-    'GImagesSelect',
-    defineAsyncComponent(() => import('./g-images-select/index.vue')),
-  )
 }

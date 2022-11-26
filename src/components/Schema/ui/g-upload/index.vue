@@ -1,108 +1,92 @@
 <template>
-  <div class="dv-gui g-upload">
-    <b-upload
-      action=""
-      :before-upload="beforeUpload"
-      :show-upload-list="false"
-      multiple
-      type="drag"
-    >
+  <div
+    class="dv-gui g-upload"
+    @click="handleClick"
+    @drop.prevent="onDrop"
+    @dragover.prevent
+    @dragleave.prevent
+  >
+    <input
+      ref="fileInputRef"
+      type="file"
+      class="custom-file-input"
+      :multiple="multiple"
+      :accept="allowType"
+      @change="handleChange"
+    />
+    <slot>
       <div class="g-upload-image-wrap">
         <b-icon name="plus"></b-icon>
       </div>
-    </b-upload>
+    </slot>
   </div>
 </template>
 
-<script>
-import { ref, onUnmounted } from 'vue'
+<script setup>
+import { ref } from 'vue'
 import { validAllowImg } from './utils'
-import { readFileBase64 } from '@/utils/file-helper'
+import { readFileBase64Img } from '@/utils/file-helper'
 
-export default {
-  name: 'g-upload',
-  props: {
-    allowType: {
-      type: String,
-      default: 'jpeg|jpg|png|svg|gif',
-    },
-    size: {
-      // 限制大小2m
-      type: Number,
-      default: 2,
-    },
-    prefixIcon: {
-      type: String,
-      default: 'link',
-    },
+const emit = defineEmits(['upload'])
+const props = defineProps({
+  allowType: {
+    type: String,
+    default: 'jpeg|jpg|png|svg|gif',
   },
-  emits: ['upload'],
-  setup(props, { emit }) {
-    const loading = ref(false)
-    const visibleCover = ref(false)
+  size: {
+    // 限制大小2m
+    type: Number,
+    default: 2,
+  },
+  multiple: {
+    type: Boolean,
+    default: false,
+  },
+})
 
-    const uploadList = ref([])
-    let timer = null
-    let start = false // 是否开始选中
-    let index = 0
+const fileInputRef = ref(null)
 
-    const beforeUpload = file => {
-      // 第一个文件 传入时 开启计时器记录时间阈值
-      updateDateTime()
-      const valid = validAllowImg(file, {
-        allowType: props.allowType,
-        allowSize: props.size,
-      })
-      if (!valid) return false
-      readFileBase64(file).then(data => {
-        const image = new Image()
-        image.src = data
-        image.onload = () => {
-          uploadList.value.push({
-            fileName: file.name,
-            width: image.width,
-            height: image.height,
-            fileRaw: image.src,
-          })
-        }
-      })
-      return false
-    }
+function handleClick() {
+  fileInputRef.value.click()
+}
 
-    function updateDateTime() {
-      // 第一个文件 传入时 开启计时器记录时间阈值
-      if (!start && !timer) {
-        start = true
-        timer = setInterval(() => {
-          index++
-          // 停止计时器
-          if (index === 5) {
-            clearTimeout(timer)
-            index = 0
-            timer = null
-            start = false
-            emit('upload', uploadList.value)
-            uploadList.value = []
-            return
-          }
-        }, 100)
-      } else {
-        index = 0
-      }
-    }
+function handleChange(e) {
+  const files = e.target.files
 
-    const clearDateTime = () => {
-      if (timer) clearTimeout(timer)
-    }
-    onUnmounted(() => {
-      clearDateTime()
+  if (!files) {
+    return
+  }
+  uploadFiles(files)
+  fileInputRef.value.value = null
+}
+
+function onDrop(e) {
+  e.preventDefault()
+  uploadFiles(e.dataTransfer.files)
+}
+
+function uploadFiles(files) {
+  let postFiles = Array.prototype.slice.call(files)
+  if (!props.multiple) postFiles = postFiles.slice(0, 1)
+
+  const images = []
+  postFiles.forEach(file => {
+    const valid = validAllowImg(file, {
+      allowType: props.allowType,
+      allowSize: props.size,
     })
-    return {
-      loading,
-      visibleCover,
-      beforeUpload,
-    }
-  },
+    if (valid) images.push(file)
+  })
+
+  uploadImages(images)
+}
+
+// 上传读取对象，这里会读取图片信息，并进行保存，外部接收之后可以做自定义操作
+function uploadImages(images) {
+  const reqs = images.map(file => readFileBase64Img(file))
+  Promise.all(reqs).then(res => {
+    emit('upload', res)
+  })
 }
 </script>
 
@@ -114,6 +98,9 @@ export default {
     :deep(.bin-upload) {
       width: 100%;
       height: 100%;
+    }
+    .custom-file-input {
+      display: none;
     }
     .g-upload-image-wrap {
       position: relative;

@@ -4,7 +4,7 @@
       <div class="comp-item img-add" v-if="canEdit">
         <div class="inner">
           <div class="comp-item-img">
-            <g-upload @upload="imageUpload"></g-upload>
+            <g-upload @upload="imageUpload" multiple></g-upload>
           </div>
         </div>
       </div>
@@ -57,11 +57,12 @@ getCompList()
 // 上传拦截
 async function imageUpload(files) {
   try {
+    // TODO: 这里需要组装需要的对象，后续需要调用接口进行实际上传
     const imgs = files.map(file => ({
       group: props.groupId,
-      name: file.fileName,
+      name: file.name,
       attr: { w: file.width, h: file.height },
-      src: file.fileRaw,
+      src: file.image,
     }))
     await api.uploadImagesToGroup(imgs)
     getCompList()
