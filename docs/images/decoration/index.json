@@ -1,0 +1,252 @@
+[
+  {
+    "name": "装饰器1",
+    "src": "gif1.gif",
+    "css": { "position": "left bottom" }
+  },
+  {
+    "name": "装饰器2",
+    "src": "gif2.gif",
+    "css": { "position": "center" }
+  },
+  {
+    "name": "装饰器3",
+    "src": "gif3.gif",
+    "css": { "position": "right top" }
+  },
+  {
+    "name": "装饰器4",
+    "src": "gif4.gif",
+    "css": { "position": "right bottom" }
+  },
+  {
+    "name": "装饰器5",
+    "src": "gif5.gif",
+    "css": { "position": "left top" }
+  },
+  {
+    "name": "装饰器6",
+    "src": "gif6.gif",
+    "css": { "position": "center" }
+  },
+  {
+    "name": "装饰器7",
+    "src": "gif7.gif",
+    "css": { "size": "contain", "position": "left top" }
+  },
+  {
+    "name": "装饰器8",
+    "src": "gif8.gif",
+    "css": { "size": "contain", "position": "left top" }
+  },
+  {
+    "name": "装饰器9",
+    "src": "gif9.gif",
+    "css": { "size": "contain", "position": "left top" }
+  },
+  {
+    "name": "装饰器10",
+    "src": "gif10.gif",
+    "css": { "size": "contain", "position": "left top" }
+  },
+  {
+    "name": "装饰器11",
+    "src": "gif11.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器12",
+    "src": "gif12.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器13",
+    "src": "gif13.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器14",
+    "src": "gif14.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器15",
+    "src": "gif15.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器16",
+    "src": "gif16.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器17",
+    "src": "gif17.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器18",
+    "src": "gif18.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器19",
+    "src": "gif19.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器20",
+    "src": "gif20.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器21",
+    "src": "gif21.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器22",
+    "src": "gif22.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器23",
+    "src": "gif23.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器24",
+    "src": "gif24.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器25",
+    "src": "gif25.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器26",
+    "src": "gif26.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器27",
+    "src": "gif27.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器28",
+    "src": "gif28.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器29",
+    "src": "gif29.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器30",
+    "src": "gif30.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器31",
+    "src": "gif31.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器32",
+    "src": "gif32.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器33",
+    "src": "gif33.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器34",
+    "src": "gif34.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器35",
+    "src": "gif35.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器36",
+    "src": "gif36.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器37",
+    "src": "gif37.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器38",
+    "src": "gif38.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器39",
+    "src": "gif39.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器40",
+    "src": "gif40.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器41",
+    "src": "gif41.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器42",
+    "src": "gif42.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器43",
+    "src": "gif43.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器44",
+    "src": "gif44.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器45",
+    "src": "gif45.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器46",
+    "src": "gif46.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器47",
+    "src": "gif47.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器48",
+    "src": "gif48.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器49",
+    "src": "gif49.png",
+    "css": { "position": "center", "size": "contain" }
+  },
+  {
+    "name": "装饰器50",
+    "src": "gif50.png",
+    "css": { "position": "center", "size": "contain" }
+  }
+]
