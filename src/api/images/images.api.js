@@ -17,11 +17,11 @@ export async function getImagesGroup() {
   try {
     const data = await _getImagesGroupList()
     if (data) {
-      return data
+      const list = deepCopy(defaultGroup)
+      return list.concat(data)
     }
-    const list = deepCopy(defaultGroup)
-    await _setImagesGroup(list)
-    return list
+    await _setImagesGroup([])
+    return []
   } catch (e) {
     return []
   }
