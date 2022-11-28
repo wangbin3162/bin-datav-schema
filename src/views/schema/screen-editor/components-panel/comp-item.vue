@@ -29,6 +29,7 @@
 <script setup>
 import { ref } from 'vue'
 import * as api from '@/api/comps/comps.api'
+import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 const emit = defineEmits(['dragstart', 'click'])
 const props = defineProps({
@@ -44,14 +45,16 @@ const getCompList = () => api.getCompsByGroup(props.groupId).then(res => (list.v
 
 getCompList()
 
-// 移除一个图片
+// 移除一个
 async function removeCom({ group, id }) {
   try {
+    setGlobalLoading(true)
     await api.removeCom(group, id)
     getCompList()
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 const dragStart = (e, comp) => emit('dragstart', e, comp)
 const click = comp => emit('click', comp)

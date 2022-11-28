@@ -4,7 +4,10 @@
       <img v-if="imgUrl" :src="imgUrl" />
     </div>
     <div class="g-resize" v-if="showResize">
-      <b-icon name="undo" type="button" title="恢复默认图片尺寸" @click="resetSize"></b-icon>
+      <b-icon name="expend" type="button" title="恢复默认图片尺寸" @click="resetSize"></b-icon>
+    </div>
+    <div class="g-resize" v-if="showClear">
+      <b-icon name="undo" type="button" title="重置" @click="clear"></b-icon>
     </div>
   </div>
   <ImageSelect
@@ -19,7 +22,7 @@
 import { ref, computed } from 'vue'
 import ImageSelect from './image-select.vue'
 
-const emit = defineEmits(['update:modelValue', 'change', 'resize'])
+const emit = defineEmits(['update:modelValue', 'change', 'resize', 'clear'])
 const props = defineProps({
   modelValue: {
     // 存储的就是src图片名称
@@ -29,6 +32,10 @@ const props = defineProps({
   showResize: {
     type: Boolean,
     default: true,
+  },
+  showClear: {
+    type: Boolean,
+    default: false,
   },
   // 忽略组
   ignoreGroupKeys: {
@@ -53,6 +60,11 @@ function imageChange(image) {
 function resetSize() {
   emit('resize')
 }
+
+function clear() {
+  imgUrl.value = ''
+  emit('clear')
+}
 </script>
 
 <style scoped lang="stylus">
@@ -62,11 +74,10 @@ function resetSize() {
     display: flex;
     align-items: center;
     height: 28px;
-    background: var(--schema-ui-bg);
     .g-img {
       position: relative;
       display: inline-block;
-      width: 100%;
+      width: 80px;
       height: 100%;
       border: 1px solid var(--schema-ui-border);;
       overflow: hidden;
@@ -78,18 +89,13 @@ function resetSize() {
         transform: translate(-50%,-50%);
         max-width: 100%;
       }
-      &.resize {
-        width: calc(100% - 22px);
-      }
     }
     .g-resize {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 22px;
+      margin-left: 4px;
       height: 100%;
-      border: 1px solid var(--schema-ui-border);;
-      border-left: none;
     }
   }
 }

@@ -1,6 +1,6 @@
 const LAYER_WIDTH = 220
 const COMPS_WIDTH = 50
-const CONFIG_WIDTH = 332
+const CONFIG_WIDTH = 330
 const TOOLBOX_HEIGHT = 40
 const PANEL_PADDING = 60
 // 画布相关状态值

@@ -40,6 +40,7 @@ import { generateId } from '@/utils/util'
 import { Message, MessageBox } from 'bin-ui-next'
 import { defaultGroupKeys } from '@/api/images/default'
 import { useCollapse } from '@/hooks/collapseHook'
+import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 const emit = defineEmits(['dragstart', 'click'])
 const groups = ref([]) // 图片分组
@@ -76,6 +77,7 @@ function onAddInput(e) {
 // 编辑
 async function modifyGroup(item, name) {
   try {
+    setGlobalLoading(true)
     const data = { key: item.key, value: name }
     await api.modifyImagesGroup(data)
     getImagesGroup()
@@ -83,23 +85,27 @@ async function modifyGroup(item, name) {
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 
 // 移除一个分组
 async function removeGroup(item) {
   try {
     await MessageBox.confirm({ type: 'error', title: '确定移除当前图片分组吗？' })
+    setGlobalLoading(true)
     await api.removeImagesGroup(item.key)
     getImagesGroup()
     Message.success('删除成功！')
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 
 // 新增一个分组
 async function addGroup() {
   try {
+    setGlobalLoading(true)
     await api.createImagesGroup(groupObj.value)
     getImagesGroup()
     editStatus.create = false
@@ -107,6 +113,7 @@ async function addGroup() {
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 const dragStart = (e, comp) => emit('dragstart', e, comp)
 const click = comp => emit('click', comp)

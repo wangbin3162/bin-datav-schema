@@ -44,6 +44,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { Message } from 'bin-ui-next'
 import useSavePreview from '@/hooks/schema/useSavePreview'
 import { getPublicPath } from '@/utils/env'
+import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 export default {
   name: 'save-screen',
@@ -89,11 +90,13 @@ export default {
         if (valid) {
           let id = ''
           try {
+            setGlobalLoading(true)
             loading.value = true
             id = await saveScreenData(props.status)
           } catch (e) {
             throwError('save-screes/saveKanban', e)
           }
+          setGlobalLoading(false)
           pageInfo.value.id = id
           loading.value = false
           visible.value = false

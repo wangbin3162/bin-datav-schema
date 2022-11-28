@@ -38,6 +38,7 @@
 import { ref, computed } from 'vue'
 import * as api from '@/api/images/images.api'
 import { defaultGroupKeys } from '@/api/images/default'
+import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 const emit = defineEmits(['dragstart', 'click'])
 const props = defineProps({
@@ -57,6 +58,7 @@ getCompList()
 // 上传拦截
 async function imageUpload(files) {
   try {
+    setGlobalLoading(true)
     // TODO: 这里需要组装需要的对象，后续需要调用接口进行实际上传
     const imgs = files.map(file => ({
       group: props.groupId,
@@ -69,16 +71,19 @@ async function imageUpload(files) {
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 
 // 移除一个图片
 async function removePic({ group, id }) {
   try {
+    setGlobalLoading(true)
     await api.removeImage(group, id)
     getCompList()
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 
 const dragStart = (e, comp) => emit('dragstart', e, comp)

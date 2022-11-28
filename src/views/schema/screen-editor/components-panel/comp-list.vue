@@ -41,6 +41,7 @@ import { generateId } from '@/utils/util'
 import { Message, MessageBox } from 'bin-ui-next'
 import { defaultGroupKeys } from '@/api/images/default'
 import { useCollapse } from '@/hooks/collapseHook'
+import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 const emit = defineEmits(['dragstart', 'click'])
 const groups = ref([]) // 组件库
@@ -78,6 +79,7 @@ function onAddInput(e) {
 // 编辑
 async function modifyGroup(item, name) {
   try {
+    setGlobalLoading(true)
     const data = { key: item.key, value: name }
     await api.modifyCompGroup(data)
     getCompList()
@@ -85,10 +87,12 @@ async function modifyGroup(item, name) {
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 // 移除一个库
 async function removeGroup(item) {
   try {
+    setGlobalLoading(true)
     await MessageBox.confirm({ type: 'error', title: '确定移除当前组件库吗？' })
     await api.removeCompGroup(item.key)
     getCompList()
@@ -96,11 +100,13 @@ async function removeGroup(item) {
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 
 // 新增一个库
 async function addGroup() {
   try {
+    setGlobalLoading(true)
     await api.createCompGroup(groupObj.value)
     getCompList()
     editStatus.create = false
@@ -108,6 +114,7 @@ async function addGroup() {
   } catch (error) {
     console.log(error)
   }
+  setGlobalLoading(false)
 }
 
 const dragStart = (e, comp) => emit('dragstart', e, comp)

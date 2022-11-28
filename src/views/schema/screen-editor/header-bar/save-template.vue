@@ -46,6 +46,7 @@ import { generateId, throwError } from '@/utils/util'
 import { downloadFile } from '@/utils/file-helper'
 import { Message } from 'bin-ui-next'
 import { saveTemplate } from '@/api/modules/template.api'
+import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 export default {
   name: 'save-template',
@@ -85,12 +86,12 @@ export default {
         })
     }
 
-    // 复制json至剪切板
     const saveAsTemplate = async () => {
       formRef.value &&
         formRef.value.validate(async valid => {
           if (valid) {
             try {
+              setGlobalLoading(true)
               formStatus.loading = true
               const screenData = tempData.value
               const tmpName = screenData.template.name
@@ -99,6 +100,7 @@ export default {
             } catch (e) {
               throwError('save-template/saveAsTemplate', e)
             }
+            setGlobalLoading(false)
             formStatus.loading = false
             visible.value = false
             Message.success({ message: '模板已保存！', showClose: true })

@@ -35,11 +35,10 @@
             <g-image
               :ignore-group-keys="['header', 'box', 'decoration', 'widget']"
               :show-resize="false"
+              show-clear
+              @clear="resetBGImage"
               v-model="pageConfig.bgImage"
             />
-          </g-field>
-          <g-field label="重置">
-            <b-button type="primary" size="small" @click="resetBGImage">恢复默认背景</b-button>
           </g-field>
         </div>
         <div class="page-config-wp">
@@ -82,6 +81,7 @@ import { mobileScreenMap, webScreenMap } from '@/config/enum'
 import { ref, watch } from 'vue'
 import { createPreviewThumb } from '@/hooks/usePreviewImg'
 import { Message } from 'bin-ui-next'
+import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 export default {
   name: 'page-config',
@@ -109,6 +109,7 @@ export default {
 
     // 截屏操作
     async function createThumb() {
+      setGlobalLoading(true)
       Message.warning('正在截取画布缩略图，请勿进行其他操作！')
 
       thumbLoading.value = true
@@ -129,6 +130,7 @@ export default {
         pageEl.style.left = '60px'
         schemaStore.autoCanvasScale()
         thumbLoading.value = false
+        setGlobalLoading(false)
       }, 300)
     }
 
