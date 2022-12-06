@@ -77,9 +77,9 @@ export async function removeCompGroup(key) {
 }
 
 // 保存一个组件至指定的组件分组内
-export async function saveComps(groupKey, comp) {
+export async function saveComps(groupKey, comp, thumb) {
   try {
-    const saveData = { id: uuid(), group: groupKey, comp }
+    const saveData = { id: uuid(), group: groupKey, comp, src: thumb }
     const data = await _getCompsList() // 先获取全部已存储的组件，并拼接设置
     if (data) {
       data.push(saveData)

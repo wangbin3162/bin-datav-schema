@@ -115,6 +115,8 @@ const hideCom = () => {
 
 const saveCom = async () => {
   selectGroup.value = groups.value[0].key // 默认选中第一个组件库
+  // const id = `component_${selectedCom.value.id}`
+
   MessageBox({
     title: '指定组件库',
     message: h(
@@ -123,13 +125,7 @@ const saveCom = async () => {
         modelValue: selectGroup.value,
         onChange: val => (selectGroup.value = val),
       },
-      () =>
-        groups.value.map(i =>
-          h(BOption, {
-            label: i.value,
-            value: i.key,
-          }),
-        ),
+      () => groups.value.map(i => h(BOption, { label: i.value, value: i.key })),
     ),
     showCancelButton: true,
     confirmText: '保存',
@@ -137,7 +133,10 @@ const saveCom = async () => {
     beforeClose: async (action, instance, done) => {
       if (action === 'confirm') {
         try {
-          await api.saveComps(selectGroup.value, selectedCom.value)
+          const el = document.getElementById(`component_${selectedCom.value.id}`)
+          const tumb = await createPreviewThumb(el)
+          // TODO 这里保存了base64格式的缩略图，实际可能需要调用一次上传后存储路径
+          await api.saveComps(selectGroup.value, selectedCom.value, tumb)
           instance.confirmButtonLoading = true
         } catch (error) {
           console.log(error)

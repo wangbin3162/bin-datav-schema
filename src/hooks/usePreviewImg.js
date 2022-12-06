@@ -1,10 +1,12 @@
 // 生成预览图片方法。存成base64数据存储
-import { dom2jpeg } from 'modern-screenshot'
+import { toJpeg } from 'html-to-image'
 
 // 生成缩略图
 async function createPreviewThumb(el) {
   try {
-    return await dom2jpeg(el, { quality: 0.7 })
+    const width = el.clientWidth
+    const height = el.clientHeight
+    return await toJpeg(el, { quality: 0.7, width, height })
   } catch (error) {
     console.error(error)
     return ''

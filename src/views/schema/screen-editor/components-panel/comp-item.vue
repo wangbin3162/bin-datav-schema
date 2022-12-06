@@ -10,7 +10,7 @@
             @dragstart="dragStart($event, com.comp)"
             @click="click(com.comp)"
           >
-            <b-icon :name="com.comp.icon" size="25" />
+            <img v-lazy="com.src" />
             <div class="hover-layer">
               <i
                 class="b-iconfont b-icon-delete-fill"
