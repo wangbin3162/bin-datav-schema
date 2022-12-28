@@ -23,11 +23,8 @@ specifiers:
   eslint-plugin-import: ^2.26.0
   eslint-plugin-vue: ^7.20.0
   html-to-image: ^1.11.1
-  javascript-natural-sort: ^0.7.1
   js-cookie: ^3.0.1
   localforage: ^1.10.0
-  lodash-es: ^4.17.21
-  many-keys-map: ^1.0.3
   mitt: ^3.0.0
   mockjs: ^1.1.0
   particles.vue3: ^1.43.1
@@ -55,11 +52,8 @@ dependencies:
   echarts-stat: registry.npmmirror.com/echarts-stat/1.2.0
   echarts-wordcloud: registry.npmmirror.com/echarts-wordcloud/2.0.0_echarts@5.4.0
   html-to-image: 1.11.1
-  javascript-natural-sort: registry.npmmirror.com/javascript-natural-sort/0.7.1
   js-cookie: registry.npmmirror.com/js-cookie/3.0.1
   localforage: registry.npmmirror.com/localforage/1.10.0
-  lodash-es: registry.npmmirror.com/lodash-es/4.17.21
-  many-keys-map: registry.npmmirror.com/many-keys-map/1.0.3
   mitt: registry.npmmirror.com/mitt/3.0.0
   mockjs: registry.npmmirror.com/mockjs/1.1.0
   particles.vue3: registry.npmmirror.com/particles.vue3/1.43.1_vue@3.2.45
@@ -3358,12 +3352,6 @@ packages:
     version: 2.0.0
     dev: true
 
-  registry.npmmirror.com/javascript-natural-sort/0.7.1:
-    resolution: {integrity: sha512-nO6jcEfZWQXDhOiBtG2KvKyEptz7RVbpGP4vTD2hLBdmNQSsCiicO2Ioinv6UI4y9ukqnBpy+XZ9H6uLNgJTlw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/javascript-natural-sort/-/javascript-natural-sort-0.7.1.tgz}
-    name: javascript-natural-sort
-    version: 0.7.1
-    dev: false
-
   registry.npmmirror.com/js-cookie/3.0.1:
     resolution: {integrity: sha512-+0rgsUXZu4ncpPxRL+lNEptWMOWl9etvPHc/koSRp6MPwpRYAhmk0dUG00J4bxVV3r9uUzfo24wW0knS07SKSw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/js-cookie/-/js-cookie-3.0.1.tgz}
     name: js-cookie
@@ -3463,12 +3451,6 @@ packages:
       lie: registry.npmmirror.com/lie/3.1.1
     dev: false
 
-  registry.npmmirror.com/lodash-es/4.17.21:
-    resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash-es/-/lodash-es-4.17.21.tgz}
-    name: lodash-es
-    version: 4.17.21
-    dev: false
-
   registry.npmmirror.com/lodash.debounce/4.0.8:
     resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash.debounce/-/lodash.debounce-4.0.8.tgz}
     name: lodash.debounce
@@ -3508,12 +3490,6 @@ packages:
     version: 0.25.9
     dependencies:
       sourcemap-codec: registry.npmmirror.com/sourcemap-codec/1.4.8
-
-  registry.npmmirror.com/many-keys-map/1.0.3:
-    resolution: {integrity: sha512-Iguobalgc8YO1kbN1U9R/j6u3QFf6bwIh37HKYFgEtUJNJd79INgLwtdiiOgBPoBqZ/ZVc4zziRaVg0EiJ+82g==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/many-keys-map/-/many-keys-map-1.0.3.tgz}
-    name: many-keys-map
-    version: 1.0.3
-    dev: false
 
   registry.npmmirror.com/minimatch/3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/minimatch/-/minimatch-3.1.2.tgz}
