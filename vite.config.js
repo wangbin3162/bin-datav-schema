@@ -72,11 +72,9 @@ export default ({ mode }) => {
                 'bin-ui-next',
                 'bin-datav',
                 'brace',
-                'echarts',
-                'echarts-stat',
-                'echarts-wordcloud',
                 'particles.vue3',
                 'mockjs',
+                'three',
               ]
               const c = expansions.find(exp => id.includes(`/node_modules/${exp}`))
               if (c) {
