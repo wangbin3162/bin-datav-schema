@@ -5,7 +5,7 @@ import { deepMerge, deepCopy } from '@/utils/util'
 export const imageConfig = {
   name: 'VIcon',
   alias: '图标',
-  icon: 'icon',
+  icon: 'smile',
   type: ComType.com,
   attr: { w: 100, h: 100, lockedRatio: true },
   config: {

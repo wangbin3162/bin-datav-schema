@@ -57,7 +57,7 @@
               @dblclick="schemaStore.renamingCom(com.id)"
               @contextmenu="showMenu($event)"
             >
-              <b-icon :name="com.icon" size="18"></b-icon>
+              <b-icon :name="com.name === 'VIcon' ? com.config.src : com.icon" size="18"></b-icon>
               <input
                 v-if="com.id === renamingComId"
                 v-model.trim="com.alias"
