@@ -30,6 +30,7 @@ const DatavComponent = {
     h: 100,
     rotate: 0,
     opacity: 1,
+    lockedRatio: false,
   },
   apiData: {},
   events: {},

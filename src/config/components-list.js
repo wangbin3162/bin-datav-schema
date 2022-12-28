@@ -160,6 +160,12 @@ const VMainImg = {
   alias: '单张图片',
   img: getComPath('img.svg'),
 }
+// 媒体-图标
+const VIcon = {
+  name: 'VIcon',
+  alias: '图标',
+  img: getComPath('icon.svg'),
+}
 // -------------------------表格-------------------------//
 // 表格-基础滚动表格
 const VScrollTable = {
@@ -175,7 +181,7 @@ export const componentList = [
     name: '基础',
     icon: 'block',
     group: [],
-    comps: [VMainTitle, VBgBox, VMainImg, VBorderBox],
+    comps: [VMainTitle, VBgBox, VMainImg, VBorderBox, VIcon],
   },
   {
     type: 'analysis',

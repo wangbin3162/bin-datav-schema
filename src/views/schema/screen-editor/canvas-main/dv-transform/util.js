@@ -62,52 +62,80 @@ export const getCursors = startAngle => {
  * @param curPosition 当前拖拽位置
  * @param scale 缩放比例
  * @param pos
+ * @param ratio 原始宽高比
  */
-function calcResizeForNormal(dir, attr, startPoint, curPosition, scale, pos) {
+function calcResizeForNormal(dir, attr, startPoint, curPosition, scale, pos, ratio) {
   if (dir === 't') {
     pos.h = Math.round(attr.h + (startPoint.y - curPosition.y) / scale)
     pos.y = Math.round(attr.y + (curPosition.y - startPoint.y) / scale)
     pos.h = Math.max(pos.h, 20)
+    if (attr.lockedRatio) {
+      pos.w = pos.h * ratio
+    }
   } else if (dir === 'rt') {
     pos.h = Math.round(attr.h + (startPoint.y - curPosition.y) / scale)
     pos.w = Math.round(attr.w + (curPosition.x - startPoint.x) / scale)
     pos.y = Math.round(attr.y + (curPosition.y - startPoint.y) / scale)
-    // 限定最小宽高
     pos.w = Math.max(pos.w, 20)
     pos.h = Math.max(pos.h, 20)
+    if (attr.lockedRatio) {
+      pos.w = pos.h * ratio
+    }
   } else if (dir === 'r') {
     pos.w = Math.round(attr.w + (curPosition.x - startPoint.x) / scale)
     pos.w = Math.max(pos.w, 20)
+    if (attr.lockedRatio) {
+      pos.h = pos.w / ratio
+    }
   } else if (dir === 'rb') {
     pos.h = Math.round(attr.h + (curPosition.y - startPoint.y) / scale)
     pos.w = Math.round(attr.w + (curPosition.x - startPoint.x) / scale)
     pos.w = Math.max(pos.w, 20)
     pos.h = Math.max(pos.h, 20)
+    if (attr.lockedRatio) {
+      pos.h = pos.w / ratio
+    }
   } else if (dir === 'b') {
     pos.h = Math.round(attr.h + (curPosition.y - startPoint.y) / scale)
     pos.h = Math.max(pos.h, 20)
+    if (attr.lockedRatio) {
+      pos.w = pos.h * ratio
+    }
   } else if (dir === 'lb') {
     pos.h = Math.round(attr.h + (curPosition.y - startPoint.y) / scale)
     pos.w = Math.round(attr.w + (startPoint.x - curPosition.x) / scale)
     pos.x = Math.round(attr.x + (curPosition.x - startPoint.x) / scale)
     pos.w = Math.max(pos.w, 20)
     pos.h = Math.max(pos.h, 20)
+    if (attr.lockedRatio) {
+      pos.h = pos.w / ratio
+    }
   } else if (dir === 'l') {
     pos.w = Math.round(attr.w + (startPoint.x - curPosition.x) / scale)
     pos.x = Math.round(attr.x + (curPosition.x - startPoint.x) / scale)
     pos.w = Math.max(pos.w, 20)
+    if (attr.lockedRatio) {
+      pos.h = pos.w / ratio
+    }
   } else if (dir === 'lt') {
     pos.h = Math.round(attr.h + (startPoint.y - curPosition.y) / scale)
     pos.w = Math.round(attr.w + (startPoint.x - curPosition.x) / scale)
-    pos.x = Math.round(attr.x + (curPosition.x - startPoint.x) / scale)
-    pos.y = Math.round(attr.y + (curPosition.y - startPoint.y) / scale)
     pos.w = Math.max(pos.w, 20)
     pos.h = Math.max(pos.h, 20)
+    pos.x = Math.round(attr.x + (curPosition.x - startPoint.x) / scale)
+    pos.y = Math.round(attr.y + (curPosition.y - startPoint.y) / scale)
+
+    if (attr.lockedRatio) {
+      pos.h = pos.w / ratio
+      pos.y = Math.round(attr.y + (curPosition.x - startPoint.x) / scale)
+    }
   }
 }
 
 const setAttr = (ev, dir, com, scale, grid) => {
   const attr = { ...com.attr }
+  // 记录原始宽高比
+  const ratio = attr.w / attr.h
   const pos = Object.create(null)
   const startX = ev.clientX
   const startY = ev.clientY
@@ -123,7 +151,15 @@ const setAttr = (ev, dir, com, scale, grid) => {
     hasMove = Math.abs(moveX) >= 1 || Math.abs(moveY) >= 1
 
     if (dir) {
-      calcResizeForNormal(dir, attr, { x: startX, y: startY }, { x: curX, y: curY }, scale, pos)
+      calcResizeForNormal(
+        dir,
+        attr,
+        { x: startX, y: startY },
+        { x: curX, y: curY },
+        scale,
+        pos,
+        ratio,
+      )
     } else {
       pos.x = attr.x + moveX
       pos.y = attr.y + moveY

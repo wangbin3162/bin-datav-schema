@@ -12,7 +12,7 @@ specifiers:
   bin-charts-next: ^1.1.0
   bin-datav: ^0.2.0
   bin-editor-next: ^1.1.0
-  bin-ui-next: ^1.2.7
+  bin-ui-next: ^1.2.8
   brace: ^0.11.1
   cross-env: ^7.0.3
   dayjs: ^1.11.6
@@ -48,7 +48,7 @@ dependencies:
   bin-charts-next: registry.npmmirror.com/bin-charts-next/1.1.0_echarts@5.4.0+vue@3.2.45
   bin-datav: registry.npmmirror.com/bin-datav/0.2.0_vue@3.2.45
   bin-editor-next: registry.npmmirror.com/bin-editor-next/1.1.0
-  bin-ui-next: registry.npmmirror.com/bin-ui-next/1.2.7_vue@3.2.45
+  bin-ui-next: 1.2.8_vue@3.2.45
   brace: registry.npmmirror.com/brace/0.11.1
   dayjs: registry.npmmirror.com/dayjs/1.11.6
   echarts: registry.npmmirror.com/echarts/5.4.0
@@ -96,6 +96,60 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@popperjs/core/2.11.6:
+    resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
+    dev: false
+
+  /async-validator/4.2.5:
+    resolution: {integrity: sha512-7HhHjtERjqlNbZtqNqy2rckN/SpOOlmDliet+lP7k+eKZEjPk3DgyeU9lIXLdeLz0uBbbVp+9Qdow9wJWgwwfg==}
+    dev: false
+
+  /bin-ui-next/1.2.8_vue@3.2.45:
+    resolution: {integrity: sha512-yxSIlMjnNBHCiMxNz5n6GZD8GWSe2gitn0qOwfyesiOUO6jm2aiY1uxFVjoCeLaTW3GUB59EfdrQV+MdnT8nKA==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@popperjs/core': 2.11.6
+      async-validator: 4.2.5
+      color: 4.2.3
+      dayjs: 1.11.6
+      lodash: 4.17.21
+      mitt: 3.0.0
+      resize-observer-polyfill: 1.5.1
+      sortablejs: 1.15.0
+      vue: registry.npmmirror.com/vue/3.2.45
+    dev: false
+
+  /color-convert/2.0.1:
+    resolution: {integrity: sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==}
+    engines: {node: '>=7.0.0'}
+    dependencies:
+      color-name: 1.1.4
+    dev: false
+
+  /color-name/1.1.4:
+    resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    dev: false
+
+  /color-string/1.9.1:
+    resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}
+    dependencies:
+      color-name: 1.1.4
+      simple-swizzle: 0.2.2
+    dev: false
+
+  /color/4.2.3:
+    resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
+    engines: {node: '>=12.5.0'}
+    dependencies:
+      color-convert: 2.0.1
+      color-string: 1.9.1
+    dev: false
+
+  /dayjs/1.11.6:
+    resolution: {integrity: sha512-zZbY5giJAinCG+7AGaw0wIhNZ6J8AhWuSXKvuc1KAyMiRsvGQWqh4L+MomvhdAYjN+lqvVCMq1I41e3YHvXkyQ==}
+    dev: false
 
   /esbuild-android-64/0.14.54:
     resolution: {integrity: sha512-Tz2++Aqqz0rJ7kYBfz+iqyE3QMycD4vk7LBRyWaAVFgFtQ/O8EJOnVmTOiDWYZ/uYzB4kvP+bqejYdVKzE5lAQ==}
@@ -287,6 +341,32 @@ packages:
 
   /html-to-image/1.11.1:
     resolution: {integrity: sha512-W6ZXctQQfhFA2tCcDbK1jCywwT9Oo1ucyXwlxku3zHacyhLPeMhs+h2OLBNeoYrPSgzgeOqhhSs+MbEmL2fDLw==}
+    dev: false
+
+  /is-arrayish/0.3.2:
+    resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
+    dev: false
+
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
+
+  /mitt/3.0.0:
+    resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
+    dev: false
+
+  /resize-observer-polyfill/1.5.1:
+    resolution: {integrity: sha512-LwZrotdHOo12nQuZlHEmtuXdqGoOD0OhaxopaNFxWzInpEgaLWoVuAMbTzixuosCx2nEG58ngzW3vxdWoxIgdg==}
+    dev: false
+
+  /simple-swizzle/0.2.2:
+    resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
+    dependencies:
+      is-arrayish: 0.3.2
+    dev: false
+
+  /sortablejs/1.15.0:
+    resolution: {integrity: sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==}
     dev: false
 
   registry.npmmirror.com/@ampproject/remapping/2.2.0:
@@ -1835,12 +1915,6 @@ packages:
       '@jridgewell/sourcemap-codec': registry.npmmirror.com/@jridgewell/sourcemap-codec/1.4.14
     dev: true
 
-  registry.npmmirror.com/@popperjs/core/2.11.6:
-    resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@popperjs/core/-/core-2.11.6.tgz}
-    name: '@popperjs/core'
-    version: 2.11.6
-    dev: false
-
   registry.npmmirror.com/@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/json5/-/json5-0.0.29.tgz}
     name: '@types/json5'
@@ -2088,12 +2162,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  registry.npmmirror.com/async-validator/4.2.5:
-    resolution: {integrity: sha512-7HhHjtERjqlNbZtqNqy2rckN/SpOOlmDliet+lP7k+eKZEjPk3DgyeU9lIXLdeLz0uBbbVp+9Qdow9wJWgwwfg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/async-validator/-/async-validator-4.2.5.tgz}
-    name: async-validator
-    version: 4.2.5
-    dev: false
-
   registry.npmmirror.com/atob/2.1.2:
     resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/atob/-/atob-2.1.2.tgz}
     name: atob
@@ -2197,25 +2265,6 @@ packages:
     version: 1.1.0
     dependencies:
       brace: registry.npmmirror.com/brace/0.11.1
-    dev: false
-
-  registry.npmmirror.com/bin-ui-next/1.2.7_vue@3.2.45:
-    resolution: {integrity: sha512-CTdyQpfg8biPZY6uLy/LLwFE3Rnhek70xEvIBCpieTTHmey+py1a8TlWmGe3qdfU1KMzrLUdsAExSGE7DSLqgA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/bin-ui-next/-/bin-ui-next-1.2.7.tgz}
-    id: registry.npmmirror.com/bin-ui-next/1.2.7
-    name: bin-ui-next
-    version: 1.2.7
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      '@popperjs/core': registry.npmmirror.com/@popperjs/core/2.11.6
-      async-validator: registry.npmmirror.com/async-validator/4.2.5
-      color: registry.npmmirror.com/color/4.2.3
-      dayjs: registry.npmmirror.com/dayjs/1.11.6
-      lodash: registry.npmmirror.com/lodash/4.17.21
-      mitt: registry.npmmirror.com/mitt/3.0.0
-      resize-observer-polyfill: registry.npmmirror.com/resize-observer-polyfill/1.5.1
-      sortablejs: registry.npmmirror.com/sortablejs/1.15.0
-      vue: registry.npmmirror.com/vue/3.2.45
     dev: false
 
   registry.npmmirror.com/brace-expansion/1.1.11:
@@ -3442,6 +3491,7 @@ packages:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lodash/-/lodash-4.17.21.tgz}
     name: lodash
     version: 4.17.21
+    dev: true
 
   registry.npmmirror.com/lru-cache/6.0.0:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/lru-cache/-/lru-cache-6.0.0.tgz}

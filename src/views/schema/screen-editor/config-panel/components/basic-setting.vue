@@ -1,6 +1,18 @@
 <template>
   <div class="basic-setting-wp">
     <g-field label="图表尺寸" flat>
+      <template #label>
+        <div flex="cross:center">
+          <span class="pr-5">图表尺寸</span>
+          <b-icon
+            :name="data.lockedRatio ? 'link' : 'disconnect'"
+            :color="data.lockedRatio ? '#1089ff' : '#ccc'"
+            :title="data.lockedRatio ? '解除锁定宽高关联' : '锁定宽高关联'"
+            type="button"
+            @click="data.lockedRatio = !data.lockedRatio"
+          ></b-icon>
+        </div>
+      </template>
       <g-input-number
         v-model="data.w"
         label="宽度"
@@ -77,7 +89,7 @@
 
 <script setup>
 import { computed } from 'vue'
-import { positionOptions, rotateOptions, multiplAlignOptions } from '@/config/select-options'
+import { positionOptions, multiplAlignOptions } from '@/config/select-options'
 import { useStore } from '@/store'
 
 const emit = defineEmits(['update:attr'])
