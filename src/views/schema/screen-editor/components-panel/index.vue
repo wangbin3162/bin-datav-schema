@@ -40,13 +40,13 @@
             <Comps :comps="comps" @dragstart="dragStart" @click="toAddCom" />
 
             <ImagesList
-              v-if="activeIndex === 4"
+              v-if="activeIndex === 5"
               @dragstart="dragImageStart"
               @click="toAddImageComp"
             />
 
             <CompList
-              v-if="activeIndex === 5"
+              v-if="activeIndex === 6"
               @dragstart="dragCustomCompStart"
               @click="toAddCustomComp"
             />

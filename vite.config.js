@@ -53,6 +53,7 @@ export default ({ mode }) => {
         'js-cookie',
         'mockjs',
         'brace',
+        'three',
       ],
       exclude: [],
     },
