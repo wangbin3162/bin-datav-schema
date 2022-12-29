@@ -178,16 +178,21 @@ const VScrollTable = {
 
 // -------------------------3d-------------------------//
 
-// 表格-基础滚动表格
 const VEarth3d = {
   name: 'VEarth3d',
   alias: '点阵地球',
   img: getComPath('scroll-table.svg'),
 }
-// 表格-基础滚动表格
+
 const VCube3d = {
   name: 'VCube3d',
   alias: '3d立方体',
+  img: getComPath('scroll-table.svg'),
+}
+
+const VBuilding3d = {
+  name: 'VBuilding3d',
+  alias: '建筑扫描',
   img: getComPath('scroll-table.svg'),
 }
 
@@ -259,7 +264,7 @@ export const componentList = [
     name: '3D',
     icon: 'earth',
     group: [],
-    comps: [VEarth3d, VCube3d],
+    comps: [VEarth3d, VCube3d, VBuilding3d],
   },
   {
     type: 'images',

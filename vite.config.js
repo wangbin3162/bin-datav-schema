@@ -1,6 +1,7 @@
 import { loadEnv, defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
+import glsl from 'rollup-plugin-glsl'
 
 function pathResolve(dir) {
   return resolve(process.cwd(), '.', dir)
@@ -16,7 +17,17 @@ export default ({ mode }) => {
 
   return defineConfig({
     base: env.VITE_PUBLIC_PATH,
-    plugins: [vue()],
+    plugins: [
+      vue(),
+      glsl({
+        // By default, everything gets included
+        include: '**/*.glsl',
+        // Undefined by default
+        exclude: ['**/index.html'],
+        // Source maps are on by default
+        // sourceMap: false,
+      }),
+    ],
     server: {
       host: '0.0.0.0',
       port: 8086,
@@ -54,6 +65,7 @@ export default ({ mode }) => {
         'mockjs',
         'brace',
         'three',
+        'gsap',
       ],
       exclude: [],
     },
@@ -75,6 +87,7 @@ export default ({ mode }) => {
                 'particles.vue3',
                 'mockjs',
                 'three',
+                'gsap',
               ]
               const c = expansions.find(exp => id.includes(`/node_modules/${exp}`))
               if (c) {

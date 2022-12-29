@@ -10,10 +10,10 @@ export default class Earth3d {
     this.options = {
       width: this.domEl?.clientWidth,
       height: this.domEl?.clientHeight, //窗口高度
-      BLINT_SPEED: cfg.blintSpeed ?? 5,
-      ROTATE_SPEED: cfg.rotateSpeed ?? 5,
-      RADIUS: cfg.radius ?? 100,
-      POINT_COLOR: cfg.dotColor ?? '#079cd1',
+      blintSpeed: cfg.blintSpeed ?? 5,
+      rotateSpeed: cfg.rotateSpeed ?? 5,
+      radius: cfg.radius ?? 100,
+      pointColor: cfg.dotColor ?? '#079cd1',
     }
 
     this.init()
@@ -73,7 +73,7 @@ export default class Earth3d {
       }
       let mat = new THREE.PointsMaterial({
         size: 5,
-        color: new THREE.Color(this.options.POINT_COLOR),
+        color: new THREE.Color(this.options.pointColor),
         depthWrite: false,
         transparent: true,
         opacity: 0,
@@ -86,7 +86,7 @@ export default class Earth3d {
       // 追加记录参数
       let n = i / 2
       mat._t = n * Math.PI * 2
-      mat._speed = this.options.BLINT_SPEED * 0.01
+      mat._speed = this.options.blintSpeed * 0.01
       mat._min = 0.2 * Math.random() + 0.5
       mat._delta = 0.1 * Math.random() + 0.1
       mat._opacity = 1
@@ -94,7 +94,7 @@ export default class Earth3d {
     }
 
     // 创建点球体
-    const spherical = new THREE.Spherical(this.options.RADIUS)
+    const spherical = new THREE.Spherical(this.options.radius)
     const step = 250
     for (let i = 0; i < step; i++) {
       let vec = new THREE.Vector3()
@@ -152,11 +152,12 @@ export default class Earth3d {
       material.needsUpdate = true
     })
 
-    this.earthParticles.rotation.y += 0.001 * this.options.ROTATE_SPEED
+    this.earthParticles.rotation.y += 0.001 * this.options.rotateSpeed
 
     this.renderer.render(this.scene, this.camera) //执行渲染操作
   }
   remove() {
+    this.renderer = null
     this.earthParticles.remove()
     this.earthParticles.removeFromParent()
     this.domEl.removeChild(this.domEl.children[0])

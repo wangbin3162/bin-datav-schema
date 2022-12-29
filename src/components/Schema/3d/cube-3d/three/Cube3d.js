@@ -10,8 +10,8 @@ export default class Cube3d {
     this.options = {
       width: this.domEl?.clientWidth,
       height: this.domEl?.clientHeight, //窗口高度
-      ROTATE_SPEED: cfg.rotateSpeed ?? 5,
-      COLOR: cfg.color ?? '#079cd1',
+      rotateSpeed: cfg.rotateSpeed ?? 5,
+      color: cfg.color ?? '#079cd1',
     }
 
     this.init()
@@ -40,7 +40,7 @@ export default class Cube3d {
 
     this.geometry = new THREE.BoxGeometry(40, 40, 40)
     this.material = new THREE.MeshBasicMaterial({
-      color: this.options.COLOR,
+      color: this.options.color,
       map: texture,
       alphaMap: texture,
       transparent: true,
@@ -126,11 +126,12 @@ export default class Cube3d {
       points.push(new THREE.Vector3(item[0], item[1], item[2]))
     })
     let lineGeometry = new THREE.BufferGeometry().setFromPoints(points)
-    let lineMaterial = new THREE.LineBasicMaterial({ color: this.options.COLOR })
+    let lineMaterial = new THREE.LineBasicMaterial({ color: this.options.color })
     return new THREE.Line(lineGeometry, lineMaterial)
   }
 
   remove() {
+    this.renderer = null
     this.group.remove()
     this.group.removeFromParent()
     this.geometry.dispose()
@@ -140,7 +141,7 @@ export default class Cube3d {
 
   animate() {
     requestAnimationFrame(() => this.animate()) //请求再次执行渲染函数render
-    this.group.rotation.y += 0.001 * this.options.ROTATE_SPEED
+    this.group.rotation.y += 0.001 * this.options.rotateSpeed
     this.renderer.render(this.scene, this.camera) //执行渲染操作
   }
 }
