@@ -26,7 +26,7 @@
                 width: comp.attr.w + 'px',
                 height: comp.attr.h + 'px',
                 opacity: comp.attr.opacity,
-                transform: 'translateZ(0px)',
+                transform: `rotatey(${comp.attr.rotateY ?? 0}deg)`,
               }"
               :id="`component_${comp.id}`"
             />

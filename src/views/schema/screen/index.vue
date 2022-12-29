@@ -5,21 +5,17 @@
     </div>
     <div class="dv-layout" :style="{ visibility: loading ? 'hidden' : 'visible' }">
       <div class="scene">
-        <div
-          class="dv-com absolute"
-          v-for="com in comps"
-          :key="com.id"
-          :style="{
-            left: com.attr.x + 'px',
-            top: com.attr.y + 'px',
-            width: com.attr.w + 'px',
-            height: com.attr.h + 'px',
-            opacity: com.attr.opacity,
-            transform: `rotate(${com.attr.rotate}deg)`,
-            pointerEvents: com.name === 'Group' ? 'none' : null,
-          }"
-        >
-          <component :is="com.name" :data="com" />
+        <div class="dv-com absolute" v-for="com in comps" :key="com.id" :style="getComStyle(com)">
+          <component
+            :is="com.name"
+            :data="com"
+            :style="{
+              width: com.attr.w + 'px',
+              height: com.attr.h + 'px',
+              opacity: com.attr.opacity,
+              transform: `rotatey(${com.attr.rotateY ?? 0}deg)`,
+            }"
+          />
         </div>
       </div>
     </div>
@@ -58,6 +54,25 @@ export default {
         backgroundSize: '100%',
         backgroundRepeat: 'no-repeat',
       })
+    }
+
+    function getComStyle(com) {
+      const style = {
+        left: com.attr.x + 'px',
+        top: com.attr.y + 'px',
+        width: com.attr.w + 'px',
+        height: com.attr.h + 'px',
+        opacity: com.attr.opacity,
+        transform: `rotate(${com.attr.rotate}deg)`,
+        pointerEvents: com.name === 'Group' ? 'none' : null,
+      }
+      const rotate3d = com.attr.rotateY && com.attr.rotateY !== 0
+      if (rotate3d) {
+        style['transform-style'] = 'preserve-3d'
+        style.perspective = '1000px'
+        style.overflow = 'visible'
+      }
+      return style
     }
 
     // 初始化screen数据
@@ -128,6 +143,7 @@ export default {
     return {
       loading,
       comps,
+      getComStyle,
     }
   },
 }

@@ -36,10 +36,27 @@
       <g-input-number v-model="data.x" label="X" inline suffix="px" :disabled="readonly" />
       <g-input-number v-model="data.y" label="Y" inline suffix="px" :disabled="readonly" />
     </g-field>
-    <g-field label="旋转角度" v-if="!isMultiSelect">
-      <g-slider v-model="data.rotate" :min="0" :max="360" :step="1" />
+    <g-field label="旋转角度" flat v-if="!isMultiSelect">
+      <g-input-number
+        v-model="data.rotate"
+        label="2d旋转"
+        :min="0"
+        :max="360"
+        :step="1"
+        inline
+        suffix="deg"
+      />
+      <g-input-number
+        v-model="data.rotateY"
+        label="3d旋转"
+        :min="-180"
+        :max="180"
+        :step="1"
+        inline
+        suffix="deg"
+      />
     </g-field>
-    <g-field label="透明度" v-if="!(isMultiSelect || curComIsGroup)">
+    <g-field label="透明度" v-if="!isMultiSelect">
       <g-slider v-model="data.opacity" :min="0" :max="1" :step="0.05" />
     </g-field>
     <g-field label="位置" v-if="!isMultiSelect">

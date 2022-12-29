@@ -9,10 +9,10 @@
       @mousedown="onMove"
     >
       <div class="transform-handler" :class="handlerClass" :style="handlerStyle">
-        <div class="dv-com">
+        <div class="dv-com" :style="dvComStyle">
           <slot></slot>
           <!--事件阻止蒙版-->
-          <div class="dv-event-disable" :style="wrapperStyle" @contextmenu="showMenu"></div>
+          <div class="dv-event-disable" :style="disableEventStyle" @contextmenu="showMenu"></div>
         </div>
         <template v-for="(v, k) in points" :key="k">
           <i v-if="v.rotateStyle" :class="`${v.name}-handler`" data-html2canvas-ignore>
@@ -86,6 +86,17 @@ export default {
       selected: isSelected.value,
     }))
 
+    const dvComStyle = computed(() => {
+      const rotate3d = props.data.attr.rotateY && props.data.attr.rotateY !== 0
+      return rotate3d
+        ? {
+            'transform-style': 'preserve-3d',
+            perspective: '1000px',
+            overflow: 'visible',
+          }
+        : null
+    })
+
     const transformStyle = computed(() => ({
       top: 0,
       left: 0,
@@ -100,9 +111,10 @@ export default {
       transform: `rotate(${props.data.attr.rotate}deg)`,
     }))
 
-    const wrapperStyle = computed(() => ({
+    const disableEventStyle = computed(() => ({
       width: `${props.data.attr.w}px`,
       height: `${props.data.attr.h}px`,
+      transform: `rotatey(${props.data.attr.rotateY ?? 0}deg)`,
     }))
     const hideStyle = computed(() => ({
       display: props.data.hided ? 'none' : 'block',
@@ -191,10 +203,11 @@ export default {
       isSelected,
       hideStyle,
       transformClass,
+      dvComStyle,
       transformStyle,
       handlerClass,
       handlerStyle,
-      wrapperStyle,
+      disableEventStyle,
       onEnter,
       onLeave,
       onMove,
