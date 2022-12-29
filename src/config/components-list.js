@@ -181,24 +181,24 @@ const VScrollTable = {
 const VEarth3d = {
   name: 'VEarth3d',
   alias: '点阵地球',
-  img: getComPath('scroll-table.svg'),
+  img: getComPath('earth.jpg'),
 }
 const VLightEarth3d = {
   name: 'VLightEarth3d',
   alias: '发光地球',
-  img: getComPath('scroll-table.svg'),
+  img: getComPath('light-earth.jpg'),
 }
 
 const VCube3d = {
   name: 'VCube3d',
   alias: '3d立方体',
-  img: getComPath('scroll-table.svg'),
+  img: getComPath('cube.jpg'),
 }
 
 const VBuilding3d = {
   name: 'VBuilding3d',
   alias: '建筑扫描',
-  img: getComPath('scroll-table.svg'),
+  img: getComPath('building.jpg'),
 }
 
 // 组件列表
