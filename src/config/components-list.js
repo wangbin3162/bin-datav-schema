@@ -183,6 +183,11 @@ const VEarth3d = {
   alias: '点阵地球',
   img: getComPath('scroll-table.svg'),
 }
+const VLightEarth3d = {
+  name: 'VLightEarth3d',
+  alias: '发光地球',
+  img: getComPath('scroll-table.svg'),
+}
 
 const VCube3d = {
   name: 'VCube3d',
@@ -264,7 +269,7 @@ export const componentList = [
     name: '3D',
     icon: 'earth',
     group: [],
-    comps: [VEarth3d, VCube3d, VBuilding3d],
+    comps: [VEarth3d, VLightEarth3d, VCube3d, VBuilding3d],
   },
   {
     type: 'images',

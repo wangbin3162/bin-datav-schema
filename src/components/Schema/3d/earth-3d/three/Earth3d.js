@@ -154,7 +154,7 @@ export default class Earth3d {
 
     this.earthParticles.rotation.y += 0.001 * this.options.rotateSpeed
 
-    this.renderer.render(this.scene, this.camera) //执行渲染操作
+    this.renderer?.render(this.scene, this.camera) //执行渲染操作
   }
   remove() {
     this.renderer = null

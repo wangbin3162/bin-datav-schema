@@ -12,13 +12,19 @@
     <span v-if="label" class="g-input__caption">{{ label }}</span>
     <span v-if="suffix" class="g-input-number__suffix">{{ suffix }}</span>
     <span class="g-input-number__number">
-      <input v-model="inputValue" type="number" />
+      <input
+        v-model="inputValueCopy"
+        type="number"
+        @keyup.enter="inputValue = inputValueCopy"
+        @blur="inputValue = inputValueCopy"
+      />
     </span>
   </div>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, watch, ref } from 'vue'
+
 export default {
   name: 'g-slider',
   props: {
@@ -68,12 +74,23 @@ export default {
       set: val => emit('update:modelValue', val),
     })
 
+    const inputValueCopy = ref(0)
+
     const handleChange = (currentValue, oldValue) => {
       emit('change', currentValue, oldValue)
     }
 
+    watch(
+      () => props.modelValue,
+      val => {
+        inputValueCopy.value = val
+      },
+      { immediate: true },
+    )
+
     return {
       inputValue,
+      inputValueCopy,
       handleChange,
     }
   },

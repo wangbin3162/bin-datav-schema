@@ -46,7 +46,7 @@ export default class Building3d {
     // this.addFireSprite()
   }
   init() {
-    const { width, height, cameraPos } = this.options
+    const { width, height, rotateSpeed, cameraPos } = this.options
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(45, width / height, 0.000001, 10000)
     let pos = cameraPos.split(',').map(num => +num.trim())
@@ -68,12 +68,14 @@ export default class Building3d {
 
     this.control = new OrbitControls(this.camera, this.renderer.domElement)
     this.control.enabled = this.options.control
+    this.control.autoRotate = true
+    this.control.autoRotateSpeed = rotateSpeed
 
     this.domEl?.appendChild(this.renderer.domElement) //body元素中插入canvas对象
   }
 
   initEffect() {
-    const { width, height, rotateSpeed, threshold, strength, radius } = this.options
+    const { width, height, threshold, strength, radius } = this.options
     // 合成效果
     this.effectComposer = new EffectComposer(this.renderer)
     this.effectComposer.setSize(width, height)
@@ -97,9 +99,6 @@ export default class Building3d {
     this.unrealBloomPass.threshold = threshold
     this.unrealBloomPass.strength = strength
     this.unrealBloomPass.radius = radius
-
-    this.control.autoRotate = true
-    this.control.autoRotateSpeed = rotateSpeed
 
     this.effectComposer.addPass(this.unrealBloomPass)
   }

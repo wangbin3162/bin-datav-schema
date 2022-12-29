@@ -4,7 +4,7 @@
 
 <script>
 import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue'
-// import Cube3d from './three/Cube3d'
+import Earth3d from './three/Earth3d'
 import { debounce } from '@/utils/util'
 
 export default {
@@ -20,13 +20,13 @@ export default {
     // config 配置项
     const config = computed(() => props.data.config)
 
-    let cube = null
+    let earth = null
 
     const debResize = debounce(() => resize(), 200)
 
     function resize() {
-      if (cube) cube.remove()
-      // cube = new Cube3d(domRef.value, config.value)
+      if (earth) earth.remove()
+      earth = new Earth3d(domRef.value, config.value)
     }
 
     watch([() => props.data.attr.w, () => props.data.attr.h], () => {
@@ -41,7 +41,7 @@ export default {
     )
 
     onMounted(() => {
-      // cube = new Cube3d(domRef.value, config.value)
+      earth = new Earth3d(domRef.value, config.value)
     })
 
     onBeforeUnmount(() => {

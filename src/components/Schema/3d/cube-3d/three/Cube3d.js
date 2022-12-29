@@ -142,6 +142,6 @@ export default class Cube3d {
   animate() {
     requestAnimationFrame(() => this.animate()) //请求再次执行渲染函数render
     this.group.rotation.y += 0.001 * this.options.rotateSpeed
-    this.renderer.render(this.scene, this.camera) //执行渲染操作
+    this.renderer?.render(this.scene, this.camera) //执行渲染操作
   }
 }

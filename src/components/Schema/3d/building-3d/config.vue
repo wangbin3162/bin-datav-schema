@@ -1,5 +1,8 @@
 <template>
   <div class="setting-panel-gui">
+    <g-field label="控制器">
+      <b-switch v-model="config.control" size="small" />
+    </g-field>
     <g-field label="颜色">
       <g-color-picker v-model="config.color" />
     </g-field>
@@ -12,9 +15,6 @@
     </g-field>
     <g-field label="摄像机位置" tooltip="摄像机位置为vec3(x,y,z)，填写xyz，逗号隔开">
       <g-input v-model="config.cameraPos" placeholder="x,y,z" />
-    </g-field>
-    <g-field label="控制器">
-      <b-checkbox v-model="config.control" />
     </g-field>
 
     <g-field label="发光阈值">

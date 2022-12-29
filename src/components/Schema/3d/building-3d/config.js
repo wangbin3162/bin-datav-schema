@@ -2,8 +2,8 @@ import { ComType } from '@/config/data-source'
 
 export const building3dConfig = {
   name: 'VBuilding3d',
-  alias: '3d盒子',
-  icon: 'CodeSandbox',
+  alias: '建筑扫描',
+  icon: 'bank',
   type: ComType.com,
   attr: { w: 800, h: 800, lockedRatio: true },
   config: {
