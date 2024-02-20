@@ -9,28 +9,35 @@ const pos = reactive({
 
 export default function useSchemaContextMenu(opts = {}) {
   const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-  const { contextMenu, selectedCom } = storeToRefs(schemaStore)
+  const { contextMenu, selectedCom, selectedComIds } = storeToRefs(schemaStore)
 
   const isLocked = computed(() => selectedCom.value?.locked)
   const isHided = computed(() => selectedCom.value?.hided)
 
   const contextMenuStyle = computed(() => {
     return {
-      display: contextMenu.value.show ? 'block' : 'none',
       left: `${pos.x + 10}px`,
       top: `${pos.y + 10}px`,
-      transform: document.documentElement.clientHeight - pos.y < 250 ? 'translate(0px, -100%)' : '',
+      transform: document.documentElement.clientHeight - pos.y < 370 ? 'translate(0px, -100%)' : '',
     }
   })
 
-  const showMenu = e => {
+  const showMenu = async e => {
     e.preventDefault()
-    if (selectedCom.value) {
+
+    if (selectedCom.value || selectedComIds.value.length > 1) {
       pos.x = e.clientX
       pos.y = e.clientY
       contextMenu.value.show = true
 
+      // console.log('-show-menu-inside-', contextMenu.value.show)
+
       on(document, 'click', hideMenu)
+    }
+    // 右键没有单选或者框选时
+    else {
+      // console.log('-contentmenu-outside-', contextMenu.value.show)
+      hideMenu()
     }
   }
   const hideMenu = () => {

@@ -1,17 +1,23 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局">
+    <g-field-collapse label="属性" default-open>
       <g-field
         label="字体"
         tooltip="请选择您系统有的字体，如果您系统无此字体，标题将会显示默认字体"
       >
-        <g-select v-model="config.global.fontFamily" :data="fontFamilys" />
+        <g-select v-model="config.global.fontFamily" :data="FontFamilyOptions" />
       </g-field>
       <g-field label="排列方式">
-        <g-select v-model="config.global.arrangement" :data="arrangements" />
+        <g-select v-model="config.global.arrangement" :data="ArrangementOptions" />
       </g-field>
       <g-field label="间隔">
-        <g-slider v-model="config.global.distance" :min="-100" :max="500" :step="0.5" suffix="px" />
+        <g-input-number
+          v-model="config.global.distance"
+          :min="-100"
+          :max="100"
+          :step="1"
+          suffix="px"
+        />
       </g-field>
     </g-field-collapse>
     <g-field-collapse label="标题">
@@ -31,13 +37,13 @@
         <g-color-picker v-model="config.title.textStyle.color" inline label="字体颜色" />
         <g-select
           v-model="config.title.textStyle.fontWeight"
-          :data="fontWeights"
+          :data="FontWeightOptions"
           inline
           label="字体粗细"
         />
         <g-select
           v-model="config.title.textStyle.textAlign"
-          :data="justifyContents"
+          :data="JustifyContentOptions"
           inline
           label="对齐方式"
         />
@@ -47,7 +53,7 @@
       <g-field label="文本样式" flat>
         <g-select
           v-model="config.counter.textStyle.fontFamily"
-          :data="fontFamilys"
+          :data="FontFamilyOptions"
           inline
           label="字体"
         />
@@ -62,13 +68,13 @@
         />
         <g-select
           v-model="config.counter.textStyle.fontWeight"
-          :data="fontWeights"
+          :data="FontWeightOptions"
           inline
           label="字体粗细"
         />
         <g-select
           v-model="config.counter.textStyle.textAlign"
-          :data="hAligns"
+          :data="HAlignOptions"
           inline
           label="对齐方式"
         />
@@ -81,7 +87,7 @@
         <g-input v-model="config.counter.suffix" />
       </g-field>
       <g-field label="小数位数">
-        <g-slider v-model="config.counter.decimals" :min="0" :max="8" :step="1" />
+        <g-input-number v-model="config.counter.decimals" :min="0" :max="8" :step="1" />
       </g-field>
       <g-field label="小数点">
         <g-input v-model="config.counter.decimal" />
@@ -104,11 +110,11 @@
 <script setup>
 import { toRef } from 'vue'
 import {
-  fontFamilys,
-  fontWeights,
-  justifyContents,
-  arrangements,
-  hAligns,
+  FontFamilyOptions,
+  FontWeightOptions,
+  JustifyContentOptions,
+  ArrangementOptions,
+  HAlignOptions,
 } from '@/config/select-options'
 
 const props = defineProps({

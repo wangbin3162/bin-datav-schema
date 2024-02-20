@@ -1,8 +1,24 @@
 import { toRefs, watch, ref, computed } from 'vue'
-import { ApiType } from '@/config/data-source'
+import {
+  ApiType,
+  BASE_ECHART,
+  INDICATOR,
+  BOXPLOT_ECHART,
+  CAPSULE_BAR_ECHART,
+  CIRCLE,
+  DASHBOARD_ECHART,
+  FORM_SELECT,
+  OTHER_ECHART,
+  RADAR_ECHART,
+  SCATTER_ECHART,
+  SCATTER_ECHART_BASE,
+  SCROLL_TABLE,
+  TRAPEZIUM_ECHART,
+} from '@/config/data-source'
 import { throwError, toJson, isEmpty, logger } from '@/utils/util'
-import { getModelDataById } from '@/api/modules/analysis-dashboard.api'
+import { getModelDataById, compFetchData } from '@/api/modules/analysis-dashboard.api'
 import { useStore } from '@/store'
+import { buildReqParams } from '@/config/utils'
 
 /**
  * 数据中心hook
@@ -10,8 +26,22 @@ import { useStore } from '@/store'
  */
 export const useDataCenter = com => {
   const { schemaStore } = useStore() // 执行获取schema专属store
-  const { apiData } = toRefs(com)
+  const { apiData, events, componentType } = toRefs(com)
   const dvData = ref({})
+  const params = ref({})
+  const baseList = [BASE_ECHART, SCATTER_ECHART, SCATTER_ECHART_BASE, BOXPLOT_ECHART]
+  const axisConfig = [BASE_ECHART, SCATTER_ECHART, SCATTER_ECHART_BASE, RADAR_ECHART]
+  const mapConfig = [
+    OTHER_ECHART,
+    CIRCLE,
+    INDICATOR,
+    TRAPEZIUM_ECHART,
+    DASHBOARD_ECHART,
+    FORM_SELECT,
+    CAPSULE_BAR_ECHART,
+  ]
+  const legendConfig = [SCATTER_ECHART, SCATTER_ECHART_BASE, BOXPLOT_ECHART]
+  let initFlag = true
 
   // 下钻配置数据
   const drillData = computed(() => apiData.value.config.drill || [])
@@ -24,26 +54,80 @@ export const useDataCenter = com => {
 
   // 设置dvData，读取数据并塞入存储数据
   const setDvData = async (filters = []) => {
-    const { comId, type, config } = apiData.value
+    const { comId, type, config, compType } = apiData.value
     schemaStore.setGlobalLoading(true)
     try {
       // 获取源数据
       if (type === ApiType.static) {
         dvData.value = toJson(config.data, {})
-      } else {
-        const { modelId, y } = config
+      } else if (type === ApiType.model) {
+        const { modelId, y, legend } = config
         const cfgFilters = config.filters || []
         // 如可以下钻，则从下钻对应层级取得x轴数据
         const drillX = drillData.value[drillIndex.value]
+        const dimension = compType === RADAR_ECHART ? config.dimensionModel : undefined
+        const axisFieldsModel = compType === RADAR_ECHART ? config.axisFieldsModel : null
+
+        const mappingFields = mapConfig.includes(compType) ? config.mappingFieldsModel : null
         const x = couldDrill.value && drillX ? [drillX] : config.x
-        if (!isEmpty(modelId) && !isEmpty(x) && !isEmpty(y)) {
+        const tableFields = compType === SCROLL_TABLE ? config.tableModelFields : null
+
+        const lineData = baseList.includes(compType) ? {
+          x: x.map(item => ({
+            field: item.fieldId,
+            title: item.title,
+          })),
+          y: y.map(item => ({
+            field: item.fieldId,
+            title: item.title,
+            aggregator: item.aggregator,
+          })),
+          legend: legend.map(item => ({
+            field: item.fieldId,
+            title: item.title,
+          })),
+        } : null
+        if (!isEmpty(modelId)) {
           dvData.value = await getModelDataById({
-            modelId,
-            x,
-            y,
-            filters: [...cfgFilters, ...filters],
+            dimension: dimension,
+            modelId: modelId,
+            ...mappingFields,
+            ...lineData,
+            ...axisFieldsModel,
+            ...tableFields,
+            compType: compType,
+            // filters: [...cfgFilters, ...filters],
           })
           logger.primary(`==> 载入动态数据，comId：${comId} ，modelId：${modelId}`)
+          // 设置系列数量
+          if (dvData.value.yData && dvData.value.yData.length > 0) {
+            config.seriesCount = dvData.value.yData.length
+          }
+        }
+      } else {
+        // for(let key in actParams) {
+        //   params.value[key] = actParams[key]
+        // }
+        const axisFields = axisConfig.includes(compType) ? config.axisFields : null
+        const mappingFields = mapConfig.includes(compType) ? config.mappingFields : null
+        // const name = compType === SCATTER_ECHART || compType === SCATTER_ECHART_BASE ? config.name : undefined
+        const dimension = compType === RADAR_ECHART ? config.dimension : undefined
+        const boxFields = legendConfig.includes(compType)
+          ? { x: config.boxFields.x, y: config.boxFields.y, legend: config.boxFields.nAmE }
+          : null
+        const tableFields = compType === SCROLL_TABLE ? config.tableFields : null
+        if (!isEmpty(config.serviceId)) {
+          dvData.value = await compFetchData({
+            serviceId: config.serviceId,
+            ...axisFields,
+            // nAmE: name,
+            ...boxFields,
+            ...mappingFields,
+            ...tableFields,
+            dimension: dimension,
+            ...params.value,
+            compType,
+          })
           // 设置系列数量
           if (dvData.value.yData && dvData.value.yData.length > 0) {
             config.seriesCount = dvData.value.yData.length
@@ -92,21 +176,44 @@ export const useDataCenter = com => {
     setDvData(drillFilters.value)
   }
 
+  /**
+   * 设置并返回参数对象
+   * @param {*} p
+   * @returns
+   */
+  function buildParams(p = {}) {
+    params.value = { ...params.value, ...p }
+    // console.log(params.value)
+    // return params.value
+  }
+
   // 监听数据变更，如apis配置变化了或数据配置项apiData.source.config中修改了，则需要重新设置数据
   watch(
     [
       () => apiData.value.type,
       () => apiData.value.config.data,
-      () => apiData.value.config.x,
-      () => apiData.value.config.y,
+      // () => apiData.value.config.x,
+      // () => apiData.value.config.y,
+      () => apiData.value.flushFlag,
     ],
     async () => {
-      drillIndex.value = 0
-      drillFilters.value = []
-      await setDvData()
+      if (
+        initFlag &&
+        !events.value.defaultAction &&
+        Object.keys(events.value).includes('defaultAction')
+      ) {
+        initFlag = false
+      } else {
+        drillIndex.value = 0
+        drillFilters.value = []
+        params.value = buildReqParams(apiData.value.config.reqParam)
+
+        await setDvData()
+      }
     },
     { deep: true, immediate: true },
   )
+
   return {
     dvData,
     apiData,
@@ -116,5 +223,7 @@ export const useDataCenter = com => {
     couldDrill,
     dvEmit,
     dvScrollUp,
+    buildParams,
+    setDvData,
   }
 }

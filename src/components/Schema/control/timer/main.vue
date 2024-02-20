@@ -25,82 +25,75 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, onUnmounted, ref, shallowRef } from 'vue'
 import dayjs from 'dayjs'
 
-export default {
+defineOptions({
   name: 'VTimer',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+})
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
+})
 
-    const wrapperStyle = computed(() => {
-      const { textStyle, horizontal, vertical } = config.value.time
-      return {
-        'font-size': `${textStyle.fontSize}px`,
-        'font-family': textStyle.fontFamily,
-        'font-weight': textStyle.fontWeight,
-        color: textStyle.color,
-        display: 'flex',
-        'justify-content': horizontal,
-        'align-items': vertical,
-        overflow: 'hidden',
-        'text-overflow': 'ellipsis',
-        'white-space': 'nowrap',
-      }
-    })
+// config 配置项
+const config = computed(() => props.data.config)
 
-    const iconStyle = computed(() => {
-      const { time, iconStyle } = config.value
-      const size = time.textStyle.fontSize * iconStyle.size
-      return {
-        display: 'block',
-        width: `${size}px`,
-        height: `${size}px`,
-        marginRight: `${iconStyle.marginRight}px`,
-      }
-    })
-    const dateTime = shallowRef(dayjs())
-    const timerId = ref(0)
+const wrapperStyle = computed(() => {
+  const { textStyle, horizontal, vertical } = config.value.time
+  return {
+    'font-size': `${textStyle.fontSize}px`,
+    'font-family': textStyle.fontFamily,
+    'font-weight': textStyle.fontWeight,
+    color: textStyle.color,
+    display: 'flex',
+    'justify-content': horizontal,
+    'align-items': vertical,
+    overflow: 'hidden',
+    'text-overflow': 'ellipsis',
+    'white-space': 'nowrap',
+  }
+})
 
-    const realDateTime = computed(() => dayjs(dateTime.value).format(config.value.time.format))
+const iconStyle = computed(() => {
+  const { time, iconStyle } = config.value
+  const size = time.textStyle.fontSize * iconStyle.size
+  return {
+    display: 'block',
+    width: `${size}px`,
+    height: `${size}px`,
+    marginRight: `${iconStyle.marginRight}px`,
+  }
+})
+const dateTime = shallowRef(dayjs())
+const timerId = ref(0)
 
-    const updateDateTime = () => {
-      if (config.value.time.duration === 0) {
-        clearDateTime()
-        return
-      }
-      let duration = config.value.time.duration || 100
-      dateTime.value = dayjs(dateTime.value).add(duration, 'ms')
-      timerId.value = setTimeout(() => {
-        updateDateTime()
-      }, duration)
-    }
+const realDateTime = computed(() => dayjs(dateTime.value).format(config.value.time.format))
 
-    const clearDateTime = () => {
-      if (timerId.value) {
-        clearTimeout(timerId.value)
-      }
-    }
-
+const updateDateTime = () => {
+  if (config.value.time.duration === 0) {
+    clearDateTime()
+    return
+  }
+  let duration = config.value.time.duration || 100
+  dateTime.value = dayjs(dateTime.value).add(duration, 'ms')
+  timerId.value = setTimeout(() => {
     updateDateTime()
-
-    onUnmounted(() => {
-      clearDateTime()
-    })
-    return {
-      config,
-      wrapperStyle,
-      iconStyle,
-      realDateTime,
-    }
-  },
+  }, duration)
 }
+
+const clearDateTime = () => {
+  if (timerId.value) {
+    clearTimeout(timerId.value)
+  }
+}
+
+updateDateTime()
+
+onUnmounted(() => {
+  clearDateTime()
+})
 </script>

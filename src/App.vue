@@ -1,20 +1,15 @@
 <template>
-  <router-view />
+  <b-config-provider abstract themeName="dark" :theme="themeConfigRef">
+    <router-view />
+    <ThemeConfig v-if="$route.name !== 'Screen' && $route.name !== 'Preview'" />
+  </b-config-provider>
 </template>
 
 <script setup>
-import { watch } from 'vue'
-import { useRoute } from 'vue-router'
-import { setAttrVar } from '@/config/setting.cfg'
+import config from '../package.json'
+import { useThemeInit, themeConfigRef, ThemeConfig } from '@/theme'
 
-const route = useRoute()
+document.title = config.description
 
-watch(
-  () => route.path,
-  path => {
-    const theme = path === '/model/cube' ? 'light' : 'dark'
-    setAttrVar('data-schema', `datav-${theme}`)
-  },
-  { immediate: true },
-)
+useThemeInit()
 </script>

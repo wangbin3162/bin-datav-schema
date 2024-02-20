@@ -1,0 +1,138 @@
+[
+  {
+    "name": "电力-01",
+    "src": "electric-01.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-02",
+    "src": "electric-02.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-03",
+    "src": "electric-03.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-04",
+    "src": "electric-04.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-05",
+    "src": "electric-05.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-06",
+    "src": "electric-06.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-07",
+    "src": "electric-07.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-08",
+    "src": "electric-08.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-09",
+    "src": "electric-09.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-10",
+    "src": "electric-10.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-11",
+    "src": "electric-11.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-12",
+    "src": "electric-12.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-13",
+    "src": "electric-13.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-14",
+    "src": "electric-14.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-15",
+    "src": "electric-15.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-16",
+    "src": "electric-16.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  },
+  {
+    "name": "电力-17",
+    "src": "electric-17.svg",
+    "attr": {
+      "w": 256,
+      "h": 256
+    }
+  }
+]

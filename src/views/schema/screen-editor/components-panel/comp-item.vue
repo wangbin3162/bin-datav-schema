@@ -10,11 +10,12 @@
             @dragstart="dragStart($event, com.comp)"
             @click="click(com.comp)"
           >
-            <img v-lazy="com.src" />
+            <img v-lazy="com.thumbnail" v-if="!listLoading" />
+            <img v-lazy="com.thumbnail" v-else />
             <div class="hover-layer">
               <i
                 class="b-iconfont b-icon-delete-fill"
-                title="删除图片"
+                title="删除组件"
                 @click.stop="removeCom(com)"
               ></i>
             </div>
@@ -30,6 +31,8 @@
 import { ref } from 'vue'
 import * as api from '@/api/comps/comps.api'
 import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
+import { throwError } from '@/utils/util'
+import { EventBus, EventMap } from '@/utils/event-bus'
 
 const emit = defineEmits(['dragstart', 'click'])
 const props = defineProps({
@@ -40,8 +43,19 @@ const props = defineProps({
 })
 
 const list = ref([])
+const listLoading = ref(false)
 // 获取组件库
-const getCompList = () => api.getCompsByGroup(props.groupId).then(res => (list.value = res))
+async function getCompList() {
+  listLoading.value = true
+  try {
+    list.value = await api.getCompsByGroup(props.groupId)
+  } catch (e) {
+    throwError(e)
+  }
+  listLoading.value = false
+}
+
+EventBus.on(EventMap.SaveCompSuccess, getCompList)
 
 getCompList()
 
@@ -60,14 +74,13 @@ const dragStart = (e, comp) => emit('dragstart', e, comp)
 const click = comp => emit('click', comp)
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .comp-wrap {
   display: flex;
   flex-wrap: wrap;
   padding: 8px 4px;
 }
 .comp-item {
-  color: var(--schema-font-color);
   width: 50%;
   vertical-align: top;
   user-select: none;
@@ -91,10 +104,12 @@ const click = comp => emit('click', comp)
     justify-content: center;
     align-items: center;
     width: 100%;
+    overflow: hidden;
     height: 72px;
+    padding: 4px;
     border-radius: 2px;
     transition: border-color 0.2s;
-    border: 1px dashed rgba(255, 255, 255, .2);
+    border: 1px dashed var(--s-border-color-2);
     cursor: url('@/assets/images/schema/cursor-move.png') 4 4, auto;
     > img {
       width: 100%;
@@ -105,7 +120,7 @@ const click = comp => emit('click', comp)
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(33,33,37,.7);
+      background: rgba(33, 33, 37, 0.7);
       display: none;
       > i {
         position: absolute;
@@ -115,7 +130,7 @@ const click = comp => emit('click', comp)
         color: #fff;
       }
     }
-    &:hover{
+    &:hover {
       border-color: var(--bin-color-primary-light2);
       background: #2a292f;
       .hover-layer {

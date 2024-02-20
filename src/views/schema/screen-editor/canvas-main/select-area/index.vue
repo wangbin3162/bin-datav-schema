@@ -6,6 +6,7 @@
       top: y + 'px',
       width: width + 'px',
       height: height + 'px',
+      zIndex: 2,
     }"
     class="select-area"
     @mousedown.stop="mouseDown"
@@ -17,7 +18,7 @@ import { useStore } from '@/store'
 import { on, off } from '@/utils/util'
 
 const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-const { pageConfig, canvas, selectedComs, areaData } = storeToRefs(schemaStore)
+const { toolbox, canvas, selectedComs, areaData } = storeToRefs(schemaStore)
 
 defineProps({
   x: Number,
@@ -42,7 +43,7 @@ function mouseDown(ev) {
   const startX = ev.clientX
   const startY = ev.clientY
   const scale = canvas.value.scale
-  const grid = pageConfig.value.grid
+  const grid = toolbox.value.grid
 
   const move = e => {
     const curX = e.clientX
@@ -77,10 +78,10 @@ function mouseDown(ev) {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .select-area {
   position: absolute;
-  border: 1px solid #70c0ff;
-  background-color: rgba(36,63,162,0.08);
+  border: 1px solid var(--bin-color-primary);
+  background-color: var(--bin-color-primary-alpha1);
 }
 </style>

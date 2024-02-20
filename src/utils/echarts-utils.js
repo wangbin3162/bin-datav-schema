@@ -1,6 +1,6 @@
 import Accounting from 'accounting'
 
-export const getAutoValue = (val) => {
+export const getAutoValue = val => {
   if (typeof val === 'number') {
     return val
   }
@@ -8,7 +8,7 @@ export const getAutoValue = (val) => {
   return parseFloat(val) || null
 }
 
-export const getLimitValue = (val) => {
+export const getLimitValue = val => {
   if (val === 'dataMin' || val === 'dataMax') {
     return val
   }

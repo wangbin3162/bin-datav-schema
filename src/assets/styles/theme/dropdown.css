@@ -1,0 +1,15 @@
+[theme-name='dark'] {
+  .bin-dropdown__popper.bin-popper[role='tooltip'] {
+    background: var(--s-color-2);
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    .bin-dropdown-item {
+      color: var(--s-text-color);
+
+      &:hover,
+      &.bin-dropdown-item-selected {
+        background-color: var(--s-color-1);
+        color: var(--bin-color-primary);
+      }
+    }
+  }
+}

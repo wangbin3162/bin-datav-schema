@@ -1,6 +1,6 @@
 import { ComType } from '@/config/data-source'
 
-export const lightEarth3dConfig = {
+export default {
   name: 'VLightEarth3d',
   alias: '发光地球',
   icon: 'earth',
@@ -23,5 +23,3 @@ export const lightEarth3dConfig = {
   apiData: {},
   events: {},
 }
-
-export default lightEarth3dConfig

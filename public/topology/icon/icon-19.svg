@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="58px" viewBox="0 0 64 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>web/icon-餐饮</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62.4" height="62.4"></rect>
+        <filter x="-38.2%" y="-105.0%" width="176.3%" height="310.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="6.55107395" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="102.952293%" y2="107.681102%" id="linearGradient-4">
+            <stop stop-color="#3023AE" offset="0%"></stop>
+            <stop stop-color="#C86DD7" offset="100%"></stop>
+        </linearGradient>
+        <path d="M41.8264603,16.7449578 L41.8264603,16.7449579 C41.7392502,16.0717115 41.5077675,15.4232456 41.1466804,14.84066 L41.1466805,14.8406602 C40.8927124,14.4702342 40.5841741,14.1373274 40.2307417,13.8523816 L39.4825428,13.2445361 L24.8341784,1.30867369 C22.6933128,-0.436224564 19.1840773,-0.436224564 17.0387593,1.30867369 L2.38598498,13.2424357 L1.63999107,13.8524044 C1.28685881,14.1371991 0.977869559,14.4687521 0.724052203,14.8385597 L0.715223885,14.8534371 L0.715223582,14.8534376 C0.24261631,15.6182443 -0.00460524687,16.492625 6.49622807e-05,17.3825853 L6.49622807e-05,38.8824707 C6.49622807e-05,41.4668779 2.03726643,43.5815839 4.52464142,43.5815839 L37.3438875,43.5815839 C39.8312625,43.5815839 41.8728117,41.4668779 41.8728117,38.8824707 L41.8728117,17.3825853 C41.8706047,17.1700521 41.8551551,16.9575185 41.8286702,16.7449868 L41.8264603,16.7449578 Z" id="path-5"></path>
+        <linearGradient x1="65.1592602%" y1="0%" x2="50%" y2="137.357091%" id="linearGradient-7">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="10.0774624%" x2="93.6820542%" y2="108.905285%" id="linearGradient-8">
+            <stop stop-color="#12FCDF" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="81.2760417%" x2="50%" y2="-10.8802083%" id="linearGradient-9">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-10" cx="13" cy="13" r="13"></circle>
+        <linearGradient x1="50%" y1="10.0774624%" x2="58.1759983%" y2="178.417969%" id="linearGradient-12">
+            <stop stop-color="#12FCDF" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="大数据可视化科技智慧智能统计后台监管中心" transform="translate(-1317.000000, -203.000000)">
+            <g id="原创-center" transform="translate(375.000000, 122.000000)">
+                <g id="编组-52">
+                    <g id="web/icon-安防" transform="translate(943.000000, 76.000000)">
+                        <g id="编组-24" transform="translate(-0.201923, -0.201923)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="蒙版"></g>
+                            <g mask="url(#mask-2)">
+                                <g transform="translate(5.546667, 5.546667)">
+                                    <ellipse id="椭圆形备份" fill="#000000" opacity="0.200000003" filter="url(#filter-3)" cx="25.7539095" cy="36.4" rx="25.7539095" ry="9.36"></ellipse>
+                                    <g id="web/icon-安防" stroke-width="1" fill="none" transform="translate(4.853333, 0.000000)">
+                                        <g id="分组-55">
+                                            <g id="分组-54" transform="translate(0.000000, 0.346667)">
+                                                <g id="分组-16">
+                                                    <mask id="mask-6" fill="white">
+                                                        <use xlink:href="#path-5"></use>
+                                                    </mask>
+                                                    <use id="蒙版" fill="url(#linearGradient-4)" fill-rule="nonzero" xlink:href="#path-5"></use>
+                                                    <rect id="矩形" fill="url(#linearGradient-7)" fill-rule="nonzero" mask="url(#mask-6)" x="-7.03142877" y="-7.4386598" width="28.6919735" height="54.19595"></rect>
+                                                    <rect id="矩形" fill="url(#linearGradient-8)" fill-rule="nonzero" mask="url(#mask-6)" x="20.9672114" y="-7.4386598" width="28.6919735" height="54.19595"></rect>
+                                                </g>
+                                            </g>
+                                            <g id="形状" transform="translate(8.666667, 10.746667)">
+                                                <mask id="mask-11" fill="white">
+                                                    <use xlink:href="#path-10"></use>
+                                                </mask>
+                                                <use id="蒙版" fill="url(#linearGradient-9)" fill-rule="nonzero" xlink:href="#path-10"></use>
+                                                <path d="M13.6547982,5.2 C16.4564471,5.2 18.7275347,7.52809791 18.7275347,10.3994434 C18.7275347,13.271531 16.4564471,15.5996289 13.6547982,15.5996289 C10.8531493,15.5996289 8.58206171,13.271531 8.58206171,10.3994434 C8.58206171,7.52735576 10.8538614,5.2 13.6547982,5.2 L13.6547982,5.2 Z M13.6547982,5.2 C16.4564471,5.2 18.7275347,7.52809791 18.7275347,10.3994434 C18.7275347,13.271531 16.4564471,15.5996289 13.6547982,15.5996289 C10.8531493,15.5996289 8.58206171,13.271531 8.58206171,10.3994434 C8.58206171,7.52735576 10.8538614,5.2 13.6547982,5.2 L13.6547982,5.2 Z M11.752611,17.3332715 L15.9807223,17.3332715 C19.5999343,17.3332715 22.5333333,20.3396867 22.5333333,24.0496521 L22.5333333,24.4823206 C22.5333333,25.9443394 19.5992221,26 15.9807223,26 L11.752611,26 C8.13339907,26 5.2,25.9977736 5.2,24.4823206 L5.2,24.0496521 C5.2,20.3396867 8.13339907,17.3332715 11.752611,17.3332715 L11.752611,17.3332715 Z" fill="url(#linearGradient-12)" fill-rule="nonzero" mask="url(#mask-11)"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

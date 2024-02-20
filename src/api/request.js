@@ -3,6 +3,8 @@ import request from 'axios'
 import cookies from '../utils/util.cookies'
 import router from '@/router'
 import { throwError } from '@/utils/util'
+import { useStore } from '@/store'
+// import { refreshToken } from '@/utils/refresh'
 
 const baseUrl = process.env.NODE_ENV === 'production' ? '/' : '/'
 
@@ -41,6 +43,8 @@ const err = error => {
  * request interceptor
  */
 service.interceptors.request.use(async config => {
+  // 在需要的时机刷新token
+  // await refreshToken()
   const token = cookies.get(ACCESS_TOKEN)
   if (token && token !== 'undefined') {
     config.headers.Authorization = 'Bearer ' + token // 让每个请求携带自定义 token 请根据实际情况自行修改
@@ -54,12 +58,13 @@ service.interceptors.request.use(async config => {
 service.interceptors.response.use(
   response => response,
   error => {
-    if (error.response) {
-      if (error.response.status >= 500) {
-        // 如果是服务器端错误则跳转至服务错误页面
-        router.push({ path: 'error', query: { status: '500', message: error.message } })
-      } else if (error.response.status === 404) {
-        router.push({ path: 'error', query: { status: '404', message: error.message } })
+    const { userStore } = useStore()
+    if (error && error.response) {
+      switch (error.response.status) {
+        case 401:
+          userStore.clearToken()
+          error.message = error.response.data.message || '401认证无效'
+          router.push({ name: 'Login' })
       }
     }
     return Promise.reject(error)

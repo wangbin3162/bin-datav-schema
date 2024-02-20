@@ -37,45 +37,56 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { useDataCenter } from '@/hooks/schema/useDataCenter'
 import { computed } from 'vue'
+import { getEventParamsSexact, useEventBus } from '@/hooks/schema/useEventBus'
+import { usePolling } from '@/hooks/schema/usePolling'
+import { useScriptAction } from '@/hooks/schema/useScriptAction'
 
-export default {
+defineOptions({
   name: 'VProgressCircle',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+})
+
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const { dvData } = useDataCenter(props.data)
-    // config 配置项
-    const config = computed(() => props.data.config)
-    // attr 属性
-    const attr = computed(() => props.data.attr)
+})
 
-    const titleText = computed(() => dvData.value.title || config.value.title.content)
+const { dvData, apiData, buildParams, setDvData } = useDataCenter(props.data)
+// config 配置项
+const config = computed(() => props.data.config)
+// attr 属性
+const attr = computed(() => props.data.attr)
 
-    const realNumber = computed(() => dvData.value.value * 100)
+const titleText = computed(() => dvData.value.title || config.value.title.content)
 
-    const realNum = computed(() => {
-      const { title, num, total } = dvData.value
-      return config.value.numFormat
-        .replace(/{title}/, title)
-        .replace(/{value}/, realNumber.value)
-        .replace(/{num}/, num)
-        .replace(/{total}/, total)
-    })
+const realNumber = computed(() => dvData.value.value * 100)
 
-    return {
-      config,
-      attr,
-      titleText,
-      realNumber,
-      realNum,
-    }
+const realNum = computed(() => {
+  const { title, num, total } = dvData.value
+  return config.value.numFormat
+    .replace(/{title}/, title)
+    .replace(/{value}/, realNumber.value)
+    .replace(/{num}/, num)
+    .replace(/{total}/, total)
+})
+
+// 获取响应事件
+const actions = {
+  getData(params, onEvent) {
+    const p = getEventParamsSexact(params, onEvent.actionParams)
+    buildParams(p)
+    setDvData()
+    // 执行对应脚本
+    useScriptAction(props.data, onEvent) 
   },
 }
+// 事件系统增加
+useEventBus(props.data, actions)
+usePolling(() => {
+  setDvData()
+}, apiData.value.config)
 </script>

@@ -1,16 +1,5 @@
-import { HOME_NAME } from '@/router/menus'
-
-/**
- * meta 为附带参数，title为默认路由标题，noCache为缓存标识，为true时开启tag-view时不缓存
- */
-export const asyncRouterMap = [
-  {
-    path: 'dataCenter',
-    name: 'DataCenter',
-    component: () => import('@/views/data-center/index.vue'),
-    meta: { title: '数据中心' },
-  },
-]
+import { HOME_NAME, HOME_PATH } from '@/router/menus'
+import layouts from '@/layouts/index.vue'
 
 /**
  * @description 创建在 layout 中显示的路由设置
@@ -22,13 +11,14 @@ export function createRoutesInLayout(routes = []) {
       path: '/',
       redirect: { name: 'Dashboard' },
       name: 'Root',
-      component: () => import('@/views/home/index.vue'),
+      component: layouts,
       children: [
         {
-          path: 'dashboard',
-          name: 'Dashboard',
+          // 分析大屏列表
+          path: HOME_PATH,
+          name: HOME_PATH,
           meta: { title: HOME_NAME },
-          component: () => import('@/views/analysis-dashboard/index.vue'),
+          component: () => import('@/views/dashboard/index.vue'),
         },
         // 刷新页面 必须保留
         {
@@ -41,7 +31,6 @@ export function createRoutesInLayout(routes = []) {
     },
   ]
 }
-
 // 新增动态route
 export function addRoutes(routes = []) {
   return createRoutesInLayout(routes).concat(routesOutLayout)
@@ -55,16 +44,19 @@ export const routesOutLayout = [
     name: 'Login',
     component: () => import('@/views/system/login.vue'),
   },
+  // 大屏编辑，后面跟大屏id
   {
     path: '/schema/screen',
     name: 'ScreenEditor',
     component: () => import('@/views/schema/screen-editor/index.vue'),
   },
+  // 大屏查看界面
   {
     path: '/screen/:screenId',
     name: 'Screen',
     component: () => import('@/views/schema/screen/index.vue'),
   },
+  // 大屏预览界面
   {
     path: '/screen/preview/:screenId',
     name: 'Preview',

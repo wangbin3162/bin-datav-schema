@@ -1,0 +1,98 @@
+[
+  {
+    "name": "风机-01",
+    "src": "blower-01.svg",
+    "attr": {
+      "w": 70,
+      "h": 70
+    }
+  },
+  {
+    "name": "风机-02",
+    "src": "blower-02.svg",
+    "attr": {
+      "w": 76,
+      "h": 75
+    }
+  },
+  {
+    "name": "风机-03",
+    "src": "blower-03.svg",
+    "attr": {
+      "w": 73,
+      "h": 66
+    }
+  },
+  {
+    "name": "风机-04",
+    "src": "blower-04.svg",
+    "attr": {
+      "w": 71,
+      "h": 71
+    }
+  },
+  {
+    "name": "风机-05",
+    "src": "blower-05.svg",
+    "attr": {
+      "w": 94,
+      "h": 94
+    }
+  },
+  {
+    "name": "风机-06",
+    "src": "blower-06.svg",
+    "attr": {
+      "w": 78,
+      "h": 78
+    }
+  },
+  {
+    "name": "风机-07",
+    "src": "blower-07.svg",
+    "attr": {
+      "w": 71,
+      "h": 71
+    }
+  },
+  {
+    "name": "风机-08",
+    "src": "blower-08.svg",
+    "attr": {
+      "w": 48,
+      "h": 48
+    }
+  },
+  {
+    "name": "风机-09",
+    "src": "blower-09.svg",
+    "attr": {
+      "w": 51,
+      "h": 51
+    }
+  },
+  {
+    "name": "风机-10",
+    "src": "blower-10.gif",
+    "attr": {
+      "w": 200,
+      "h": 200
+    }
+  },
+  {
+    "name": "风机-11",
+    "src": "blower-11.gif",
+    "attr": {
+      "w": 200,
+      "h": 200
+    }
+  },
+  {
+    "name": "风机-12",
+    "src": "blower-12.gif",
+    "attr": {
+      "w": 64,
+      "h": 64
+    }
+  }
+]

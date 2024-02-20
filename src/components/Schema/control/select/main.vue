@@ -1,6 +1,6 @@
 <template>
   <div class="dv-wrapper" :style="wrapperStyle">
-    <b-select v-model="select" clearable @change="handleChage">
+    <b-select v-model="select" clearable @change="handleChange">
       <b-option
         v-for="item in options"
         :key="item.value"
@@ -11,72 +11,69 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed, ref, watch } from 'vue'
 import { useDataCenter } from '@/hooks/schema/useDataCenter'
 import { useEventBus } from '@/hooks/schema/useEventBus'
 import { useEvent } from './useEvent'
 
-export default {
+defineOptions({
   name: 'VSelect',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+})
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const { dvData } = useDataCenter(props.data)
-    // config 配置项
-    const config = computed(() => props.data.config)
+})
 
-    const select = ref(config.value.default)
+const { dvData } = useDataCenter(props.data)
+// config 配置项
+const config = computed(() => props.data.config)
 
-    const options = computed(() => dvData.value ?? config.value.options)
+const select = ref(config.value.default)
 
-    const wrapperStyle = computed(() => {
-      const { background, bgPopperColor, color, fontSize, borderColor, arrowColor, borderRadius } =
-        config.value
+const options = computed(() => dvData.value ?? config.value.options)
 
-      return {
-        '--font-color': color,
-        '--font-size': `${fontSize}px`,
-        '--bg-color': background,
-        '--bg-popper-color': bgPopperColor,
-        '--border-color': borderColor,
-        '--arrow-color': arrowColor,
-        '--border-radius': `${borderRadius}px`,
-        '--select-height': `${props.data.attr.h}px`,
-      }
-    })
+const wrapperStyle = computed(() => {
+  const { background, bgPopperColor, color, fontSize, borderColor, arrowColor, borderRadius } =
+    config.value
 
-    watch(
-      () => config.value.default,
-      val => (select.value = val),
-    )
-    // 事件系统增加
-    useEventBus(props.data)
-    // 事件系统触发
-    const { emitChange } = useEvent(props.data)
+  return {
+    '--font-color': color,
+    '--font-size': `${fontSize}px`,
+    '--bg-color': background,
+    '--bg-popper-color': bgPopperColor,
+    '--border-color': borderColor,
+    '--arrow-color': arrowColor,
+    '--border-radius': `${borderRadius}px`,
+    '--select-height': `${props.data.attr.h}px`,
+  }
+})
 
-    // 下拉框change事件
-    function handleChage(value) {
-      const label = options.value.find(item => item.value === value)?.label
-      emitChange(label, value)
-    }
-    return {
-      select,
-      options,
-      wrapperStyle,
-      handleChage,
-    }
-  },
+watch(
+  () => config.value.default,
+  val => (select.value = val),
+)
+
+// 事件系统增加
+useEventBus(props.data)
+// 事件系统触发
+const { emitChange } = useEvent(props.data)
+
+// 下拉框change事件
+function handleChange(value) {
+  const label = options.value.find(item => item.value === value)?.label
+  emitChange(label, value)
 }
 </script>
 
-<style lang="stylus" scoped>
-.dv-wrapper{
-  :deep(.bin-select){
+<style scoped>
+.dv-wrapper {
+  :deep(.bin-select) {
+    .bin-input-wrapper .bin-input-with-suffix{
+      border-radius: var(--border-radius);
+    }
     .bin-input {
       background-color: var(--bg-color);
       color: var(--font-color);

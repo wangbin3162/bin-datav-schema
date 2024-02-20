@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs/>
+    <svg width='100%' height='100%' viewBox="0 0 100 100" databind="databindHide">
+        <radialGradient id='autoId_rightTopElbow_pipeGrad' cx="100%" cy="-52%" r="158%" fx="100%" fy="0" gradientUnits='objectBoundingBox'>
+            <stop  offset='32%' stop-color='#303030'/>
+            <stop  offset='56%' stop-color='#D0D0D0'/>
+            <stop  offset='92%' stop-color='#303030'/>
+        </radialGradient>
+        <radialGradient id='autoId_rightTopElbow_pipeGrad2' cx="100%" cy="-52%" r="158%" fx="100%" fy="0" gradientUnits='objectBoundingBox'>
+            <stop  offset='32%' stop-color='#006400'/>
+            <stop  offset='56%' stop-color='#98FB98'/>
+            <stop  offset='92%' stop-color='#006400'/>
+        </radialGradient>
+        <radialGradient id='autoId_rightTopElbow_fillGrad' cx="115%" cy="10%" r="150%" fx="115%" fy="10%" >
+            <stop  offset='32%' stop-color='#FFFFFF'/>
+            <stop  offset='55%' stop-color='#0000FF'/>
+            <stop  offset='90%' stop-color='#FFFFFF'/>
+        </radialGradient>
+        <radialGradient id='autoId_rightTopElbow_fillGrad2' cx="115%" cy="10%" r="150%" fx="115%" fy="10%" >
+            <stop  offset='32%' stop-color='#EEE8AA'/>
+            <stop  offset='55%' stop-color='#800000'/>
+            <stop  offset='90%' stop-color='#EEE8AA'/>
+        </radialGradient>
+        <path d="M70,0 A30,30 0 0 0 100,30 L100,70 A70,70 0 0 1 30,0 Z" style="fill: url('#autoId_rightTopElbow_pipeGrad');"/>
+        <!--<path d="M70,0 A30,30 0 0 0 100,30 L100,70 A70,70 0 0 1 30,0 Z" style="fill: url('#autoId_rightTopElbow_pipeGrad2');display:none;"/>-->
+        <g style="display: none;" databind="databind1">
+            <path d="M60,0 A40,40 0 0 0 100,40 L100,60 A60,60 0 0 1 40,0 Z" style="fill: url('#autoId_rightTopElbow_fillGrad');" />
+            <!--<path d="M60,0 A40,40 0 0 0 100,40 L100,60 A60,60 0 0 1 40,0 Z" style="fill: url('#autoId_rightTopElbow_fillGrad2');display:block;" />-->
+        </g>
+    </svg>
+
+</svg>

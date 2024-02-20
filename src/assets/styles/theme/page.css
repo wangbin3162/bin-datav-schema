@@ -1,0 +1,16 @@
+[theme-name='dark'] {
+  .bin-page {
+    --bin-color-text-default: var(--s-text-color);
+    --bin-page-bg: var(--s-color-1);
+    --bin-page-hover-bg: var(--s-color-1);
+    --bin-page-active-bg: var(--s-color-1);
+  }
+  .bin-page-item-active {
+    border: 1px solid var(--bin-color-primary);
+    background-color: transparent;
+  }
+  .bin-page-disabled {
+    --b-page-hover-bg: var(--s-color-2);
+    opacity: 0.5;
+  }
+}

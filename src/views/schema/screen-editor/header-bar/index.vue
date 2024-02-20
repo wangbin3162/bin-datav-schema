@@ -1,26 +1,17 @@
 <template>
   <div class="header-container">
     <div class="left-actions">
-      <b-space size="mini">
-        <!-- <b-tooltip content="返回" :open-delay="500">
-          <div class="head-btn" @click="handleBack">
-            <b-icon name="rollback"></b-icon>
-          </div>
-        </b-tooltip> -->
-        <b-tooltip content="组件" :open-delay="500">
-          <div
-            class="head-btn"
-            :class="{ active: toolbar.components }"
-            @click="schemaStore.toggleCompsPanel()"
-          >
-            <b-icon
-              name="hourglass"
-              class="com-list-icon"
-              :class="{ 'is-rotate': !toolbar.components }"
-            ></b-icon>
-          </div>
-        </b-tooltip>
-        <b-tooltip content="图层" :open-delay="500">
+      <!-- <b-tooltip content="返回"> -->
+      <div class="head-btn home">
+        <b-icon name="home"></b-icon>
+      </div>
+      <!-- </b-tooltip> -->
+      <div class="page-info">
+        <span v-if="pageInfo.name">{{ pageInfo.name }}</span>
+        <span v-else style="color: rgba(255, 255, 255, 0.5)">未命名大屏</span>
+      </div>
+      <b-space>
+        <b-tooltip content="图层">
           <div
             class="head-btn"
             :class="{ active: toolbar.layer }"
@@ -29,7 +20,7 @@
             <b-icon name="container"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="右侧面板" :open-delay="500">
+        <b-tooltip content="配置面板">
           <div
             class="head-btn"
             :class="{ active: toolbar.config }"
@@ -38,52 +29,69 @@
             <b-icon name="control"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="工具箱" :open-delay="500">
-          <div
-            class="head-btn"
-            :class="{ active: toolbar.toolbox }"
-            @click="schemaStore.toggleToolbox()"
-          >
-            <b-icon name="shopping"></b-icon>
+
+        <b-divider type="vertical" />
+
+        <b-tooltip content="后退">
+          <div class="head-btn" :class="{ disabled: undoDisable }" @click="undo">
+            <b-icon name="arrowleft"></b-icon>
+          </div>
+        </b-tooltip>
+        <b-tooltip content="前进">
+          <div class="head-btn" :class="{ disabled: redoDisable }" @click="redo">
+            <b-icon name="arrowright"></b-icon>
           </div>
         </b-tooltip>
       </b-space>
     </div>
-    <div class="screen-info">
-      <b-tooltip content="返回" :open-delay="500">
-        <b-icon name="laptop" type="button" @click="handleBack"></b-icon>
-      </b-tooltip>
-      <span>分析看板</span>
-      <span style="padding: 0 8px">-</span>
-      <span>{{ pageInfo.name }}</span>
-    </div>
     <div class="global-actions">
-      <b-space size="mini">
-        <b-tooltip content="导入json (会覆盖所有内容！)" :open-delay="500">
+      <b-space>
+        <b-tooltip content="导入json (会覆盖所有内容！)">
           <b-upload action="/" :show-upload-list="false" :before-upload="handleUpload">
             <div class="head-btn">
               <b-icon name="Import"></b-icon>
             </div>
           </b-upload>
         </b-tooltip>
-        <b-tooltip content="保存模板" :open-delay="500">
-          <div class="head-btn" @click="tempVisible = true">
-            <b-icon name="Storedprocedure"></b-icon>
+
+        <b-tooltip content="导出json">
+          <div class="head-btn" @click="downloadCfg">
+            <b-icon name="export"></b-icon>
           </div>
         </b-tooltip>
-        <b-tooltip content="保存" :open-delay="500">
+        <b-divider type="vertical" />
+
+        <div>
           <div class="head-btn" @click="handleSaveScreen">
-            <b-icon name="save"></b-icon>
+            <b-icon name="save" color="var(--bin-color-primary)"></b-icon>
+            &nbsp;保&nbsp;存
           </div>
-        </b-tooltip>
-        <b-tooltip content="发布" :open-delay="500">
-          <div class="head-btn" @click="handlePublish">
-            <b-icon name="send"></b-icon>
-          </div>
-        </b-tooltip>
-        <b-tooltip content="预览" :open-delay="500">
+          <b-dropdown trigger="hover" @command="saveCommand">
+            <div class="head-btn" style="margin-left: -1px; padding: 0 4px">
+              <b-icon name="ellipsis"></b-icon>
+            </div>
+            <template #dropdown>
+              <b-dropdown-menu>
+                <b-dropdown-item name="saveTpl">保存模板</b-dropdown-item>
+                <b-dropdown-item name="saveImage">保存图片</b-dropdown-item>
+              </b-dropdown-menu>
+            </template>
+          </b-dropdown>
+        </div>
+
+        <b-divider type="vertical" />
+
+        <b-tooltip content="预览">
           <div class="head-btn" @click="handPreview">
-            <b-icon name="View"></b-icon>
+            <b-icon name="eye" color="var(--bin-color-primary)"></b-icon>
+            &nbsp;预&nbsp;览
+          </div>
+        </b-tooltip>
+
+        <b-tooltip content="发布">
+          <div class="head-btn" @click="handlePublish">
+            <b-icon name="send" color="var(--bin-color-primary)"></b-icon>
+            &nbsp;发&nbsp;布
           </div>
         </b-tooltip>
       </b-space>
@@ -100,10 +108,12 @@ import { ref } from 'vue'
 import HeadLoading from './head-loading.vue'
 import SaveScreen from './save-screen.vue'
 import SaveTemplate from './save-template.vue'
-import { Message, MessageBox } from 'bin-ui-next'
-import { readFileText } from '@/utils/file-helper'
+import { Message, MessageBox } from 'bin-ui-design'
+import { readFileText, downloadFile } from '@/utils/file-helper'
 import { useStore } from '@/store'
 import useSavePreview from '@/hooks/schema/useSavePreview'
+import { createPreviewThumb } from '@/hooks/usePreviewImg'
+import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 const props = defineProps({
   backUrl: {
@@ -121,8 +131,10 @@ const props = defineProps({
 })
 const router = useRouter()
 const { schemaStore, storeToRefs } = useStore()
-const { pageInfo, toolbar } = storeToRefs(schemaStore)
-const { previewScreen } = useSavePreview()
+const { pageInfo, comps, toolbar, undoDisable, redoDisable, pageConfig, areaData } =
+  storeToRefs(schemaStore)
+
+const { buildPageJson, previewScreen } = useSavePreview()
 const saveVisible = ref(false)
 const saveStatus = ref('edit')
 const tempVisible = ref(false)
@@ -135,16 +147,19 @@ const handleBack = () => {
   } else {
     MessageBox.confirm({
       type: 'warning',
-      title: '确定返回列表吗？',
+      title: '提示',
+      message: '返回时会丢失未保存的操作',
     })
       .then(() => {
-        router.push(path)
+        // router.push(path)
+        window.open(path, props.backTarget)
         schemaStore.clearStore()
       })
       .catch(() => {})
   }
 }
 
+// 导入
 const handleUpload = file => {
   if (file.type !== 'application/json') {
     Message.warning('请选择正确的json配置文件')
@@ -160,6 +175,13 @@ const handleUpload = file => {
     }
   })
   return false
+}
+
+// 导出
+const downloadCfg = () => {
+  const { templateName, pageJson } = buildPageJson()
+  downloadFile(pageJson, `${templateName}.json`)
+  Message.success({ message: '模板文件已保存！', showClose: true })
 }
 
 // 保存
@@ -181,9 +203,123 @@ const handPreview = async () => {
   window.open(routeData.href, '_blank')
 }
 
+// 保存指令
+function saveCommand(cmd) {
+  if (cmd === 'saveImage') {
+    handleExportImg()
+  } else if (cmd === 'saveTpl') {
+    tempVisible.value = true
+  }
+}
+
+// 导出图片
+async function handleExportImg() {
+  setGlobalLoading(true)
+  // 取消选中
+  schemaStore.selectCom()
+  areaData.value.showArea = false
+  Message.warning('正在导出图片，请勿进行其他操作！')
+  try {
+    const el = document.getElementById('canvas-components')
+    const base64 = await createPreviewThumb(el)
+    const link = document.createElement('a')
+    link.download = (pageInfo.value.name || '看板预览') + '.jpeg'
+    link.href = base64
+    link.click()
+  } catch (error) {
+    console.error(error)
+    Message.warning('图片导出失败，请重试。')
+  }
+  setGlobalLoading(false)
+}
+
 defineExpose({
   handleSaveScreen,
   handlePublish,
   handPreview,
 })
 </script>
+
+<style scoped>
+.header-container {
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background-color: var(--s-color);
+  border-bottom: 1px solid var(--s-border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: nowrap;
+  padding: 0 80px 0 8px;
+  z-index: 100;
+  .head-btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 28px;
+    padding: 0 10px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--s-text-color);
+    border-radius: 3px;
+    transition: 0.2s;
+    border: 1px solid var(--s-border-color-2);
+    &.home {
+      border-color: transparent;
+    }
+    > i {
+      font-size: 18px;
+    }
+    &:hover:not(.disabled) {
+      color: var(--bin-color-primary);
+      border-color: var(--bin-color-primary);
+    }
+    &.active {
+      color: var(--bin-color-primary);
+      border-color: var(--bin-color-primary);
+    }
+    &.disabled {
+      cursor: not-allowed;
+      opacity: 0.45;
+    }
+    .com-list-icon {
+      &.is-rotate {
+        animation: com-rotate 2s infinite;
+        animation-direction: alternate-reverse;
+      }
+    }
+  }
+  .left-actions,
+  .global-actions {
+    height: 28px;
+    display: flex;
+    align-items: center;
+  }
+  .left-actions {
+    .back-icon {
+      height: 24px;
+      > i {
+        position: relative;
+        top: 1px;
+        cursor: pointer;
+        margin: 0 10px;
+        font-size: 18px;
+      }
+    }
+  }
+  .page-info {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    cursor: default;
+    height: 100%;
+    width: 180px;
+    margin: 0 16px;
+  }
+  .global-actions {
+    justify-content: flex-end;
+    align-items: center;
+  }
+}
+</style>

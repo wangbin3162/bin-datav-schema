@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="58px" height="65px" viewBox="0 0 58 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>编组 6备份 10</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <ellipse id="path-1" cx="28.2155968" cy="51.6745413" rx="23.1994907" ry="12.799719"></ellipse>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="46.3989815" height="25.599438" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <linearGradient x1="50%" y1="-11.3977948%" x2="72.1767853%" y2="58.6769937%" id="linearGradient-3">
+            <stop stop-color="#F7B100" offset="0%"></stop>
+            <stop stop-color="#ED0D00" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="11.5647585%" x2="41.0460788%" y2="75.0772289%" id="linearGradient-4">
+            <stop stop-color="#FFB600" offset="0%"></stop>
+            <stop stop-color="#EE2100" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="11.5647585%" x2="44.7426208%" y2="66.3295381%" id="linearGradient-5">
+            <stop stop-color="#FFA000" offset="0%"></stop>
+            <stop stop-color="#EE2100" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0106可视化大数据智慧智能统计UI后台首页展示" transform="translate(-214.000000, -208.000000)">
+            <g id="编组-6" transform="translate(72.000000, 208.000000)">
+                <g id="编组-22" transform="translate(141.500000, 0.000000)">
+                    <g id="编组-6备份-10" transform="translate(0.866667, 0.000000)">
+                        <use id="椭圆形" stroke="#FF9F00" mask="url(#mask-2)" stroke-width="6.26506024" stroke-linejoin="round" stroke-dasharray="3.762079397837321,5.016106414794922" xlink:href="#path-1"></use>
+                        <g id="编组-5">
+                            <polygon id="路径-12" fill="url(#linearGradient-3)" points="0 2.65093666 7.33552775 2.38301245e-15 28.5753548 6.40692154 28.5753548 42.9069197"></polygon>
+                            <polygon id="路径-12" fill="url(#linearGradient-3)" transform="translate(42.459529, 21.453460) scale(-1, 1) translate(-42.459529, -21.453460) " points="28.1718517 2.65093666 35.5073795 0 56.7472065 6.40692154 56.7472065 42.9069197"></polygon>
+                            <polygon id="路径-11" fill="url(#linearGradient-4)" points="28.037569 14.2188985 28.037569 57.123198 56.6129238 2.65093666"></polygon>
+                            <polygon id="路径-11" fill="url(#linearGradient-5)" transform="translate(14.287677, 29.887067) scale(-1, 1) translate(-14.287677, -29.887067) " points="0 14.2188985 0 57.123198 28.5753548 2.65093666"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

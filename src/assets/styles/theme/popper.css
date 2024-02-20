@@ -1,0 +1,29 @@
+[theme-name='dark'] {
+  .bin-popper {
+    &.is-dark {
+      background: var(--s-color-2);
+
+      .bin-popper__arrow::before {
+        background: var(--s-color-2);
+      }
+    }
+
+    &.bin-tree-select__popper {
+      padding: 5px 0 2px;
+      background: var(--s-color-2);
+      border: 1px solid var(--s-border-color);
+
+      .bin-tree {
+        color: var(--s-text-color);
+
+        .bin-tree-title,
+        .bin-tree-render-title {
+          &.is-selected,
+          &:hover {
+            background: var(--s-color-1);
+          }
+        }
+      }
+    }
+  }
+}

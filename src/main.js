@@ -4,18 +4,21 @@ import router, { setupRouter } from '@/router'
 import { setupStore } from '@/store'
 import { registerDirectives } from '@/directives'
 import { registerLazy } from '@/plugins/lazy-load'
-import { registerUI } from '@/plugins/bin-ui-next'
+import { registerUI } from '@/plugins/bin-ui-design'
 import { registerCharts } from '@/plugins/bin-charts-next'
 import { registerEditor } from '@/plugins/bin-editor-next'
 import { registerDatav } from '@/plugins/bin-datav'
+
+import { registerCommonComps } from '@/components/Common'
+import { registerGUI } from '@/components/GUI'
 import { registerVCharts } from '@/components/Schema'
-import { registerGUI } from '@/components/Schema/ui'
-import { registerCommonComps } from '@/components/Common/index'
-import 'bin-ui-next/lib/styles/normalize.css' // 初始化样式
-import 'bin-ui-next/lib/styles/scrollbar.css' // 滚动条样式
-import 'bin-ui-next/lib/styles/index.css' // 组件库样式
+
+import 'bin-ui-design/dist/styles/index.css'
 import 'bin-datav/lib/styles/index.css'
-import '@/assets/stylus/index.styl' // 项目样式
+// 引入动画
+import 'animate.css'
+
+import '@/assets/styles/index.css' // 项目样式
 
 /**
  * mock 模块
@@ -29,13 +32,15 @@ import './mock'
 const app = createApp(App)
 registerLazy(app)
 registerDirectives(app)
+
+registerDatav(app)
 registerUI(app)
 registerCharts(app)
 registerEditor(app)
+
 registerCommonComps(app)
-registerDatav(app)
-registerVCharts(app)
 registerGUI(app)
+registerVCharts(app)
 setupRouter(app)
 setupStore(app)
 // Mount when the route is ready

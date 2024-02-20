@@ -1,11 +1,15 @@
 import { ref, computed, onMounted, watch } from 'vue'
 import { deepMerge } from '@/utils/util'
 import * as echarts from 'echarts/core'
+import { requireJson } from '@/api/json-loader.api'
+import { getPublicPath } from '@/utils/env'
 
-const geoJsonAsync = import.meta.glob('./assets/map/*.json')
+export const insideList = ref([])
 
 export function useMap(props) {
-  const regionName = ref('河北省')
+  const regionName = ref(
+    props.config.cityValue !== '' ? props.config.cityValue : props.config.province,
+  )
   const bChartsRef = ref(null)
   const options = ref(
     deepMerge(
@@ -15,7 +19,7 @@ export function useMap(props) {
           trigger: 'item',
         },
         geo: {
-          map: '河北省',
+          map: regionName.value,
           silent: false, // 控制是否可以点击与选中地图区域，true为不允许
           zoom: 1.2,
           roam: false, // 是否允许缩放
@@ -37,7 +41,7 @@ export function useMap(props) {
         },
       },
       {
-        geo: props.config,
+        geo: props.config.geo,
       },
     ),
   )
@@ -55,7 +59,7 @@ export function useMap(props) {
   })
 
   watch(
-    () => props.config,
+    () => props.config.geo,
     newVal => {
       // 这里响应设置项的变动，使用setOption手动更新数据
       options.value = deepMerge(options.value, {
@@ -69,14 +73,49 @@ export function useMap(props) {
     },
   )
 
+  // 用于配置时选择省份后重新渲染
+  watch(
+    () => props.config.province,
+    newVal => {
+      const chart = bChartsRef.value.getInstance()
+      initMap(chart, newVal)
+    },
+  )
+
+  watch(
+    () => props.config.cityValue,
+    newVal => {
+      const chart = bChartsRef.value.getInstance()
+      if (newVal) {
+        initMap(chart, newVal)
+      } else {
+        initMap(chart, props.config.province)
+      }
+    },
+  )
+
   /**
    * 初始化地图
    * @param {*} chart
    * @param {*} regionName
    */
   async function initMap(chart, regionName) {
-    const hebeiGeoJson = await getGeoJson(regionName)
-    renderMap(regionName, hebeiGeoJson, chart)
+    const geoJson = await getGeoJson(regionName)
+    await getList()
+    renderMap(regionName, geoJson, chart)
+  }
+
+  // 获取城市列表
+  async function getList() {
+    const listValue = await getGeoJson(props.config.province)
+    if (listValue.features[0].properties.level === 'city') {
+      insideList.value = listValue.features.map(item => ({
+        label: item.properties.name,
+        value: item.properties.name,
+      }))
+    } else {
+      insideList.value = []
+    }
   }
 
   /**
@@ -88,7 +127,9 @@ export function useMap(props) {
       color: '#1089ff',
       maskColor: 'rgba(255, 255, 255, 0)',
     })
-    const res = await geoJsonAsync[`./assets/map/${regionName}.json`]()
+    const path = getPublicPath(`/data/map/province/${props.config.province}/${regionName}.json`)
+    // console.log(path)
+    const res = await requireJson(path)
     bChartsRef.value.hideLoading()
     return res
   }
@@ -114,6 +155,7 @@ export function useMap(props) {
     chart.off('click')
     // // 绑定本次的click事件
     chart.on('click', async params => {
+      console.log(params)
       // TODO: 需要通过事件总线发送事件
       // emitClickRegion(params.name)
       // 市级才允许点击下钻

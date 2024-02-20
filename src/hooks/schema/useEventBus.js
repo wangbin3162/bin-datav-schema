@@ -1,6 +1,7 @@
 import { baseEventsList } from '@/utils/events'
 import mitt from 'mitt'
 import { reactive, watch, computed, onUnmounted, nextTick, inject } from 'vue'
+import { Message } from 'bin-ui-design'
 
 /**
  * 事件总线
@@ -184,6 +185,62 @@ function generateEventParams(eventParams) {
 }
 
 /**
+ * 用于清理onList数组中对应actionName元素的actionName、actionParams字段
+ * @param {*} onList
+ * @param {*} actionName
+ */
+function clearOnListAction(onList, actionName) {
+  let exist = false
+  onList.forEach(item => {
+    if (item.actionName === actionName) {
+      item.actionName = ''
+      item.actionParams = []
+      exist = true
+    }
+  })
+  return exist
+}
+
+/**
+ * 用于清理onList数组中对应actionName元素的actionName、actionParams字段，并提示
+ * @param {*} onList
+ * @param {*} actionName
+ */
+function clearOnListActionAndTips(onList, actionName) {
+  const exist = clearOnListAction(onList, actionName)
+  // 如果清理的action存在则进行提示
+  if (exist) {
+    Message.warning({ message: '接口变动，请重新配置事件内相关绑定动作！' })
+  }
+}
+
+/**
+ * 根据发送事件传递的参数与事件处理器配置的所需动作参数生成对应的事件参数结构
+ * @param {*} eventParams
+ * @param {*} actionParams
+ * @returns
+ */
+function getEventParamsSexact(eventParams, actionParams) {
+  // 生成对应key与值的参数，并返回出去
+  const params = {}
+  actionParams.forEach(item => {
+    // 如果存在参数映射配置，则使用映射的字段获取参数
+    if (item.map) {
+      // 判断该映射的值是否存在当前事件参数中
+      if (Object.prototype.hasOwnProperty.call(eventParams, item.map.name)) {
+        params[item.name] = eventParams[item.map.name]
+      }
+    } else {
+      // 判断该动作参数是否存在当前事件参数中
+      if (Object.prototype.hasOwnProperty.call(eventParams, item.name)) {
+        params[item.name] = eventParams[item.name]
+      }
+    }
+  })
+  return params
+}
+
+/**
  * 创建用于绑定、发送事件的eventName
  * @param {*} indexId 组件indexId
  * @param {*} eventName 事件名
@@ -215,4 +272,6 @@ export {
   generateEventParams,
   emitEvent,
   emitEventIfAllowed,
+  getEventParamsSexact,
+  clearOnListActionAndTips,
 }

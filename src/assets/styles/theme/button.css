@@ -1,0 +1,61 @@
+[theme-name='dark'] {
+  .bin-button--text {
+    &.is-disabled {
+      &:hover {
+        color: var(--s-text-color);
+      }
+    }
+  }
+  .bin-button--default {
+    color: var(--s-text-color);
+    border: 1px solid var(--s-border-color-1);
+    background: var(--s-color-2);
+    font-size: 12px;
+    transition: 0.2s;
+
+    &:hover {
+      border-color: var(--bin-color-primary);
+      color: var(--bin-color-primary);
+      background-color: var(--s-color-2);
+    }
+
+    &.is-disabled {
+      opacity: 0.48;
+      &:hover {
+        border-color: var(--s-border-color);
+        color: var(--s-text-color);
+        background: var(--s-color-3);
+      }
+    }
+    &.is-transparent {
+      border: 1px solid var(--s-border-color-2);
+      background: transparent;
+      &:hover {
+        border-color: var(--bin-color-primary);
+        color: var(--bin-color-primary);
+      }
+    }
+  }
+
+  .bin-button--primary {
+    &.is-plain {
+      color: var(--bin-color-primary);
+      background: var(--bin-color-primary-alpha1);
+      border-color: var(--bin-color-primary-alpha1);
+      &:hover,
+      &:active {
+        background-color: var(--bin-color-input-shadow);
+      }
+      &.is-disabled {
+        opacity: 0.48;
+        &:hover {
+          border-color: var(--bin-color-primary-alpha1);
+          color: var(--bin-color-primary);
+        }
+      }
+    }
+  }
+  .bin-button-group .bin-button--default {
+    border: 1px solid var(--s-border-color-1);
+  }
+}

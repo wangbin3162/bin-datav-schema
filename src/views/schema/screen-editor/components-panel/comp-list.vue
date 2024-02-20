@@ -2,32 +2,39 @@
   <div class="group-wrap">
     <div class="group-list">
       <b-scrollbar native>
-        <b-empty v-if="groups.length === 0">暂无组件库</b-empty>
-        <Collapse
-          v-for="group in groups"
-          :key="group.key"
-          :name="group.key"
-          :title="group.value"
-          :can-edit="!defaultGroupKeys.includes(group.key)"
-          @edit="name => modifyGroup(group, name)"
-          @remove="removeGroup(group)"
-        >
-          <CompItem :group-id="group.key" @dragstart="dragStart" @click="click" />
-        </Collapse>
-        <div class="create-box" v-if="editStatus.create">
-          <b-input
-            v-model="groupObj.value"
-            placeholder="输入名称，回车创建"
-            v-focus
-            size="small"
-            @blur="onAddInput"
-            @keyup.enter="onAddInput"
-          />
+        <div v-if="loading">
+          <g-loading spinning></g-loading>
         </div>
+        <template v-else>
+          <b-empty v-if="groups.length === 0">暂无组件库</b-empty>
+          <Collapse
+            v-for="group in groups"
+            :key="group.key"
+            :name="group.key"
+            :title="group.value"
+            :can-edit="!defaultGroupKeys.includes(group.key)"
+            @edit="name => modifyGroup(group, name)"
+            @remove="removeGroup(group)"
+          >
+            <CompItem :group-id="group.key" @dragstart="dragStart" @click="click" />
+          </Collapse>
+          <div class="create-box" v-if="editStatus.create">
+            <b-input
+              v-model="groupObj.value"
+              placeholder="输入名称，回车创建"
+              v-focus
+              size="small"
+              @blur="onAddInput"
+              @keyup.enter="onAddInput"
+            />
+          </div>
+        </template>
       </b-scrollbar>
     </div>
     <div class="create-group">
-      <b-button type="primary" transparent @click="handleCreateGroup">创建组件库</b-button>
+      <b-button type="primary" size="small" transparent @click="handleCreateGroup">
+        创建组件分组
+      </b-button>
     </div>
   </div>
 </template>
@@ -37,14 +44,15 @@ import * as api from '@/api/comps/comps.api'
 import Collapse from './collapse.vue'
 import CompItem from './comp-item.vue'
 import { reactive, ref } from 'vue'
-import { generateId } from '@/utils/util'
-import { Message, MessageBox } from 'bin-ui-next'
+import { generateId, throwError } from '@/utils/util'
+import { Message, MessageBox } from 'bin-ui-design'
 import { defaultGroupKeys } from '@/api/images/default'
 import { useCollapse } from '@/hooks/collapseHook'
 import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
 
 const emit = defineEmits(['dragstart', 'click'])
 const groups = ref([]) // 组件库
+const loading = ref(false)
 
 useCollapse()
 
@@ -59,7 +67,15 @@ const editStatus = reactive({
 })
 
 // 获取组件库
-const getCompList = () => api.getCompGroup().then(res => (groups.value = res))
+const getCompList = async () => {
+  loading.value = true
+  try {
+    groups.value = await api.getCompGroup()
+  } catch (e) {
+    throwError('comp-list/getCompList', e)
+  }
+  loading.value = false
+}
 
 getCompList()
 
@@ -84,21 +100,21 @@ async function modifyGroup(item, name) {
     await api.modifyCompGroup(data)
     getCompList()
     Message.success('修改成功')
-  } catch (error) {
-    console.log(error)
+  } catch (e) {
+    throwError('comp-list/modifyGroup', e)
   }
   setGlobalLoading(false)
 }
 // 移除一个库
 async function removeGroup(item) {
   try {
+    await MessageBox.confirm({ type: 'error', title: '提示', message: '确定移除当前组件分组吗？' })
     setGlobalLoading(true)
-    await MessageBox.confirm({ type: 'error', title: '确定移除当前组件库吗？' })
     await api.removeCompGroup(item.key)
     getCompList()
     Message.success('删除成功！')
-  } catch (error) {
-    console.log(error)
+  } catch (e) {
+    throwError('comp-list/removeGroup', e)
   }
   setGlobalLoading(false)
 }
@@ -111,8 +127,8 @@ async function addGroup() {
     getCompList()
     editStatus.create = false
     Message.success('新增成功！')
-  } catch (error) {
-    console.log(error)
+  } catch (e) {
+    throwError('comp-list/addGroup', e)
   }
   setGlobalLoading(false)
 }
@@ -121,10 +137,10 @@ const dragStart = (e, comp) => emit('dragstart', e, comp)
 const click = comp => emit('click', comp)
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .group-wrap {
   position: relative;
-  height: calc(100vh - 70px);
+  height: calc(100vh - 80px);
   .group-list {
     height: calc(100% - 50px);
   }

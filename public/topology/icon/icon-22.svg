@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="102px" height="70px" viewBox="0 0 102 70" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>编组 40</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#0A5655" offset="0%"></stop>
+            <stop stop-color="#0A575C" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#08D859" offset="0%"></stop>
+            <stop stop-color="#0BE399" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#0AA992" offset="0%"></stop>
+            <stop stop-color="#0BE18B" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#0AAD92" offset="0%"></stop>
+            <stop stop-color="#0ADB8B" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0903智慧监管大数据可视化统计UI首页暗黑系科技风" transform="translate(-61.000000, -278.000000)">
+            <g id="编组-41" transform="translate(54.000000, 200.000000)">
+                <g id="编组-40" transform="translate(7.000000, 78.000000)">
+                    <g id="编组-27">
+                        <g id="编组-2" transform="translate(0.000000, 0.000000)">
+                            <ellipse id="椭圆形" stroke="url(#linearGradient-1)" stroke-width="2.52631579" cx="50.6919758" cy="36.4109068" rx="49.4288179" ry="31.5066582"></ellipse>
+                            <ellipse id="椭圆形" stroke="url(#linearGradient-2)" stroke-width="5.05263158" opacity="0.5" cx="50.6919758" cy="34.5903614" rx="35.4926661" ry="19.3202283"></ellipse>
+                            <ellipse id="椭圆形" stroke="url(#linearGradient-3)" stroke-width="5.05263158" cx="50.6919758" cy="21.8465441" rx="35.4926661" ry="19.3202283"></ellipse>
+                        </g>
+                    </g>
+                    <path d="M60.7568002,21.2276576 C60.7349092,21.2502352 60.7130182,21.2953904 60.6692362,21.317968 L46.7027809,34.6839135 C46.6152169,34.7516463 46.5276529,34.8193791 46.4181979,34.8645343 C46.177397,34.9548448 45.958487,35 45.739577,35 C45.3893211,35 45.1047382,34.8871119 44.9077192,34.6613358 C44.5793543,34.3452493 44.6231363,33.9388523 44.6450272,33.8259643 C44.6450272,33.780809 44.6669182,33.7356538 44.6888092,33.6904986 L47.7535487,25.6754468 L42.1713447,25.6754468 C41.5146148,25.6754468 41.2300319,25.3593603 41.1205769,25.1787394 C40.901667,24.8174976 41.0111219,24.4336783 41.2081409,24.1853246 C41.2300319,24.1627469 41.2300319,24.1401693 41.2519229,24.1175917 L53.1606247,11.3612418 C53.2262976,11.2935089 53.2919706,11.2483537 53.3795346,11.2031985 C53.4670986,11.1580433 53.8173545,11 54.1895015,11 C54.5397574,11 54.8243403,11.1128881 55.0432503,11.3386642 C55.2840513,11.5870179 55.3935062,11.9482596 55.3497242,12.3998119 L55.3497242,12.4675447 L53.7516815,19.6246472 L59.9468334,19.6698024 L60.0125064,19.6698024 C60.6035633,19.7149577 60.8443642,20.0536218 60.9319282,20.1890875 C61.1289472,20.6406397 60.8443642,21.0921919 60.7568002,21.2276576 L60.7568002,21.2276576 Z" id="路径备份-3" fill="url(#linearGradient-4)" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

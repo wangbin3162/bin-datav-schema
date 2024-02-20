@@ -1,7 +1,15 @@
 import { ComType } from '@/config/data-source'
-import { getImagesPath } from '@/utils/env'
 
-export const bgBoxConfig = {
+export const ImageTypeOptions = [
+  { value: 'preset', label: '预设边框' },
+  { value: 'custom', label: '自定义边框' },
+]
+export const borderTypes = [
+  { value: 'flat', label: '纯色' },
+  { value: 'linearGradient', label: '渐变' },
+]
+
+export default {
   name: 'VBgBox',
   alias: '背景块',
   icon: 'bg-colors',
@@ -43,19 +51,10 @@ export const bgBoxConfig = {
       size: '0 0 5px',
       color: '#003a8c',
     },
-    filter: { blur: '0px' },
-    backdropFilter: { blur: '0px' },
+    filter: { blur: 0 },
+    backdropFilter: { blur: 0 },
     urlConfig: { url: '', ifBlank: false },
   },
   apiData: {},
   events: {},
 }
-export const imageTypes = [
-  { value: 'preset', label: '预设边框' },
-  { value: 'custom', label: '自定义边框' },
-]
-export const borderTypes = [
-  { value: 'flat', label: '纯色' },
-  { value: 'linearGradient', label: '渐变' },
-]
-export default bgBoxConfig

@@ -1,0 +1,67 @@
+[theme-name='dark'] {
+  --bin-scrollbar-color: rgba(255, 255, 255, 0.2);
+  --bin-scrollbar-color-hover: rgba(255, 255, 255, 0.2);
+  --bin-border-radius-default: 3px;
+  --bin-font-family: var(--s-font-family);
+  --bin-color-text-primary: var(--s-text-color);
+  --bin-color-text-secondary: var(--s-text-color-2);
+  --bin-border-table-color: var(--s-color-3);
+  .bin-divider {
+    background-color: var(--s-border-color-2);
+  }
+
+  .bin-empty-img-simple-path {
+    fill: var(--s-color-1);
+  }
+  .bin-empty-img-simple-ellipse {
+    fill: var(--s-color-1);
+  }
+  .bin-empty {
+    margin: 0;
+    padding: 16px;
+  }
+
+  .bin-loading-fix {
+    background-color: transparent;
+  }
+
+  .bin-table {
+    background-color: transparent;
+    color: var(--s-text-color);
+    td,
+    th {
+      background-color: transparent;
+      .bin-table-cell {
+        color: var(--s-text-color);
+      }
+    }
+  }
+
+  .bin-tag.is-primary {
+    background-color: var(--bin-color-input-shadow);
+    color: var(--bin-color-primary);
+    border-color: var(--bin-color-input-shadow);
+  }
+
+  .bin-tabs-wrapper .nav-wrapper .tab-item {
+    color: var(--s-text-color);
+    padding: 0 16px;
+  }
+  .bin-tabs-wrapper .nav-wrapper .tab-item.active,
+  .bin-tabs-wrapper .nav-wrapper .tab-item.active > i:not(.b-icon-close),
+  .bin-tabs-wrapper .nav-wrapper .tab-item:hover,
+  .bin-tabs-wrapper .nav-wrapper .tab-item:hover > i:not(.b-icon-close) {
+    color: var(--bin-color-primary);
+  }
+
+  .bin-tabs-wrapper.default:after {
+    background-color: var(--s-border-color);
+  }
+
+  .bin-icon-select__popper.bin-popper.is-light {
+    background: var(--s-color-2);
+    .list-complete-item {
+      color: var(--s-text-color-2);
+    }
+  }
+}

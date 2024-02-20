@@ -1,3 +1,4 @@
+import { rebuildMergeComps } from '@/config/components-cfg'
 import { MoveType } from '@/config/enum'
 import { deepCopy, generateId, isEmpty } from '@/utils/util'
 
@@ -37,13 +38,37 @@ export const defaultInfo = {
   name: '',
 }
 
+//  默认page页面级别的存储
 export const defaultPageCfg = {
   width: 1920,
   height: 1080,
   bgColor: '#0d2a42',
   bgImage: '',
-  grid: 1, // 拖拽间隔
   thumbnail: '',
+  chartThemeColor: 'dark', // 系统的图表主题色，保存字段属性或者生成的自定义id，
+  customColorsList: [],
+  // 全局的滤镜
+  styles: {
+    // 启用滤镜
+    filterShow: false,
+    // 混合模式
+    blendMode: 'normal', //mix-blend-mode: normal; 正常，multiply正片叠底
+    // 色相
+    hueRotate: 0, // hue-rotate(243deg)
+    // 饱和度
+    saturate: 1, //saturate(0.6)
+    // 对比度
+    contrast: 1, // contrast(0.5)
+    // 亮度
+    brightness: 1, // brightness(1)
+    // 透明度
+    opacity: 1,
+  },
+  // 页面初始化脚本
+  initScript: {
+    enable: false, // 是否启用
+    scriptStr: '' // 脚本内容
+  }
 }
 
 // page页面需要保存的信息
@@ -63,6 +88,16 @@ export default {
     // 是否是多选模式
     isMultiSelect() {
       return this.selectedComIds.length > 1 // 判定选中ids数组大于1则为多选模式
+    },
+    allComs() {
+      const all = []
+      this.comps.forEach(item => {
+        all.push({ ...item })
+        if (item.type === 'group') {
+          item.components.forEach(c => all.push({ ...c }))
+        }
+      })
+      return all
     },
     // 多选选中的组件列表（有顺序的）
     selectedComs() {
@@ -128,19 +163,22 @@ export default {
       this.removeCom(this.selectedCom.id)
       this.selectedCom = null
     },
-    selectCom(component) {
+    selectCom(component, widthCtrl = true) {
       if (!component) {
         this.selectedCom = null
         this.selectedComIds = []
+        // this.areaData.showArea = false
         return
       }
+
       this.selectedCom = component
-      // 判断当前点击的时候有没有按下shift，如果按下了之后就追加，否则的话就只更新一个选项
-      if (this.shortcuts.shiftKey) {
+      // 判断当前点击的时候有没有按下ctrlKey，如果按下了之后就追加，否则的话就只更新一个选项
+      if (widthCtrl && this.shortcuts.ctrlKey) {
         // 判断是否包含当前组件，如没有再新增
         const i = this.selectedComIds.findIndex(id => id === component.id)
         if (i === -1) {
           this.selectedComIds.push(component.id)
+          this.selectedCom = null
         } else {
           this.selectedComIds.splice(i, 1)
           // 判断剩余几个，如剩余一个则设置为单选，
@@ -197,9 +235,9 @@ export default {
     // 载入全屏数据
     loadScreenData(screenData) {
       const { pageInfo, pageConfig, comps } = screenData
-      this.pageInfo = pageInfo || { ...defaultInfo }
-      this.pageConfig = pageConfig || { ...defaultPageCfg }
-      this.comps = comps || []
+      this.pageInfo = { ...defaultInfo, ...pageInfo }
+      this.pageConfig = { ...defaultPageCfg, ...pageConfig }
+      this.comps = rebuildMergeComps(comps)
       this.recordSnapshot()
     },
     // 设置screen size

@@ -1,0 +1,27 @@
+[theme-name='dark'] {
+  .bin-color-picker {
+    border: 1px solid var(--s-border-color-1);
+    background-color: var(--s-color-1);
+  }
+
+  .bin-color-picker__trigger {
+    padding: 2px;
+  }
+
+  .bin-color-picker__color-inner {
+    box-shadow: none;
+  }
+  .bin-color-picker__label {
+    border-right: none;
+    padding: 0 0px 0 6px;
+    .label-input {
+      background-color: transparent;
+      font-size: 12px;
+    }
+  }
+  .bin-color-picker__color-inner,
+  .bin-color-picker__disabled-mask,
+  .bin-color-picker__panel {
+    border-radius: 0;
+  }
+}

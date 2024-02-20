@@ -1,6 +1,6 @@
 import { ComType } from '@/config/data-source'
 
-export const mainTitleConfig = {
+export default {
   name: 'VMainTitle',
   alias: '通用标题',
   icon: 'file-word',
@@ -33,5 +33,3 @@ export const mainTitleConfig = {
   apiData: {},
   events: {},
 }
-
-export default mainTitleConfig

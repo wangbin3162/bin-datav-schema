@@ -1,6 +1,7 @@
-import { initApiData, ComType } from '@/config/data-source'
+import { initApiData, ComType, INDICATOR as compType } from '@/config/data-source'
+import { getBaseActions } from '@/utils/events'
 
-export const numberTitleFlopConfig = {
+export default {
   name: 'VNumberTitleFlop',
   alias: '数字指标',
   icon: 'orderedlist',
@@ -39,8 +40,14 @@ export const numberTitleFlopConfig = {
       suffix: '',
     },
   },
-  apiData: initApiData({ staticPath: 'text/number-title-flop' }),
-  events: {},
+  apiData: initApiData({ staticPath: 'text/number-title-flop', compType }),
+  events: {
+    onEvents: [],
+    defaultAction: true,
+    actions: getBaseActions(),
+    customScript: {
+      augments: ['curComp', 'components'],
+      enable: false,
+    },
+  },
 }
-
-export default numberTitleFlopConfig

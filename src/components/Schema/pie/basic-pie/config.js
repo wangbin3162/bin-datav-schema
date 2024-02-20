@@ -1,72 +1,57 @@
 // 基本饼图配置项
-import { initApiData, ComType } from '@/config/data-source'
-import { defaultColors } from '@/config/colors'
+import { initApiData, ComType, BASE_ECHART as compType } from '@/config/data-source'
+import { getBaseActions } from '@/utils/events'
+import { mergeChartOptions } from '@/theme'
 
-export const basicPieConfig = {
+export const basicPieConfig = mergeChartOptions({
+  // global为全局配置，主要用于给seris进行扩展工作
+  global: {
+    // 扩展标签
+    label: {
+      show: true,
+      position: 'outside',
+      fontSize: 12,
+      color: '#fff',
+      formatter: '{b}',
+    },
+    center: ['50%', '50%'],
+    radius: ['0', '75%'],
+    roseType: false,
+    itemStyle: {
+      borderRadius: 5,
+    },
+  },
+  tooltip: {
+    show: true,
+    trigger: 'item', // 这个无需配置，坐标轴使用axis，数据图形使用item
+    axisPointer: {
+      type: 'none', // 指示器样式
+    },
+  },
+  xAxis: { show: false },
+  yAxis: { show: false },
+})
+
+export default {
   name: 'VBasicPie',
   alias: '基本饼图',
   icon: 'piechart',
   type: ComType.com,
   componentType: 'pie',
-  attr: { w: 500, h: 300 },
-  config: {
-    global: {
-      fontFamily: 'Microsoft Yahei',
-      center: ['50%', '50%'],
-      radius: ['0', '75%'],
-      roseType: false,
-      borderRadius: 0,
-    },
-    label: {
-      show: true,
-      position: 'outside',
-      textStyle: {
-        fontSize: 12,
-        color: 'rgba(255, 255, 255, 0.6)',
-        fontWeight: 'normal',
-      },
-      formatter: '',
-      alignTo: 'none',
-      bleedMargin: 10,
-      distanceToLabelLine: 5,
-    },
-    legend: {
-      show: true,
-      position: 'bottom-center',
-      orient: 'horizontal',
-      textStyle: {
-        fontSize: 12,
-        color: '#90a0ae',
-        fontWeight: 'normal',
-      },
-      symbol: {
-        show: true,
-        icon: 'auto',
-        width: 25,
-        height: 14,
-        gap: 10,
-      },
-    },
-    tooltip: {
-      show: true,
-      textStyle: {
-        fontSize: 14,
-        color: '#fff',
-        fontWeight: 'normal',
-      },
-      background: {
-        padding: { h: 5, v: 5 },
-        color: 'rgba(0, 0, 0, 0.65)',
-      },
-    },
-    color: defaultColors,
-  },
-  apiData: initApiData({ staticPath: 'pie/basic-pie' }),
+  attr: { w: 500, h: 300, chartThemeColor: '' },
+  config: basicPieConfig,
+  apiData: initApiData({ staticPath: 'pie/basic-pie', compType }),
   events: {
+    onEvents: [],
+    defaultAction: true,
+    actions: getBaseActions(),
     click: {
       name: '点击数据项',
       params: [],
     },
+    customScript: {
+      augments: ['curComp','components'],
+      enable: false,
+    },
   },
 }
-export default basicPieConfig

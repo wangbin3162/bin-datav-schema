@@ -1,0 +1,38 @@
+[theme-name='dark'] {
+  .bin-modal {
+    border: 1px solid var(--s-border-color);
+    background-color: var(--schema-color-bg-3);
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    overflow: hidden;
+    .bin-modal-header {
+      height: 46px;
+      .bin-modal-title {
+        color: var(--s-text-color-1);
+      }
+      &:after {
+        background-color: var(--s-border-color);
+      }
+    }
+    .bin-modal-close {
+      height: 46px;
+      .b-iconfont {
+        color: var(--s-text-color-1);
+        transition: 0.2s;
+
+        &:hover {
+          color: var(--bin-color-danger-light2);
+        }
+      }
+    }
+    .bin-modal-body {
+      min-height: 20px;
+      overflow: auto;
+    }
+    .bin-modal-footer {
+      border-top: none;
+      background-color: var(--schema-color-bg-2);
+    }
+  }
+}

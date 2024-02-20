@@ -7,9 +7,9 @@
     </template>
 
     <template v-for="(event, index) in config.onEvents" :key="index">
-      <g-field label="事件" label-width="85px" flat>
+      <g-field label="事件" label-width="85px">
         <template #label>
-          <div class="series-title" style="top: -8px">
+          <div class="series-title">
             <span>事件{{ index + 1 }}</span>
           </div>
         </template>
@@ -18,26 +18,50 @@
           :data="eventSourceListNoHasSelf"
           :disabled="event.register"
           label="事件源"
+          style="width: 100%"
         />
 
         <template v-if="event.eventSource !== ''">
-          <g-select
-            v-model="event.eventName"
-            :data="emitListAllFilter(event.eventSource)"
-            :disabled="event.register"
-            inline
-            label="绑定事件"
-          />
-          <g-select
-            v-model="event.actionName"
-            :data="eventActions"
-            :disabled="event.register"
-            inline
-            label="绑定动作"
-            @change="handleActionNameChange(event.actionName, event)"
-          />
+          <div flex="main:justify">
+            <g-select
+              v-model="event.eventName"
+              :data="emitListAllFilter(event.eventSource)"
+              :disabled="event.register"
+              inline
+              label="绑定事件"
+              style="width: 49%"
+            />
+            <g-select
+              v-model="event.actionName"
+              :data="eventActions"
+              :disabled="event.register"
+              inline
+              label="绑定动作"
+              @change="handleActionNameChange(event.actionName, event)"
+              style="width: 49%"
+            />
+          </div>
+          <div style="width: 100%" flex="main:justify cross:center">
+            <g-switch v-model="event.customScript.enable" label="是否执行脚本" />
+            <g-button
+              v-if="event.customScript.enable"
+              icon="edit"
+              title="编辑"
+              label="脚本配置"
+              :style="{ textAlign: 'right' }"
+              @click="openEditor(index)"
+            />
+          </div>
         </template>
-        <span style="width: 50%; padding-right: 8px">
+        <b-button
+          v-if="!event.register"
+          size="small"
+          style="width: 100%; margin-bottom: 4px"
+          @click="handleConfigParam(index)"
+        >
+          参数映射
+        </b-button>
+        <span style="width: 49%; margin-right: 2%; margin-top: 2px">
           <b-button
             size="small"
             style="width: 100%"
@@ -48,7 +72,7 @@
             注册事件
           </b-button>
         </span>
-        <span style="width: 50%; padding-right: 8px">
+        <span style="width: 49%; margin-top: 2px">
           <b-button
             size="small"
             style="width: 100%"
@@ -67,20 +91,41 @@
     >
       暂无响应事件
     </div>
-    <!-- <b-ace-editor
-      :model-value="JSON.stringify(config, null, 2)"
-      theme="tomorrow_night"
-      wrap
-      :styles="{ border: 'none' }"
-    ></b-ace-editor> -->
+    <b-drawer
+      v-model="openParamsMap"
+      title="参数映射"
+      :width="550"
+      :mask-closable="false"
+      class-name="source-drawer"
+      :styles="{ padding: 0 }"
+      append-to-body
+    >
+      <params-map
+        v-if="openParamsMap"
+        :emitListAll="emitList"
+        :onEvent="config.onEvents[curOnEventIndex]"
+        @save="handleParamsMapSave"
+      />
+    </b-drawer>
+    <CustomScriptsEditor
+      ref="editorRef"
+      v-model="customScriptStr"
+      :title="label + '编辑器'"
+      :funcExplain="funcExplain"
+      :augments="config?.customScript?.augments"
+      :paramsDesc="paramsDesc"
+      :exampleDesc="exampleDesc"
+      @success="handleSuccess"
+    />
   </g-field-collapse>
 </template>
 
 <script setup>
 import { deepCopy } from '@/utils/util'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { emitList, eventSourceList } from '@/hooks/schema/useEventBus'
-import { Message } from 'bin-ui-next'
+import { Message } from 'bin-ui-design'
+import ParamsMap from '../components/ParamsMap.vue'
 
 const props = defineProps({
   compId: {
@@ -91,11 +136,38 @@ const props = defineProps({
     type: Object,
     default: () => ({}),
   },
+  // 标题显示标签
+  label: {
+    type: String,
+    default: '自定义脚本',
+  },
+  // 函数说明
+  funcExplain: {
+    type: String,
+    default: '通过提供的参数编写脚本，可以实现更灵活的组件配置。',
+  },
+  // 参数描述
+  paramsDesc: {
+    type: Array,
+    default: () => [],
+  },
+  // 示例代码 {name,code} 的对象数组，name表示示例名称，code表示对应代码
+  exampleDesc: {
+    type: Array,
+    default: () => [],
+  },
 })
+
+const editorRef = ref(null)
+const customScriptStr = ref('')
 
 const config = computed(() => props.events)
 // 判断是否有响应事件
 const hasRespEvent = computed(() => Object.keys(config.value).includes('onEvents'))
+// 当前需要处理的绑定事件描述对象的index
+const curOnEventIndex = ref(null)
+// 打开参数映射
+const openParamsMap = ref(false)
 
 // 可选的事件源（不包含自身）
 const eventSourceListNoHasSelf = computed(() =>
@@ -123,6 +195,10 @@ function handleAddOnEvent() {
     eventName: '', // 选择的事件名(组成规则：indexId-eventName)
     actionName: '', // 选择的动作名称
     actionParams: [], // 动作参数
+    customScript: {
+      enable: false,
+      scriptStr: '', // 脚本
+    },
     register: false, // 是否注册事件
   })
 }
@@ -151,6 +227,28 @@ function handleDelOrCancelOnEvent(index, item) {
   }
 }
 
+// 参数映射组件save回调
+function handleParamsMapSave(actionParams) {
+  openParamsMap.value = false
+  config.value.onEvents[curOnEventIndex.value].actionParams = actionParams
+  curOnEventIndex.value = null
+}
+
+// 配置参数
+function handleConfigParam(index) {
+  const onEvent = config.value.onEvents[index]
+  if (onEvent.eventName === '') {
+    Message.warning('请绑定事件！')
+    return
+  }
+  if (onEvent.actionName === '') {
+    Message.warning('请绑定动作！')
+    return
+  }
+  curOnEventIndex.value = index
+  openParamsMap.value = true
+}
+
 // 切换绑定动作
 function handleActionNameChange(actionName, onEvent) {
   // 填充动作参数
@@ -158,5 +256,15 @@ function handleActionNameChange(actionName, onEvent) {
   if (action) {
     onEvent.actionParams = deepCopy(action.params)
   }
+}
+
+// 打开脚本编辑器
+function openEditor(index) {
+  const str = config.value.onEvents[index].customScript.scriptStr || ''
+  editorRef.value && editorRef.value.open(str, index)
+}
+
+function handleSuccess(val, index) {
+  config.value.onEvents[index].customScript.scriptStr = val
 }
 </script>

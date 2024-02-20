@@ -1,0 +1,148 @@
+{
+  "title": {
+    "show": false,
+    "textStyle": {
+      "color": "#BFBFBF",
+      "fontSize": 18
+    },
+    "subtextStyle": {
+      "color": "#A2A2A2",
+      "fontSize": 14
+    }
+  },
+  "legend": {
+    "show": true,
+    "type": "scroll",
+    "left": "center",
+    "top": "top",
+    "icon": "circle",
+    "orient": "horizontal",
+    "textStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 14
+    },
+    "itemHeight": 12,
+    "itemWidth": 12,
+    "pageTextStyle": {
+      "color": "#B9B8CE"
+    }
+  },
+  "textStyle": { "fontFamily": "Microsoft Yahei" },
+  "tooltip": {
+    "show": true,
+    "textStyle": {
+      "fontSize": 14,
+      "color": "#fff"
+    },
+    "borderColor": "#333",
+    "backgroundColor": "rgba(0, 0, 0, 0.65)",
+    "trigger": "axis",
+    "axisPointer": {
+      "type": "shadow",
+      "label": { "show": false },
+      "shadowStyle": {
+        "color": "rgba(150,150,150,0.3)"
+      },
+      "lineStyle": {
+        "width": 1,
+        "type": "dashed",
+        "color": "#f5dc69"
+      },
+      "crossStyle": {
+        "width": 1,
+        "type": "dashed",
+        "color": "#f5dc69"
+      }
+    }
+  },
+  "grid": {
+    "show": false,
+    "left": 50,
+    "top": 40,
+    "right": 20,
+    "bottom": 50
+  },
+  "xAxis": {
+    "show": true,
+    "inverse": false,
+    "type": "category",
+    "name": "",
+    "nameGap": 15,
+    "nameLocation": "end",
+    "nameRotate": 0,
+    "boundaryGap": true,
+    "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+    },
+    "axisLine": {
+      "show": true,
+      "lineStyle": {
+        "color": "#B9B8CE",
+        "width": 1,
+        "type": "solid"
+      }
+    },
+    "axisTick": {
+      "show": true,
+      "alignWithLabel": true,
+      "lineStyle": {
+        "color": "#B9B8CE",
+        "width": 1
+      }
+    },
+    "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+    },
+    "splitLine": {
+      "show": false,
+      "lineStyle": {
+        "color": "rgba(233, 228, 228, 0.1)",
+        "width": 1,
+        "type": "dashed"
+      }
+    }
+  },
+  "yAxis": {
+    "show": true,
+    "name": "",
+    "nameGap": 15,
+    "nameLocation": "end",
+    "nameTextStyle": {
+      "color": "#B9B8CE",
+      "fontSize": 12
+    },
+    "axisLine": {
+      "show": true,
+      "lineStyle": {
+        "color": "#B9B8CE",
+        "width": 1,
+        "type": "solid"
+      }
+    },
+    "axisTick": {
+      "show": true,
+      "lineStyle": {
+        "color": "#B9B8CE",
+        "width": 1
+      }
+    },
+    "axisLabel": {
+      "show": true,
+      "fontSize": 12,
+      "color": "#B9B8CE",
+      "rotate": 0
+    },
+    "splitLine": {
+      "show": true,
+      "lineStyle": {
+        "color": "rgba(233, 228, 228, 0.1)",
+        "width": 1,
+        "type": "dashed"
+      }
+    }
+  }
+}

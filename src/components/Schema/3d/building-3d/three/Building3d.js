@@ -57,6 +57,7 @@ export default class Building3d {
       logarithmicDepthBuffer: true,
       antialias: true,
       alpha: true,
+      preserveDrawingBuffer: true,
     })
     this.renderer.setSize(width, height)
     this.renderer.shadowMap.enabled = true

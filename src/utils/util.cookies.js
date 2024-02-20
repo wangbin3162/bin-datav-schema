@@ -11,7 +11,7 @@ const KEY = 'bin-datav-schema'
  */
 cookies.set = function (name = 'default', value = '', cookieSetting = {}) {
   const currentCookieSetting = {
-    expires: 1
+    expires: 1,
   }
   Object.assign(currentCookieSetting, cookieSetting)
   Cookies.set(`${KEY}-${name}`, value, currentCookieSetting)

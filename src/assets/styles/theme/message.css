@@ -1,0 +1,44 @@
+[theme-name='dark'] {
+  .bin-message {
+    background-color: var(--s-color-2);
+  }
+  .bin-message-box {
+    background: var(--s-color-2);
+    margin: 200px auto 0;
+    padding: 16px 24px;
+
+    .bin-message-box__header {
+      margin-bottom: 16px;
+      .bin-message-box__title {
+        color: var(--s-text-color-1);
+      }
+    }
+
+    .bin-message-box__message {
+      color: var(--s-text-color);
+    }
+  }
+
+  .bin-notice {
+    background-color: var(--s-color-2);
+    box-shadow: var(--schema-border-shadow);
+
+    .bin-notice__title {
+      color: #fff;
+    }
+
+    .bin-notice__content {
+      color: var(--bin-color-text-secondary);
+      text-align: left;
+    }
+
+    .b-icon-close {
+      color: var(--bin-color-primary);
+      transition: 0.2s;
+
+      &:hover {
+        color: var(--bin-color-primary);
+      }
+    }
+  }
+}

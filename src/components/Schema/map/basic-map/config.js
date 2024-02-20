@@ -1,7 +1,7 @@
-// 基本梯度图配置项
+// 基本漏斗图配置项
 import { initApiData, ComType } from '@/config/data-source'
 
-export const basicMap = {
+export default {
   name: 'VBasicMap',
   alias: '地图',
   icon: 'location',
@@ -12,11 +12,11 @@ export const basicMap = {
     global: {
       areaColor: {
         type: 'gradient',
-        value: 'rgba(115, 192, 222, 1)',
-        from: 'rgba(115, 192, 222, 1)',
-        to: 'rgba(155, 204, 242, 1)',
+        value: 'rgba(2, 20, 42, 1)',
+        from: 'rgba(56, 96, 155, 1)',
+        to: 'rgba(2, 20, 42, 1)',
       },
-      borderColor: 'rgba(0, 123, 215, 1)',
+      borderColor: 'rgba(146, 193, 240, 1)',
       borderWidth: 1,
       borderType: 'solid',
       itemStyle: {
@@ -25,19 +25,19 @@ export const basicMap = {
         borderWidth: 1, //悬浮边框宽度
         borderType: 'solid',
       },
-      shadowColor: 'rgba(79, 166, 216, 1)', //阴影颜色
+      shadowColor: 'rgba(0, 0, 0, 0.6)', //阴影颜色
       shadowOffsetX: 0, //水平偏移
       shadowOffsetY: 0, //垂直偏移
     },
     label: {
       //悬浮标识
-      show: true,
-      color: 'rgba(114, 113, 113, 1)',
+      show: false,
+      color: 'rgba(255, 255, 255, 0.8)',
       fontSize: 10,
       fontWeight: 'normal',
-      position: 'inside ',
+      position: 'top ',
       emphasis: {
-        show: true,
+        show: false,
         color: '#f75a00',
         fontSize: 14,
         fontWeight: 'bold',
@@ -90,5 +90,3 @@ export const basicMap = {
     },
   },
 }
-
-export default basicMap

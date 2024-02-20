@@ -2,22 +2,19 @@
   <div :class="['loading-indicator', { loading }]"></div>
 </template>
 
-<script>
+<script setup>
 import { useStore } from '@/store'
 import { computed } from 'vue'
-
-export default {
+defineOptions({
   name: 'HeadLoading',
-  setup() {
-    const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
-    const { toolbar } = storeToRefs(schemaStore)
-    const loading = computed(() => toolbar.value.loading)
-    return { loading }
-  },
-}
+})
+
+const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
+const { toolbar } = storeToRefs(schemaStore)
+const loading = computed(() => toolbar.value.loading)
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .loading-indicator {
   position: absolute;
   top: 40px;
@@ -25,7 +22,13 @@ export default {
   z-index: 101;
   width: 100%;
   height: 0;
-  background: -webkit-gradient(linear, 80% 46%, 10% 21%, from(#ff8754), to(#2483ff));
+  background: -webkit-gradient(
+    linear,
+    80% 46%,
+    10% 21%,
+    from(var(--bin-color-primary-light5)),
+    to(var(--bin-color-primary))
+  );
   transition: height 0.5s;
 
   &.loading {

@@ -1,8 +1,7 @@
 import { createGroup } from '@/config/components-cfg'
 import { getComponentRotatedStyle } from '@/utils/style'
 import { mod360 } from '@/utils/translate'
-import { getTransArea } from '@/views/schema/screen-editor/canvas-main/select-area/util'
-import eventBus from '@/utils/event-bus'
+import { EventBus, EventMap } from '@/utils/event-bus'
 
 // 根据多个组件计算包围盒的内容
 const calcBoundingBox = comps => {
@@ -83,12 +82,6 @@ export default {
   state: {
     editorEL: null,
     areaData: { x: 0, y: 0, width: 0, height: 0, showArea: false },
-  },
-  getters: {
-    areaDataAttr() {
-      const { x, y, width, height } = getTransArea(this.areaData, this.canvas.scale)
-      return { x, y, width, height }
-    },
   },
   actions: {
     getEditor() {
@@ -195,7 +188,7 @@ export default {
       this.batchDeleteComs(this.selectedComs)
       // 3、移除多选组件和区域
       this.selectedComIds = []
-      eventBus.emit('hideArea')
+      EventBus.emit(EventMap.HideArea)
       // 4、将组新增至画布
       this.comps.push(component)
       // 5、设置单选选中当前组

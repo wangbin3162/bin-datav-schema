@@ -12,34 +12,29 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
-export default {
+
+defineOptions({
   name: 'VIcon',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+})
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
+})
 
-    function handleClick() {
-      window.open(config.value.url, config.value.ifBlank ? '_blank' : '_self')
-    }
+// config 配置项
+const config = computed(() => props.data.config)
 
-    return {
-      config,
-      handleClick,
-    }
-  },
+function handleClick() {
+  window.open(config.value.url, config.value.ifBlank ? '_blank' : '_self')
 }
 </script>
 
-<style lang="stylus" scoped>
-.image-box{
+<style scoped>
+.image-box {
   position: relative;
   width: 100%;
   height: 100%;

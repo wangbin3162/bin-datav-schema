@@ -1,0 +1,111 @@
+[theme-name='dark'] {
+  .bin-input {
+    --bin-color-text-default: var(--s-text-color);
+    --bin-white-color: var(--s-color-1);
+    --bin-border-base: var(--s-border);
+
+    &::-moz-placeholder {
+      color: var(--s-text-color-3);
+    }
+
+    &:-ms-input-placeholder {
+      color: var(--s-text-color-3);
+    }
+
+    &::-webkit-input-placeholder {
+      color: var(--s-text-color-3);
+    }
+  }
+
+  .bin-input-word-count {
+    background-color: transparent;
+  }
+
+  .bin-input {
+    padding-left: 6px;
+    &[disabled] {
+      background-color: var(--s-color-1);
+      color: var(--s-text-color-3);
+    }
+    &.bin-input-with-prefix {
+      padding-left: 30px;
+    }
+  }
+
+  .bin-input-wrapper {
+    .bin-input-group-prepend {
+      right: 0;
+      .bin-button {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        border-right-color: var(--s-color-1);
+        &:hover {
+          border-right-color: var(--bin-color-primary);
+        }
+      }
+    }
+    .bin-input-with-suffix {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .bin-input-wrapper:hover .bin-input-icon-clear i {
+    background-color: transparent;
+    color: var(--s-text-color-3);
+  }
+
+  .bin-input-number {
+    color: var(--s-text-color);
+    background-color: transparent;
+    border: 1px solid var(--s-border-color);
+    box-shadow: none;
+    font-size: 14px;
+    .bin-input-number-input {
+      font-family: Arial;
+      padding-right: 25px;
+      padding-left: 6px;
+      color: var(--s-text-color);
+      text-align: left;
+      background: var(--s-color-1);
+      &[disabled] {
+        background-color: var(--s-color-1);
+        color: var(--s-text-color-3);
+      }
+    }
+
+    &:hover,
+    &:focus,
+    &.bin-input-number-focused {
+      border-color: var(--bin-color-primary);
+    }
+
+    .bin-input-number-handler-up-inner,
+    .bin-input-number-handler-down-inner {
+      font-size: 14px;
+      background-color: transparent;
+    }
+    .bin-input-number-handler,
+    .bin-input-number-handler-wrap {
+      background-color: transparent;
+      color: var(--s-text-color-1);
+      border: none;
+
+      &:hover {
+        color: var(--bin-color-primary);
+        border-color: var(--bin-color-primary);
+      }
+    }
+
+    .bin-input-number-handler-up-disabled,
+    .bin-input-number-handler-down-disabled {
+      &.bin-input-number-handler {
+        color: var(--s-text-color-3);
+      }
+      &:hover {
+        color: var(--s-text-color-3);
+        border: none;
+      }
+    }
+  }
+}

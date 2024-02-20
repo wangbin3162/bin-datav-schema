@@ -1,35 +1,37 @@
-// 基本柱图配置项
-import { initApiData, ComType } from '@/config/data-source'
-import { defaultColors } from '@/config/colors'
+// 胶囊柱图配置项
+import { initApiData, ComType, CAPSULE_BAR_ECHART as compType } from '@/config/data-source'
 
-export const capsuleBarConfig = {
+import { getBaseActions } from '@/utils/events'
+
+export default {
   name: 'VCapsuleBar',
   alias: '胶囊柱图',
   icon: 'barchart',
   type: ComType.com,
   componentType: 'bar',
-  attr: { w: 500, h: 300 },
+  attr: { w: 500, h: 300, chartThemeColor: '' },
   config: {
     global: {
       fontFamily: 'Microsoft Yahei',
-      margin: {
-        top: 10,
-        bottom: 10,
-        left: 30,
-        right: 30,
+      label: {
+        show: false,
+        fontSize: 12,
+        color: '#fff',
+        position: 'right',
       },
       borderRadius: [5, 5, 5, 5],
-      barHeight: 10,
+      barHeight: 15,
       barMargin: 5,
       barBg: null,
       shadow: '0 0 3px',
       shadowColor: '#999',
       unit: '',
     },
-    label: {
-      show: false,
-      color: '#fff',
-      position: 'right',
+    grid: {
+      top: 20,
+      bottom: 10,
+      left: 30,
+      right: 30,
     },
     xAxis: {
       show: true,
@@ -39,15 +41,19 @@ export const capsuleBarConfig = {
       show: true,
       color: '#fff',
     },
-    color: defaultColors,
   },
-  apiData: initApiData({ staticPath: 'bar/capsule-bar' }),
+  apiData: initApiData({ staticPath: 'bar/capsule-bar', compType }),
   events: {
+    onEvents: [],
+    defaultAction: true,
+    actions: getBaseActions(),
     click: {
       name: '点击数据项',
       params: [],
     },
+    customScript: {
+      augments: ['curComp','components'],
+      enable: false,
+    },
   },
 }
-
-export default capsuleBarConfig

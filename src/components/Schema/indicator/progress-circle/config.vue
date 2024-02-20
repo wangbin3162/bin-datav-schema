@@ -1,31 +1,31 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field label="顶端形状">
-      <b-radio-group v-model="config.linecap" type="button" size="mini">
-        <b-radio label="round">圆形</b-radio>
-        <b-radio label="square">方形</b-radio>
-      </b-radio-group>
-    </g-field>
-    <g-field label="环形样式" flat>
-      <g-input-number v-model="config.width" :min="1" :max="20" :step="1" inline label="线宽" />
-      <g-color-picker v-model="config.color" inline label="颜色" />
-    </g-field>
-    <g-field label="背景样式" flat>
-      <g-input-number
-        v-model="config.trailWidth"
-        :min="0"
-        :max="20"
-        :step="1"
-        inline
-        label="线宽"
-      />
-      <g-color-picker v-model="config.trailColor" inline label="颜色" />
-    </g-field>
-    <g-field label="仪表盘模式">
-      <div class="pt-5">
+    <g-field-collapse label="标题" default-open>
+      <g-field label="顶端形状">
+        <b-radio-group v-model="config.linecap" type="button" size="small">
+          <b-radio label="round">圆形</b-radio>
+          <b-radio label="square">方形</b-radio>
+        </b-radio-group>
+      </g-field>
+      <g-field label="环形样式" flat>
+        <g-input-number v-model="config.width" :min="1" :max="20" :step="1" inline label="线宽" />
+        <g-color-picker v-model="config.color" inline label="颜色" />
+      </g-field>
+      <g-field label="背景样式" flat>
+        <g-input-number
+          v-model="config.trailWidth"
+          :min="0"
+          :max="20"
+          :step="1"
+          inline
+          label="线宽"
+        />
+        <g-color-picker v-model="config.trailColor" inline label="颜色" />
+      </g-field>
+      <g-field label="仪表盘模式">
         <b-switch v-model="config.dashboard" size="small" />
-      </div>
-    </g-field>
+      </g-field>
+    </g-field-collapse>
 
     <g-field-collapse label="标题" v-model="config.title.show" toggle>
       <g-field label="标题内容">

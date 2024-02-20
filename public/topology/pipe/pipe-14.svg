@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs/>
+    <svg width='100%' height='100%'>
+        <linearGradient id='autoId_horPipe_pipeGrad' y1='-20%' x1='0%' y2='100%' x2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#303030'/>
+            <stop  offset='40%' stop-color='#D0D0D0'/>
+            <stop  offset='100%'  stop-color='#303030'/>
+        </linearGradient>
+        <linearGradient id='autoId_horPipe_pipeGrad2' y1='-20%' x1='0%' y2='100%' x2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#006400'/>
+            <stop  offset='40%' stop-color='#98FB98'/>
+            <stop  offset='100%'  stop-color='#006400'/>
+        </linearGradient>
+        <linearGradient id='autoId_horPipe_fillGrad' x1='0%' y1='-50%' x2='0%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#FFFFFF'/>
+            <stop  offset='75%' stop-color='#0000FF'/>
+            <stop  offset='150%' stop-color='#FFFFFF'/>
+        </linearGradient>
+        <linearGradient id='autoId_horPipe_fillGrad2' x1='0%' y1='-50%' x2='0%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#EEE8AA'/>
+            <stop  offset='75%' stop-color='#800000'/>
+            <stop  offset='150%' stop-color='#EEE8AA'/>
+        </linearGradient>
+        <g databind="databindHide">
+            <rect x='0%' y='30%' width='100%' height='40%' style="fill: url('#autoId_horPipe_pipeGrad');"/>
+            <g style="display: none;" databind="databind1">
+                <rect x='40%' y='0%'   width='100%' height='20%' style="fill: url('#autoId_horPipe_fillGrad');" />
+            </g>
+        </g>
+    </svg>
+
+</svg>

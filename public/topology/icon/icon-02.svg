@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="213px" height="213px" viewBox="0 0 213 213" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>编组 10</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="213" height="213"></rect>
+        <rect id="path-3" x="0" y="0" width="210" height="120"></rect>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.2266681%" id="linearGradient-5">
+            <stop stop-color="#A0A2FF" offset="0%"></stop>
+            <stop stop-color="#0080FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.2266681%" id="linearGradient-6">
+            <stop stop-color="#686CF4" offset="0.469805743%"></stop>
+            <stop stop-color="#044CF1" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="97.2188291%" y1="59.5480386%" x2="13.8656416%" y2="40.5002778%" id="linearGradient-7">
+            <stop stop-color="#0408CF" offset="0%"></stop>
+            <stop stop-color="#4B00FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="100%" y1="40.0216527%" x2="0%" y2="59.6559553%" id="linearGradient-8">
+            <stop stop-color="#122AF8" offset="0%"></stop>
+            <stop stop-color="#0073FF" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-9" points="0.515865574 44.8945643 0.515865574 67.1657311 90.6870311 16.8367869 81.7468725 0"></polygon>
+        <filter x="-135.8%" y="-135.8%" width="371.6%" height="371.6%" filterUnits="objectBoundingBox" id="filter-11">
+            <feGaussianBlur stdDeviation="38.912" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="97.2188291%" y1="52.7452784%" x2="13.8656416%" y2="47.2686136%" id="linearGradient-12">
+            <stop stop-color="#0408CF" offset="0%"></stop>
+            <stop stop-color="#4B00FF" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-40.9%" y="-103.8%" width="181.8%" height="307.7%" filterUnits="objectBoundingBox" id="filter-13">
+            <feGaussianBlur stdDeviation="9" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <radialGradient cx="14.6020508%" cy="4.16992187%" fx="14.6020508%" fy="4.16992187%" r="107.168042%" id="radialGradient-14">
+            <stop stop-color="#8787FF" offset="0%"></stop>
+            <stop stop-color="#344FFF" offset="50.4592483%"></stop>
+            <stop stop-color="#1D34D7" offset="79.2889569%"></stop>
+            <stop stop-color="#2685EC" offset="100%"></stop>
+        </radialGradient>
+        <circle id="path-15" cx="55.1167838" cy="55" r="55"></circle>
+        <filter x="-93.4%" y="-93.4%" width="286.7%" height="286.7%" filterUnits="objectBoundingBox" id="filter-17">
+            <feGaussianBlur stdDeviation="12.7390476" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="0%" y1="0.958336327%" x2="50%" y2="69.8888321%" id="linearGradient-18">
+            <stop stop-color="#2F07C2" offset="0%"></stop>
+            <stop stop-color="#4E78FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-19">
+            <stop stop-color="#2B05BF" offset="0%"></stop>
+            <stop stop-color="#9587FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0403科技感机械边框立体3d后台数据可视化首页" transform="translate(-692.000000, -400.000000)">
+            <g id="编组-14" transform="translate(369.000000, 400.000000)">
+                <g id="编组-10" transform="translate(323.000000, 0.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="蒙版" fill-opacity="0.01" fill="#020D48" xlink:href="#path-1"></use>
+                    <g mask="url(#mask-2)">
+                        <g transform="translate(2.000000, 7.000000)">
+                            <g id="编组-10备份-4" transform="translate(0.000000, 80.000000)">
+                                <mask id="mask-4" fill="white">
+                                    <use xlink:href="#path-3"></use>
+                                </mask>
+                                <use id="蒙版" fill-opacity="0.01" fill="#020D48" xlink:href="#path-3"></use>
+                                <g id="编组-10备份-3" mask="url(#mask-4)">
+                                    <g transform="translate(0.000000, 1.000000)">
+                                        <polygon id="路径-4" stroke="#475EFF" stroke-width="3.648" fill="none" stroke-linejoin="round" points="102.101702 5.51311653 -1.27897692e-13 59.1600837 102.101702 118.219061 209.076654 59.1600837"></polygon>
+                                        <polygon id="路径-5" stroke="none" fill="#2C34E8" fill-rule="evenodd" points="102.101702 5.51311653 13.6154934 51.7395559 102.101702 102.0685 192.272867 51.7395559"></polygon>
+                                        <polygon id="路径-6" stroke="none" fill="url(#linearGradient-5)" fill-rule="evenodd" opacity="0.885602679" points="99.6322623 4.55888444e-14 22.6631567 37.3282717 101.585836 80.440174 183.332709 34.902769"></polygon>
+                                        <polygon id="路径-6" stroke="none" fill="url(#linearGradient-6)" fill-rule="evenodd" points="99.6322623 5.51311653 34.2088061 37.0601894 101.585836 73.106769 169.894568 34.902769"></polygon>
+                                        <polygon id="路径-7" stroke="none" fill="url(#linearGradient-7)" fill-rule="evenodd" opacity="0.697567894" points="22.0809627 37.0601894 13.6154934 51.7395559 102.101702 102.0685 102.101702 80.3545787"></polygon>
+                                        <g id="椭圆形" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(101.585836, 34.902769)">
+                                            <mask id="mask-10" fill="white">
+                                                <use xlink:href="#path-9"></use>
+                                            </mask>
+                                            <use id="蒙版" fill="url(#linearGradient-8)" opacity="0.697567894" xlink:href="#path-9"></use>
+                                            <circle fill="#2ACFF6" filter="url(#filter-11)" mask="url(#mask-10)" cx="-1.95357377" cy="38.204" r="42.978623"></circle>
+                                        </g>
+                                        <ellipse id="椭圆形" stroke="none" fill="url(#linearGradient-12)" fill-rule="evenodd" filter="url(#filter-13)" cx="105" cy="37" rx="33" ry="13"></ellipse>
+                                    </g>
+                                </g>
+                            </g>
+                            <g id="编组-6" transform="translate(12.000000, 0.000000)">
+                                <g id="椭圆形" transform="translate(35.200000, 0.000000)">
+                                    <mask id="mask-16" fill="white">
+                                        <use xlink:href="#path-15"></use>
+                                    </mask>
+                                    <use id="蒙版" fill="url(#radialGradient-14)" xlink:href="#path-15"></use>
+                                    <circle fill="#E3B0FF" filter="url(#filter-17)" mask="url(#mask-16)" cx="46.8996721" cy="-2.55825137" r="20.4660109"></circle>
+                                    <path d="M-4.26535519,84.5086887 C5.2267955,40.6606402 15.459801,21.7277912 26.4336612,27.7101416 C42.8944516,36.6836671 26.4336612,86.1391216 46.8996721,92.0171038 C67.3656831,97.8950861 86.6956669,79.3921393 89.8972071,67.1960697 C93.0987472,55 110.549152,58.4518369 117.397485,73.4576169 C124.245817,88.4633969 94.7471302,136.59785 56.3532104,128.333333 C30.7572638,122.823656 10.5510753,108.215441 -4.26535519,84.5086887 Z" id="路径-3" fill="url(#linearGradient-18)" mask="url(#mask-16)"></path>
+                                    <circle fill="url(#linearGradient-19)" mask="url(#mask-16)" cx="70.7142857" cy="44.5238095" r="13.0952381"></circle>
+                                </g>
+                                <path d="M51.771494,28.5340691 C21.078417,31.8711731 0,38.7748344 0,46.75 C0,57.9889947 41.8613759,67.1 93.5,67.1 C145.138624,67.1 187,57.9889947 187,46.75 C187,38.1590786 162.541036,30.8115089 127.952476,27.8260361" id="路径" stroke="#8F6BFF" stroke-width="4.5056" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,8"></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

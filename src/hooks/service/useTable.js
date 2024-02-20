@@ -27,7 +27,7 @@ export default function useTable(fetch, params = {}, isPagination = true, listKe
       setLoading(true)
       const data = await fetch(params)
       list.value = listKey ? data[listKey] : data
-      total.value = isPagination ? (data.total || 0) : data.list.length
+      total.value = isPagination ? data.total || 0 : data.list.length
     } catch (e) {
       // 响应时触发错误
       throwError('userTable/getListData', e)

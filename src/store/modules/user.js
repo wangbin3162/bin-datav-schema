@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import cookies from '@/utils/util.cookies'
 import { getInfo } from '@/api/modules/login.api'
-import { ACCESS_TOKEN } from '@/config/token-const'
+import { persistenceToken, removeRersistenceToken } from '@/utils/refresh'
+import { store } from '@/store'
 
 const useUser = defineStore('user', {
   state: () => ({
@@ -11,6 +11,32 @@ const useUser = defineStore('user', {
   }),
   getters: {},
   actions: {
+    // 设置token
+    async setToken({ token, refreshToken, expires }) {
+      try {
+        persistenceToken(token, refreshToken, expires)
+        this.token = token
+        this.roles = ''
+        this.userInfo = null
+        return token
+      } catch (e) {
+        return false
+      }
+    },
+    // 设置刷新token
+    async setTokenForRefresh({ token, refreshToken, expires }) {
+      persistenceToken(token, refreshToken, expires)
+      this.token = token
+      return token
+    },
+    // 清除token
+    clearToken() {
+      // 删除缓存的token
+      this.token = ''
+      this.roles = ''
+      // 删除cookie
+      removeRersistenceToken()
+    },
     // 获取用户信息
     async getUserInfo() {
       const { data } = await getInfo()
@@ -23,27 +49,11 @@ const useUser = defineStore('user', {
         throw new Error(data.message)
       }
     },
-    // 设置token
-    async setToken(token) {
-      try {
-        cookies.set(ACCESS_TOKEN, token)
-        this.token = token
-        this.roles = ''
-        this.userInfo = null
-        return token
-      } catch (e) {
-        return false
-      }
-    },
-    // 清除token
-    clearToken() {
-      // 删除缓存的token
-      this.token = ''
-      this.roles = ''
-      // 删除cookie
-      cookies.remove(ACCESS_TOKEN)
-    },
   },
 })
 
 export default useUser
+
+export function useUserStoreWithOut() {
+  return useUser(store)
+}

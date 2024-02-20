@@ -1,14 +1,14 @@
 import { ComType } from '@/config/data-source'
 
-export const building3dConfig = {
+export default {
   name: 'VBuilding3d',
   alias: '建筑扫描',
   icon: 'bank',
   type: ComType.com,
   attr: { w: 800, h: 800, lockedRatio: true },
   config: {
-    color: '#024144',
-    rotateSpeed: 2,
+    color: '#02204e',
+    rotateSpeed: 1.5,
     scale: 0.016,
     cameraPos: '0, 0.5, 4.5',
     // 发光属性
@@ -20,5 +20,3 @@ export const building3dConfig = {
   apiData: {},
   events: {},
 }
-
-export default building3dConfig

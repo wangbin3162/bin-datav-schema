@@ -1,17 +1,17 @@
 <template>
   <div class="events-panel">
-    <config-title
-      :com-name="selectedCom.name"
-      :com-alias="selectedCom.alias"
-      :com="selectedCom"
-    ></config-title>
     <div class="events-panel-content">
-      <div class="data-result-title">事件配置</div>
       <div class="scroll-container">
         <b-scrollbar>
           <div class="setting-panel-gui">
+            <DefaultAction :events="events" />
             <TriggerConfig :events="events" />
-            <ResponseConfig :events="events" :comp-id="selectedCom.id" />
+            <ResponseConfig
+              :events="events"
+              :comp-id="selectedCom.id"
+              :paramsDesc="paramsDesc"
+              :exampleDesc="exampleDesc"
+            />
           </div>
         </b-scrollbar>
       </div>
@@ -22,13 +22,29 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from '@/store'
-import ConfigTitle from '@/views/schema/screen-editor/config-panel/components/config-title.vue'
 import TriggerConfig from './trigger-config.vue'
 import ResponseConfig from './response-config.vue'
+import DefaultAction from './DefaultAction.vue'
+import { useParamsDesc } from '@/components/Common/CustomScripts/customScriptsUtil'
 
 const { schemaStore, storeToRefs } = useStore()
 
-const { selectedCom } = storeToRefs(schemaStore)
-
+const { selectedCom, comps } = storeToRefs(schemaStore)
 const events = computed(() => selectedCom.value.events)
+const { paramsDesc, exampleDesc } = useParamsDesc(comps.value, selectedCom.value)
 </script>
+
+<style scoped>
+.events-panel {
+  height: 100%;
+
+  .events-panel-content {
+    color: var(--s-text-color);
+    height: calc(100% - 60px);
+  }
+
+  .scroll-container {
+    height: calc(100% - 36px);
+  }
+}
+</style>

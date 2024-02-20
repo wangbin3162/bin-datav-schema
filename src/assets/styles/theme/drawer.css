@@ -1,0 +1,18 @@
+[theme-name='dark'] {
+  .bin-drawer-wrap.source-drawer {
+    .bin-drawer-content {
+      background: var(--schema-color-bg-2);
+    }
+    .bin-drawer-header {
+      border-bottom: 1px solid var(--s-border-color-2);
+      padding: 16px;
+      p,
+      .bin-drawer-header-inner {
+        color: var(--s-text-color);
+      }
+    }
+    .bin-drawer-close .b-icon-close:hover {
+      color: var(--bin-color-danger-light2);
+    }
+  }
+}

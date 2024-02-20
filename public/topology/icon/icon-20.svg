@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="62px" viewBox="0 0 64 62" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>web/icon-餐饮</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62.4" height="62.4"></rect>
+        <filter x="-20.2%" y="-55.6%" width="140.4%" height="211.1%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="3.46666667" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-38.2%" y="-83.0%" width="176.3%" height="266.1%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="6.55107395" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="50%" y1="109.178568%" x2="50%" y2="15.7403116%" id="linearGradient-5">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" stop-opacity="0.607872596" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="81.3020592%" x2="55.0658205%" y2="12.4896241%" id="linearGradient-6">
+            <stop stop-color="#0796BF" offset="0%"></stop>
+            <stop stop-color="#0BC2CD" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0,0 L6.55454907,0 L6.55454907,14.0376593 C6.55454907,17.6576368 3.6199775,20.5922083 0,20.5922083 L0,20.5922083 L0,20.5922083 L0,0 Z" id="path-7"></path>
+        <linearGradient x1="76.8787741%" y1="18.2983108%" x2="14.6801364%" y2="189.81408%" id="linearGradient-9">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#11FADF" offset="19.0691874%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="81.3020592%" x2="57.0754022%" y2="12.4896241%" id="linearGradient-10">
+            <stop stop-color="#0796BF" offset="0%"></stop>
+            <stop stop-color="#0BC2CD" offset="100%"></stop>
+        </linearGradient>
+        <path d="M0,0 L6.55454907,0 L6.55454907,17.4241763 C2.93457158,17.4241763 2.21967622e-15,14.4896047 0,10.8696272 L0,0 L0,0 Z" id="path-11"></path>
+        <linearGradient x1="57.2628219%" y1="8.06073895%" x2="42.7371781%" y2="189.81408%" id="linearGradient-13">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="大数据可视化科技智慧智能统计后台监管中心" transform="translate(-1448.000000, -199.000000)">
+            <g id="原创-center" transform="translate(375.000000, 122.000000)">
+                <g id="编组-52">
+                    <g id="web/icon-餐饮" transform="translate(1074.000000, 76.000000)">
+                        <g id="编组-25" transform="translate(-0.201923, -0.201923)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="蒙版"></g>
+                            <g mask="url(#mask-2)">
+                                <g transform="translate(5.546667, 4.160000)">
+                                    <ellipse id="椭圆形备份" fill="#000000" opacity="0.200000003" filter="url(#filter-3)" cx="25.7539095" cy="41.9466667" rx="25.7539095" ry="9.36"></ellipse>
+                                    <g id="编组-21" stroke-width="1" fill="none">
+                                        <ellipse id="椭圆形备份" fill="#000000" opacity="0.200000003" filter="url(#filter-4)" cx="25.7539095" cy="24.3128773" rx="25.7539095" ry="11.8328773"></ellipse>
+                                        <g id="编组-12" transform="translate(2.773333, 0.000000)">
+                                            <ellipse id="椭圆形" fill="url(#linearGradient-5)" fill-rule="nonzero" cx="23.2875884" cy="26.9282724" rx="22.9409218" ry="22.1762244"></ellipse>
+                                            <g id="分组-31" transform="translate(5.262578, 0.000000)">
+                                                <g id="路径-55" transform="translate(21.302284, 25.344256)">
+                                                    <mask id="mask-8" fill="white">
+                                                        <use xlink:href="#path-7"></use>
+                                                    </mask>
+                                                    <use id="Mask" fill="url(#linearGradient-6)" fill-rule="nonzero" xlink:href="#path-7"></use>
+                                                    <polyline fill="#0B0B0B" fill-rule="nonzero" opacity="0.300000012" mask="url(#mask-8)" points="0 1.58401603 6.95380689 7.80483678 6.95380689 1.58401603 0.49407154 1.58401603"></polyline>
+                                                </g>
+                                                <path d="M36.0500199,1.58401603 L36.0500199,16.2771302 C36.0500199,22.1595936 31.2813411,26.9282724 25.3988777,26.9282724 C19.5164142,26.9282724 14.7477354,22.1595936 14.7477354,16.2771302 L14.7477354,1.58401603 L19.6647354,1.58372514 L19.6636472,1.63863727 L19.6636472,12.617507 C19.6636472,13.5225013 20.3972901,14.2561442 21.3022845,14.2561442 C22.2072789,14.2561442 22.9409218,13.5225013 22.9409218,12.617507 L22.9409218,12.617507 L22.9409218,1.63863727 C22.9409218,1.6202652 22.9406194,1.60196375 22.9400194,1.58373763 L27.8587354,1.58372514 L27.8568336,1.63863727 L27.8568336,12.617507 C27.8568336,13.5225013 28.5904765,14.2561442 29.4954708,14.2561442 C30.4004652,14.2561442 31.1341081,13.5225013 31.1341081,12.617507 L31.1341081,12.617507 L31.1341081,1.63863727 C31.1341081,1.6202652 31.1338058,1.60196375 31.1332058,1.58373763 L36.0500199,1.58401603 Z" id="合并形状" fill="url(#linearGradient-9)" fill-rule="nonzero"></path>
+                                                <g id="路径-55" transform="translate(4.915912, 28.512288)">
+                                                    <mask id="mask-12" fill="white">
+                                                        <use xlink:href="#path-11"></use>
+                                                    </mask>
+                                                    <use id="Mask" fill="url(#linearGradient-10)" fill-rule="nonzero" xlink:href="#path-11"></use>
+                                                    <polyline fill="#0B0B0B" fill-rule="nonzero" opacity="0.300000012" mask="url(#mask-12)" points="-3.27727454 0 6.95380689 6.22082075 6.95380689 0 -2.55035096 0"></polyline>
+                                                </g>
+                                                <path d="M11.4704609,0 L11.4704609,0 L11.4704609,0 L11.4704609,30.0963045 L0,30.0963045 L0,11.4704609 C-7.75808924e-16,5.13550026 5.13550026,1.16371339e-15 11.4704609,0 Z" id="矩形" fill="url(#linearGradient-13)" fill-rule="nonzero"></path>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

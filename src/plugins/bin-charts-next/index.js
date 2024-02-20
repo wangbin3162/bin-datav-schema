@@ -16,7 +16,7 @@ import { TitleComponent, TooltipComponent } from 'echarts/components'
 import { CanvasRenderer } from 'echarts/renderers'
 
 export function registerCharts(app) {
-  app.component('BCharts', BCharts)// 注册必须的组件
+  app.component('BCharts', BCharts) // 注册必须的组件
   echarts.use([
     BarChart,
     LineChart,

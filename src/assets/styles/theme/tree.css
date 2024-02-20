@@ -1,0 +1,17 @@
+[theme-name='dark'] {
+  .bin-tree {
+    color: var(--s-text-color);
+    .bin-tree-arrow .b-icon-caret-right {
+      color: var(--s-text-color);
+    }
+    .bin-tree-title,
+    .bin-tree-render-title {
+      &:hover {
+        background: var(--bin-color-primary-alpha1);
+      }
+      &.is-selected {
+        background: var(--bin-color-input-shadow);
+      }
+    }
+  }
+}

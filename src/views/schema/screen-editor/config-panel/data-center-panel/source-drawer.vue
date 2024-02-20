@@ -13,6 +13,8 @@
       v-if="visible"
       :selected-model-id="selectedModelId"
       :selected-model-name="selectedModelName"
+      :enable-legend="enableLegend"
+      :is-box="isBox"
       @save="close"
     ></ds-api>
   </b-drawer>
@@ -26,6 +28,16 @@ import { useStore } from '@/store'
 export default {
   name: 'source-drawer',
   components: { DsApi },
+  props: {
+    enableLegend: {
+      type: Boolean,
+      default: true,
+    },
+    isBox: {
+      type: Boolean,
+      default: false,
+    },
+  },
   emits: ['close'],
   setup(props, { emit }) {
     const visible = ref(false)
@@ -58,17 +70,4 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-.bin-drawer-wrap.source-drawer {
-  .bin-drawer-content {
-    background: #1d2126;
-  }
-  .bin-drawer-header {
-    border-bottom: 1px solid var(--schema-color-border);
-    padding: 16px;
-    p, .bin-drawer-header-inner {
-      color: #fff;
-    }
-  }
-}
-</style>
+<style scoped></style>

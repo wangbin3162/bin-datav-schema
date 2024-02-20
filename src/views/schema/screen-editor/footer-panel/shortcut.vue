@@ -4,6 +4,7 @@
     :model-value="modelValue"
     append-to-body
     custom-class="schema-modal"
+    width="600px"
     @close="$emit('update:modelValue', false)"
   >
     <div class="shortcut-wp">
@@ -39,7 +40,7 @@
             <div class="shortcut-value">Ctrl + Z</div>
           </div>
           <div class="shortcut-item">
-            <div class="shortcut-title">保存看板</div>
+            <div class="shortcut-title">保存大屏</div>
             <div class="shortcut-value">Ctrl + S</div>
           </div>
         </div>
@@ -93,12 +94,28 @@
             <div class="shortcut-value">Shift + ↑ ↓ ← →</div>
           </div>
           <div class="shortcut-item">
+            <div class="shortcut-title">多选点击组件</div>
+            <div class="shortcut-value">Ctrl + 鼠标左键</div>
+          </div>
+          <div class="shortcut-item">
             <div class="shortcut-title">重命名</div>
             <div class="shortcut-value">F2/双击图层</div>
           </div>
           <div class="shortcut-item">
+            <div class="shortcut-title">组合</div>
+            <div class="shortcut-value">Ctrl + G</div>
+          </div>
+          <div class="shortcut-item">
             <div class="shortcut-title">删除选中组件</div>
             <div class="shortcut-value">Delete</div>
+          </div>
+          <div class="shortcut-item">
+            <div class="shortcut-title">锁定X轴拖动</div>
+            <div class="shortcut-value">Shift + 鼠标左键拖动</div>
+          </div>
+          <div class="shortcut-item">
+            <div class="shortcut-title">锁定Y轴拖动</div>
+            <div class="shortcut-value">Ctrl + 鼠标左键拖动</div>
           </div>
         </div>
       </div>
@@ -118,15 +135,15 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .shortcut-wp {
   position: relative;
   margin: -16px;
-  background: #303640;
+  background: var(--schema-color-bg-2);
   user-select: none;
   .shortcut-box {
     display: flex;
-    border-bottom: 1px solid #1a1a1a;
+    border-bottom: 1px solid var(--schema-color-border);
     .key-title {
       width: 50px;
       font-size: 16px;
@@ -136,8 +153,7 @@ export default {
       letter-spacing: 2px;
       text-align: center;
       line-height: 50px;
-      border-right: 1px solid #1a1a1a;
-      color: #999;
+      border-right: 1px solid var(--schema-color-border);
     }
     .key-wrap {
       width: calc(100% - 50px);
@@ -151,7 +167,7 @@ export default {
   }
   .shortcut-item {
     display: flex;
-    width: 210px;
+    width: 250px;
     height: 28px;
     margin: 0 16px 8px 0;
     justify-content: space-between;
@@ -160,16 +176,14 @@ export default {
 
   .shortcut-title {
     padding-right: 15px;
-    color: #bcc9d4;
+    color: var(--s-text-color);
     font-size: 12px;
   }
 
   .shortcut-value {
     padding: 4px 6px;
     font-weight: 700;
-    color: #08a1db;
-    background: #262b33;
-    border-radius: 2px;
+    color: var(--bin-color-primary);
   }
 }
 </style>

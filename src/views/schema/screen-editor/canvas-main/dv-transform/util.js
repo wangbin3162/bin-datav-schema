@@ -1,9 +1,10 @@
 // 八个方位点对应的初始角度
 import { off, on } from '@/utils/util'
-import eventBus from '@/utils/event-bus'
+import { EventBus, EventMap } from '@/utils/event-bus'
 import { nextTick } from 'vue'
 import { useStore } from '@/store'
-const { schemaStore } = useStore()
+
+const { schemaStore, storeToRefs } = useStore()
 
 const initialDirectionAngle = [
   { direction: 'lt', angle: 0 },
@@ -142,6 +143,9 @@ const setAttr = (ev, dir, com, scale, grid) => {
 
   let hasMove = false
   const move = e => {
+    const { shortcuts } = storeToRefs(schemaStore)
+    const { ctrlKey, shiftKey } = shortcuts.value
+
     const curX = e.clientX
     const curY = e.clientY
     // 每次移动固定格数
@@ -161,20 +165,28 @@ const setAttr = (ev, dir, com, scale, grid) => {
         ratio,
       )
     } else {
-      pos.x = attr.x + moveX
-      pos.y = attr.y + moveY
+      if (ctrlKey) {
+        pos.x = attr.x + moveX
+      }
+      if (shiftKey) {
+        pos.y = attr.y + moveY
+      }
+      if (!ctrlKey && !shiftKey) {
+        pos.x = attr.x + moveX
+        pos.y = attr.y + moveY
+      }
     }
 
     com.attr = { ...com.attr, ...pos }
     nextTick().then(() => {
-      eventBus.emit('move', {
+      EventBus.emit(EventMap.CompMove, {
         isDownward: curY - startY > 0,
         isRightward: curX - startX > 0,
       })
     })
   }
   const up = () => {
-    eventBus.emit('unmove')
+    EventBus.emit(EventMap.CompUnMove)
     hasMove && schemaStore.recordSnapshot()
     off(document, 'mousemove', move)
     off(document, 'mouseup', up)

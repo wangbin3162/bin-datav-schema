@@ -10,28 +10,27 @@
         <mark-line :style="screenShotStyle" v-if="toolbox.markLine" />
         <action-bar />
         <ruler />
-        <div
-          id="canvas-components"
-          class="canvas-panel"
-          :style="canvasPanelStyle"
-          @dragover="dragOver"
-          @drop="dropToAddCom"
-          @mousedown="handleMouseDown"
-        >
-          <dv-transform v-for="comp in comps" :key="comp.id" :data="comp">
-            <component
-              :is="comp.name"
-              :data="comp"
-              :style="{
-                width: comp.attr.w + 'px',
-                height: comp.attr.h + 'px',
-                opacity: comp.attr.opacity,
-                transform: `rotatey(${comp.attr.rotateY ?? 0}deg)`,
-              }"
-              :id="`component_${comp.id}`"
-            />
-          </dv-transform>
-          <SelectArea v-bind="areaData" />
+        <div :style="conStyle">
+          <div
+            id="canvas-components"
+            class="canvas-panel"
+            :style="canvasPanelStyle"
+            @dragover="dragOver"
+            @drop="dropToAddCom"
+            @mousedown="handleMouseDown"
+            @contextmenu="showMenu"
+          >
+            <dv-transform v-for="comp in comps" :key="comp.id" :data="comp">
+              <component
+                :is="comp.name"
+                :data="comp"
+                :style="{ ...compStyle(comp), ...animationsStyles(comp.animation) }"
+                :id="`component_${comp.id}`"
+                :class="animationsClass(comp.animation)"
+              />
+            </dv-transform>
+            <SelectArea v-bind="areaData" />
+          </div>
         </div>
       </div>
     </div>
@@ -41,15 +40,17 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 import { on, off, debounce } from '@/utils/util'
-import eventBus from '@/utils/event-bus'
+import { EventBus, EventMap } from '@/utils/event-bus'
 import Ruler from '@/views/schema/screen-editor/canvas-main/ruler/index.vue'
 import MarkLine from '@/views/schema/screen-editor/canvas-main/mark-line/index.vue'
 import DvTransform from '@/views/schema/screen-editor/canvas-main/dv-transform/index.vue'
 import ActionBar from '@/views/schema/screen-editor/canvas-main/action-bar/index.vue'
 import { createComponent } from '@/config/components-cfg'
 import { ApiType } from '@/config/data-source'
+import { animationsClass, animationsStyles } from '@/config/animations'
 import { getStaticData } from '@/api/database.api'
 import { useStore } from '@/store'
+import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 import SelectArea from './select-area/index.vue'
 import { getSelectArea } from './select-area/util'
 
@@ -59,6 +60,7 @@ const {
   spaceDown,
   canvas,
   selectedCom,
+  selectedComIds,
   comps,
   toolbox,
   getPanelOffsetLeft,
@@ -66,6 +68,8 @@ const {
   editorEL,
   areaData,
 } = storeToRefs(schemaStore)
+
+const { showMenu } = useSchemaContextMenu()
 
 const canvasWpRef = ref(null)
 
@@ -82,16 +86,68 @@ const screenShotStyle = computed(() => ({
   width: `${canvas.value.width}px`,
   height: `${canvas.value.height}px`,
 }))
-const canvasPanelStyle = computed(() => ({
-  position: 'absolute',
-  width: `${pageConfig.value.width}px`,
-  height: `${pageConfig.value.height}px`,
-  transform: `scale(${canvas.value.scale}) translate(0px, 0px)`,
-  backgroundImage: `url(${pageConfig.value.bgImage})`,
-  backgroundColor: pageConfig.value.bgColor,
-}))
+// 需要加入全局滤镜
+const canvasPanelStyle = computed(() => {
+  const { filterShow, blendMode, hueRotate, saturate, contrast, brightness, opacity } =
+    pageConfig.value.styles
+
+  const styles = {
+    position: 'absolute',
+    width: `${pageConfig.value.width}px`,
+    height: `${pageConfig.value.height}px`,
+    backgroundImage: `url(${pageConfig.value.bgImage})`,
+    backgroundColor: pageConfig.value.bgColor,
+  }
+
+  if (filterShow) {
+    styles.mixBlendMode = blendMode
+    styles.opacity = opacity
+    styles.filter = `saturate(${saturate}) contrast(${contrast}) hue-rotate(${hueRotate}deg) brightness(${brightness})`
+  }
+  return styles
+})
+
+const conStyle = computed(() => {
+  return {
+    position: 'absolute',
+    top: '60px',
+    left: '60px',
+    transform: `scale(${canvas.value.scale}) translate(0px, 0px)`,
+    transition: '0.2s all ease-in-out',
+    transformOrigin: '0 0',
+  }
+})
 
 const autoScale = debounce(schemaStore.autoCanvasScale, 50)
+
+function compStyle(comp) {
+  const {
+    w,
+    h,
+    rotateX,
+    rotateY,
+    filterShow,
+    blendMode,
+    hueRotate,
+    saturate,
+    contrast,
+    brightness,
+    opacity,
+  } = comp.attr
+
+  const styles = {
+    width: `${w}px`,
+    height: `${h}px`,
+    transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg) `,
+  }
+  if (filterShow) {
+    styles.mixBlendMode = blendMode
+    styles.opacity = opacity
+    styles.filter = `saturate(${saturate}) contrast(${contrast}) hue-rotate(${hueRotate}deg) brightness(${brightness})`
+  }
+
+  return styles
+}
 
 // 拖放增加组件
 async function dropToAddCom(event) {
@@ -116,12 +172,12 @@ async function dropToAddCom(event) {
     const name = event.dataTransfer.getData('normal-comp')
     if (name) {
       const com = createComponent(name)
-      dropCom(event, com)
       // 如是静态数据，且存在staticPath，则填充一次数据
       if (com.apiData && com.apiData.type === ApiType.static && com.apiData.staticPath) {
         const { data } = await getStaticData(com.id, com.apiData.staticPath)
-        selectedCom.value.apiData.config.data = JSON.stringify(data)
+        com.apiData.config.data = JSON.stringify(data)
       }
+      dropCom(event, com)
     }
   } catch (e) {
     console.warn(e)
@@ -215,6 +271,15 @@ function handleMouseDown(e) {
     if (e.clientY < startY) {
       areaData.value.y = (e.clientY - editorY) / _scale
     }
+    const selectAreaComps = getSelectArea(areaData.value, comps.value)
+
+    if (selectAreaComps.length === 0) {
+      selectedComIds.value = []
+    } else if (selectAreaComps.length === 1) {
+      selectedComIds.value = [selectAreaComps[0].id]
+    } else if (selectAreaComps.length > 1) {
+      selectedComIds.value = selectAreaComps.map(i => i.id)
+    }
   }
 
   const up = e => {
@@ -257,7 +322,7 @@ function hideArea() {
 
 onMounted(() => {
   on(window, 'resize', autoScale)
-  eventBus.on('hideArea', hideArea)
+  EventBus.on(EventMap.HideArea, hideArea)
   schemaStore.getEditor()
   autoScale()
 })
@@ -266,3 +331,33 @@ onBeforeUnmount(() => {
   off(window, 'resize', autoScale)
 })
 </script>
+
+<style scoped>
+.canvas-main {
+  position: relative;
+  display: flex;
+  height: 100%;
+  padding: 0;
+  user-select: none;
+  flex: 1;
+  background-color: #18181c;
+  background-size: 15px 15px, 15px 15px;
+  background-image: linear-gradient(#18181c 14px, transparent 0),
+    linear-gradient(90deg, transparent 14px, #86909c 0);
+
+  .canvas-panel-wrap {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 32px);
+    overflow: auto;
+    .canvas-panel {
+      background-position: center, right bottom;
+      background-repeat: no-repeat, no-repeat;
+      background-size: cover, contain;
+      box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.5);
+      transition: 0.2s all ease-in-out;
+      transform-origin: 0 0;
+    }
+  }
+}
+</style>

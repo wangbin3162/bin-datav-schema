@@ -23,7 +23,7 @@ export default class Cube3d {
     this.scene = new THREE.Scene()
     this.camera = new THREE.PerspectiveCamera(750, width / height, 0.1, 1000)
     this.camera.position.set(0, 0, 120)
-    this.renderer = new THREE.WebGLRenderer({ alpha: true })
+    this.renderer = new THREE.WebGLRenderer({ alpha: true, preserveDrawingBuffer: true })
     this.renderer.setSize(width, height)
     this.renderer.setClearColor(0xeeeeee, 0.0)
 
@@ -31,7 +31,7 @@ export default class Cube3d {
 
     this.renderCube()
 
-    this.domEl?.appendChild(this.renderer.domElement) //body元素中插入canvas对象
+    this.domEl?.appendChild(this.renderer.domElement) // body元素中插入canvas对象
   }
 
   renderCube() {

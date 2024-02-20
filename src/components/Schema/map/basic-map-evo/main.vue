@@ -9,58 +9,25 @@
   </div>
 </template>
 
-<script>
-import { computed, nextTick, ref, watch } from 'vue'
-import { useDataCenterOther } from '@/hooks/schema/useDataCenterOther'
+<script setup>
 import { useMap } from './useMap'
 
-export default {
+defineOptions({
   name: 'VBasicMapEvo',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+})
+
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const { dvData, apiData } = useDataCenterOther(props.data)
+})
 
-    // config 配置项
-    const config = computed(() => props.data.config)
-    const chartRef = ref(null)
-
-    const chartData = computed(() => ({
-      xData: dvData.value.xData ?? [],
-      yData: dvData.value.yData ?? [],
-    }))
-
-    const { bChartsRef, showBackBtn, handleBackBtnClick } = useMap(props.data)
-
-    // 设置seriesCount
-    watch(
-      () => dvData.value,
-      val => {
-        apiData.value.config.seriesCount = val.yData ? val.yData.length : 0
-        nextTick(() => {
-          chartRef.value && chartRef.value.refresh()
-        })
-      },
-      {
-        deep: true,
-      },
-    )
-
-    return {
-      bChartsRef,
-      config,
-      handleBackBtnClick,
-      showBackBtn,
-    }
-  },
-}
+const { bChartsRef, showBackBtn, handleBackBtnClick } = useMap(props.data)
 </script>
-<style lang="stylus" scoped>
-.dv-wrapper{
+
+<style scoped>
+.dv-wrapper {
   position: relative;
   width: 100%;
 

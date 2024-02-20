@@ -1,4 +1,4 @@
-import { Utils, Notice } from 'bin-ui-next'
+import { Utils, Notice } from 'bin-ui-design'
 import { camelize, isObject } from '@vue/shared'
 
 export const generateId = Utils.helper.generateId
@@ -14,6 +14,10 @@ export const typeOf = Utils.util.typeOf
 export const deepCopy = Utils.util.deepCopy
 
 export const deepMerge = Utils.util.deepMerge
+
+export const isEqual = Utils.util.isEqual
+
+export const getRandomInt = Utils.util.getRandomInt
 
 export const throttle = Utils.util.throttle
 
@@ -41,18 +45,22 @@ export function isColor(str) {
   let type = ''
   if (/^rgb\(/.test(str)) {
     //如果是rgb开头，200-249，250-255，0-199
-    type = '^[rR][gG][Bb][(]([\\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\\s]*,){2}[\\s]*(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)[\\s]*[)]$'
+    type =
+      '^[rR][gG][Bb][(]([\\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\\s]*,){2}[\\s]*(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)[\\s]*[)]$'
   } else if (/^rgba\(/.test(str)) {
     //如果是rgba开头，判断0-255:200-249，250-255，0-199 判断0-1：0 1 1.0 0.0-0.9
-    type = '^[rR][gG][Bb][Aa][(]([\\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\\s]*,){3}[\\s]*(1|1.0|0|0.[0-9])[\\s]*[)]$'
+    type =
+      '^[rR][gG][Bb][Aa][(]([\\s]*(2[0-4][0-9]|25[0-5]|[01]?[0-9][0-9]?)[\\s]*,){3}[\\s]*(1|1.0|0|0.[0-9])[\\s]*[)]$'
   } else if (/^#/.test(str)) {
     //六位或者三位
     type = '^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$'
   } else if (/^hsl\(/.test(str)) {
     //判断0-360 判断0-100%(0可以没有百分号)
-    type = '^[hH][Ss][Ll][(]([\\s]*(2[0-9][0-9]|360｜3[0-5][0-9]|[01]?[0-9][0-9]?)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*)[)]$'
+    type =
+      '^[hH][Ss][Ll][(]([\\s]*(2[0-9][0-9]|360｜3[0-5][0-9]|[01]?[0-9][0-9]?)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*)[)]$'
   } else if (/^hsla\(/.test(str)) {
-    type = '^[hH][Ss][Ll][Aa][(]([\\s]*(2[0-9][0-9]|360｜3[0-5][0-9]|[01]?[0-9][0-9]?)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*,){2}([\\s]*(1|1.0|0|0.[0-9])[\\s]*)[)]$'
+    type =
+      '^[hH][Ss][Ll][Aa][(]([\\s]*(2[0-9][0-9]|360｜3[0-5][0-9]|[01]?[0-9][0-9]?)[\\s]*,)([\\s]*((100|[0-9][0-9]?)%|0)[\\s]*,){2}([\\s]*(1|1.0|0|0.[0-9])[\\s]*)[)]$'
   }
 
   let re = new RegExp(type)
@@ -64,8 +72,10 @@ export function isColor(str) {
  * @param data
  */
 export function arraybuffer2Base64(data) {
-  return 'data:image/png;base64,' +
+  return (
+    'data:image/png;base64,' +
     window.btoa(new Uint8Array(data).reduce((data, byte) => data + String.fromCharCode(byte), ''))
+  )
 }
 
 /**
@@ -130,7 +140,7 @@ export function compileFlatState(stateTree) {
 
     if (node[childrenKey]) {
       flatTree[node.nodeKey][childrenKey] = []
-      node[childrenKey].forEach((child) => flattenChildren(child, node, parents.join(',')))
+      node[childrenKey].forEach(child => flattenChildren(child, node, parents.join(',')))
     }
   }
 
@@ -187,4 +197,9 @@ export const calcStrWidth = (str, font) => {
   const ctx = TextCanvas.getContext('2d')
   ctx.font = font
   return ctx.measureText(str).width
+}
+// 判断是否存在一个属性
+export function hasProperty(obj, property) {
+  // eslint-disable-next-line no-prototype-builtins
+  return obj ? obj.hasOwnProperty(property) : false
 }

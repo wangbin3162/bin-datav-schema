@@ -1,0 +1,37 @@
+[theme-name='dark'] {
+  .bin-date-editor {
+    .bin-input-wrapper {
+      .bin-input-with-suffix {
+        border-top-left-radius: var(--bin-border-radius-default);
+        border-bottom-left-radius: var(--bin-border-radius-default);
+      }
+    }
+  }
+
+  .bin-picker__popper.bin-popper[role=tooltip] {
+    background: var(--bin-bg-color-4);
+    box-shadow: 0 0 0 1px var(--schema-ui-border);
+    .bin-picker-panel{
+      color: var(--s-text-color);
+      background: var(--s-color-1);
+    }
+    .bin-date-picker__header{
+      border-bottom: var(--bin-border-table);
+    }
+    .bin-date-picker__header-label{
+      color: var(--s-text-color);
+    }
+    .bin-picker-panel__icon-btn{
+      color: var(--s-text-color-3);
+    }
+    .bin-date-picker__next-btn i, .bin-date-picker__prev-btn i{
+      color: var(--s-text-color-3);
+    }
+    .bin-date-table th{
+      color: var(--s-text-color);
+    }
+    .bin-year-table td .cell, .bin-month-table td .cell{
+      color: var(--s-text-color);
+    }
+  }
+}

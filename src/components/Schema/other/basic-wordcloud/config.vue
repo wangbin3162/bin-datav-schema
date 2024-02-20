@@ -1,11 +1,11 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局" modal>
+    <g-field-collapse label="图形" default-open>
       <g-field label="超出绘制" tooltip="是否允许词云图在外界渲染">
         <b-switch v-model="global.drawOutOfBound" size="small" />
       </g-field>
       <g-field label="绘制形状">
-        <g-select v-model="global.shape" :data="cloudShape" />
+        <g-select v-model="global.shape" :data="CloudShapeOptions" />
       </g-field>
       <g-field label="字号范围" flat>
         <g-input-number
@@ -61,7 +61,7 @@
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="提示框" modal toggle v-model="config.tooltip.show">
+    <g-field-collapse label="提示框" toggle v-model="config.tooltip.show">
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.tooltip.textStyle.fontSize"
@@ -74,7 +74,7 @@
         />
         <g-select
           v-model="config.tooltip.textStyle.fontWeight"
-          :data="fontWeights"
+          :data="FontWeightOptions"
           inline
           label="字体粗细"
         />
@@ -87,7 +87,7 @@
 <script setup>
 import { computed } from 'vue'
 
-import { fontWeights, cloudShape } from '@/config/select-options'
+import { FontWeightOptions, CloudShapeOptions } from '@/config/select-options'
 
 const props = defineProps({
   data: {

@@ -1,73 +1,108 @@
 <template>
-  <transition name="zoom-in-top">
+  <transition name="fade-scale-move">
     <div v-if="contextMenu.show" class="context-menu-wrap" :style="contextMenuStyle">
-      <div class="context-menu-item" @click="moveTop">
-        <i
-          class="menu-icon b-iconfont b-icon-vertical-align-botto"
-          style="transform: rotate(180deg)"
-        ></i>
-        置顶
-        <span class="key-code">Alt + Home</span>
-      </div>
-      <div class="context-menu-item" @click="moveBottom">
-        <i class="menu-icon b-iconfont b-icon-vertical-align-botto"></i>
-        置底
-        <span class="key-code">Alt + End</span>
-      </div>
-      <div class="context-menu-item" @click="moveUp">
-        <i class="menu-icon b-iconfont b-icon-arrowup"></i>
-        上移一层
-        <span class="key-code">Alt + ↑</span>
-      </div>
-      <div class="context-menu-item" @click="moveDown">
-        <i class="menu-icon b-iconfont b-icon-arrowdown"></i>
-        下移一层
-        <span class="key-code">Alt + ↓</span>
-      </div>
+      <template v-if="isMultiSelect && !selectedCom">
+        <div class="context-menu-item" @click="schemaStore.group()">
+          <i class="menu-icon b-iconfont b-icon-group"></i>
+          创建分组
+        </div>
+        <div class="context-menu-divider"></div>
+        <div
+          class="context-menu-item"
+          v-for="em in MultiplAlignOptions"
+          :key="em.value"
+          @click="schemaStore.doAlign(em.value)"
+          style="padding-right: 8px"
+        >
+          <i :class="`menu-icon iconfont-align b-icon-${em.value}`" />
+          {{ em.label }}
+        </div>
 
-      <div class="context-menu-divider"></div>
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" @click="toDeleteCom">
+          <i class="menu-icon b-iconfont b-icon-delete"></i>
+          删除
+          <span class="key-code">Delete</span>
+        </div>
+      </template>
+      <!-- 单选组件内容 -->
+      <template v-if="selectedCom">
+        <template v-if="curComIsGroup">
+          <div class="context-menu-item" @click="schemaStore.ungroup()">
+            <i class="menu-icon b-iconfont b-icon-ungroup"></i>
+            解除分组
+          </div>
+          <div class="context-menu-divider"></div>
+        </template>
 
-      <div class="context-menu-item" @click="lockCom">
-        <template v-if="isLocked">
-          <i class="menu-icon b-iconfont b-icon-unlock"></i>
-          解锁
-        </template>
-        <template v-else>
-          <i class="menu-icon b-iconfont b-icon-lock"></i>
-          锁定
-        </template>
-      </div>
-      <div class="context-menu-item" @click="hideCom">
-        <template v-if="isHided">
-          <i class="menu-icon b-iconfont b-icon-eye"></i>
-          显示
-        </template>
-        <template v-else>
-          <i class="menu-icon b-iconfont b-icon-eye-close"></i>
-          隐藏
-        </template>
-      </div>
-      <div class="context-menu-item" v-if="groups.length" @click="saveCom">
-        <i class="menu-icon b-iconfont b-icon-save"></i>
-        保存
-      </div>
+        <div class="context-menu-item" @click="moveTop">
+          <i
+            class="menu-icon b-iconfont b-icon-vertical-align-botto"
+            style="transform: rotate(180deg)"
+          ></i>
+          置顶
+          <span class="key-code">Alt + Home</span>
+        </div>
+        <div class="context-menu-item" @click="moveBottom">
+          <i class="menu-icon b-iconfont b-icon-vertical-align-botto"></i>
+          置底
+          <span class="key-code">Alt + End</span>
+        </div>
+        <div class="context-menu-item" @click="moveUp">
+          <i class="menu-icon b-iconfont b-icon-arrowup"></i>
+          上移一层
+          <span class="key-code">Alt + ↑</span>
+        </div>
+        <div class="context-menu-item" @click="moveDown">
+          <i class="menu-icon b-iconfont b-icon-arrowdown"></i>
+          下移一层
+          <span class="key-code">Alt + ↓</span>
+        </div>
 
-      <div class="context-menu-divider"></div>
-      <div class="context-menu-item" @click="renameCom">
-        <i class="menu-icon b-iconfont b-icon-edit"></i>
-        重命名
-        <span class="key-code">F2</span>
-      </div>
-      <div class="context-menu-item" @click="toCopyCom">
-        <i class="menu-icon b-iconfont b-icon-file-copy"></i>
-        复制
-        <span class="key-code">Ctrl + C,V</span>
-      </div>
-      <div class="context-menu-item" @click="toDeleteCom">
-        <i class="menu-icon b-iconfont b-icon-delete"></i>
-        删除
-        <span class="key-code">Delete</span>
-      </div>
+        <div class="context-menu-divider"></div>
+
+        <div class="context-menu-item" @click="lockCom">
+          <template v-if="isLocked">
+            <i class="menu-icon b-iconfont b-icon-unlock"></i>
+            解锁
+          </template>
+          <template v-else>
+            <i class="menu-icon b-iconfont b-icon-lock"></i>
+            锁定
+          </template>
+        </div>
+        <div class="context-menu-item" @click="hideCom">
+          <template v-if="isHided">
+            <i class="menu-icon b-iconfont b-icon-eye"></i>
+            显示
+          </template>
+          <template v-else>
+            <i class="menu-icon b-iconfont b-icon-eye-close"></i>
+            隐藏
+          </template>
+        </div>
+        <div class="context-menu-item" @click="saveCom">
+          <i class="menu-icon b-iconfont b-icon-save"></i>
+          保存
+        </div>
+
+        <div class="context-menu-divider"></div>
+        <div class="context-menu-item" @click="renameCom">
+          <i class="menu-icon b-iconfont b-icon-edit"></i>
+          重命名
+          <span class="key-code">F2</span>
+        </div>
+        <div class="context-menu-item" @click="toCopyCom">
+          <i class="menu-icon b-iconfont b-icon-file-copy"></i>
+          复制
+          <span class="key-code">Ctrl + C,V</span>
+        </div>
+        <div class="context-menu-item" @click="toDeleteCom">
+          <i class="menu-icon b-iconfont b-icon-delete"></i>
+          删除
+          <span class="key-code">Delete</span>
+        </div>
+      </template>
     </div>
   </transition>
 </template>
@@ -75,19 +110,24 @@
 <script setup>
 import useSchemaContextMenu from '@/hooks/schema/useSchemaContextMenu'
 import { h, onBeforeUnmount, onMounted, ref } from 'vue'
-import { on, off, copyText } from '@/utils/util'
+import { on, off, throwError } from '@/utils/util'
 import { MoveType } from '@/config/enum'
 import { useStore } from '@/store'
-import { Message, MessageBox, BSelect, BOption } from 'bin-ui-next'
+import { Message, MessageBox, BSelect, BOption } from 'bin-ui-design'
 import * as api from '@/api/comps/comps.api'
+import { uploadImagesToGroup } from '@/api/images/images.api'
 import { createPreviewThumb } from '@/hooks/usePreviewImg'
+import { dataURLtoFile } from '@/utils/file-helper'
+import { EventBus, EventMap } from '@/utils/event-bus'
+import { MultiplAlignOptions } from '@/config/select-options'
 
 const groups = ref([]) // 组件库
 const selectGroup = ref({})
-const getCompList = () => api.getCompGroup().then(res => (groups.value = res))
 
 const { schemaStore, storeToRefs } = useStore()
-const { selectedCom, selectedComs } = storeToRefs(schemaStore)
+const { selectedCom, selectedComs, curComIsGroup, isMultiSelect, areaData } =
+  storeToRefs(schemaStore)
+
 const { isLocked, isHided, contextMenu, contextMenuStyle } = useSchemaContextMenu()
 
 const moveCom = moveType => {
@@ -114,11 +154,16 @@ const hideCom = () => {
 }
 
 const saveCom = async () => {
+  groups.value = await api.getCompGroup()
+  if (groups.value.length === 0) {
+    Message.warning('请先创建一个默认的组件分组在进行保存！')
+    return
+  }
   selectGroup.value = groups.value[0].key // 默认选中第一个组件库
   // const id = `component_${selectedCom.value.id}`
-
   MessageBox({
-    title: '指定组件库',
+    type: 'success',
+    title: '指定组件分组',
     message: h(
       BSelect,
       {
@@ -135,11 +180,22 @@ const saveCom = async () => {
         try {
           const el = document.getElementById(`component_${selectedCom.value.id}`)
           const tumb = await createPreviewThumb(el)
+          const img = {
+            groupKey: 'analysis_material',
+            name: selectedCom.value.alias,
+            attr: { w: el.clientWidth, h: el.clientHeight },
+            file: dataURLtoFile(tumb, selectedCom.value.alias),
+          }
+          // 上传缩略图
+          const tumbUrl = await uploadImagesToGroup(img)
           // TODO 这里保存了base64格式的缩略图，实际可能需要调用一次上传后存储路径
-          await api.saveComps(selectGroup.value, selectedCom.value, tumb)
+          await api.saveComps(selectGroup.value, selectedCom.value, tumbUrl)
           instance.confirmButtonLoading = true
+          Message.success('保存成功!')
+          EventBus.emit(EventMap.SaveCompSuccess)
         } catch (error) {
           console.log(error)
+          throwError('createPreviewThumb', error)
         }
 
         instance.confirmButtonLoading = false
@@ -149,21 +205,25 @@ const saveCom = async () => {
       }
     },
   })
-    .then(() => Message.success('保存成功!'))
+    .then(() => {})
     .catch(() => {})
 }
 
 const toDeleteCom = () => {
-  const com = selectedCom.value
-  if (com) {
-    MessageBox.confirm({
-      type: 'error',
-      title: '是否删除选中的1个组件',
-    })
-      .then(() => {
-        schemaStore.deleteCom(com.id)
-      })
-      .catch(() => {})
+  const coms = selectedComs.value
+  // 暂时去掉删除拦截
+  if (coms && coms.length > 0) {
+    // MessageBox.confirm({
+    //   type: 'error',
+    //   title: '提示',
+    //   message: '是否删除选中的组件?',
+    // })
+    //   .then(() => {
+    schemaStore.batchDeleteComs(coms)
+    schemaStore.recordSnapshot()
+    areaData.value.showArea = false
+    // })
+    // .catch(() => {})
   }
 }
 
@@ -180,7 +240,6 @@ const toCopyCom = () => {
 
 const handleContextmenu = ev => {
   ev.preventDefault()
-  getCompList()
 }
 onMounted(() => {
   on(document, 'contextmenu', handleContextmenu)
@@ -202,16 +261,14 @@ defineExpose({
 })
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .context-menu-wrap {
   position: fixed;
   z-index: 9999;
-  display: none;
   width: 152px;
-  color: var(--schema-font-color);
-  background: #27343e;
+  background: var(--s-color-2);
+  border-radius: var(--bin-border-radius-default);
   user-select: none;
-  outline: 1px solid var(--schema-ui-border);
 }
 
 .context-menu-item {
@@ -223,35 +280,30 @@ defineExpose({
   overflow: hidden;
   line-height: 28px;
   cursor: pointer;
-  border-left: 2px solid transparent;
+  margin: 4px;
+  color: var(--s-text-color);
+  border-radius: var(--bin-border-radius-default);
   &:hover {
-    color: var(--bin-color-primary);
-    background-color: #1d262e;
-    border-left: 2px solid var(--bin-color-primary);
+    background-color: var(--s-color-1);
   }
 
   .menu-icon {
-    margin-right: 4px;
+    margin-right: 6px;
   }
 
   .key-code {
     position: absolute;
     top: 0;
     right: 6px;
-    color: #9d9d9d;
+    color: var(--s-text-color-3);
     font-size: 12px;
     transform: scale(0.9);
-  }
-  &.disable {
-    color: #576369;
-    pointer-events: none;
-    cursor: auto;
   }
 }
 
 .context-menu-divider {
   width: 100%;
   height: 1px;
-  background-color: #3a4659;
+  background-color: var(--s-border-color-2);
 }
 </style>

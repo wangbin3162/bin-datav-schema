@@ -22,7 +22,7 @@ export async function scrollBehavior(to, from, savedPosition) {
     }
   }
 
-  if (to.matched.some((m) => m.meta.scrollToTop === false)) {
+  if (to.matched.some(m => m.meta.scrollToTop === false)) {
     return false
   }
   return {

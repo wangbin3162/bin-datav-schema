@@ -1,0 +1,85 @@
+<svg height="172" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 124 172" width="124" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="lg1" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#c4aa84" offset="0"/>
+            <stop stop-color="#ffe0b3" offset="0.15"/>
+            <stop stop-color="#ffeed7" offset="0.25"/>
+            <stop stop-color="#dfc297" offset="0.44"/>
+            <stop stop-color="#c7ad86" offset="0.6"/>
+            <stop stop-color="#a89170" offset="0.8"/>
+            <stop stop-color="#998566" offset="0.97"/>
+            <stop stop-color="#cbb189" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg2" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#5f5f5f" offset="0"/>
+            <stop stop-color="#a9a9aa" offset="0.08"/>
+            <stop stop-color="#7d7d7e" offset="0.18"/>
+            <stop stop-color="#7b7b7c" offset="0.6"/>
+            <stop stop-color="#787879" offset="0.76"/>
+            <stop stop-color="#575758" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg3" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#6f1e26" offset="0"/>
+            <stop stop-color="#b88285" offset="0.08"/>
+            <stop stop-color="#922a35" offset="0.18"/>
+            <stop stop-color="#902a34" offset="0.6"/>
+            <stop stop-color="#8c2832" offset="0.76"/>
+            <stop stop-color="#671b23" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg4" y1="0%" x1="0%" x2="100%" y2="0%">
+            <stop stop-color="#6f1e26" offset="0"/>
+            <stop stop-color="#b88285" offset="0.08"/>
+            <stop stop-color="#922a35" offset="0.18"/>
+            <stop stop-color="#902a34" offset="0.6"/>
+            <stop stop-color="#8c2832" offset="0.76"/>
+            <stop stop-color="#671b23" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg5" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#292525" offset="0"/>
+            <stop stop-color="#868584" offset="0.02"/>
+            <stop stop-color="#383433" offset="0.02"/>
+            <stop stop-color="#373332" offset="0.64"/>
+            <stop stop-color="#363130" offset="0.95"/>
+            <stop stop-color="#252221" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg6" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#aeaead" offset="0"/>
+            <stop stop-color="#f8f8f7" offset="0.03"/>
+            <stop stop-color="#e3e3e2" offset="0.08"/>
+            <stop stop-color="#dfdfde" offset="0.64"/>
+            <stop stop-color="#dadad9" offset="0.95"/>
+            <stop stop-color="#a2a2a1" offset="1"/>
+        </linearGradient>
+    </defs>
+    <g transform="translate(1.02,1)">
+        <path id="shape1" d="M2.3,0L37.4,0C38.6,0,39.6,1,39.6,2.3L39.6,167.7C39.6,169,38.6,170,37.4,170L2.3,170C1,170,0,169,0,167.7L0,2.3C0,1,1,0,2.3,0z" fill="url(#lg1)" transform="translate(41.19,0)"/>
+        <path id="shape2" d="M11.3,0L91.9,0C98.2,0,103.2,5.1,103.2,11.3L103.2,120.1C103.2,126.3,98.2,131.4,91.9,131.4L11.3,131.4C5.1,131.4,0,126.3,0,120.1L0,11.3C0,5.1,5.1,0,11.3,0z" fill="url(#lg1)" transform="translate(9.38,19.02)"/>
+        <path id="shape3" d="M0,0L72.3,0L72.3,104.2L0,104.2L0,0z" fill="#c4aa84" transform="translate(24.65,32.41)"/>
+        <g transform="translate(38.06,18.95)">
+            <path id="shape4" d="M0,0L7.4,0L7.4,13.6L0,13.6L0,0z" fill="url(#lg1)" transform="translate(-0,0)"/>
+            <path id="shape5" d="M0,0L7.4,0L7.4,13.6L0,13.6L0,0z" fill="url(#lg1)" transform="translate(19.26,0)"/>
+            <path id="shape6" d="M0,0L7.4,0L7.4,13.6L0,13.6L0,0z" fill="url(#lg1)" transform="translate(38.52,0)"/>
+        </g>
+        <path stroke="#000000" id="shape7" d="M7.5,0L45.1,0C49.3,0,52.6,3.4,52.6,7.6C52.6,11.8,49.3,15.1,45.1,15.1L7.5,15.1C3.4,15.1,0,11.8,0,7.6C0,3.4,3.4,0,7.5,0z" fill="#000000" transform="translate(34.68,48.15)"/>
+        <path id="shape8" d="M0,0L5.6,0L5.6,15L0,15L0,0z" fill="url(#lg2)" transform="translate(49.57,48.18)"/>
+        <path id="shape9" d="M0,0L5.6,0L5.6,15L0,15L0,0z" fill="url(#lg2)" transform="translate(55.3,48.18)"/>
+        <path id="shape10" d="M0,0L5.6,0L5.6,15L0,15L0,0z" fill="url(#lg2)" transform="translate(43.98,48.18)"/>
+        <path id="shape11" d="M0,.6L2.9,0L5.6,0L5.6,15L2.9,15L0,14.6L0,.6z" fill="url(#lg2)" transform="translate(38.38,48.18)"/>
+        <path id="shape12" d="M0,0L5.6,0L5.6,15L0,15L0,0z" fill="url(#lg3)" transform="translate(72.27,48.23)"/>
+        <path id="shape13" d="M0,0L5.6,0L5.6,15L0,15L0,0z" fill="url(#lg3)" transform="translate(66.68,48.23)"/>
+        <path id="shape14" d="M0,0L5.6,0L5.6,15L0,15L0,0z" fill="url(#lg3)" transform="translate(61.08,48.23)"/>
+        <path id="shape15" d="M2.3,0L119.7,0C121,0,122,1,122,2.3L122,27.3C122,28.5,121,29.6,119.7,29.6L2.3,29.6C1,29.6,0,28.5,0,27.3L0,2.3C0,1,1,0,2.3,0z" fill="url(#lg1)" transform="translate(0,68.51)"/>
+        <path id="shape16" d="M0,0L31.9,0L31.9,29.6L0,29.6L0,0z" fill="url(#lg1)" transform="translate(45.05,68.61)"/>
+        <g transform="translate(45.46,150.52)">
+            <path id="shape17" d="M0,0L2.1,0L2.1,8.6L0,8.6L0,0z" fill="url(#lg1)" transform="translate(0,0)"/>
+            <path id="shape18" d="M0,0L2.1,0L2.1,8.6L0,8.6L0,0z" fill="url(#lg1)" transform="translate(9.66,0)"/>
+            <path id="shape19" d="M0,0L2.1,0L2.1,8.6L0,8.6L0,0z" fill="url(#lg1)" transform="translate(19.31,0)"/>
+            <path id="shape20" d="M0,0L2.1,0L2.1,8.6L0,8.6L0,0z" fill="url(#lg1)" transform="translate(28.97,0)"/>
+        </g>
+        <path id="shape21" d="M0,.6L2.9,0L5.6,0L5.6,15L2.9,15L0,14.6L0,.6z" fill="url(#lg4)" transform="matrix(-1,0,0,1,83.6,48.2)"/>
+        <path id="shape22" d="M2.3,0L18.9,0L18.9,29.6L2.3,29.6C1,29.6,0,28.5,0,27.3L0,2.3C0,1,1,0,2.3,0z" fill="url(#lg1)" transform="translate(-0.02,68.51)"/>
+        <path id="shape23" d="M2.3,0L18.9,0L18.9,29.6L2.3,29.6C1,29.6,0,28.5,0,27.3L0,2.3C0,1,1,0,2.3,0z" fill="url(#lg1)" transform="matrix(-1,0,0,1,122,68.5)"/>
+        <path id="shape24" d="M0,6.5C0,2.9,7.4,0,16.6,0C25.7,0,33.1,2.9,33.1,6.5C33.1,10.1,25.7,13.1,16.6,13.1C7.4,13.1,0,10.1,0,6.5z" fill="url(#lg5)" transform="translate(44.44,3.98)"/>
+        <path id="shape25" d="M0,0L60.4,0L60.4,8.1L0,8.1L0,0z" fill="url(#lg6)" transform="translate(30.81,6.44)"/>
+    </g>
+</svg>

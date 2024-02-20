@@ -1,6 +1,6 @@
-import { initApiData, ComType } from '@/config/data-source'
+import { initApiData, ComType, FORM_SELECT as compType } from '@/config/data-source'
 
-export const selectConfig = {
+export default {
   name: 'VSelect',
   alias: '下拉控件',
   icon: 'select',
@@ -9,14 +9,14 @@ export const selectConfig = {
   config: {
     options: [],
     default: '',
-    background: '#262c33',
-    fontSize: 12,
-    color: '#fff',
-    borderColor: '#0b0c0d',
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.82)',
+    borderColor: '#4d4d4e',
+    background: '#4d4d4e',
     arrowColor: '#c0c4cc',
-    borderRadius: 0,
+    borderRadius: 4,
   },
-  apiData: initApiData({ staticPath: 'text/select-options' }),
+  apiData: initApiData({ staticPath: 'text/select-options', compType }),
   events: {
     change: {
       name: '选项改变',
@@ -26,7 +26,9 @@ export const selectConfig = {
       ],
       enable: false,
     },
+    customScript: {
+      augments: ['curComp', 'components'],
+      enable: false,
+    },
   },
 }
-
-export default selectConfig

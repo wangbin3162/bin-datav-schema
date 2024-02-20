@@ -1,120 +1,112 @@
 <template>
   <div class="dv-wrapper">
-    <b-charts :options="options" style="width: 100%; height: 100%" ref="chartRef"></b-charts>
+    <b-charts v-if="render" :options="options" style="width: 100%; height: 100%" ref="chartRef" />
   </div>
 </template>
 
-<script>
-import { computed, nextTick, ref, watch } from 'vue'
+<script setup>
+import { computed, onMounted, watch } from 'vue'
 import { useDataCenterOther } from '@/hooks/schema/useDataCenterOther'
 import * as echarts from 'echarts'
-import china from './assets/china.json'
+import { requireJson } from '@/api/json-loader.api'
+import { getPublicPath } from '@/utils/env'
+import { useChartMain } from '@/hooks/useCharts'
 
-export default {
+defineOptions({
   name: 'VBasicMap',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+})
+
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const { dvData, apiData } = useDataCenterOther(props.data)
+})
 
-    // config 配置项
-    const config = computed(() => props.data.config)
+const { dvData, apiData } = useDataCenterOther(props.data)
 
-    const chartRef = ref(null)
+const { config, chartRef, render, refreshChart } = useChartMain(props.data)
 
-    const chartData = computed(() => ({
-      xData: dvData.value.xData ?? [],
-      yData: dvData.value.yData ?? [],
-    }))
+const options = computed(() => {
+  const { tooltip, geo, series, global, label } = config.value
 
-    const options = computed(() => {
-      const { tooltip, geo, series, global, label } = config.value
-
-      return {
-        tooltip,
-        geo: {
-          ...geo,
-          itemStyle: {
-            shadowColor: global.shadowColor,
-            shadowOffsetX: global.shadowOffsetX,
-            shadowOffsetY: global.shadowOffsetY,
-          },
-        },
-        series: {
-          ...series[0],
-          itemStyle: {
-            borderColor: global.borderColor,
-            borderWidth: global.borderWidth,
-            borderType: global.borderType,
-            areaColor:
-              global.areaColor.type === 'gradient'
-                ? {
-                    type: 'linear',
-                    x: 0,
-                    y: 0,
-                    x2: 1,
-                    y2: 0,
-                    colorStops: [
-                      { offset: 0, color: global.areaColor.from },
-                      { offset: 1, color: global.areaColor.to },
-                    ],
-                  }
-                : global.areaColor.value,
-          },
-          label: {
-            show: label.show,
-            color: label.color,
-            fontSize: label.fontSize,
-            fontWeight: label.fontWeight,
-            position: label.position,
-          },
-          emphasis: {
-            label: {
-              show: label.emphasis.show,
-              color: label.emphasis.color,
-              fontSize: label.emphasis.fontSize,
-              fontWeight: label.emphasis.fontWeight,
-              position: label.emphasis.position,
-            },
-            itemStyle: {
-              areaColor: global.itemStyle.areaColor,
-              borderColor: global.itemStyle.borderColor,
-              borderWidth: global.itemStyle.borderWidth,
-              borderType: global.itemStyle.borderType,
-            },
-          },
-          data: [],
-        },
-      }
-    })
-
-    function initData() {
-      echarts.registerMap('china', china)
-    }
-
-    initData()
-
-    // 设置seriesCount
-    watch(
-      () => dvData.value,
-      val => {
-        apiData.value.config.seriesCount = val.yData ? val.yData.length : 0
-        nextTick(() => {
-          chartRef.value && chartRef.value.refresh()
-        })
+  return {
+    tooltip,
+    geo: {
+      ...geo,
+      itemStyle: {
+        shadowColor: global.shadowColor,
+        shadowOffsetX: global.shadowOffsetX,
+        shadowOffsetY: global.shadowOffsetY,
       },
-      { deep: true },
-    )
+    },
+    series: {
+      ...series[0],
+      itemStyle: {
+        borderColor: global.borderColor,
+        borderWidth: global.borderWidth,
+        borderType: global.borderType,
+        areaColor:
+          global.areaColor.type === 'gradient'
+            ? {
+                type: 'linear',
+                x: 0,
+                y: 0,
+                x2: 1,
+                y2: 0,
+                colorStops: [
+                  { offset: 0, color: global.areaColor.from },
+                  { offset: 1, color: global.areaColor.to },
+                ],
+              }
+            : global.areaColor.value,
+      },
+      label: {
+        show: label.show,
+        color: label.color,
+        fontSize: label.fontSize,
+        fontWeight: label.fontWeight,
+        position: label.position,
+      },
+      emphasis: {
+        label: {
+          show: label.emphasis.show,
+          color: label.emphasis.color,
+          fontSize: label.emphasis.fontSize,
+          fontWeight: label.emphasis.fontWeight,
+          position: label.emphasis.position,
+        },
+        itemStyle: {
+          areaColor: global.itemStyle.areaColor,
+          borderColor: global.itemStyle.borderColor,
+          borderWidth: global.itemStyle.borderWidth,
+          borderType: global.itemStyle.borderType,
+        },
+      },
+      data: [],
+    },
+  }
+})
 
-    return {
-      chartRef,
-      config,
-      options,
-    }
-  },
+async function initData() {
+  render.value = false
+  const jsonName = 'china'
+  const china = await requireJson(getPublicPath(`/data/map/${jsonName}.json`))
+  if (china) {
+    echarts.registerMap('china', china)
+    render.value = true
+  }
 }
+
+onMounted(initData)
+
+// 设置seriesCount
+watch(
+  () => dvData.value,
+  val => {
+    apiData.value.config.seriesCount = val.yData ? val.yData.length : 0
+    refreshChart()
+  },
+  { deep: true },
+)
 </script>

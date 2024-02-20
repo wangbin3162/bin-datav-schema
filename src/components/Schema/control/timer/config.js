@@ -1,6 +1,6 @@
 import { ComType } from '@/config/data-source'
 
-export const timerConfig = {
+export default {
   name: 'VTimer',
   alias: '时间器',
   icon: 'time-circle',
@@ -29,4 +29,3 @@ export const timerConfig = {
   apiData: {},
   events: {},
 }
-export default timerConfig

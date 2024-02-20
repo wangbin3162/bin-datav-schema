@@ -89,7 +89,7 @@ function editSave() {
 const handleRemove = () => emit('remove')
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .collapse-group {
   position: relative;
   .header {
@@ -107,12 +107,12 @@ const handleRemove = () => emit('remove')
         vertical-align: middle;
       }
       .wrap-arrow {
-        transition: .2s;
+        transition: 0.2s;
         position: absolute;
         right: 10px;
-        top: 9px;
+        top: 6px;
         &.active {
-          transform: rotate(90deg)
+          transform: rotate(90deg);
         }
         &.simple {
           cursor: pointer;
@@ -125,8 +125,8 @@ const handleRemove = () => emit('remove')
       }
       .wrap-edit {
         position: absolute;
-        right: 25px;
-        top: 8px;
+        right: 28px;
+        top: 6px;
         opacity: 0;
         > i {
           font-size: 14px;
@@ -154,9 +154,9 @@ const handleRemove = () => emit('remove')
     }
   }
   .content {
-    background-color: var(--schema-color-bg);
+    background-color: var(--schema-color-bg-3);
     padding: 0;
-    color: var(--schema-font-color);
+    color: var(--text-color);
   }
   &:after {
     content: '';

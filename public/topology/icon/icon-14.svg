@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="58px" viewBox="0 0 64 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>web/icon-餐饮</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62.4" height="62.4"></rect>
+        <filter x="-28.3%" y="-61.5%" width="156.5%" height="223.0%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="4.85333333" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="54.730359%" y1="50%" x2="32.0545531%" y2="143.624648%" id="linearGradient-4">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="-10.6485976%" y1="113.487851%" x2="111.111342%" y2="-27.866782%" id="linearGradient-5">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="63.6726692%" y1="50%" x2="-89.3407447%" y2="85.2319579%" id="linearGradient-6">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="大数据可视化科技智慧智能统计后台监管中心" transform="translate(-795.000000, -203.000000)">
+            <g id="原创-center" transform="translate(375.000000, 122.000000)">
+                <g id="编组-52">
+                    <g id="web/icon-发布" transform="translate(421.000000, 76.000000)">
+                        <g id="编组-15" transform="translate(-0.201923, -0.201923)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="蒙版"></g>
+                            <g mask="url(#mask-2)">
+                                <g transform="translate(4.160000, 4.853333)">
+                                    <ellipse id="椭圆形" fill="#000000" opacity="0.119999997" filter="url(#filter-3)" cx="26.4472428" cy="38.8728773" rx="25.7539095" ry="11.8328773"></ellipse>
+                                    <g id="web/icon-家居备份-3" stroke-width="1" fill="none">
+                                        <g id="编组-56" fill-rule="nonzero">
+                                            <g id="编组-12" transform="translate(0.455000, 0.433333)">
+                                                <g id="编组-9">
+                                                    <polygon id="路径" fill="#0F5896" points="31.9993687 30.6837753 27.2712753 43.9431187 36.2104167 34.8718434"></polygon>
+                                                    <polygon id="路径" fill="url(#linearGradient-4)" points="53.3993056 4.79373119e-15 31.2352904 30.6378157 42.6505051 42.7941288"></polygon>
+                                                    <polygon id="路径" fill="url(#linearGradient-5)" points="53.3993056 4.79373119e-15 14.7875 25.0364899 27.2712753 43.9431187 31.9993687 30.6837753"></polygon>
+                                                    <polygon id="路径" fill="url(#linearGradient-6)" points="53.3993056 2.3968656e-15 0 26.1452652 15.6320076 26.1452652"></polygon>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

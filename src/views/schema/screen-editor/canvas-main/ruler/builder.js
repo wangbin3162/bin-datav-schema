@@ -25,7 +25,7 @@ export class RulerBuilder {
       direction: 'TB',
       width: 1000,
       height: 20,
-      bgColor: '#0e1013',
+      bgColor: '#18181c',
       fontFamily: 'sans-serif',
       fontSize: '10px',
       fontColor: '#90a0ae',
@@ -49,9 +49,8 @@ export class RulerBuilder {
     const { el, options } = this
     const { direction, width, height, ratio } = options
 
-    const deltaW = direction === 'TB'
-      ? Math.max(el.offsetWidth, width)
-      : Math.max(el.offsetHeight, width)
+    const deltaW =
+      direction === 'TB' ? Math.max(el.offsetWidth, width) : Math.max(el.offsetHeight, width)
     const deltaH = height
 
     this.ruler.width = deltaW
@@ -129,9 +128,8 @@ export class RulerBuilder {
     options.scale = s
     const { direction, width, height, ratio } = options
 
-    const deltaW = direction === 'TB'
-      ? Math.max(el.offsetWidth, width)
-      : Math.max(el.offsetHeight, width)
+    const deltaW =
+      direction === 'TB' ? Math.max(el.offsetWidth, width) : Math.max(el.offsetHeight, width)
     const deltaH = height
 
     this.ruler.width = deltaW

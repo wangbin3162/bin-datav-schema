@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'Orbitron-Bold';
+  src: url('./fonts/orbitron-bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'YouSheBiaoTiHei';
+  src: url('./fonts/YouSheBiaoTiHei-2.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'iconfont-align'; /* Project id 3588839 */
+  src: url('./fonts/iconfont.woff2?t=1660535659715') format('woff2'),
+    url('./fonts/iconfont.woff?t=1660535659715') format('woff'),
+    url('./fonts/iconfont.ttf?t=1660535659715') format('truetype');
+}
+
+.iconfont-align {
+  font-family: 'iconfont-align' !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont-align.b-icon-align-to-middle-vs:before {
+  content: '\e854';
+}
+
+.iconfont-align.b-icon-align-to-bottom-vs:before {
+  content: '\e84d';
+}
+
+.iconfont-align.b-icon-align-to-center-vs:before {
+  content: '\e84f';
+}
+
+.iconfont-align.b-icon-align-to-left-vs:before {
+  content: '\e850';
+}
+
+.iconfont-align.b-icon-align-to-right-vs:before {
+  content: '\e851';
+}
+
+.iconfont-align.b-icon-align-to-top-vs:before {
+  content: '\e852';
+}
+
+.iconfont-align.b-icon-align-left:before {
+  content: '\e63c';
+}
+
+.iconfont-align.b-icon-align-bottom:before {
+  content: '\e642';
+}
+
+.iconfont-align.b-icon-align-center:before {
+  content: '\e643';
+}
+
+.iconfont-align.b-icon-align-middle:before {
+  content: '\e644';
+}
+
+.iconfont-align.b-icon-align-top:before {
+  content: '\e645';
+}
+
+.iconfont-align.b-icon-align-right:before {
+  content: '\e646';
+}

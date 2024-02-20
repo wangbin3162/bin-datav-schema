@@ -1,13 +1,14 @@
-// 基本梯度图配置项
-import { initApiData, ComType } from '@/config/data-source'
+// 基本漏斗图配置项
+import { initApiData, ComType, OTHER_ECHART as compType } from '@/config/data-source'
+import { getBaseActions } from '@/utils/events'
 
-export const basicWordCloud = {
+export default {
   name: 'VBasicWordCloud',
   alias: '词云图',
   icon: 'cloud',
   type: ComType.com,
   componentType: 'other',
-  attr: { w: 500, h: 300 },
+  attr: { w: 500, h: 300, chartThemeColor: '' },
   config: {
     tooltip: {
       show: true,
@@ -46,13 +47,18 @@ export const basicWordCloud = {
       },
     ],
   },
-  apiData: initApiData({ staticPath: 'wordcloud/basic-wordcloud' }),
+  apiData: initApiData({ staticPath: 'wordcloud/basic-wordcloud', compType }),
   events: {
+    onEvents: [],
+    defaultAction: true,
+    actions: getBaseActions(),
     click: {
       name: '点击数据项',
       params: [],
     },
+    customScript: {
+      augments: ['curComp','components'],
+      enable: false,
+    },
   },
 }
-
-export default basicWordCloud

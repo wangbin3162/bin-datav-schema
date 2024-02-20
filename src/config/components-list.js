@@ -65,7 +65,7 @@ const VBasicMap = {
 // 地图-省份地图
 const VBasicMapEvo = {
   name: 'VBasicMapEvo',
-  alias: '河北省地图',
+  alias: '省份地图',
   img: getComPath('basic-map-evo.svg'),
 }
 
@@ -90,10 +90,10 @@ const VBasicBoxplot = {
   alias: '盒须图',
   img: getComPath('basic-boxplot.svg'),
 }
-// 梯度图
+// 漏斗图
 const VBasicFunnel = {
   name: 'VBasicFunnel',
-  alias: '梯度图',
+  alias: '漏斗图',
   img: getComPath('basic-funnel.svg'),
 }
 // 词云图
@@ -122,7 +122,7 @@ const VNumberTitleFlop = {
   alias: '数字指标',
   img: getComPath('number-title-flop.svg'),
 }
-// -------------------------控件-------------------------//
+// -------------------------表单-------------------------//
 // 信息-时间器
 const VTimer = {
   name: 'VTimer',
@@ -134,6 +134,17 @@ const VSelect = {
   name: 'VSelect',
   alias: '下拉控件',
   img: getComPath('select.svg'),
+}
+// 按钮
+const VButton = {
+  name: 'VButton',
+  alias: '按钮',
+  img: getComPath('img.svg'),
+}
+const VDatePicker = {
+  name: 'VDatePicker',
+  alias: '日期选择',
+  img: getComPath('timer.svg'),
 }
 // -------------------------基础-------------------------//
 // 信息-通用标题
@@ -177,12 +188,12 @@ const VScrollTable = {
 }
 
 // -------------------------3d-------------------------//
-
 const VEarth3d = {
   name: 'VEarth3d',
   alias: '点阵地球',
   img: getComPath('earth.svg'),
 }
+
 const VLightEarth3d = {
   name: 'VLightEarth3d',
   alias: '发光地球',
@@ -207,8 +218,12 @@ export const componentList = [
     type: 'basic',
     name: '基础',
     icon: 'block',
-    group: [],
-    comps: [VMainTitle, VBgBox, VMainImg, VBorderBox, VIcon],
+    group: [
+      { name: '文本', comps: [VMainTitle] },
+      { name: '控件', comps: [VSelect, VTimer, VButton, VDatePicker] },
+      { name: '列表', comps: [VScrollTable] },
+      { name: '更多', comps: [VMainImg, VBgBox, VBorderBox, VIcon] },
+    ],
   },
   {
     type: 'analysis',
@@ -244,32 +259,41 @@ export const componentList = [
         comps: [VBasicMap, VBasicMapEvo],
       },
       {
-        name: '其他图表',
+        name: '更多',
         comps: [VBasicBoxplot, VBasicFunnel, VBasicWordCloud, VBasicGauge],
       },
     ],
     comps: [],
   },
   {
-    type: 'control',
-    name: '控件',
-    icon: 'edit-square',
+    type: 'topology',
+    name: '组态',
+    icon: 'cluster',
     group: [],
-    comps: [VSelect, VTimer],
+    comps: [],
   },
   {
-    type: 'table',
-    name: '表格',
-    icon: 'table',
+    type: 'presets',
+    name: '装饰',
+    icon: 'highlight',
     group: [],
-    comps: [VScrollTable],
+    comps: [],
   },
   {
     type: '3D',
     name: '3D',
     icon: 'earth',
-    group: [],
-    comps: [VEarth3d, VLightEarth3d, VCube3d, VBuilding3d],
+    group: [
+      {
+        name: '预设模型',
+        comps: [VEarth3d, VLightEarth3d, VCube3d, VBuilding3d],
+      },
+      // {
+      //   name: '数字孪生',
+      //   comps: [],
+      // },
+    ],
+    comps: [],
   },
   {
     type: 'images',
@@ -281,7 +305,7 @@ export const componentList = [
   {
     type: 'comps',
     name: '组件',
-    icon: 'CodeSandbox',
+    icon: 'star',
     group: [],
     comps: [],
   },

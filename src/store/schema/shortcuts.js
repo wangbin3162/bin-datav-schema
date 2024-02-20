@@ -4,8 +4,8 @@ export default {
     shortcuts: {
       altKey: false,
       ctrlKey: false,
-      shiftKey: false,
       spaceKey: false,
+      shiftKey: false,
     },
   },
   getters: {
@@ -20,8 +20,8 @@ export default {
     resetKeyCode() {
       this.shortcuts.altKey = false
       this.shortcuts.ctrlKey = false
-      this.shortcuts.shiftKey = false
       this.shortcuts.spaceKey = false
+      this.shortcuts.shiftKey = false
     },
     doRotate(type) {
       const com = this.selectedCom

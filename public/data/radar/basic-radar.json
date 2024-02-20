@@ -16,11 +16,11 @@
     }
   ],
   "indicator": [
-    { "name": "Sales", "max": 6500 },
-    { "name": "Administration", "max": 16000 },
-    { "name": "Information", "max": 30000 },
-    { "name": "Customer", "max": 38000 },
-    { "name": "Development", "max": 52000 },
-    { "name": "Marketing", "max": 25000 }
+    { "name": "Sales" },
+    { "name": "Administration" },
+    { "name": "Information" },
+    { "name": "Customer" },
+    { "name": "Development" },
+    { "name": "Marketing" }
   ]
 }

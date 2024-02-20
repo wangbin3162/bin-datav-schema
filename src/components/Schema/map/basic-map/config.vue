@@ -1,6 +1,6 @@
 <template>
   <div class="setting-panel-gui">
-    <g-field-collapse label="全局" modal>
+    <g-field-collapse label="全局">
       <g-field flat label="阴影偏移">
         <g-input-number
           v-model="config.global.shadowOffsetX"
@@ -24,67 +24,66 @@
       <g-field label="阴影颜色">
         <g-color-picker v-model="config.global.shadowColor"></g-color-picker>
       </g-field>
-      <g-field-collapse label="区域">
-        <g-field label="区域样式" flat>
-          <g-input-number
-            v-model="config.global.borderWidth"
-            :min="0"
-            :max="5"
-            :step="1"
-            label="粗细"
-            inline
-          ></g-input-number>
-          <g-select v-model="config.global.borderType" :data="lineStyles" inline label="类型" />
-          <g-color-picker v-model="config.global.borderColor" label="颜色"></g-color-picker>
-        </g-field>
-        <g-field label="布局方式">
-          <b-radio-group v-model="config.global.areaColor.type" type="button" size="mini">
-            <b-radio v-for="em in fillTypes" :key="em.value" :label="em.value">
-              {{ em.label }}
-            </b-radio>
-          </b-radio-group>
-        </g-field>
-        <g-field label="颜色配置" v-if="config.global.areaColor.type === 'solid'">
-          <g-color-picker v-model="config.global.areaColor.value"></g-color-picker>
-        </g-field>
-        <template v-else>
-          <g-field label="开始颜色">
-            <g-color-picker v-model="config.global.areaColor.from"></g-color-picker>
-          </g-field>
-          <g-field label="结束颜色">
-            <g-color-picker v-model="config.global.areaColor.to"></g-color-picker>
-          </g-field>
-        </template>
-      </g-field-collapse>
-      <g-field-collapse label="区域悬浮样式">
-        <g-field label="颜色配置">
-          <g-color-picker v-model="config.global.itemStyle.areaColor"></g-color-picker>
-        </g-field>
-        <g-field label="边框样式" flat>
-          <g-input-number
-            v-model="config.global.itemStyle.borderWidth"
-            :min="0"
-            :max="5"
-            :step="1"
-            suffix="px"
-            inline
-            label="粗细"
-          />
-          <g-select
-            v-model="config.global.itemStyle.borderType"
-            :data="lineStyles"
-            inline
-            label="类型"
-          />
-          <g-color-picker v-model="config.global.itemStyle.borderColor" label="颜色" />
-        </g-field>
-      </g-field-collapse>
     </g-field-collapse>
 
-    <g-field-collapse label="标注" modal toggle v-model="config.label.show">
-      <g-field label="位置">
-        <g-select v-model="config.label.position" :data="echartsLabelPositions" />
+    <g-field-collapse label="区域样式" modal>
+      <g-field label="区域样式" flat>
+        <g-input-number
+          v-model="config.global.borderWidth"
+          :min="0"
+          :max="5"
+          :step="1"
+          label="粗细"
+          inline
+        ></g-input-number>
+        <g-select v-model="config.global.borderType" :data="LineStyleOptions" inline label="类型" />
+        <g-color-picker v-model="config.global.borderColor" label="颜色"></g-color-picker>
       </g-field>
+      <g-field label="布局方式">
+        <b-radio-group v-model="config.global.areaColor.type" type="button" size="small">
+          <b-radio v-for="em in FillTypeOptions" :key="em.value" :label="em.value">
+            {{ em.label }}
+          </b-radio>
+        </b-radio-group>
+      </g-field>
+      <g-field label="颜色配置" v-if="config.global.areaColor.type === 'solid'">
+        <g-color-picker v-model="config.global.areaColor.value"></g-color-picker>
+      </g-field>
+      <template v-else>
+        <g-field label="开始颜色">
+          <g-color-picker v-model="config.global.areaColor.from"></g-color-picker>
+        </g-field>
+        <g-field label="结束颜色">
+          <g-color-picker v-model="config.global.areaColor.to"></g-color-picker>
+        </g-field>
+      </template>
+    </g-field-collapse>
+
+    <g-field-collapse label="区域悬浮" modal>
+      <g-field label="颜色配置">
+        <g-color-picker v-model="config.global.itemStyle.areaColor"></g-color-picker>
+      </g-field>
+      <g-field label="边框样式" flat>
+        <g-input-number
+          v-model="config.global.itemStyle.borderWidth"
+          :min="0"
+          :max="5"
+          :step="1"
+          suffix="px"
+          inline
+          label="粗细"
+        />
+        <g-select
+          v-model="config.global.itemStyle.borderType"
+          :data="LineStyleOptions"
+          inline
+          label="类型"
+        />
+        <g-color-picker v-model="config.global.itemStyle.borderColor" label="颜色" />
+      </g-field>
+    </g-field-collapse>
+
+    <g-field-collapse label="文本标签" modal toggle v-model="config.label.show">
       <g-field label="文本样式" flat>
         <g-input-number
           v-model="config.label.fontSize"
@@ -95,14 +94,19 @@
           inline
           label="字号"
         />
-        <g-select v-model="config.label.fontWeight" :data="fontWeights" inline label="字体粗细" />
+        <g-select
+          v-model="config.label.fontWeight"
+          :data="FontWeightOptions"
+          inline
+          label="字体粗细"
+        />
         <g-color-picker v-model="config.label.color" label="颜色" />
       </g-field>
     </g-field-collapse>
 
-    <g-field-collapse label="提示" modal toggle v-model="config.label.emphasis.show">
+    <g-field-collapse label="标签悬停" modal toggle v-model="config.label.emphasis.show">
       <g-field label="位置">
-        <g-select v-model="config.label.emphasis.position" :data="echartsLabelPositions" />
+        <g-select v-model="config.label.emphasis.position" :data="EchartsLabelPositionOptions" />
       </g-field>
       <g-field label="文本样式" flat>
         <g-input-number
@@ -116,7 +120,7 @@
         />
         <g-select
           v-model="config.label.emphasis.fontWeight"
-          :data="fontWeights"
+          :data="FontWeightOptions"
           inline
           label="字体粗细"
         />
@@ -128,7 +132,12 @@
 
 <script setup>
 import { computed } from 'vue'
-import { fontWeights, echartsLabelPositions, lineStyles, fillTypes } from '@/config/select-options'
+import {
+  FontWeightOptions,
+  EchartsLabelPositionOptions,
+  LineStyleOptions,
+  FillTypeOptions,
+} from '@/config/select-options'
 
 const props = defineProps({
   data: {

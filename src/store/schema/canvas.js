@@ -1,7 +1,8 @@
 const LAYER_WIDTH = 220
-const COMPS_WIDTH = 50
-const CONFIG_WIDTH = 330
-const TOOLBOX_HEIGHT = 40
+const COMPS_WIDTH = 50 // 组件收起宽度
+const COMPS_WIDTH_OPEN = 200 // 打开的组件面板宽度
+const CONFIG_WIDTH = 348
+const FOOTER_HEIGHT = 32
 const PANEL_PADDING = 60
 // 画布相关状态值
 export default {
@@ -23,45 +24,42 @@ export default {
     // 工具箱
     toolbox: {
       referLine: true,
-      markLine: false,
+      markLine: true,
+      grid: 1, // 拖拽间隔
     },
   },
   getters: {
     getPanelOffsetX() {
       let offsetX = COMPS_WIDTH
+      if (this.toolbar.components) {
+        offsetX += COMPS_WIDTH_OPEN
+      }
       if (this.toolbar.layer) {
         offsetX += LAYER_WIDTH
       }
       if (this.toolbar.config) {
         offsetX += CONFIG_WIDTH
       }
-      return offsetX
+      return offsetX + 5
     },
-    getPanelOffsetY() {
-      let offsetY = 0
-      if (this.toolbar.toolbox) {
-        offsetY += TOOLBOX_HEIGHT
-      }
-      return offsetY
-    },
+
     getPanelOffsetLeft() {
-      let offsetX = PANEL_PADDING + COMPS_WIDTH
+      let offsetX = COMPS_WIDTH
+      if (this.toolbar.components) {
+        offsetX += COMPS_WIDTH_OPEN
+      }
       if (this.toolbar.layer) {
         offsetX += LAYER_WIDTH
       }
-      return offsetX
+      return offsetX + PANEL_PADDING
     },
     getPanelOffsetTop() {
-      let offsetY = 40 + PANEL_PADDING
-      if (this.toolbar.toolbox) {
-        offsetY += TOOLBOX_HEIGHT
-      }
-      return offsetY
+      return 50 + PANEL_PADDING
     },
     getPanelOffset() {
       return {
         offsetX: this.getPanelOffsetX,
-        offsetY: this.getPanelOffsetY,
+        offsetY: 0,
       }
     },
   },
@@ -87,7 +85,8 @@ export default {
     setCanvasScale(scaleSetValue) {
       const offset = this.getPanelOffset
       let width = document.documentElement.clientWidth - offset.offsetX
-      let height = document.documentElement.clientHeight - 42 - 32 - offset.offsetY
+      let height =
+        document.documentElement.clientHeight - COMPS_WIDTH - FOOTER_HEIGHT - offset.offsetY
       const scale = Math.min(Math.max(scaleSetValue, 20), 200) / 100
       // 方便计算滚动条 和 标尺
       const deltaW = this.pageConfig.width * scale
@@ -103,7 +102,8 @@ export default {
     autoCanvasScale() {
       const offset = this.getPanelOffset
       const width = document.documentElement.clientWidth - offset.offsetX
-      const height = document.documentElement.clientHeight - 42 - 32 - offset.offsetY
+      const height =
+        document.documentElement.clientHeight - COMPS_WIDTH - FOOTER_HEIGHT - offset.offsetY
 
       const a = (width - 120) / this.pageConfig.width
       const b = (height - 100) / this.pageConfig.height

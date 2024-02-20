@@ -7,17 +7,17 @@
         <div class="main" flex="dir:top main:center cross:center">
           <!-- logo -->
           <div class="page-login--logo">
-            <img src="@/assets/images/logo/logo.png" alt="logo" />
-            <span>{{ title }}</span>
+            <img src="@/assets/images/logo.png" alt="logo" />
+            <span class="title">{{ title }}</span>
           </div>
           <!-- 表单 -->
           <div class="form">
-            <b-form ref="loginForm" label-position="top" :rules="rules" :model="formLogin">
+            <b-form ref="loginFormRef" label-position="top" :rules="rules" :model="formLogin">
               <b-form-item prop="username">
                 <b-input
                   type="text"
                   v-model="formLogin.username"
-                  placeholder="测试用户名：admin"
+                  placeholder="用户名"
                   size="large"
                   @keydown.enter="submit"
                 >
@@ -30,7 +30,7 @@
                 <b-input
                   type="password"
                   v-model="formLogin.password"
-                  placeholder="测试密码：123456"
+                  placeholder="密码"
                   size="large"
                   @keydown.enter="submit"
                 >
@@ -39,103 +39,133 @@
                   </template>
                 </b-input>
               </b-form-item>
-              <!--              <b-form-item prop="verycode">-->
-              <!--                <div flex="main:justify cross:center">-->
-              <!--                  <b-input-->
-              <!--                    type="text"-->
-              <!--                    v-model="formLogin.verycode"-->
-              <!--                    size="large"-->
-              <!--                    style="width: 73%;"-->
-              <!--                    @keydown.enter="submit"-->
-              <!--                  >-->
-              <!--                    <template #prefix>-->
-              <!--                      <b-icon name="code" size="16"></b-icon>-->
-              <!--                    </template>-->
-              <!--                  </b-input>-->
-              <!--                  <span class="login-code"><img src="@/assets/images/login-code.png" alt="code"></span>-->
-              <!--                </div>-->
-              <!--              </b-form-item>-->
-              <b-button @click="submit" :loading="loading" type="primary" class="button-login" size="large">
+              <b-form-item prop="verycode">
+                <div flex="main:justify cross:center">
+                  <b-input
+                    type="text"
+                    v-model="formLogin.verycode"
+                    size="large"
+                    style="width: 70%"
+                    @keydown.enter="submit"
+                  >
+                    <template #prefix>
+                      <b-icon name="code" size="16"></b-icon>
+                    </template>
+                  </b-input>
+                  <img
+                    class="login-code"
+                    @click="refreshVerifyCode()"
+                    title="刷新"
+                    :src="verifyCodeUrl"
+                    alt="verycode"
+                  />
+                </div>
+              </b-form-item>
+              <b-button
+                @click="submit"
+                :loading="loading"
+                type="primary"
+                class="button-login"
+                size="large"
+              >
                 登录
               </b-button>
             </b-form>
           </div>
         </div>
-        <div class="footer"></div>
       </div>
     </div>
   </div>
 </template>
 
-<script>
-import { login } from '@/api/modules/login.api'
+<script setup>
+import { getVerifyCode, login } from '@/api/modules/login.api'
 import { throwError } from '@/utils/util'
 import { defineAsyncComponent } from 'vue'
-import { mapActions } from 'pinia'
-import userStore from '@/store/modules/user'
+import { useUserStoreWithOut } from '@/store/modules/user'
+import { ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import config from '../../../package.json'
 
-export default {
+defineOptions({
   name: 'Login',
-  components: {
-    BackgroundParticles: defineAsyncComponent(() => import('@/components/Common/BackgroundParticles/index.vue')),
-  },
-  data() {
-    return {
-      // 表单
-      formLogin: {
-        username: 'admin',
-        password: '123456',
-        verycode: '',
-        uuid: '',
-      },
-      loading: false,
-      // 校验
-      rules: {
-        username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        verycode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
-      },
-      title: config.description,
-    }
-  },
-  methods: {
-    ...mapActions(userStore, ['setToken']),
-    // 提交登录信息
-    submit() {
-      this.$refs.loginForm.validate(async valid => {
-        if (valid) {
-          try {
-            this.loading = true
-            const { data } = await login(this.formLogin)
-            await this.loginSuccess(data)
-          } catch (e) {
-            throwError('login/requestFailed', e)
-          }
-          this.loading = false
-        }
-      })
-    },
-    async loginSuccess(data) {
-      if (data.code === '00') {
-        const token = data.data.accessToken
-        await this.setToken(token)
-        // 重定向对象不存在则返回顶层路径
-        const redirect = this.$route.query.redirect || '/'
-        await this.$router.push({ path: redirect })
-      } else {
-        throwError('login/requestFailed', data)
+})
+
+const BackgroundParticles = defineAsyncComponent(() =>
+  import('@/components/Common/BackgroundParticles/index.vue'),
+)
+
+const formLogin = ref({
+  username: '',
+  password: '',
+  verycode: '',
+  uuid: '',
+})
+
+const loading = ref(false)
+const rules = {
+  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+  password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+  verycode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+}
+
+const verifyCodeUrl = ref('')
+
+const userStore = useUserStoreWithOut()
+const router = useRouter()
+const route = useRoute()
+const loginFormRef = ref(null)
+const title = ref(config.description)
+
+refreshVerifyCode()
+
+// 刷新验证码
+async function refreshVerifyCode() {
+  try {
+    const { img, uuid } = await getVerifyCode()
+    verifyCodeUrl.value = 'data:image/png;base64,' + img
+    formLogin.value.verycode = ''
+    formLogin.value.uuid = uuid
+  } catch (e) {
+    throwError('login/getVerifyCode', e)
+  }
+}
+
+// 提交登录信息
+async function submit() {
+  loginFormRef.value.validate(async valid => {
+    if (valid) {
+      try {
+        loading.value = true
+        const { data } = await login(formLogin.value)
+        await loginSuccess(data)
+      } catch (e) {
+        throwError('login/requestFailed', e)
       }
-    },
-  },
+      loading.value = false
+    }
+  })
+}
+async function loginSuccess(data) {
+  if (data.code === '00') {
+    const {
+      data: { accessToken: token, refreshToken, expiresIn: expires },
+    } = data
+    await userStore.setToken({ token, refreshToken, expires })
+    // 重定向对象不存在则返回顶层路径
+    const redirect = route.query.redirect || '/'
+    router.push({ path: redirect })
+  } else {
+    throwError('login/requestFailed', data)
+  }
 }
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .page-login {
   user-select: none;
   height: 100vh;
-  background-image: url("@/assets/images/bg/bg.png");
+  background-image: url('@/assets/images/bg.png');
   position: relative;
   background-repeat: no-repeat;
   background-position: center center;
@@ -152,21 +182,14 @@ export default {
   .content {
     height: 100%;
     min-height: 500px;
-    .header {
-      padding: 1em 0;
-      .header-motto {
-        margin: 0;
-        padding: 0;
-        color: #606266;
-        text-align: center;
-        font-size: 12px;
-        span {
-          color: #909399;
-        }
-      }
-    }
 
     .main {
+      padding: 40px;
+      border-radius: 8px;
+      border: 1px solid var(--s-border-color);
+      box-shadow: 0 0 20px 5px rgba(40, 40, 40, 0.3);
+      backdrop-filter: blur(20px);
+      background-color: rgba(35, 35, 36, 0.2);
       .page-login--logo {
         display: flex;
         align-items: center;
@@ -175,14 +198,14 @@ export default {
         height: 70px;
         margin-bottom: 1em;
         margin-top: -1em;
-        img {
+        > img {
           width: 48px;
         }
-        span {
-          font-family: YouSheBiaoTiHei, PingFangSC-Medium, PingFang SC, Microsoft YaHei, Arial, Helvetica, sans-serif;
+        .title {
+          font-family: YouSheBiaoTiHei, PingFangSC-Medium, PingFang SC, Microsoft YaHei, Arial;
           padding-left: 8px;
           font-size: 34px;
-          color: #fff;
+          color: var(--s-text-color-1);
         }
       }
       .form {
@@ -193,32 +216,14 @@ export default {
         }
         .login-code {
           cursor: pointer;
-          width: 84px;
+          width: 100px;
           height: 36px;
           text-align: right;
           border: 1px solid rgba(255, 255, 255, 0.3);
           background-color: rgba(255, 255, 255, 0.3);
           img {
-            height 100%;
+            height: 100%;
           }
-        }
-        :deep(.bin-input) {
-          background-color: transparent;
-          font-size: 14px;
-          padding-left: 34px;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-      }
-    }
-    .footer {
-      padding: 1em 0;
-      .footer-copyright {
-        padding: 0;
-        margin: 0;
-        font-size: 12px;
-        color: #606266;
-        a {
-          color: #6898f0;
         }
       }
     }

@@ -1,10 +1,9 @@
 [
-  { "name": "A", "value": 167 },
-  { "name": "B", "value": 68 },
-  { "name": "C", "value": 89 },
-  { "name": "D", "value": 98 },
-  { "name": "E", "value": 123 },
-  { "name": "F", "value": 222 },
-  { "name": "G", "value": 45 },
-  { "name": "H", "value": 162 }
+  { "name": "Mon", "value": 167 },
+  { "name": "Tue", "value": 68 },
+  { "name": "Wed", "value": 89 },
+  { "name": "Thu", "value": 98 },
+  { "name": "Fri", "value": 123 },
+  { "name": "Sat", "value": 222 },
+  { "name": "Sun", "value": 45 }
 ]

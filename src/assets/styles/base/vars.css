@@ -1,0 +1,39 @@
+:root {
+  /* 自定义主题变量，以 s开头，类别首字母开头*/
+  --s-color: rgb(16, 16, 20);
+  /* 1用作灰色背景上的悬停背景 */
+  --s-color-1: rgba(255, 255, 255, 0.1);
+  /* 2用作弹层背景，下拉背景 */
+  --s-color-2: #373738;
+  /* 3用作普通按钮背景 */
+  --s-color-3: #4d4d4e;
+
+  --s-text-color: rgba(255, 255, 255, 0.82);
+  --s-text-color-1: #fff;
+  --s-text-color-2: rgba(255, 255, 255, 0.62);
+  --s-text-color-3: rgba(255, 255, 255, 0.42);
+
+  --s-border-color: rgba(255, 255, 255, 0.09);
+  --s-border-color-1: #0000;
+  --s-border-color-2: rgba(255, 255, 255, 0.24);
+  --s-border-color-3: #373739;
+
+  --s-border: 1px solid #0000;
+
+  --s-border-disabled: 1px solid #0000;
+  --s-placeholder-color: rgba(255, 255, 255, 0.38);
+  --s-placeholder-color-disabled: rgba(255, 255, 255, 0.28);
+  /* schema相关的样式*/
+  --schema-comps-width: 50px;
+  --schema-comps-width-open: 200px;
+  --schema-layer-width: 220px;
+  --schema-options-width: 348px;
+  --schema-color-border: #000;
+
+  --schema-color-bg-1: #222528;
+  --schema-color-bg-2: #232324;
+  --schema-color-bg-3: #1e1e1f;
+  --schema-color-bg-4: #18181c;
+
+  --s-font-family: 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
+}

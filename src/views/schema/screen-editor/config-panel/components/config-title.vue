@@ -1,29 +1,43 @@
 <template>
   <div class="com-title-wp">
-    <div class="com-title">
-      <div class="title-name">
-        <span class="alias-name">{{ comAlias }}</span>
-      </div>
-      <div class="version-tag">
-        <span>{{ comTitle }}</span>
-      </div>
-    </div>
-    <slot>
-      <div v-if="showCfg" class="search-config" @click="openDetail" title="查看配置项">
-        <b-icon name="filesearch" size="14" />
-        <span>配置项</span>
-      </div>
-    </slot>
+    <g-field
+      label="组件ID"
+      style="padding-top: 0; padding-bottom: 0; color: rgba(255, 255, 255, 0.5); font-size: 12px"
+    >
+      {{ selectedCom.id }}
+    </g-field>
+    <g-field label="名称" style="padding-top: 8px; padding-bottom: 8px">
+      <template #label>
+        <div flex="main:justify cross:center" class="pr-8">
+          <span>名称</span>
+          <b-icon
+            v-if="showCfg"
+            name="setting"
+            title="查看配置项"
+            type="button"
+            @click="openDetail"
+          ></b-icon>
+        </div>
+      </template>
+      <g-input v-model="selectedCom.alias" />
+    </g-field>
 
     <b-modal
       v-model="detailVisible"
-      :title="`[${comAlias}] 配置项 `"
+      :title="`[${selectedCom.alias}] 配置项 `"
       append-to-body
       top="60px"
       custom-class="schema-modal"
+      @opened="render = true"
     >
-      <div class="data-editor" style="margin: 0">
-        <b-ace-editor v-model="compJson" theme="tomorrow_night" wrap :styles="{ border: 'none' }" />
+      <div class="data-editor" style="margin: 0; height: 350px">
+        <b-ace-editor
+          v-if="render"
+          v-model="compJson"
+          theme="tomorrow_night"
+          wrap
+          :styles="{ border: 'none' }"
+        />
       </div>
       <div class="t-right pt-8">
         <b-button size="small" type="primary" icon="snippets" @click="putJson">应用配置项</b-button>
@@ -35,137 +49,67 @@
   </div>
 </template>
 
-<script>
-import { computed, ref } from 'vue'
-import { findComByName } from '@/config/components-list'
+<script setup>
+import { ref } from 'vue'
 import { copyText } from '@/utils/util'
-import { Message } from 'bin-ui-next'
+import { Message } from 'bin-ui-design'
 import { useStore } from '@/store'
 
 const { schemaStore, storeToRefs } = useStore()
 
 const { selectedCom } = storeToRefs(schemaStore)
 
-export default {
-  name: 'config-title',
-  props: {
-    comName: {
-      type: String,
-    },
-    comAlias: {
-      type: String,
-    },
-    com: {
-      type: Object,
-      default: () => ({}),
-    },
-    showCfg: {
-      type: Boolean,
-      default: false,
-    },
+defineOptions({
+  name: 'ConfigTitle',
+})
+
+defineProps({
+  showCfg: {
+    type: Boolean,
+    default: false,
   },
-  emits: ['update:com'],
-  setup(props) {
-    const detailVisible = ref(false)
-    const compJson = ref('')
+})
 
-    const comTitle = computed(() => {
-      const obj = findComByName(props.comName)
-      return obj ? obj.name : props.comName
-    })
+const detailVisible = ref(false)
+const compJson = ref('')
+const render = ref(false)
 
-    const openDetail = () => {
-      detailVisible.value = true
-      compJson.value = JSON.stringify(props.com, null, 2)
-    }
+const openDetail = () => {
+  detailVisible.value = true
+  render.value = false
+  compJson.value = JSON.stringify(selectedCom.value, null, 2)
+}
 
-    const copyCom = () => {
-      copyText(JSON.stringify(props.com))
-      Message.success('已复制配置项至剪切板')
-      detailVisible.value = false
-    }
+const copyCom = () => {
+  copyText(JSON.stringify(selectedCom.value))
+  Message.success('已复制配置项至剪切板')
+  detailVisible.value = false
+}
 
-    // 应用图表
-    const putJson = () => {
-      try {
-        const data = JSON.parse(compJson.value)
-        // 再次格式化一下
-        compJson.value = JSON.stringify(data, null, 2)
-        paseComp(data)
-        Message.success('图表应用成功！')
-        detailVisible.value = false
-      } catch (error) {
-        Message.error('配置项格式不正确，请检查后再应用配置！')
-      }
-    }
+// 应用图表
+const putJson = () => {
+  try {
+    const data = JSON.parse(compJson.value)
+    // 再次格式化一下
+    compJson.value = JSON.stringify(data, null, 2)
+    paseComp(data)
+    Message.success('图表应用成功！')
+    detailVisible.value = false
+  } catch (error) {
+    Message.error('配置项格式不正确，请检查后再应用配置！')
+  }
+}
 
-    // 转换应用控件
-    function paseComp(data) {
-      // 记录当选中的组件id，进行移除操作
-      const oldId = selectedCom.value.id
-      schemaStore.replaceCom(oldId, data)
-    }
-
-    return {
-      openDetail,
-      compJson,
-      comTitle,
-      copyCom,
-      putJson,
-      detailVisible,
-    }
-  },
+// 转换应用控件
+function paseComp(data) {
+  // 记录当选中的组件id，进行移除操作
+  const oldId = selectedCom.value.id
+  schemaStore.replaceCom(oldId, data)
 }
 </script>
 
-<style scoped lang="stylus">
+<style scoped>
 .com-title-wp {
-  position: relative;
-  display: flex;
-  height: 60px;
-  padding-top: 12px;
-  padding-right: 8px;
-  color: #fff;
-  align-items: flex-start;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--schema-color-border);
-  .com-title {
-    padding-right: 5px;
-    padding-left: 10px;
-    overflow: hidden;
-    flex: 1;
-    .title-name {
-      display: flex;
-      padding-bottom: 3px;
-      font-size: 14px;
-      flex-wrap: nowrap;
-      align-items: center;
-    }
-    .alias-name {
-      max-width: 160px;
-      line-height: 24px;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .version-tag {
-      display: flex;
-      font-size: 12px;
-      color: #647279;
-      flex-wrap: nowrap;
-      align-items: center;
-    }
-  }
-  .search-config {
-    display: flex;
-    max-width: 140px;
-    line-height: 19px;
-    color: #2681ff;
-    cursor: pointer;
-    align-items: center;
-    > i {
-      font-size: 12px;
-    }
-  }
+  padding: 0 10px;
 }
 </style>

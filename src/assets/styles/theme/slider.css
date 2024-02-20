@@ -1,0 +1,38 @@
+[theme-name='dark'] {
+  .bin-slider {
+    .bin-slider__runway {
+      height: 3px;
+      margin: 14px 0;
+      background-color: #bcc9d4;
+      border-radius: 3px;
+    }
+
+    .bin-slider__bar {
+      height: 3px;
+      background: linear-gradient(
+        to right,
+        var(--bin-color-primary-light3),
+        var(--bin-color-primary)
+      );
+    }
+
+    .bin-slider__button-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: -9px;
+      width: 20px;
+      height: 20px;
+
+      .bin-slider__button {
+        width: 12px;
+        height: 12px;
+
+        &:focus,
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+}

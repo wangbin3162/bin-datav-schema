@@ -40,57 +40,88 @@
       <div class="layer-manager-wrap">
         <draggable v-model="descComs" class="drag-area" item-key="id" v-bind="{ animation: 200 }">
           <template #item="{ element: com }">
-            <div
-              :title="com.alias"
-              class="layer-manager-item"
-              :class="[
-                {
-                  hided: com.hided,
-                  locked: com.locked,
-                  hovered: com.id === hoveredComId,
-                  selected: isSelected(com),
-                },
-              ]"
-              @mousedown="selectCom(com.id)"
-              @mouseenter="onEnter(com.id)"
-              @mouseleave="onLeave"
-              @dblclick="schemaStore.renamingCom(com.id)"
-              @contextmenu="showMenu($event)"
-            >
-              <b-icon :name="com.name === 'VIcon' ? com.config.src : com.icon" size="18"></b-icon>
-              <input
-                v-if="com.id === renamingComId"
-                v-model.trim="com.alias"
-                v-focus
-                class="layer-item-input"
-                @blur="schemaStore.renamingCom('')"
-                @keydown.enter="schemaStore.renamingCom('')"
-              />
-              <span v-else class="layer-item-span">
-                <span class="layer-item-text">{{ com.alias }}</span>
-              </span>
-              <i
+            <div class="layer-wrap">
+              <div
+                :title="com.alias"
+                class="layer-manager-item"
                 :class="[
-                  'b-iconfont',
-                  `b-icon-${com.hided ? 'eye-close' : 'eye'}`,
-                  'show-toggle-btn',
+                  {
+                    hided: com.hided,
+                    locked: com.locked,
+                    hovered: com.id === hoveredComId,
+                    selected: isSelected(com),
+                  },
                 ]"
-                :title="com.hided ? '显示' : '隐藏'"
-                @click="com.hided = !com.hided"
-              ></i>
-              <i
-                :class="[
-                  'b-iconfont',
-                  `b-icon-${com.locked ? 'lock' : 'unlock'}`,
-                  'show-toggle-btn',
-                ]"
-                :title="com.locked ? '解锁' : '锁定'"
-                @click="com.locked = !com.locked"
-              ></i>
+                @mousedown="selectCom(com)"
+                @mouseenter="onEnter(com.id)"
+                @mouseleave="onLeave"
+                @dblclick="schemaStore.renamingCom(com.id)"
+                @contextmenu="showMenu($event)"
+              >
+                <b-icon :name="com.name === 'VIcon' ? com.config.src : com.icon" size="18"></b-icon>
+                <input
+                  v-if="com.id === renamingComId"
+                  v-model.trim="com.alias"
+                  v-focus
+                  class="layer-item-input"
+                  @blur="schemaStore.renamingCom('')"
+                  @keydown.enter="schemaStore.renamingCom('')"
+                />
+                <span v-else class="layer-item-span">
+                  <span class="layer-item-text">{{ com.alias }}</span>
+                </span>
+                <i
+                  :class="[
+                    'b-iconfont',
+                    `b-icon-${com.hided ? 'eye-close' : 'eye'}`,
+                    'show-toggle-btn',
+                  ]"
+                  :title="com.hided ? '显示' : '隐藏'"
+                  @click="com.hided = !com.hided"
+                ></i>
+                <i
+                  :class="[
+                    'b-iconfont',
+                    `b-icon-${com.locked ? 'lock' : 'unlock'}`,
+                    'show-toggle-btn',
+                  ]"
+                  :title="com.locked ? '解锁' : '锁定'"
+                  @click="com.locked = !com.locked"
+                ></i>
+              </div>
+              <b-collapse-transition>
+                <!-- 组内元素 -->
+                <template v-if="com.type === 'group' && com.expand">
+                  <div class="group-list pl-16">
+                    <div
+                      class="group-item"
+                      v-for="item in com.components"
+                      :key="item.id"
+                      :title="item.alias"
+                      :class="[
+                        {
+                          hovered: item.id === hoveredComId,
+                          selected: isSelected(item),
+                        },
+                      ]"
+                      @mouseenter="onEnter(item.id)"
+                      @mouseleave="onLeave"
+                      @mousedown="selectCom(item)"
+                    >
+                      <b-icon
+                        :name="item.name === 'VIcon' ? item.config.src : item.icon"
+                        size="18"
+                      ></b-icon>
+                      <span class="layer-item-span">
+                        <span class="layer-item-text">{{ item.alias }}</span>
+                      </span>
+                    </div>
+                  </div>
+                </template>
+              </b-collapse-transition>
             </div>
           </template>
         </draggable>
-
         <div class="last-flex-item" @click="cancelSelectCom"></div>
       </div>
     </div>
@@ -112,7 +143,7 @@ const { comps, toolbar, hoveredComId, selectedCom, renamingComId, isMultiSelect,
 const { showMenu } = useSchemaContextMenu()
 
 const enableBtnClass = computed(() => !!selectedCom.value)
-const enableBtnStyle = computed(() => ({ opacity: selectedCom.value ? 1 : 0.3 }))
+const enableBtnStyle = computed(() => ({ opacity: selectedCom.value ? 1 : 0.5 }))
 
 function isSelected(com) {
   if (isMultiSelect.value) return selectedComs.value.map(i => i.id).includes(com.id)
@@ -139,11 +170,237 @@ const onEnter = id => schemaStore.hoverCom(id)
 
 const onLeave = () => schemaStore.hoverCom('')
 
-const selectCom = id => {
-  const com = comps.value.find(i => i.id === id)
+const selectCom = com => {
   if (com) {
-    schemaStore.selectCom(com)
+    // 如果当前选中的组件是group，则扩展展开属性
+    if (com.type === 'group') {
+      com.expand = !com.expand
+    }
+    schemaStore.selectCom(com) // 层级不允许ctrl 进行多选 , false
   }
 }
 const cancelSelectCom = () => schemaStore.selectCom()
 </script>
+
+<style scoped>
+.layer-panel-wp {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  width: var(--schema-layer-width);
+  height: 100%;
+  overflow: hidden;
+  background: var(--schema-color-bg-2);
+  border-right: 1px solid var(--schema-color-border);
+  transition: width 0.2s ease;
+  flex: none;
+  flex-direction: column;
+  .layer-panel {
+    z-index: 9;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: 0.2s ease;
+    flex-direction: column;
+    flex: auto;
+    .layer-top {
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      user-select: none;
+      background: var(--schema-color-bg-3);
+      border-bottom: 1px solid var(--schema-color-border);
+    }
+    .layer-action {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 100%;
+      > i {
+        cursor: pointer;
+        width: 20px;
+        font-size: 14px;
+      }
+    }
+  }
+  &.is-hide {
+    width: 0;
+    .layer-panel {
+      transform: translateX(-100%);
+    }
+  }
+}
+
+.layer-toolbar {
+  display: flex;
+  height: 32px;
+  padding: 0 18px;
+  background: var(--schema-color-bg-2);
+  align-items: center;
+  justify-content: center;
+  flex: none;
+
+  &.layer-toolbar-top {
+    border-bottom: 1px solid var(--schema-color-border);
+  }
+  .toolbar-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 16px;
+    transition: background 0.2s;
+    margin: 0 10px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 3px;
+    background: var(--schema-color-bg-1);
+
+    &.standard:hover {
+      cursor: pointer;
+      background: var(--s-color-1);
+      opacity: 1 !important;
+    }
+  }
+}
+
+.layer-manager-wrap {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: calc(100% - 62px);
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 2;
+  padding: 6px;
+  color: var(--schema-font-color);
+  list-style: none;
+  background: var(--schema-color-bg-2);
+  user-select: none;
+  flex: auto;
+  flex-direction: column;
+
+  .layer-manager-item {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 40px;
+    padding: 0 6px;
+    padding-left: 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.2s;
+    align-items: center;
+    border-radius: var(--bin-border-radius-default);
+    border: 1px solid transparent;
+
+    &.hided,
+    &.locked {
+      color: var(--s-text-color-2);
+    }
+
+    .layer-item-span {
+      width: 126px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0 4px;
+      .layer-item-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 20px;
+        line-height: 20px;
+      }
+    }
+
+    .layer-item-input {
+      width: 126px;
+      padding: 0 4px;
+      height: 20px;
+      line-height: 20px;
+      background: 0 0;
+      border: none;
+      outline: 0;
+      font-size: 12px;
+    }
+
+    .show-toggle-btn {
+      padding: 0 2px;
+      font-size: 18px;
+      display: none;
+    }
+    &.hovered {
+      background: var(--s-color-1);
+      .show-toggle-btn {
+        display: block;
+      }
+    }
+    &.hided,
+    &.locked {
+      .show-toggle-btn {
+        display: block;
+        &.b-icon-lock {
+          color: var(--bin-color-primary);
+        }
+      }
+    }
+
+    &.selected {
+      background: var(--bin-color-input-shadow);
+      border: 1px solid var(--bin-color-primary);
+      .show-toggle-btn {
+        display: block;
+      }
+    }
+
+    &.sortable-ghost {
+      opacity: 0.4;
+    }
+  }
+  .last-flex-item {
+    flex: auto;
+    min-height: 40px;
+  }
+}
+
+.group-list {
+  padding-left: 16px;
+  .group-item {
+    display: flex;
+    width: 100%;
+    height: 40px;
+    padding: 0 6px;
+    padding-left: 8px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+    transition: background 0.2s;
+    align-items: center;
+    border-radius: var(--bin-border-radius-default);
+    border: 1px solid transparent;
+    .layer-item-span {
+      width: 166px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 0 4px;
+      .layer-item-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 20px;
+        line-height: 20px;
+      }
+    }
+    &.hovered {
+      background: var(--s-color-1);
+    }
+    &.selected {
+      background: var(--bin-color-input-shadow);
+      border: 1px solid var(--bin-color-primary);
+    }
+  }
+}
+</style>

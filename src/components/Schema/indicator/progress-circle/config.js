@@ -1,7 +1,8 @@
 // 基本饼图配置项
-import { initApiData, ComType } from '@/config/data-source'
+import { initApiData, ComType, CIRCLE as compType } from '@/config/data-source'
+import { getBaseActions } from '@/utils/events'
 
-export const progressCircle = {
+export default {
   name: 'VProgressCircle',
   alias: '进度环',
   icon: 'redo',
@@ -33,12 +34,18 @@ export const progressCircle = {
     },
     numFormat: '{num}条',
   },
-  apiData: initApiData({ staticPath: 'progress/progress' }),
+  apiData: initApiData({ staticPath: 'progress/progress', compType }),
   events: {
+    onEvents: [],
+    defaultAction: true,
+    actions: getBaseActions(),
     click: {
       name: '点击数据项',
       params: [],
     },
+    customScript: {
+      augments: ['curComp', 'components'],
+      enable: false,
+    },
   },
 }
-export default progressCircle

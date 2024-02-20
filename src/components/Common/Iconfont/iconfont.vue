@@ -6,7 +6,7 @@
 
 <script>
 import { computed } from 'vue'
-import { Utils } from 'bin-ui-next'
+import { Utils } from 'bin-ui-design'
 
 const { mixWhite } = Utils.color
 
@@ -78,7 +78,7 @@ export default {
 }
 </script>
 
-<style scoped lang="stylus">
+<style scoped>
 .icon-wrapper {
   display: inline-flex;
   align-items: center;

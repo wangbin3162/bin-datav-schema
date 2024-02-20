@@ -1,22 +1,11 @@
 <template>
   <div class="setting-panel">
-    <config-title
-      :com-name="selectedCom.name"
-      :com-alias="selectedCom.alias"
-      :com="selectedCom"
-      show-cfg
-    ></config-title>
-    <div class="setting-panel-content">
-      <div class="scroll-container">
-        <b-scrollbar>
-          <basic-setting
-            :key="`${selectedCom.id}'_basic-setting`"
-            :attr="selectedCom.attr"
-          ></basic-setting>
-          <component :is="selectedCom.name + 'Config'" :key="selectedCom.id" :data="selectedCom" />
-        </b-scrollbar>
-      </div>
-    </div>
+    <config-title show-cfg></config-title>
+    <basic-setting
+      :key="`${selectedCom.id}'_basic-setting`"
+      :attr="selectedCom.attr"
+    ></basic-setting>
+    <component :is="selectedCom.name + 'Config'" :key="selectedCom.id" :data="selectedCom" />
   </div>
 </template>
 
@@ -29,3 +18,17 @@ const { schemaStore, storeToRefs } = useStore()
 
 const { selectedCom } = storeToRefs(schemaStore)
 </script>
+
+<style scoped>
+.setting-panel {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  :deep(.divider) {
+    margin: 8px 10px 0;
+    height: 1px;
+    background: var(--s-border-color);
+  }
+}
+</style>

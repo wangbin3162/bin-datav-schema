@@ -28,14 +28,13 @@ const dragStart = (e, name) => emit('dragstart', e, name)
 const click = name => emit('click', name)
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .comp-wrap {
   display: flex;
   flex-wrap: wrap;
   padding: 8px 4px;
 }
 .comp-item {
-  color: var(--schema-font-color);
   width: 50%;
   vertical-align: top;
   user-select: none;
@@ -44,8 +43,7 @@ const click = name => emit('click', name)
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-  .inner {
-  }
+
   .comp-item-text {
     font-size: 12px;
     padding: 0 5px;
@@ -61,12 +59,12 @@ const click = name => emit('click', name)
     height: 72px;
     border-radius: 2px;
     transition: border-color 0.2s;
-    border: 1px dashed rgba(255, 255, 255, .2);
+    border: 1px dashed var(--s-border-color-2);
     cursor: url('@/assets/images/schema/cursor-move.png') 4 4, auto;
     > img {
       width: 100%;
     }
-    &:hover{
+    &:hover {
       border-color: var(--bin-color-primary-light2);
       background: #2a292f;
     }

@@ -1,128 +1,87 @@
 <template>
   <div class="api-editor">
-    <div class="attr-source-wp">
-      <div class="data-source">
-        <div class="data-result-title">数据源配置</div>
-        <div class="data-source-config">
-          <g-field label="数据来源">
-            <b-radio-group v-model="apiDataConfig.type" type="button" size="mini">
-              <b-radio v-for="(val, key) in ApiTypeMap" :key="key" :label="key">{{ val }}</b-radio>
-            </b-radio-group>
-          </g-field>
-          <!--静态编辑器-->
-          <data-editor
-            v-if="apiDataConfig.type === ApiType.static"
-            :model-value="apiDataConfig.config.data"
-            :height="staticEditorHeight"
-            @change="updateData"
-          />
-          <!--选择分析模型-->
-          <div v-else class="pt-10">
-            <div class="data-result-title">选择分析模型</div>
-            <div class="p16">
-              <b-tree :data="modelTree" titleKey="name" default-expand @select-change="handleChange"></b-tree>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div style="padding: 0 10px">
+      <g-field label="数据来源" style="padding-top: 8px">
+        <b-radio-group v-model="apiDataConfig.type" type="button" size="small">
+          <b-radio v-for="(val, key) in ApiTypeMap" :key="key" :label="key">{{ val }}</b-radio>
+        </b-radio-group>
+      </g-field>
+      <g-field label="轮询间隔">
+        <g-input-number
+          v-model="apiDataConfig.config.pollingInterval"
+          :min="1000"
+          :step="1000"
+          :disabled="apiDataConfig.config.polling"
+          suffix="ms"
+        />
+      </g-field>
+      <g-field label="启用轮询">
+        <b-switch v-model="apiDataConfig.config.polling" size="small" />
+      </g-field>
     </div>
-    <!-- <source-drawer ref="sourceDrawerRef" /> -->
+    <!--静态编辑器-->
+    <DataEditor
+      v-if="apiDataConfig.type === ApiType.static"
+      :model-value="apiDataConfig.config.data"
+      :height="staticEditorHeight"
+      @change="updateData"
+    />
+
+    <!--接口服务-->
+    <div v-if="apiDataConfig.type === ApiType.service" style="padding: 0 10px">
+      <b-divider style="margin: 0 0 16px"></b-divider>
+      <ServiceData></ServiceData>
+    </div>
+    <!-- 分析模型 -->
+    <div v-if="apiDataConfig.type === ApiType.model" style="padding: 0 10px">
+      <b-divider style="margin: 0 0 16px"></b-divider>
+      <ModelData></ModelData>
+    </div>
   </div>
 </template>
 
-<script>
-import { computed, inject, onBeforeUnmount, onMounted, ref } from 'vue'
-import { createDataSources, ApiType } from '@/config/data-source'
+<script setup>
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import {createDataSources, ApiType, }from '@/config/data-source'
 import { loadAsyncComponent } from '@/utils/async-component'
 import { useStore } from '@/store'
 import { on, off } from '@/utils/util'
-import { Message } from 'bin-ui-next'
-// import SourceDrawer from './source-drawer.vue'
+import ServiceData from './ServiceData.vue'
+import ModelData from './ModelData.vue'
 
-export default {
-  name: 'source-panel',
-  components: {
-    // SourceDrawer,
-    DataEditor: loadAsyncComponent(() => import('../components/data-editor.vue')),
-  },
-  setup() {
-    const staticEditorHeight = ref('260px')
-    const sourceDrawerRef = ref(null)
+const DataEditor = loadAsyncComponent(() => import('../components/data-editor.vue'))
+defineOptions({
+  name: 'SourcePanel',
+})
 
-    const treeData = inject('ModelTree', [])
-    const modelTree = computed(() => {
-      const mapper = node => {
-        const modelId = apiDataConfig.value.config ? apiDataConfig.value.config.modelId : ''
-        const mapperNode = {
-          ...node,
-          icon: node.directory === 'Y' ? 'folder' : node.modelType === 'DM' ? 'deploymentunit' : 'database',
-          selected: modelId === node.id,
-        }
-        if (node.children && node.children.length) {
-          mapperNode.children = node.children.map(mapper)
-        }
-        return mapperNode
-      }
-      return treeData.value.map(mapper)
-    })
+const staticEditorHeight = ref('260px')
 
-    const { schemaStore, storeToRefs } = useStore()
-    const { selectedCom } = storeToRefs(schemaStore)
-    const apiDataConfig = computed(() => selectedCom.value.apiData)
+const { schemaStore, storeToRefs } = useStore()
+const { selectedCom } = storeToRefs(schemaStore)
+const apiDataConfig = computed(() => selectedCom.value.apiData)
 
-    const updateData = data => {
-      apiDataConfig.value.config.data = data
-    }
+const ApiTypeMap = createDataSources(apiDataConfig.value.compType)
 
-    const calcEdit = () => {
-      staticEditorHeight.value = `${document.body.clientHeight - 260}px`
-    }
-
-    const handleChange = (val, node) => {
-      if (node.directory === 'Y') {
-        node.selected = false
-        Message.warning('不能选择文件夹！')
-      } else {
-        if (apiDataConfig.value.config.modelId === node.id) {
-          node.selected = true
-        }
-        sourceDrawerRef.value?.open({ modelId: node.id, modelName: node.name })
-      }
-    }
-
-    onMounted(() => {
-      calcEdit()
-      on(window, 'resize', calcEdit)
-    })
-    onBeforeUnmount(() => {
-      off(window, 'resize', calcEdit)
-    })
-
-    return {
-      staticEditorHeight,
-      sourceDrawerRef,
-      ApiType,
-      apiDataConfig,
-      modelTree,
-      handleChange,
-      ApiTypeMap: createDataSources(),
-      updateData,
-    }
-  },
+const updateData = data => {
+  apiDataConfig.value.config.data = data
+  handleFlush()
 }
+
+const calcEdit = () => {
+  staticEditorHeight.value = `${document.body.clientHeight - 260}px`
+}
+
+function handleFlush() {
+  apiDataConfig.value.flushFlag = !apiDataConfig.value.flushFlag
+}
+
+onMounted(() => {
+  calcEdit()
+  on(window, 'resize', calcEdit)
+})
+onBeforeUnmount(() => {
+  off(window, 'resize', calcEdit)
+})
 </script>
 
-<style lang="stylus" scoped>
-.data-source-config {
-  :deep(.bin-tree) {
-    color: var(--schema-font-color);
-    .bin-tree-title, .bin-tree-render-title {
-      border: 1px solid transparent;
-      &.is-selected, &:hover {
-        background: rgba(118, 150, 202, .1);
-        border-color: var(--bin-color-primary);
-      }
-    }
-  }
-}
-</style>
+<style scoped></style>

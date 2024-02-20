@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="56px" viewBox="0 0 64 56" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>web/icon-餐饮</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62.4" height="62.4"></rect>
+        <filter x="-27.7%" y="-52.7%" width="155.4%" height="205.5%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="4.16" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="26.5927978%" y1="112.961968%" x2="73.4072022%" y2="0%" id="linearGradient-4">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#027994" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="65.1343165%" y1="26.4497653%" x2="22.9198441%" y2="141.89219%" id="linearGradient-5">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-6">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="大数据可视化科技智慧智能统计后台监管中心" transform="translate(-1056.000000, -205.000000)">
+            <g id="原创-center" transform="translate(375.000000, 122.000000)">
+                <g id="编组-52">
+                    <g id="web/icon-考勤" transform="translate(682.000000, 76.000000)">
+                        <g id="编组-18" transform="translate(-0.201923, -0.201923)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="蒙版"></g>
+                            <g mask="url(#mask-2)">
+                                <g transform="translate(9.013333, 7.626667)">
+                                    <ellipse id="椭圆形备份" fill="#000000" opacity="0.200000003" filter="url(#filter-3)" cx="22.5333333" cy="35.4062107" rx="22.5333333" ry="11.8328773"></ellipse>
+                                    <g id="web/icon-考勤" stroke-width="1" fill="none" transform="translate(2.773333, 0.000000)">
+                                        <g id="编组-17备份" fill-rule="nonzero">
+                                            <g id="分组-57" transform="translate(1.386667, 0.000000)">
+                                                <g id="分组-19" transform="translate(0.346667, 0.346667)">
+                                                    <path d="M15.2393266,3.38651702 L37.2516872,3.38651702 L37.2516872,27.0921362 C37.2516872,31.7679404 33.461199,35.5584287 28.7853947,35.5584287 L15.2393266,35.5584287 L15.2393266,35.5584287 L15.2393266,3.38651702 Z" id="矩形" fill="url(#linearGradient-4)"></path>
+                                                    <path d="M5.07977553,3.38651702 L27.8602207,3.38651702 L27.8602207,3.38651702 L30.4786532,3.38651702 L30.4786532,30.2684457 C30.4786532,37.4965932 24.6190819,43.3561645 17.3909343,43.3561645 C16.6700515,43.3561645 15.950401,43.2966044 15.2393266,43.178092 L9.90421969,42.2889075 C4.18893749,41.3363605 7.81500209e-15,36.3914856 0,30.5973682 L0,8.46629256 C-3.43572524e-16,5.66081 2.27429297,3.38651702 5.07977553,3.38651702 Z" id="矩形" fill="url(#linearGradient-5)"></path>
+                                                    <rect id="矩形" fill="#058AA7" x="5.07977553" y="16.9325851" width="3.38651702" height="3.38651702"></rect>
+                                                    <rect id="矩形" fill="#058AA7" x="13.5460681" y="16.9325851" width="3.38651702" height="3.38651702"></rect>
+                                                    <rect id="矩形" fill="#058AA7" x="20.3191021" y="16.9325851" width="3.38651702" height="3.38651702"></rect>
+                                                    <rect id="矩形" fill="#058AA7" x="5.07977553" y="25.3988777" width="3.38651702" height="3.38651702"></rect>
+                                                    <rect id="矩形" fill="#058AA7" x="13.5460681" y="25.3988777" width="3.38651702" height="3.38651702"></rect>
+                                                    <rect id="矩形" fill="#058AA7" x="20.3191021" y="25.3988777" width="3.38651702" height="3.38651702"></rect>
+                                                    <rect id="矩形" fill="url(#linearGradient-6)" x="6.77303404" y="0" width="3.38651702" height="8.46629256" rx="1.69325851"></rect>
+                                                    <rect id="矩形" fill="url(#linearGradient-6)" x="16.9325851" y="0" width="3.38651702" height="8.46629256" rx="1.69325851"></rect>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

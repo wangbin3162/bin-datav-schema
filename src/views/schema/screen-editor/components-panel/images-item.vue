@@ -4,11 +4,11 @@
       <div class="comp-item img-add" v-if="canEdit">
         <div class="inner">
           <div class="comp-item-img">
-            <g-upload @upload="imageUpload" multiple></g-upload>
+            <g-upload @upload="imageUpload" multiple v-if="!uploadLoading"></g-upload>
+            <g-loading v-else spinning></g-loading>
           </div>
         </div>
       </div>
-
       <div class="comp-item" v-for="(com, index) in list" :key="index">
         <div class="inner">
           <div
@@ -18,7 +18,8 @@
             @dragstart="dragStart($event, com)"
             @click="click(com)"
           >
-            <img v-lazy="com.src" />
+            <img v-lazy="com.url ? com.url : com.src" v-if="!listLoading" />
+            <img v-lazy="com.url ? com.url : com.src" v-else />
             <div class="hover-layer" v-if="canEdit">
               <i
                 class="b-iconfont b-icon-delete-fill"
@@ -38,7 +39,8 @@
 import { ref, computed } from 'vue'
 import * as api from '@/api/images/images.api'
 import { defaultGroupKeys } from '@/api/images/default'
-import { setGlobalLoading } from '@/hooks/schema/useGlobalLoading'
+import { throwError } from '@/utils/util'
+import { MessageBox } from "bin-ui-design"
 
 const emit = defineEmits(['dragstart', 'click'])
 const props = defineProps({
@@ -50,54 +52,67 @@ const props = defineProps({
 
 const list = ref([])
 const canEdit = computed(() => !defaultGroupKeys.includes(props.groupId))
+const uploadLoading = ref(false)
+const listLoading = ref(false)
 // 获取组件库
-const getCompList = () => api.getImagesByGroup(props.groupId).then(res => (list.value = res))
+async function getCompList() {
+  listLoading.value = true
+  try {
+    list.value = await api.getImagesByGroup(props.groupId)
+  } catch (e) {
+    throwError(e)
+  }
+  listLoading.value = false
+}
 
 getCompList()
 
 // 上传拦截
 async function imageUpload(files) {
+  uploadLoading.value = true
   try {
-    setGlobalLoading(true)
     // TODO: 这里需要组装需要的对象，后续需要调用接口进行实际上传
     const imgs = files.map(file => ({
-      group: props.groupId,
+      groupKey: props.groupId,
       name: file.name,
       attr: { w: file.width, h: file.height },
-      src: file.image,
+      file: file.file,
     }))
-    await api.uploadImagesToGroup(imgs)
+    for (let i = 0; i < imgs.length; i++) {
+      await api.uploadImagesToGroup(imgs[i])
+    }
     getCompList()
   } catch (error) {
     console.log(error)
   }
-  setGlobalLoading(false)
+  uploadLoading.value = false
 }
 
 // 移除一个图片
-async function removePic({ group, id }) {
-  try {
-    setGlobalLoading(true)
-    await api.removeImage(group, id)
+async function removePic({ id }) {
+  MessageBox.confirm({
+    type: 'warning',
+    title: '提示',
+    message: '是否删除当前图片？',
+  }).then(async () => {
+    await api.removeImage(id)
     getCompList()
-  } catch (error) {
+  }).catch((error) => {
     console.log(error)
-  }
-  setGlobalLoading(false)
+  })
 }
 
 const dragStart = (e, comp) => emit('dragstart', e, comp)
 const click = comp => emit('click', comp)
 </script>
 
-<style lang="stylus" scoped>
+<style scoped>
 .comp-wrap {
   display: flex;
   flex-wrap: wrap;
   padding: 8px 4px;
 }
 .comp-item {
-  color: var(--schema-font-color);
   width: 50%;
   vertical-align: top;
   user-select: none;
@@ -122,9 +137,10 @@ const click = comp => emit('click', comp)
     align-items: center;
     width: 100%;
     height: 72px;
+    padding: 2px;
     border-radius: 2px;
     transition: border-color 0.2s;
-    border: 1px dashed rgba(255, 255, 255, .2);
+    border: 1px dashed var(--s-border-color-2);
     cursor: url('@/assets/images/schema/cursor-move.png') 4 4, auto;
     > img {
       min-width: 1px;
@@ -138,7 +154,7 @@ const click = comp => emit('click', comp)
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(33,33,37,.7);
+      background: rgba(33, 33, 37, 0.7);
       display: none;
       > i {
         position: absolute;
@@ -148,7 +164,7 @@ const click = comp => emit('click', comp)
         color: #fff;
       }
     }
-    &:hover{
+    &:hover {
       border-color: var(--bin-color-primary-light2);
       background: #2a292f;
       .hover-layer {

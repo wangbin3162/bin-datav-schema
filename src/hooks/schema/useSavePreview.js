@@ -1,4 +1,4 @@
-import { throwError, isEmpty } from '@/utils/util'
+import { throwError, isEmpty, generateId } from '@/utils/util'
 import { saveKanban } from '@/api/modules/analysis-dashboard.api'
 import { saveScreenPreview } from '@/api/database.api'
 import { ApiType } from '@/config/data-source'
@@ -11,12 +11,27 @@ export default function useSavePreview() {
   const { schemaStore, storeToRefs } = useStore() // 执行获取schema专属store
   const { pageInfo, pageConfig, comps } = storeToRefs(schemaStore)
 
+  function buildPageJson() {
+    const uid = generateId()
+    const screenData = {
+      template: { id: `tmp_${uid}`, name: `模板_${uid}` },
+      pageConfig: pageConfig.value,
+      comps: comps.value,
+    }
+    //  把 JSON 对象转换为字符串
+    return {
+      templateName: `模板_${uid}`,
+      pageJson: JSON.stringify(screenData)
+    }
+  }
+
   // 保存screenData
   async function saveScreenData(status = 'edit') {
+    const { pageJson} = buildPageJson()
     const saveData = {
       id: pageInfo.value.id || route.query.id,
       name: pageInfo.value.name,
-      pid: pageInfo.value.pid,
+      pid: route.query.isShow ? '1' : pageInfo.value.pid,
       status,
       layout: JSON.stringify(pageConfig.value),
       components: comps.value.map(c => {
@@ -46,6 +61,7 @@ export default function useSavePreview() {
           }
         }
       }),
+      pageJson
     }
     try {
       return await saveKanban(saveData)
@@ -63,7 +79,7 @@ export default function useSavePreview() {
       const data = {
         pageInfo: {
           id: pageInfo.value.id,
-          name: pageInfo.value.name || '看板预览',
+          name: pageInfo.value.name || '大屏预览',
           pid: pageInfo.value.pid || '1',
         },
         pageConfig: pageConfig.value,
@@ -80,5 +96,6 @@ export default function useSavePreview() {
   return {
     saveScreenData,
     previewScreen,
+    buildPageJson
   }
 }

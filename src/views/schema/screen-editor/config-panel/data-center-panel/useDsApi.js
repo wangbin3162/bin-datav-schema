@@ -3,7 +3,7 @@ import { useStore } from '@/store'
 import { AGGREGATOR_FUN, SORT_FUN } from '@/hooks/schema/useModelEnum'
 import { addClass, deepCopy, removeClass, throwError } from '@/utils/util'
 import { getCubeById } from '@/api/modules/analysis-dashboard.api'
-import { Message } from 'bin-ui-next'
+import { Message } from 'bin-ui-design'
 
 export default function useDsApi(props, emit) {
   const status = reactive({
@@ -12,6 +12,7 @@ export default function useDsApi(props, emit) {
     measureTree: {}, // 度量树
     xColumns: [], // x轴、行轴
     yColumns: [], // y轴、列轴
+    legendColumns: [], // 图例
     drill: [],
     filters: [],
     dragging: false,
@@ -26,11 +27,22 @@ export default function useDsApi(props, emit) {
   const updateFieldState = cubeSchema => {
     const { dimension, measure } = cubeSchema || {}
     // 维度、度量树
-    status.dimensionTree = dimension || { title: '维度', nodeType: 'root', children: [] }
+    // status.dimensionTree = dimension || { title: '维度', nodeType: 'root', children: [] }
+    status.dimensionTree = computed(() => {
+      if (dimension) {
+        const res = dimension?.children.filter(item =>
+          [...status.xColumns, ...status.legendColumns].every(dim => item.fieldId !== dim.fieldId),
+        )
+        return { title: dimension.title, nodeType: dimension.nodeType, children: [...res] }
+      } else {
+        return { title: '维度', nodeType: 'root', children: [] }
+      }
+    })
     status.measureTree = measure || { title: '度量', nodeType: 'root', children: [] }
     // 回显存储数据
     if (modelId.value !== props.selectedModelId) return
     status.xColumns = deepCopy(apiDataConfig.value.config.x)
+    status.legendColumns = deepCopy(apiDataConfig.value.config.legend)
     status.yColumns = deepCopy(apiDataConfig.value.config.y)
     status.drill = deepCopy(apiDataConfig.value.config.drill)
   }
@@ -139,6 +151,22 @@ export default function useDsApi(props, emit) {
     dragNode = null
   }
 
+  // 图例类别轴放置
+  function onLegendDrop(e) {
+    e.preventDefault()
+    removeClass(e.target, 'drag-enter')
+    if (dragNodeType === 'D') {
+      if (status.legendColumns.find(v => v.fieldId === dragNode.fieldId)) {
+        Message.warning('已存在同名字段！无需重复配置。')
+      } else {
+        status.legendColumns.push({
+          ...buildAttr(),
+        })
+      }
+    }
+    dragNode = null
+  }
+
   // y轴值轴放置
   function onMeasureDrop(e) {
     e.preventDefault()
@@ -184,6 +212,11 @@ export default function useDsApi(props, emit) {
     status.xColumns[index].sortWay = key
   }
 
+  // 图例排序设置
+  function legendChange({ index, key }) {
+    status.legendColumns[index].sortWay = key
+  }
+
   // 聚合函数设置
   function aggrChange({ index, key }) {
     status.yColumns[index].aggregator = key
@@ -191,9 +224,14 @@ export default function useDsApi(props, emit) {
 
   // 设置存储apiData
   function setApiDataConfig() {
-    apiDataConfig.value.config.modelId = props.selectedModelId
-    apiDataConfig.value.config.modelName = props.selectedModelName
+    // apiDataConfig.value.config.modelId = props.selectedModelId
+    // apiDataConfig.value.config.modelName = props.selectedModelName
+    if (status.yColumns.length !== 5 && props.isBox) {
+      Message.error('y轴请配置5条数据')
+      return
+    }
     apiDataConfig.value.config.x = deepCopy(unref(status.xColumns))
+    apiDataConfig.value.config.legend = deepCopy(unref(status.legendColumns))
     apiDataConfig.value.config.y = deepCopy(unref(status.yColumns))
     apiDataConfig.value.config.drill = deepCopy(unref(status.drill))
     emit('save')
@@ -215,6 +253,8 @@ export default function useDsApi(props, emit) {
     onDrillDrop,
     sortChange,
     aggrChange,
+    onLegendDrop,
+    legendChange,
     setDrill,
     removeDrill,
     setApiDataConfig,

@@ -2,8 +2,9 @@ import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { off, on, copyText } from '@/utils/util'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
-import { Message } from 'bin-ui-next'
+import { Message } from 'bin-ui-design'
 import useSavePreview from './useSavePreview'
+import { sendMsg } from '@/utils/cross-tab-msg'
 
 export default function useShortcuts() {
   const headerRef = ref(null)
@@ -11,7 +12,8 @@ export default function useShortcuts() {
   const { saveScreenData } = useSavePreview()
 
   const { schemaStore, storeToRefs } = useStore()
-  const { pageInfo, canvas, selectedCom, selectedComs } = storeToRefs(schemaStore)
+  const { pageInfo, canvas, selectedCom, selectedComs, curComIsGroup, isMultiSelect } =
+    storeToRefs(schemaStore)
 
   const route = useRoute()
 
@@ -44,6 +46,9 @@ export default function useShortcuts() {
         }
         ev.preventDefault()
       }
+      if (ev.shiftKey) {
+        keyDown('shiftKey')
+      }
       // ctrl按下之后的操作内容
       if (ev.ctrlKey) {
         keyDown('ctrlKey')
@@ -71,10 +76,15 @@ export default function useShortcuts() {
           // 100%视角
           schemaStore.setCanvasScale(100)
           ev.preventDefault()
+        } else if (key === 'g') {
+          // 组合选中
+          if (curComIsGroup.value) schemaStore.ungroup()
+          if (isMultiSelect.value) schemaStore.group()
+          ev.preventDefault()
         } else if (key === 'c') {
           // 缓存复制组件,判断有无多选
           copyTempCom = selectedComs.value
-          console.log(copyTempCom)
+          // console.log(copyTempCom)
           // 复制到剪切板内容
           copyText(JSON.stringify(copyTempCom))
           ev.preventDefault()
@@ -85,9 +95,10 @@ export default function useShortcuts() {
         } else if (key === 's') {
           const isEdit = pageInfo.value.id || route.query.id
           if (isEdit) {
-            // 保存当前面板
-            Message('正在保存...')
-            saveScreenData('edit').then(() => Message.success('保存成功！'))
+            saveScreenData('edit').then(() => {
+              Message.success('保存成功！')
+              sendMsg('save-success')
+            })
           } else {
             headerRef.value && headerRef.value.handleSaveScreen()
           }
@@ -97,9 +108,6 @@ export default function useShortcuts() {
           schemaStore.undo()
           ev.preventDefault()
         }
-      }
-      if (ev.shiftKey) {
-        keyDown('shiftKey')
       }
       if (ev.keyCode === 32) {
         keyDown('spaceKey')

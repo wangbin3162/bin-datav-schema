@@ -1,6 +1,11 @@
 <template>
   <div class="dv-wrapper">
-    <b-charts :options="options" style="width: 100%; height: 100%" ref="chartRef" />
+    <b-charts
+      v-if="render"
+      :options="config"
+      style="width: 100%; height: 100%"
+      ref="chartRef"
+    ></b-charts>
     <g-breadcrumb
       v-if="couldDrill"
       v-bind="{ drillData, drillIndex, drillFilters }"
@@ -9,150 +14,144 @@
   </div>
 </template>
 
-<script>
+<script setup>
+import { computed, onMounted, watch } from 'vue'
 import { useDataCenter } from '@/hooks/schema/useDataCenter'
-import { computed, nextTick, onMounted, ref, watch } from 'vue'
+import { getEventParamsSexact, useEventBus } from '@/hooks/schema/useEventBus'
+import { useChartThemeColor } from '@/theme'
+import { useChartMain } from '@/hooks/useCharts'
+import { usePolling } from '@/hooks/schema/usePolling'
+import { debounce } from '@/utils/util'
+import { useScriptAction } from '@/hooks/schema/useScriptAction'
 
-export default {
+defineOptions({
   name: 'VBasicRadar',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+})
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    const { dvData, apiData, dvEmit, dvScrollUp, drillData, drillIndex, drillFilters, couldDrill } =
-      useDataCenter(props.data)
-    // config 配置项
-    const config = computed(() => props.data.config)
-    // event属性
-    const events = computed(() => props.data.events)
+})
 
-    const chartRef = ref(null)
+const {
+  dvData,
+  apiData,
+  dvEmit,
+  dvScrollUp,
+  drillData,
+  drillIndex,
+  drillFilters,
+  couldDrill,
+  buildParams,
+  setDvData,
+} = useDataCenter(props.data)
 
-    const chartData = computed(() => ({
-      xData: dvData.value.xData ?? [],
-      yData: dvData.value.yData ?? [],
-      indicator: dvData.value.indicator ?? [],
-    }))
+const { config, events, chartRef, render, refreshChart } = useChartMain(props.data)
 
-    const options = computed(() => {
-      const { global, tooltip, legend } = config.value
-      const [legendTop, legendLeft] = legend.position.split('-')
-      return {
-        textStyle: { fontFamily: global.fontFamily },
-        legend: {
-          show: legend.show,
-          top: legendTop,
-          left: legendLeft,
-          orient: legend.orient,
-          textStyle: { ...legend.textStyle },
-          icon: legend.symbol.show
-            ? legend.symbol.icon === 'auto'
-              ? null
-              : legend.symbol.icon
-            : 'none',
-          itemWidth: legend.symbol.width,
-          itemHeight: legend.symbol.height,
-          itemGap: legend.symbol.gap,
-        },
-        tooltip: {
-          show: tooltip.show,
-          textStyle: { ...tooltip.textStyle },
-          padding: [tooltip.background.padding.v, tooltip.background.padding.h],
-          backgroundColor: tooltip.background.color,
-          trigger: 'item',
-          borderWidth: 0,
-        },
-        radar: {
-          indicator: chartData.value.indicator,
-          startAngle: global.startAngle,
-          shape: global.shape,
-          splitNumber: global.splitNumber,
-          center: global.center,
-          radius: global.radius,
-          splitLine: {
-            show: global.splitLine.show,
-            lineStyle: {
-              color: global.splitLine.lineStyle.color,
-            },
-          },
-          splitArea: {
-            show: global.splitArea.show,
-            areaStyle: { ...global.splitArea.areaStyle },
-          },
-          axisLine: {
-            show: global.axisLine.show,
-            lineStyle: {
-              color: global.axisLine.lineStyle.color,
-            },
-          },
-          axisName: {
-            show: global.axisName.show,
-            color: global.axisName.color,
-          },
-        },
-        series: getSeries(),
-        color: config.value.color,
-      }
-    })
+const { getThemeColors, pageConfig } = useChartThemeColor()
 
-    const getSeries = () => {
-      const { label, global } = config.value
-      const { yData } = chartData.value
-      // 根据返回数据进行遍历拼接
-      return yData.map((item, index) => {
-        return {
-          type: 'radar',
-          name: item.name ?? `系列${index + 1}`,
-          symbolSize: global.symbolSize,
-          label: {
-            show: label.show,
-            position: label.position,
-            ...label.textStyle,
-            formatter: label.formatter || '{c}',
-          },
-          areaStyle: {
-            opacity: global.areaStyle.opacity,
-          },
-          data: item.data,
-        }
-      })
+const themeColors = computed(() => getThemeColors(props.data.attr.chartThemeColor))
+
+const chartData = computed(() => ({
+  xData: dvData.value.xData ?? [],
+  yData: dvData.value.yData ?? [],
+  indicator: dvData.value.indicator ?? [],
+}))
+
+const getSeries = yData => {
+  const { global } = config.value
+  // 根据返回数据进行遍历拼接
+  return yData.map((item, index) => {
+    const cfg = {
+      type: 'radar',
+      name: item.name ?? `系列${index + 1}`,
+      label: global.label,
+      emphasis: { label: global.label },
+      symbolSize: global.symbolSize,
+      areaStyle: global.areaStyle,
+      data: item.data,
     }
+    return cfg
+  })
+}
 
-    const onClick = params => {
-      dvEmit('click', params)
-    }
+const updateSeries = debounce(() => {
+  const { indicator, yData } = chartData.value
+  const { global } = config.value
+  config.value.radar = {
+    indicator,
+    startAngle: global.startAngle,
+    shape: global.shape,
+    splitNumber: global.splitNumber,
+    center: global.center,
+    radius: global.radius,
+    splitLine: global.splitLine,
+    splitArea: global.splitArea,
+    axisLine: global.axisLine,
+    axisName: global.axisName,
+  }
+  config.value.series = getSeries(yData)
+}, 200)
 
-    // 设置seriesCount
-    watch(
-      () => dvData.value,
-      val => {
-        apiData.value.config.seriesCount = val.yData ? val.yData.length : 0
-        nextTick(() => {
-          chartRef.value && chartRef.value.refresh()
-        })
-      },
-    )
-    // 注册点击事件
-    onMounted(() => {
-      // 如果click事件存在，则绑定事件
-      if (events.value.click) {
-        chartRef.value && chartRef.value.getInstance().on('click', onClick)
-      }
-    })
+// 初始化图表
+function initCharts() {
+  render.value = false
+  updateSeries()
+  config.value.color = themeColors.value
 
-    return {
-      chartRef,
-      config,
-      options,
-      drillData,
-      drillIndex,
-      drillFilters,
-      couldDrill,
-      dvScrollUp,
-    }
+  render.value = true
+  refreshChart()
+  // console.log('----------初始化图表配置项', config.value)
+}
+
+initCharts()
+
+// 更新series
+watch(
+  () => config.value.global,
+  () => {
+    updateSeries()
+  },
+  { deep: true },
+)
+
+// 设置seriesCount
+watch(
+  () => dvData.value,
+  () => {
+    apiData.value.config.seriesCount = dvData.value.yData ? dvData.value.yData.length : 0
+    initCharts()
+  },
+)
+
+// 主题更换的刷新
+watch([() => pageConfig.value.chartThemeColor, () => props.data.attr.chartThemeColor], () => {
+  initCharts()
+})
+
+const onClick = params => {
+  dvEmit('click', params)
+}
+// 注册点击事件
+onMounted(() => {
+  // 如果click事件存在，则绑定事件
+  if (events.value.click) {
+    chartRef.value && chartRef.value.getInstance().on('click', onClick)
+  }
+})
+
+// 获取响应事件
+const actions = {
+  getData(params, onEvent) {
+    const p = getEventParamsSexact(params, onEvent.actionParams)
+    buildParams(p)
+    setDvData()
+    // 执行对应脚本
+    useScriptAction(props.data, onEvent)
   },
 }
+// 事件系统增加
+useEventBus(props.data, actions)
+usePolling(setDvData, apiData.value.config)
 </script>

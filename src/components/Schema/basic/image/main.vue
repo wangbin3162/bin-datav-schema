@@ -11,66 +11,71 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { computed } from 'vue'
-export default {
+
+defineOptions({
   name: 'VImage',
-  props: {
-    data: {
-      type: Object,
-      required: true,
-    },
+})
+
+const props = defineProps({
+  data: {
+    type: Object,
+    required: true,
   },
-  setup(props) {
-    // config 配置项
-    const config = computed(() => props.data.config)
+})
 
-    const imageStyle = computed(() =>
-      config.value.imageType === 'image' ? getImgStyle() : getBorderStyle(),
-    )
+// config 配置项
+const config = computed(() => props.data.config)
 
-    function getImgStyle() {
-      const cfg = config.value
-      return {
-        'background-size': cfg.size,
-        'background-position': cfg.position,
-        'background-repeat': cfg.repeat,
-        'background-image': `url(${cfg.src})`,
-        'border-radius': `${cfg.radius}px`,
-        overflow: 'hidden',
-      }
-    }
+const imageStyle = computed(() =>
+  config.value.imageType === 'image' ? getImgStyle() : getBorderStyle(),
+)
 
-    function getBorderStyle() {
-      const { border } = config.value
-      return {
-        'border-radius': `${config.value.radius}px`,
-        'border-style': 'solid',
-        'border-width': `1px`,
-        background: 'none',
-        'border-image': `url(${config.value.src}) ${border.slice} / ${border.width} / ${border.outset} ${border.repeat}`,
-      }
-    }
+// shadow: {
+//       show: false,
+//       size: '0 0 5px',
+//       color: '#003a8c',
+//     },
 
-    return {
-      imageStyle,
-      config,
-    }
-  },
+function getImgStyle() {
+  const cfg = config.value
+
+  return {
+    'background-size': cfg.size,
+    'background-position': cfg.position,
+    'background-repeat': cfg.repeat,
+    'background-image': `url(${cfg.src})`,
+    'border-radius': `${cfg.radius}px`,
+    boxShadow: cfg.shadow.show ? `${cfg.shadow.size} ${cfg.shadow.color}` : null,
+    overflow: 'hidden',
+  }
+}
+
+function getBorderStyle() {
+  const { border, shadow } = config.value
+  return {
+    'border-radius': `${config.value.radius}px`,
+    'border-style': 'solid',
+    'border-width': `1px`,
+    background: 'none',
+    'border-image': `url(${config.value.src}) ${border.slice} / ${border.width} / ${border.outset} ${border.repeat}`,
+    boxShadow: shadow.show ? `${shadow.size} ${shadow.color}` : null,
+  }
 }
 </script>
 
-<style lang="stylus" scoped>
-.image-box{
+<style scoped>
+.image-box {
   position: relative;
   width: 100%;
   height: 100%;
   .url-a {
     position: absolute;
-    top:0;
-    left:0;
-    right:0;
-    bottom:0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 }
 </style>

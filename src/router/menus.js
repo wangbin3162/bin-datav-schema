@@ -1,21 +1,15 @@
 // default menu list
-export default [
-  {
-    name: 'DataCenter',
-    title: '数据中心',
-    icon: 'database',
-  },
-]
 
 // 基础
 export const HOME_PATH = 'Dashboard'
-export const HOME_NAME = '我的看板'
+export const HOME_NAME = '分析设计'
 export const ERROR_PATH_LIST = ['403', '404', '500']
-export const DASHBOARD_MENUS = [
+
+export const DEFAULT_MENUS = [
   {
     name: HOME_PATH,
     title: HOME_NAME,
-    icon: 'laptop',
+    icon: 'linechart',
   },
 ]
 
@@ -30,9 +24,7 @@ export const staticMenu = []
  * @param menus 接口返回的menus
  */
 export function getFilterMenus(menus = []) {
-  return [
-    ...DASHBOARD_MENUS,
-    ...menus,
-    ...staticMenu,
-  ]
+  return [...DEFAULT_MENUS, ...menus, ...staticMenu]
 }
+
+export default DEFAULT_MENUS

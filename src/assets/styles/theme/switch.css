@@ -1,0 +1,11 @@
+[theme-name='dark'] {
+  .bin-switch {
+    border: 1px solid var(--s-color-2);
+    background-color: var(--s-color-1);
+    box-shadow: none;
+
+    &.bin-switch-checked {
+      background-color: var(--bin-color-primary);
+    }
+  }
+}
