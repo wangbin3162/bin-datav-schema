@@ -3,12 +3,13 @@ import axios from 'axios'
 
 // 默认分组
 const defaultGroup = [
-  { key: 'bg', value: '背景图' },
+  { key: 'bg', value: '背景' },
   { key: 'header', value: '头部' },
   { key: 'box', value: '边框' },
-  { key: 'decoration', value: '装饰器' },
-  { key: 'widget', value: '小部件' },
+  { key: 'decoration', value: '装饰' },
+  { key: 'widget', value: '更多' },
 ]
+
 const defaultGroupKeys = defaultGroup.map(i => i.key)
 
 // 获取预设的图片资源

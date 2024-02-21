@@ -6,10 +6,10 @@
           <span class="mr-16">基础配置</span>
           <b-icon name="desktop"></b-icon>
         </b-radio>
-        <b-radio :label="1">
+        <!-- <b-radio :label="1">
           <span class="mr-16">脚本配置</span>
           <b-icon name="code"></b-icon>
-        </b-radio>
+        </b-radio> -->
       </b-radio-group>
     </div>
     <div class="page-config-content">
@@ -212,7 +212,11 @@
           </div>
         </div>
         <div v-if="curTabIndex === 1" class="page-config-wp">
-          <ScriptConfig :pageConfig="pageConfig" :paramsDesc="paramsDesc" :exampleDesc="exampleDesc" />
+          <ScriptConfig
+            :pageConfig="pageConfig"
+            :paramsDesc="paramsDesc"
+            :exampleDesc="exampleDesc"
+          />
         </div>
       </b-scrollbar>
     </div>

@@ -316,7 +316,6 @@ const { selectedCom } = storeToRefs(schemaStore)
 const isGroupChild = computed(() => !isEmpty(selectedCom.value.groupStyle))
 
 function rotateL() {
-  console.log(selectedCom.value)
   if (selectedCom.value.attr.rotate <= 0) return
   selectedCom.value.attr.rotate -= 90
 }

@@ -16,7 +16,7 @@ import {
   TRAPEZIUM_ECHART,
 } from '@/config/data-source'
 import { throwError, toJson, isEmpty, logger } from '@/utils/util'
-import { getModelDataById, compFetchData } from '@/api/modules/analysis-dashboard.api'
+import { getModelDataById } from '@/api/modules/analysis-dashboard.api'
 import { useStore } from '@/store'
 import { buildReqParams } from '@/config/utils'
 
@@ -72,21 +72,23 @@ export const useDataCenter = com => {
         const x = couldDrill.value && drillX ? [drillX] : config.x
         const tableFields = compType === SCROLL_TABLE ? config.tableModelFields : null
 
-        const lineData = baseList.includes(compType) ? {
-          x: x.map(item => ({
-            field: item.fieldId,
-            title: item.title,
-          })),
-          y: y.map(item => ({
-            field: item.fieldId,
-            title: item.title,
-            aggregator: item.aggregator,
-          })),
-          legend: legend.map(item => ({
-            field: item.fieldId,
-            title: item.title,
-          })),
-        } : null
+        const lineData = baseList.includes(compType)
+          ? {
+              x: x.map(item => ({
+                field: item.fieldId,
+                title: item.title,
+              })),
+              y: y.map(item => ({
+                field: item.fieldId,
+                title: item.title,
+                aggregator: item.aggregator,
+              })),
+              legend: legend.map(item => ({
+                field: item.fieldId,
+                title: item.title,
+              })),
+            }
+          : null
         if (!isEmpty(modelId)) {
           dvData.value = await getModelDataById({
             dimension: dimension,
@@ -117,17 +119,17 @@ export const useDataCenter = com => {
           : null
         const tableFields = compType === SCROLL_TABLE ? config.tableFields : null
         if (!isEmpty(config.serviceId)) {
-          dvData.value = await compFetchData({
-            serviceId: config.serviceId,
-            ...axisFields,
-            // nAmE: name,
-            ...boxFields,
-            ...mappingFields,
-            ...tableFields,
-            dimension: dimension,
-            ...params.value,
-            compType,
-          })
+          // dvData.value = await compFetchData({
+          //   serviceId: config.serviceId,
+          //   ...axisFields,
+          //   // nAmE: name,
+          //   ...boxFields,
+          //   ...mappingFields,
+          //   ...tableFields,
+          //   dimension: dimension,
+          //   ...params.value,
+          //   compType,
+          // })
           // 设置系列数量
           if (dvData.value.yData && dvData.value.yData.length > 0) {
             config.seriesCount = dvData.value.yData.length

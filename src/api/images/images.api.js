@@ -17,8 +17,7 @@ export async function getImagesGroup() {
   try {
     const data = await _getImagesGroupList()
     if (data) {
-      const list = deepCopy(defaultGroup)
-      return list.concat(data)
+      return data
     }
     await _setImagesGroup([])
     return []
@@ -85,7 +84,7 @@ export async function getImagesByGroup(groupKey) {
     const data = await _getImagesList()
     if (data) {
       // 根据返回的图片信息，获取拼接的组件列表
-      return data.filter(i => i.group === groupKey).reverse()
+      return data.filter(i => i.groupKey === groupKey).reverse()
     }
     return []
   } catch (e) {
@@ -116,7 +115,7 @@ export async function removeImage(groupKey, id) {
     // 先获取全部已存储的组件，并进行筛选
     const data = await _getImagesList()
     if (data) {
-      const images = data.filter(i => i.group === groupKey)
+      const images = data.filter(i => i.groupKey === groupKey)
       const index = findIndex(images, id)
       images.splice(index, 1)
       await _setImages(images)

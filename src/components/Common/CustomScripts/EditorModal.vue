@@ -178,16 +178,16 @@ defineExpose({
     /* background: #f5f6f7; */
     white-space: pre-wrap;
     line-height: 1.5715;
-  } 
-  :deep(.bin-collapse){
-    border: 0;
+  }
+  :deep(.bin-collapse) {
+    border: none;
     background-color: var(--schema-color-bg-2);
   }
-  :deep(.bin-collapse>.bin-collapse-item) {
-    border: 0;
+  :deep(.bin-collapse > .bin-collapse-item) {
+    border: none;
   }
-  :deep(.bin-collapse>.bin-collapse-item.bin-collapse-item-active>.bin-collapse-header){
-    border: 0;
+  :deep(.bin-collapse > .bin-collapse-item > .bin-collapse-header) {
+    border-bottom: 1px solid transparent;
   }
   :deep(.bin-collapse-content) {
     padding: 0;
@@ -195,13 +195,13 @@ defineExpose({
     .bin-collapse-content-box {
       padding: 0;
       color: #fafafa;
-      .tip{
+      .tip {
         color: #fff;
       }
     }
   }
 }
-:deep(.bin-skeleton.is-animated .bin-skeleton__item){
-  background: linear-gradient(90deg,#1e1e1f 25%,#232324 37%,#1e1e1f 63%)
+:deep(.bin-skeleton.is-animated .bin-skeleton__item) {
+  background: linear-gradient(90deg, #1e1e1f 25%, #232324 37%, #1e1e1f 63%);
 }
 </style>

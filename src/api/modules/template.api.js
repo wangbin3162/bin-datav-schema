@@ -26,6 +26,17 @@ export async function saveTemplate(tpl) {
 // 载入模板数据
 export async function loadTemplate(id) {
   try {
+    // 请求一个json
+    const path = getPublicPath(`/data/template/${id}.json`)
+    const res = await axios.get(path)
+    const v = res.data
+    return {
+      id: v.template.id,
+      name: v.template.name,
+      content: JSON.stringify(v),
+    }
+  } catch (e) {
+    // console.log(e)
     const data = await ldb.getItem(TEMPLATES_KEY)
     if (data) {
       // 存在表
@@ -40,8 +51,6 @@ export async function loadTemplate(id) {
       }
     }
     return null
-  } catch (e) {
-    return null
   }
 }
 
@@ -51,7 +60,7 @@ export async function removeTemplate(id) {
     const data = await ldb.getItem(TEMPLATES_KEY)
     if (data) {
       // 存在表
-      const index = data.findIndex(i => i.template.id === id)
+      const index = data.findIndex(i => i.id === id)
       data.splice(index, 1)
       await ldb.setItem(TEMPLATES_KEY, data)
     }
@@ -68,26 +77,27 @@ export async function getTemplateList(query) {
     if (data) {
       return {
         rows: data.map(v => ({
-          id: v.template.id,
-          name: v.template.name,
+          id: v.id,
+          name: v.name,
           content: JSON.stringify(v),
         })),
         total: data.length,
       }
     }
-    const path = getPublicPath('/data/mock/temp_list.json')
+    const path = getPublicPath('/data/template/temp_list.json')
     const res = await axios.get(path)
     const list = res.data
     await ldb.setItem(TEMPLATES_KEY, list)
     return {
       rows: list.map(v => ({
-        id: v.template.id,
-        name: v.template.name,
+        id: v.id,
+        name: v.name,
         content: JSON.stringify(v),
       })),
       total: list.length,
     }
   } catch (e) {
+    console.log(e)
     return { rows: [], total: 0 }
   }
 }

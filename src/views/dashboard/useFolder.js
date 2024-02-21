@@ -5,7 +5,7 @@ import {
   createFolder,
   getKanbanDir,
   modifyFolder,
-  removeKanban,
+  removeFolder,
 } from '@/api/modules/analysis-dashboard.api'
 
 const defaultValue = {
@@ -99,7 +99,7 @@ export default function useFolder() {
     })
       .then(async () => {
         try {
-          await removeKanban(id)
+          await removeFolder(id)
           toggleProject({ id: defaultValue.pid, name: defaultValue.name })
           getFolders()
           Message.success('删除成功！')
@@ -113,7 +113,7 @@ export default function useFolder() {
   // 获取模型分组列表
   const getFolders = () => {
     getKanbanDir().then(res => {
-      folderData.folderList = (res.data.children || []).map(v => ({ id: v.id, name: v.text }))
+      folderData.folderList = (res.children || []).map(v => ({ id: v.id, name: v.text }))
     })
   }
 

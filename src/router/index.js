@@ -1,5 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { LoadingBar, Notice } from 'bin-ui-design'
+import { LoadingBar, Message } from 'bin-ui-design'
 import { scrollBehavior } from './scrollBehavior'
 import { constantRoutes } from './routes'
 import { useStore } from '@/store'
@@ -51,7 +51,7 @@ async function getAccessToken(to) {
     cookies.set(ACCESS_TOKEN, to.query.token, {})
     return to.query.token
   } else {
-    await refreshToken()
+    // await refreshToken()
     return cookies.get(ACCESS_TOKEN)
   }
 }

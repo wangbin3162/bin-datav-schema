@@ -101,10 +101,10 @@
       </div>
       <h2 class="title-bar">模板</h2>
       <div class="template-list">
-        <div class="template-grid" v-for="tpl in templates" :key="tpl.id">
+        <div class="template-grid" v-for="tpl in templates" :key="tpl.template.id">
           <div
             class="template-item"
-            :class="{ selected: createValue.type === 'tpl' && createValue.tpl === tpl.id }"
+            :class="{ selected: createValue.type === 'tpl' && createValue.tpl === tpl.template.id }"
             @click="selectTpl(tpl)"
           >
             <div class="template-image">
@@ -198,7 +198,7 @@ const openCreate = () => {
 
 const selectTpl = tpl => {
   createValue.type = 'tpl'
-  createValue.tpl = tpl.id
+  createValue.tpl = tpl.template.id
 }
 
 const changeSize = ({ width, height }) => {
@@ -241,11 +241,7 @@ const getTplList = () => {
       } catch (e) {
         json = { pageConfig: {} }
       }
-      return {
-        id: item.id,
-        name: item.name,
-        pageConfig: json.pageConfig,
-      }
+      return json
     })
   })
 }

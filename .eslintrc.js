@@ -4,6 +4,7 @@ module.exports = {
     defineEmits: 'readonly',
     defineProps: 'readonly',
     defineExpose: 'readonly',
+    defineOptions: 'readonly',
   },
   parser: 'vue-eslint-parser',
   env: {

@@ -1,0 +1,12 @@
+[
+  {
+    "template": { "id": "temp_7370", "name": "测试模板" },
+    "pageConfig": {
+      "width": 1920,
+      "height": 1080,
+      "bgColor": "#0d2a42",
+      "bgImage": "/bin-datav-schema/images/bg/bg11.png",
+      "thumbnail": ""
+    }
+  }
+]

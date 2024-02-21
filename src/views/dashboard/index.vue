@@ -95,7 +95,7 @@ export default {
   font-size: 14px;
   overflow-y: auto;
   height: calc(100vh - 150px);
-  &-group {
+  .folder-manage-group {
     display: flex;
     align-items: center;
     justify-content: space-between;

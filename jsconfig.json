@@ -1,8 +1,4 @@
 {
-  "vueCompilerOptions": {
-    "experimentalDisableTemplateSupport": true,
-    "experimentalShamefullySupportOptionsApi": false
-  },
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

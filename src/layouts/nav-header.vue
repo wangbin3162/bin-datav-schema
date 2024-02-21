@@ -57,7 +57,6 @@
 import { MessageBox } from 'bin-ui-design'
 import { useRoute, useRouter } from 'vue-router'
 import { useStore } from '@/store'
-import { logout } from '@/api/modules/login.api'
 import config from '../../package.json'
 
 const version = config.version
@@ -89,7 +88,6 @@ function handleClick(name) {
       title: '确认退出登录吗？',
     })
       .then(async () => {
-        await logout()
         userStore.clearToken()
         router.push(`/login?redirect=${route.fullPath}`)
       })

@@ -40,7 +40,7 @@ import { ref, computed } from 'vue'
 import * as api from '@/api/images/images.api'
 import { defaultGroupKeys } from '@/api/images/default'
 import { throwError } from '@/utils/util'
-import { MessageBox } from "bin-ui-design"
+import { MessageBox } from 'bin-ui-design'
 
 const emit = defineEmits(['dragstart', 'click'])
 const props = defineProps({
@@ -76,11 +76,11 @@ async function imageUpload(files) {
       groupKey: props.groupId,
       name: file.name,
       attr: { w: file.width, h: file.height },
-      file: file.file,
+      // file: file.file,
+      src: file.image,
     }))
-    for (let i = 0; i < imgs.length; i++) {
-      await api.uploadImagesToGroup(imgs[i])
-    }
+
+    await api.uploadImagesToGroup(imgs)
     getCompList()
   } catch (error) {
     console.log(error)
@@ -89,17 +89,19 @@ async function imageUpload(files) {
 }
 
 // 移除一个图片
-async function removePic({ id }) {
+async function removePic({ groupKey, id }) {
   MessageBox.confirm({
     type: 'warning',
     title: '提示',
     message: '是否删除当前图片？',
-  }).then(async () => {
-    await api.removeImage(id)
-    getCompList()
-  }).catch((error) => {
-    console.log(error)
   })
+    .then(async () => {
+      await api.removeImage(groupKey, id)
+      getCompList()
+    })
+    .catch(error => {
+      console.log(error)
+    })
 }
 
 const dragStart = (e, comp) => emit('dragstart', e, comp)

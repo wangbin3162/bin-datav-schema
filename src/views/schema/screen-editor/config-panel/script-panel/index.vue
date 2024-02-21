@@ -73,7 +73,6 @@ const editorRef = ref(null)
 const params = computed(() => ['components', 'userInfo', 'util'].join(', '))
 
 function openEditor() {
-  console.log(pageConfig.value)
   const str = pageConfig.value.initScript.scriptStr
   editorRef.value?.open(str)
 }

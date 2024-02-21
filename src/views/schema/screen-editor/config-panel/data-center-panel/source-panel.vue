@@ -29,25 +29,27 @@
 
     <!--接口服务-->
     <div v-if="apiDataConfig.type === ApiType.service" style="padding: 0 10px">
-      <b-divider style="margin: 0 0 16px"></b-divider>
-      <ServiceData></ServiceData>
+      演示环境暂不支持
+      <!-- <b-divider style="margin: 0 0 16px"></b-divider>
+      <ServiceData></ServiceData> -->
     </div>
     <!-- 分析模型 -->
     <div v-if="apiDataConfig.type === ApiType.model" style="padding: 0 10px">
-      <b-divider style="margin: 0 0 16px"></b-divider>
-      <ModelData></ModelData>
+      演示环境暂不支持
+      <!-- <b-divider style="margin: 0 0 16px"></b-divider>
+      <ModelData></ModelData> -->
     </div>
   </div>
 </template>
 
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
-import {createDataSources, ApiType, }from '@/config/data-source'
+import { createDataSources, ApiType } from '@/config/data-source'
 import { loadAsyncComponent } from '@/utils/async-component'
 import { useStore } from '@/store'
 import { on, off } from '@/utils/util'
-import ServiceData from './ServiceData.vue'
-import ModelData from './ModelData.vue'
+// import ServiceData from './ServiceData.vue'
+// import ModelData from './ModelData.vue'
 
 const DataEditor = loadAsyncComponent(() => import('../components/data-editor.vue'))
 defineOptions({

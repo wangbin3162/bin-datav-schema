@@ -39,28 +39,6 @@
                   </template>
                 </b-input>
               </b-form-item>
-              <b-form-item prop="verycode">
-                <div flex="main:justify cross:center">
-                  <b-input
-                    type="text"
-                    v-model="formLogin.verycode"
-                    size="large"
-                    style="width: 70%"
-                    @keydown.enter="submit"
-                  >
-                    <template #prefix>
-                      <b-icon name="code" size="16"></b-icon>
-                    </template>
-                  </b-input>
-                  <img
-                    class="login-code"
-                    @click="refreshVerifyCode()"
-                    title="刷新"
-                    :src="verifyCodeUrl"
-                    alt="verycode"
-                  />
-                </div>
-              </b-form-item>
               <b-button
                 @click="submit"
                 :loading="loading"
@@ -79,7 +57,7 @@
 </template>
 
 <script setup>
-import { getVerifyCode, login } from '@/api/modules/login.api'
+import { login } from '@/api/modules/login.api'
 import { throwError } from '@/utils/util'
 import { defineAsyncComponent } from 'vue'
 import { useUserStoreWithOut } from '@/store/modules/user'
@@ -96,8 +74,8 @@ const BackgroundParticles = defineAsyncComponent(() =>
 )
 
 const formLogin = ref({
-  username: '',
-  password: '',
+  username: 'admin',
+  password: '123456',
   verycode: '',
   uuid: '',
 })
@@ -106,10 +84,10 @@ const loading = ref(false)
 const rules = {
   username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-  verycode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+  // verycode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 }
 
-const verifyCodeUrl = ref('')
+// const verifyCodeUrl = ref('')
 
 const userStore = useUserStoreWithOut()
 const router = useRouter()
@@ -117,19 +95,19 @@ const route = useRoute()
 const loginFormRef = ref(null)
 const title = ref(config.description)
 
-refreshVerifyCode()
+// refreshVerifyCode()
 
 // 刷新验证码
-async function refreshVerifyCode() {
-  try {
-    const { img, uuid } = await getVerifyCode()
-    verifyCodeUrl.value = 'data:image/png;base64,' + img
-    formLogin.value.verycode = ''
-    formLogin.value.uuid = uuid
-  } catch (e) {
-    throwError('login/getVerifyCode', e)
-  }
-}
+// async function refreshVerifyCode() {
+//   try {
+//     const { img, uuid } = await getVerifyCode()
+//     verifyCodeUrl.value = 'data:image/png;base64,' + img
+//     formLogin.value.verycode = ''
+//     formLogin.value.uuid = uuid
+//   } catch (e) {
+//     throwError('login/getVerifyCode', e)
+//   }
+// }
 
 // 提交登录信息
 async function submit() {
