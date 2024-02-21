@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 21.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 438 512" style="enable-background:new 0 0 438 512;" width="438px" height="512px" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#826317;}
+	.st1{fill:#464244;}
+	.st2{fill:#6E6B6C;}
+	.st3{fill:#5B4106;}
+	.st4{fill:#A58F32;}
+	.st5{fill:#1B1717;}
+	.st6{fill:#896B3B;}
+	.st7{fill:#937231;}
+	.st8{fill:url(#SVGID_1_);}
+</style>
+<g>
+	<path class="st0" d="M437.8,460.1L379.8,41c-1.5-11-9.1-20.3-19.6-23.6C301.1-1.3,218.7,0,218.7,0S136.2-1.2,77.1,17.6
+		c-10.4,3.3-18,12.6-19.5,23.6L0.2,460.4c-1.5,10.6,4.7,20.8,14.6,24.4c27.9,10.1,92,27.3,204.2,27.2
+		c112.2-0.1,176.3-17.4,204.2-27.5C433.2,480.9,439.3,470.7,437.8,460.1z"/>
+	<path class="st1" d="M14.6,355.4L0.2,460.4c-1.5,10.6,4.7,20.8,14.6,24.4c27.9,10.1,92,27.3,204.2,27.2
+		c112.2-0.1,176.3-17.4,204.2-27.5c9.9-3.6,16-13.8,14.6-24.4l-14.9-107.4C290.4,377,154.2,377.1,14.6,355.4z"/>
+	<path class="st2" d="M29.3,489.6c17.7,5.3,43.2,11.4,77.8,15.8l4.2-138.5c-21.9-1.8-44-4.2-66.1-7.2L29.3,489.6z"/>
+	<g>
+		<g>
+			<path class="st3" d="M395,345.5L357.1,54.9c-1-7.9-7.6-13.7-15.4-13.7l-9.1,0l17.8,310.4C365.3,349.8,380.1,347.8,395,345.5z"/>
+		</g>
+	</g>
+	<path class="st4" d="M71.6,33.3l292.1-0.2C363.6,33.1,206.9-6.2,71.6,33.3z"/>
+	<path class="st5" d="M13.3,364.6c22.5,4,109.9,18.5,205.6,18.5c95.7-0.1,183.1-14.7,205.6-18.8l-1.6-11.6
+		c-132.5,24.3-268.8,24.4-408.3,2.7L13.3,364.6z"/>
+	<path class="st5" d="M423.2,484.5c9.9-3.6,16-13.8,14.6-24.4l-0.7-5.1c-30.9,14.4-97.9,36.6-218.1,37.1
+		C98.9,491.8,31.8,469.7,0.9,455.3l-0.7,5.1c-1.5,10.6,4.7,20.8,14.6,24.4c27.9,10.1,92,27.3,204.2,27.2
+		C331.2,511.9,395.3,494.6,423.2,484.5z"/>
+	<path class="st6" d="M111.6,354.7l9.5-313.3l-19.5,0c-10,0-18.4,7.6-19.6,17.7L46.7,347.4C64.1,349.9,85.8,352.5,111.6,354.7z"/>
+	<ellipse class="st3" cx="218.8" cy="215.8" rx="94.9" ry="96.8"/>
+	<ellipse class="st7" cx="218.8" cy="215.8" rx="85.4" ry="87.1"/>
+	
+		<radialGradient id="SVGID_1_" cx="218.1655" cy="240.6737" r="26.9545" gradientTransform="matrix(2.5109 -1.876293e-03 1.854450e-03 2.56 -329.4258 -399.942)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0" style="stop-color:#FFFFFF"/>
+		<stop  offset="0" style="stop-color:#FDFCFB;stop-opacity:0.9987"/>
+		<stop  offset="0" style="stop-color:#F6F4EF;stop-opacity:0.9974"/>
+		<stop  offset="0" style="stop-color:#EBE6DA;stop-opacity:0.9961"/>
+		<stop  offset="0" style="stop-color:#DCD3BE;stop-opacity:0.9947"/>
+		<stop  offset="0" style="stop-color:#C8BA99;stop-opacity:0.9934"/>
+		<stop  offset="0" style="stop-color:#B09C6C;stop-opacity:0.9921"/>
+		<stop  offset="0" style="stop-color:#947938;stop-opacity:0.9907"/>
+		<stop  offset="0" style="stop-color:#826317;stop-opacity:0.99"/>
+		<stop  offset="0.141" style="stop-color:#84651C;stop-opacity:0.8504"/>
+		<stop  offset="0.304" style="stop-color:#886D2A;stop-opacity:0.689"/>
+		<stop  offset="0.4779" style="stop-color:#8F7941;stop-opacity:0.5168"/>
+		<stop  offset="0.6595" style="stop-color:#998961;stop-opacity:0.3371"/>
+		<stop  offset="0.8451" style="stop-color:#A69E8B;stop-opacity:0.1533"/>
+		<stop  offset="1" style="stop-color:#B3B3B3;stop-opacity:0"/>
+	</radialGradient>
+	<ellipse class="st8" cx="218.8" cy="215.8" rx="67.7" ry="69"/>
+	<path class="st5" d="M359,500.9c23.6-4.2,41.5-9,54.5-13.1l-17-130.6c-15.1,2.4-30.2,4.5-45.4,6.2L359,500.9z"/>
+</g>
+</svg>

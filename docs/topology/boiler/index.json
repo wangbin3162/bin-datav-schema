@@ -1,0 +1,74 @@
+[
+  {
+    "name": "锅炉-01",
+    "src": "boiler-01.svg",
+    "attr": {
+      "w": 135,
+      "h": 88
+    }
+  },
+  {
+    "name": "锅炉-02",
+    "src": "boiler-02.svg",
+    "attr": {
+      "w": 99,
+      "h": 91
+    }
+  },
+  {
+    "name": "锅炉-03",
+    "src": "boiler-03.svg",
+    "attr": {
+      "w": 77,
+      "h": 91
+    }
+  },
+  {
+    "name": "锅炉-04",
+    "src": "boiler-04.svg",
+    "attr": {
+      "w": 91,
+      "h": 91
+    }
+  },
+  {
+    "name": "锅炉-05",
+    "src": "boiler-05.svg",
+    "attr": {
+      "w": 76,
+      "h": 91
+    }
+  },
+  {
+    "name": "锅炉-06",
+    "src": "boiler-06.svg",
+    "attr": {
+      "w": 116,
+      "h": 90
+    }
+  },
+  {
+    "name": "锅炉-07",
+    "src": "boiler-07.svg",
+    "attr": {
+      "w": 142,
+      "h": 88
+    }
+  },
+  {
+    "name": "锅炉-08",
+    "src": "boiler-08.svg",
+    "attr": {
+      "w": 69,
+      "h": 92
+    }
+  },
+  {
+    "name": "锅炉-09",
+    "src": "boiler-09.svg",
+    "attr": {
+      "w": 107,
+      "h": 90
+    }
+  }
+]

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs/>
+    <svg width='100%' height='100%' viewBox="0 0 100 100" databind="databindHide">
+        <linearGradient id='autoId_rightValve_horPipeGrad' y1='-20%' x1='0%' y2='100%' x2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#303030'/>
+            <stop  offset='40%' stop-color='#D0D0D0'/>
+            <stop  offset='100%'  stop-color='#303030'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightValve_horPipeGrad2' y1='-20%' x1='0%' y2='100%' x2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#006400'/>
+            <stop  offset='40%' stop-color='#98FB98'/>
+            <stop  offset='100%'  stop-color='#006400'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightValve_vertPipeGrad' x1='-20%' y1='0%' x2='100%' y2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#303030'/>
+            <stop  offset='40%' stop-color='#D0D0D0'/>
+            <stop  offset='100%'  stop-color='#303030'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightValve_vertPipeGrad2' x1='-20%' y1='0%' x2='100%' y2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#006400'/>
+            <stop  offset='40%' stop-color='#98FB98'/>
+            <stop  offset='100%'  stop-color='#006400'/>
+        </linearGradient>
+
+        <g style="display: none;" databind="databind1">
+            <rect x='25%' y='45%' rx='0%' ry='0%' width='50%' height='10%' style="fill: url('#autoId_rightValve_horPipeGrad');"/>
+            <path d="M58,44 L60,56 M53,44 L55,56 M48,44 L50,56 M43,44 L45,56 M38,44 L40,56 M33,44 L35,56 M28,44 L30,56 M23,44 L25,56 "
+                  stroke='#006400' stroke-width="2" opacity="0.7"/>
+
+            <rect x='75%' y='5%' rx='10%' ry='10%' width='20%' height='90%' style="fill: url('#autoId_rightValve_vertPipeGrad');"/>
+        </g>
+        <rect x='0%' y='25%' rx='0' ry='0' width='5%' height='50%' style="fill: url('#autoId_rightValve_horPipeGrad');"/>
+        <rect  x='5%' y='30%' rx='5%' ry='5%' width='20%' height='40%' style="fill: url('#autoId_rightValve_horPipeGrad');"/>
+        <g style="display: block;" databind="databind2">
+            <rect x='25%' y='45%' rx='0%' ry='0%' width='15%' height='10%' style="fill: url('#autoId_rightValve_horPipeGrad');"/>
+            <rect x='40%' y='5%' rx='10%' ry='10%' width='20%' height='90%' style="fill: url('#autoId_rightValve_vertPipeGrad');"/>
+
+            <circle cx='50%' cy='50%' r='25%' style="fill: #FF0000;fill-rule: evenodd;stroke-width: 0px;stroke-opacity: 0;fill-opacity:0.5;" />
+            <circle cx='50%' cy='50%' r='22%' style="fill: transparent;stroke: #FFFFFF;stroke-width: 2%;stroke-opacity: 0.5;fill-opacity:0;" />
+
+            <rect  x='35%' y='45%' rx='0%' ry='0%' width='30%' height='10%' style="fill: #FFFFFF;fill-rule: evenodd;stroke-width: 0px;stroke-opacity: 0;fill-opacity:0.5;" />
+        </g>
+    </svg>
+
+</svg>

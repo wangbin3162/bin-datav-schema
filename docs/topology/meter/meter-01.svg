@@ -1,0 +1,81 @@
+<svg height="124" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 154 124.014" width="154" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="lg1" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#b5b5b5" offset="0"/>
+            <stop stop-color="#ffffff" offset="0.03"/>
+            <stop stop-color="#ebebeb" offset="0.08"/>
+            <stop stop-color="#e7e7e7" offset="0.64"/>
+            <stop stop-color="#e2e2e2" offset="0.95"/>
+            <stop stop-color="#a8a8a8" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg2" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#b3a593" offset="0"/>
+            <stop stop-color="#fdeeda" offset="0.03"/>
+            <stop stop-color="#e9d7bf" offset="0.08"/>
+            <stop stop-color="#e5d3bc" offset="0.64"/>
+            <stop stop-color="#e0ceb8" offset="0.95"/>
+            <stop stop-color="#a69988" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg3" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#292525" offset="0"/>
+            <stop stop-color="#868584" offset="0.02"/>
+            <stop stop-color="#383433" offset="0.02"/>
+            <stop stop-color="#373332" offset="0.64"/>
+            <stop stop-color="#363130" offset="0.95"/>
+            <stop stop-color="#252221" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg4" y1="0%" x1="0%" x2="100%" y2="0%">
+            <stop stop-color="#555454" offset="0"/>
+            <stop stop-color="#807f7f" offset="0.15"/>
+            <stop stop-color="#c2c2c2" offset="0.25"/>
+            <stop stop-color="#626161" offset="0.44"/>
+            <stop stop-color="#565656" offset="0.6"/>
+            <stop stop-color="#484747" offset="0.8"/>
+            <stop stop-color="#414040" offset="0.97"/>
+            <stop stop-color="#595858" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg5" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#b1926a" offset="0"/>
+            <stop stop-color="#fbdab3" offset="0.03"/>
+            <stop stop-color="#e6be8c" offset="0.08"/>
+            <stop stop-color="#e3bb89" offset="0.64"/>
+            <stop stop-color="#ddb786" offset="0.95"/>
+            <stop stop-color="#a48762" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg6" y1="0%" x1="0%" x2="0%" y2="100%">
+            <stop stop-color="#bac0c1" offset="0"/>
+            <stop stop-color="#f4fafc" offset="0.15"/>
+            <stop stop-color="#f8fcfd" offset="0.25"/>
+            <stop stop-color="#d5dbdd" offset="0.44"/>
+            <stop stop-color="#bdc3c4" offset="0.6"/>
+            <stop stop-color="#a0a4a6" offset="0.8"/>
+            <stop stop-color="#929697" offset="0.97"/>
+            <stop stop-color="#c2c7c9" offset="1"/>
+        </linearGradient>
+        <linearGradient id="lg7" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#bac0c1" offset="0"/>
+            <stop stop-color="#f4fafc" offset="0.15"/>
+            <stop stop-color="#f8fcfd" offset="0.25"/>
+            <stop stop-color="#d5dbdd" offset="0.44"/>
+            <stop stop-color="#bdc3c4" offset="0.6"/>
+            <stop stop-color="#a0a4a6" offset="0.8"/>
+            <stop stop-color="#929697" offset="0.97"/>
+            <stop stop-color="#c2c7c9" offset="1"/>
+        </linearGradient>
+    </defs>
+    <g transform="translate(1.02,1.01)">
+        <path id="shape1" d="M131.2,.3L131.2,33.1C131.2,33.8,130.6,34.5,129.8,34.5L1.4,34.5C.6,34.5,0,33.8,0,33.1L0,.3C0,.3,131.2,-0.4,131.2,.3z" fill="url(#lg1)" transform="translate(17.43,87.53)"/>
+        <path id="shape2" d="M0,0L35.2,39L71.2,0L0,0z" fill="url(#lg2)" transform="translate(46.79,80.48)"/>
+        <path id="shape3" d="M1.4,0L137.8,0C138.5,0,139.2,.6,139.2,1.4L139.2,86.6C139.2,87.4,138.5,88,137.8,88L1.4,88C.6,88,0,87.4,0,86.6L0,1.4C0,.6,.6,0,1.4,0z" fill="url(#lg3)" transform="translate(12.83,-0.01)"/>
+        <path id="shape4" d="M0,0L120.6,0L120.6,73L0,73L0,0z" fill="#dde4ed" transform="translate(22.09,7.51)"/>
+        <path stroke="#000000" id="shape5" d="M0,11.4L5.5,16.2C5.5,16.2,50,-20.3,95.8,16.2L101.7,10.4" fill="none" transform="translate(31.73,20.19)"/>
+        <path stroke="#000000" id="shape6" d="M2.4,5.4L0,0" fill="none" transform="translate(62.57,17.01)"/>
+        <path stroke="#000000" id="shape7" d="M2.4,5.4L0,0" fill="none" transform="matrix(-1,0,0,1,103.1,17)"/>
+        <path id="shape8" d="M1.4,0C2.6,0,3.3,43.5,3.3,43.5C3.3,44.3,2.6,44.9,1.9,44.9C.6,44.9,-0,44.3,-0,43.5C-0,43.5,.6,0,1.4,0z" fill="url(#lg4)" transform="matrix(-0.71,0.71,0.71,0.71,40.8,37.5)"/>
+        <path id="shape9" d="M0,13.5C0,13.5,30.7,-17,71.2,13.5L0,13.5z" fill="url(#lg5)" transform="translate(46.79,66.98)"/>
+        <path id="shape10" d="M0,10.6C0,10.6,26.3,-13.3,60.9,10.6L0,10.6z" fill="url(#lg2)" transform="translate(51.95,69.9)"/>
+        <path id="shape11" d="M1.4,0L11.5,0C12.3,0,12.9,.6,12.9,1.4L12.9,25.4C12.9,26.2,12.3,26.8,11.5,26.8L1.4,26.8C.6,26.8,0,26.2,0,25.4L0,1.4C0,.6,.6,0,1.4,0z" fill="url(#lg6)" transform="translate(-0.02,21.59)"/>
+        <path id="shape12" d="M0,6.4C0,2.9,2.9,0,6.4,0C10,0,12.8,2.9,12.8,6.4C12.8,10,10,12.8,6.4,12.8C2.9,12.8,0,10,0,6.4z" fill="url(#lg7)" transform="translate(75.62,103.6)"/>
+        <path id="shape13" d="M-0,18.6L7.3,0L10.1,0L17.9,18.6L15,18.6L12.8,13L4.8,13L2.7,18.6L-0,18.6zM5.5,11L12,11L10,5.8C9.4,4.2,8.9,3,8.6,1.9C8.4,3.1,8.1,4.3,7.6,5.5L5.5,11z" fill="#595757" transform="translate(73.07,29.2)"/>
+    </g>
+</svg>

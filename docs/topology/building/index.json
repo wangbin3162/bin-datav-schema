@@ -1,0 +1,50 @@
+[
+  {
+    "name": "建筑-01",
+    "src": "building-01.png",
+    "attr": {
+      "w": 800,
+      "h": 546
+    }
+  },
+  {
+    "name": "建筑-02",
+    "src": "building-02.png",
+    "attr": {
+      "w": 800,
+      "h": 789
+    }
+  },
+  {
+    "name": "建筑-03",
+    "src": "building-03.png",
+    "attr": {
+      "w": 800,
+      "h": 579
+    }
+  },
+  {
+    "name": "建筑-04",
+    "src": "building-04.png",
+    "attr": {
+      "w": 800,
+      "h": 883
+    }
+  },
+  {
+    "name": "建筑-05",
+    "src": "building-05.png",
+    "attr": {
+      "w": 800,
+      "h": 695
+    }
+  },
+  {
+    "name": "建筑-06",
+    "src": "building-06.png",
+    "attr": {
+      "w": 800,
+      "h": 537
+    }
+  }
+]

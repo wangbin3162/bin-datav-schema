@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="58px" viewBox="0 0 64 58" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>web/icon-餐饮</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="62.4" height="62.4"></rect>
+        <filter x="-44.3%" y="-58.7%" width="188.5%" height="217.4%" filterUnits="objectBoundingBox" id="filter-3">
+            <feGaussianBlur stdDeviation="6.24" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="77.943555%" y1="26.4497653%" x2="0%" y2="141.89219%" id="linearGradient-4">
+            <stop stop-color="#12FEE0" offset="0%"></stop>
+            <stop stop-color="#026DB2" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="大数据可视化科技智慧智能统计后台监管中心" transform="translate(-926.000000, -203.000000)">
+            <g id="原创-center" transform="translate(375.000000, 122.000000)">
+                <g id="编组-52">
+                    <g id="web/icon-家居" transform="translate(552.000000, 76.000000)">
+                        <g id="编组-11" transform="translate(-0.201923, -0.201923)">
+                            <mask id="mask-2" fill="white">
+                                <use xlink:href="#path-1"></use>
+                            </mask>
+                            <g id="蒙版"></g>
+                            <g mask="url(#mask-2)">
+                                <g transform="translate(7.626667, 4.853333)">
+                                    <ellipse id="椭圆形" fill="#000000" opacity="0.300000012" filter="url(#filter-3)" cx="23.2266667" cy="33.9733333" rx="21.1466667" ry="15.9466667"></ellipse>
+                                    <g id="web/icon-家居备份-2" stroke-width="1" fill="none">
+                                        <g id="家居" fill-rule="nonzero">
+                                            <g id="编组" transform="translate(0.346667, 0.346667)">
+                                                <g id="形状-2" fill="url(#linearGradient-4)">
+                                                    <path d="M46.4055895,20.1636347 L24.2302225,0.312557615 C23.7611282,-0.104185872 23.0361642,-0.104185872 22.5670699,0.312557615 L0.391702905,20.1636347 C-0.41855089,20.8914683 0.11146475,22.2003951 1.2202331,22.2003951 L3.80938997,22.2003951 L3.80938997,45.6143354 C3.80938997,46.265864 4.36377414,46.8 5.04000099,46.8 L41.5623431,46.8 C42.23857,46.8 42.7929541,46.265864 42.7929541,45.6143354 L42.7929541,22.2003951 L45.5770593,22.2003951 C46.6858276,22.2003951 47.2219354,20.8914683 46.4055895,20.1636347 Z" id="形状"></path>
+                                                </g>
+                                                <g id="编组-44" transform="translate(12.133333, 24.266667)" fill="#058AA7">
+                                                    <rect id="矩形" x="-3.72176364e-13" y="-3.72176364e-13" width="5.2" height="5.2"></rect>
+                                                    <rect id="矩形" x="8.46629256" y="-3.72176364e-13" width="5.2" height="5.2"></rect>
+                                                    <rect id="矩形" x="16.9726599" y="0" width="5.2" height="5.2"></rect>
+                                                    <rect id="矩形" x="-3.72176364e-13" y="8.46629256" width="5.2" height="5.2"></rect>
+                                                    <rect id="矩形" x="8.46629256" y="8.46629256" width="5.2" height="5.2"></rect>
+                                                    <rect id="矩形" x="16.9726599" y="8.46629256" width="5.2" height="5.2"></rect>
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

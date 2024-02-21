@@ -1,0 +1,47 @@
+<svg height="154" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 152 154" width="152" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="lg1" y1="0%" x1="100%" x2="0%" y2="0%">
+            <stop stop-color="#9b9b9c" offset="0"/>
+            <stop stop-color="#e4e4e4" offset="0.02"/>
+            <stop stop-color="#cbcbcb" offset="0.02"/>
+            <stop stop-color="#c7c7c8" offset="0.64"/>
+            <stop stop-color="#c3c3c4" offset="0.95"/>
+            <stop stop-color="#909091" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientUnits="userSpaceOnUse" id="lg2" y1="40" x1="-6" x2="58" y2="16">
+            <stop stop-color="#000000" offset="0"/>
+            <stop stop-color="#454545" offset="0.15"/>
+            <stop stop-color="#b3b3b3" offset="0.25"/>
+            <stop stop-color="#000000" offset="0.44"/>
+            <stop stop-color="#000000" offset="0.6"/>
+            <stop stop-color="#000000" offset="0.8"/>
+            <stop stop-color="#000000" offset="0.97"/>
+            <stop stop-color="#000000" offset="1"/>
+        </linearGradient>
+        <linearGradient gradientUnits="userSpaceOnUse" id="lg3" y1="2" x1="9" x2="-1" y2="6">
+            <stop stop-color="#424141" offset="0"/>
+            <stop stop-color="#6d6c6c" offset="0.15"/>
+            <stop stop-color="#bcbcbc" offset="0.25"/>
+            <stop stop-color="#4d4b4b" offset="0.44"/>
+            <stop stop-color="#434242" offset="0.6"/>
+            <stop stop-color="#383636" offset="0.8"/>
+            <stop stop-color="#323131" offset="0.97"/>
+            <stop stop-color="#454444" offset="1"/>
+        </linearGradient>
+    </defs>
+    <g transform="translate(1,1)">
+        <path id="shape1" d="M2.4,0L147.5,0C148.9,0,150,1.1,150,2.4L150,149.5C150,150.9,148.9,152,147.5,152L2.4,152C1.1,152,0,150.9,0,149.5L0,2.4C0,1.1,1.1,0,2.4,0z" fill="url(#lg1)"/>
+        <path id="shape2" d="M2.4,0L129,0C130.3,0,131.4,1.1,131.4,2.4L131.4,85.2L81.8,133.8L2.4,133.8C1,133.8,0,132.6,0,131.3L0,2.4C0,1.1,1,0,2.4,0z" fill="#888889" transform="translate(9.3,9.11)"/>
+        <path id="shape3" d="M2.3,0L124.1,0C125.4,0,126.5,1,126.5,2.3L126.5,82.1L78.7,128.8L2.3,128.8C1,128.8,0,127.7,0,126.4L0,2.3C0,1,1,0,2.3,0z" fill="#eeeeee" transform="translate(12.05,12.21)"/>
+        <path id="shape4" d="M0,0L46.9,56L52.4,50.4L0,0z" fill="url(#lg2)" transform="translate(47.23,43.26)"/>
+        <path stroke="#000000" id="shape5" d="M0,0L13.7,0" fill="none" transform="translate(26.65,111.27)"/>
+        <path stroke="#000000" id="shape6" d="M0,0L12,5.5" fill="none" transform="translate(31.86,73.23)"/>
+        <path stroke="#000000" id="shape7" d="M0,0L6.2,10.4" fill="none" transform="translate(73.5,30.25)"/>
+        <path stroke="#000000" id="shape8" d="M0,0L0,12.4" fill="none" transform="translate(114.5,23.41)"/>
+        <path id="shape9" d="M0,0L41.4,0L41.4,15.3L0,15.3L0,0z" fill="#ffffff" fill-opacity="0.82" transform="translate(18.41,19.51)"/>
+        <path id="shape10" d="M0,34.4C0,14.9,15.6,-0.1,34,-0.1C34,.7,33.2,69.4,33.2,69.4C14.9,69.4,0,53.9,0,34.4z" fill="#ffdead" transform="matrix(0.71,0.71,-0.71,0.71,115.2,68.9)"/>
+        <path id="shape11" d="M0,32.5C0,14.1,14.7,-0.1,32.1,-0.1C32.1,.6,31.4,65.6,31.4,65.6C14,65.6,0,50.9,0,32.5z" fill="#fde9d0" transform="matrix(0.71,0.71,-0.71,0.71,114.9,71.4)"/>
+        <path id="shape12" d="M0,4.3C0,1.9,1.9,0,4.3,0C6.6,0,8.5,1.9,8.5,4.3C8.5,6.6,6.6,8.5,4.3,8.5C1.9,8.5,0,6.6,0,4.3z" fill="url(#lg3)" transform="translate(71.59,130.2)"/>
+        <path id="shape13" d="M0,4.3C0,1.9,1.9,0,4.3,0C6.6,0,8.5,1.9,8.5,4.3C8.5,6.6,6.6,8.5,4.3,8.5C1.9,8.5,0,6.6,0,4.3z" fill="url(#lg3)" transform="translate(126.74,75.36)"/>
+    </g>
+</svg>

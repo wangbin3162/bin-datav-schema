@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs/>
+    <svg width='100%' height='100%' viewBox="0 0 100 100" databind="databindHide">
+        <linearGradient id='autoId_rightTway_horPipeGrad' y1='-20%' x1='0%' y2='100%' x2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#303030'/>
+            <stop  offset='40%' stop-color='#D0D0D0'/>
+            <stop  offset='100%' stop-color='#303030'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightTway_horPipeGrad2' y1='-20%' x1='0%' y2='100%' x2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#006400'/>
+            <stop  offset='40%' stop-color='#98FB98'/>
+            <stop  offset='100%' stop-color='#006400'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightTway_horFillGrad' x1='0%' y1='-50%' x2='0%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#FFFFFF'/>
+            <stop  offset='75%' stop-color='#0000FF'/>
+            <stop  offset='150%' stop-color='#FFFFFF'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightTway_horFillGrad2' x1='0%' y1='-50%' x2='0%' y2='150%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#EEE8AA'/>
+            <stop  offset='75%' stop-color='#800000'/>
+            <stop  offset='150%' stop-color='#EEE8AA'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightTway_vertPipeGrad' x1='-20%' y1='0%' x2='100%' y2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#303030'/>
+            <stop  offset='40%' stop-color='#D0D0D0'/>
+            <stop  offset='100%'  stop-color='#303030'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightTway_vertPipeGrad2' x1='-20%' y1='0%' x2='100%' y2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-20%' stop-color='#006400'/>
+            <stop  offset='40%' stop-color='#98FB98'/>
+            <stop  offset='100%'  stop-color='#006400'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightTway_vertFillGrad' x1='-50%' y1='0%' x2='150%' y2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#FFFFFF'/>
+            <stop  offset='75%' stop-color='#0000FF'/>
+            <stop  offset='150%' stop-color='#FFFFFF'/>
+        </linearGradient>
+        <linearGradient id='autoId_rightTway_vertFillGrad2' x1='-50%' y1='0%' x2='150%' y2='0%' gradientUnits='objectBoundingBox'>
+            <stop  offset='-50%' stop-color='#EEE8AA'/>
+            <stop  offset='75%' stop-color='#800000'/>
+            <stop  offset='150%' stop-color='#EEE8AA'/>
+        </linearGradient>
+        <rect x='30%' y='0%' width='40%' height='100%' style="fill: url('#autoId_rightTway_vertPipeGrad');"/>
+        <!--<rect x='30%' y='0%' width='40%' height='100%' style="fill: url('#autoId_rightTway_vertPipeGrad2');display:none;"/>-->
+        <path d="M100,30 L70,30 L50,50 L70,70 L100,70 Z" style="fill: url('#autoId_rightTway_horPipeGrad');"/>
+        <!--<path d="M100,30 L70,30 L50,50 L70,70 L100,70 Z" style="fill: url('#autoId_rightTway_horPipeGrad2');display:none;"/>-->
+        <g style="display: none;" databind="databind1">
+            <rect x='40%' y='0%' width='20%' height='100%' style="fill: url('#autoId_rightTway_vertFillGrad');"/>
+            <!--<rect x='40%' y='0%' width='20%' height='100%' style="fill: url('#autoId_rightTway_vertFillGrad2');display:block;"/>-->
+
+            <path d="M100,40 L60,40 L50,50 L60,60 L100,60 Z" style="fill: url('#autoId_rightTway_horFillGrad');"/>
+            <!--<path d="M100,40 L60,40 L50,50 L60,60 L100,60 Z" style="fill: url('#autoId_rightTway_horFillGrad2');display:block;"/>-->
+        </g>
+    </svg>
+
+</svg>

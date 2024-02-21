@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="171px" height="191px" viewBox="0 0 171 191" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>编组 62</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="50.8921694%" x2="0%" y2="50%" id="linearGradient-1">
+            <stop stop-color="#DAA254" offset="0%"></stop>
+            <stop stop-color="#DB9E50" stop-opacity="0.295555876" offset="24.3801432%"></stop>
+            <stop stop-color="#DB9D4E" stop-opacity="0" offset="49.2482844%"></stop>
+            <stop stop-color="#DC9F4F" stop-opacity="0.224693714" offset="75.1232369%"></stop>
+            <stop stop-color="#E0A652" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#CB1F74" offset="0%"></stop>
+            <stop stop-color="#D41775" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-3">
+            <stop stop-color="#7F2C0D" stop-opacity="0.793018261" offset="0%"></stop>
+            <stop stop-color="#B01E43" stop-opacity="0.906629208" offset="82.225756%"></stop>
+            <stop stop-color="#D81270" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#C85D33" stop-opacity="0.706273219" offset="0%"></stop>
+            <stop stop-color="#E3AC55" offset="100%"></stop>
+        </linearGradient>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-5">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-6">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-7">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-8">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-9">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-10">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-11">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-12">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-13">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-14">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-15">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-16">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-17">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-18">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-19">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-20">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-21">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-22">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-23">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-24">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-25">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-26">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-27">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-50.0%" y="-50.0%" width="200.0%" height="200.0%" filterUnits="objectBoundingBox" id="filter-28">
+            <feGaussianBlur stdDeviation="1" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-31.4%" y="-83.0%" width="162.7%" height="266.1%" filterUnits="objectBoundingBox" id="filter-29">
+            <feGaussianBlur stdDeviation="9.41176471" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="0103科技感可视化大数据智慧税务统计大屏展示平台" transform="translate(-1163.000000, -215.000000)">
+            <g id="编组-68" transform="translate(586.000000, 147.000000)">
+                <g id="编组-67" transform="translate(577.000000, 68.000000)">
+                    <g id="编组-62">
+                        <g id="编组-57备份">
+                            <g id="编组-55">
+                                <ellipse id="椭圆形" stroke="url(#linearGradient-1)" stroke-width="3" cx="85.5" cy="157" rx="84" ry="32.5"></ellipse>
+                                <ellipse id="椭圆形" fill="#84321F" cx="85.5" cy="152" rx="73.5" ry="29"></ellipse>
+                                <ellipse id="椭圆形" fill="url(#linearGradient-2)" cx="86" cy="150" rx="65" ry="23"></ellipse>
+                                <path d="M151,34 L151,151 L150.939597,151.000588 C149.459139,163.238929 120.951055,173 86,173 C51.0489453,173 22.540861,163.238929 21.0604034,151.000588 L21,151 L21,34 L151,34 Z" id="形状结合" fill="url(#linearGradient-3)" opacity="0.699999988"></path>
+                                <ellipse id="椭圆形" fill="url(#linearGradient-4)" cx="86" cy="34" rx="65" ry="23"></ellipse>
+                                <ellipse id="椭圆形" stroke="#FEDB65" stroke-width="6" cx="86" cy="23" rx="62" ry="20"></ellipse>
+                            </g>
+                            <g id="编组-56" transform="translate(39.000000, 63.000000)" fill="#E62408">
+                                <circle id="椭圆形" filter="url(#filter-5)" cx="53" cy="6" r="3"></circle>
+                                <circle id="椭圆形备份-4" filter="url(#filter-6)" cx="3" cy="3" r="3"></circle>
+                                <circle id="椭圆形备份-5" filter="url(#filter-7)" cx="19" cy="20" r="3"></circle>
+                                <circle id="椭圆形备份-6" filter="url(#filter-8)" cx="40" cy="20" r="3"></circle>
+                                <circle id="椭圆形备份-7" filter="url(#filter-9)" cx="59" cy="39" r="3"></circle>
+                                <circle id="椭圆形备份-8" filter="url(#filter-10)" cx="84" cy="23" r="3"></circle>
+                                <circle id="椭圆形备份-9" filter="url(#filter-11)" cx="94" cy="3" r="3"></circle>
+                                <circle id="椭圆形备份-10" filter="url(#filter-12)" cx="13" cy="45" r="3"></circle>
+                                <circle id="椭圆形备份-11" filter="url(#filter-13)" cx="6" cy="57" r="3"></circle>
+                                <circle id="椭圆形备份-12" filter="url(#filter-14)" cx="3" cy="79" r="3"></circle>
+                                <circle id="椭圆形备份-13" filter="url(#filter-15)" cx="16" cy="89" r="3"></circle>
+                                <circle id="椭圆形备份-14" filter="url(#filter-16)" cx="19" cy="79" r="3"></circle>
+                                <circle id="椭圆形备份-15" filter="url(#filter-17)" cx="25" cy="60" r="3"></circle>
+                                <circle id="椭圆形备份-16" filter="url(#filter-18)" cx="37" cy="42" r="3"></circle>
+                                <circle id="椭圆形备份-17" filter="url(#filter-19)" cx="67" cy="57" r="3"></circle>
+                                <circle id="椭圆形备份-18" filter="url(#filter-20)" cx="78" cy="42" r="3"></circle>
+                                <circle id="椭圆形备份-19" filter="url(#filter-21)" cx="94" cy="54" r="3"></circle>
+                                <circle id="椭圆形备份-20" filter="url(#filter-22)" cx="84" cy="79" r="3"></circle>
+                                <circle id="椭圆形备份-21" filter="url(#filter-23)" cx="65" cy="72" r="3"></circle>
+                                <circle id="椭圆形备份-22" filter="url(#filter-24)" cx="46" cy="73" r="3"></circle>
+                                <circle id="椭圆形备份-23" filter="url(#filter-25)" cx="75" cy="86" r="3"></circle>
+                                <circle id="椭圆形备份-24" filter="url(#filter-26)" cx="46" cy="86" r="3"></circle>
+                                <circle id="椭圆形备份-25" filter="url(#filter-27)" cx="102" cy="85" r="3"></circle>
+                                <circle id="椭圆形备份-26" filter="url(#filter-28)" cx="3" cy="29" r="3"></circle>
+                            </g>
+                        </g>
+                        <g id="web/icon/车辆" transform="translate(26.000000, 60.000000)">
+                            <g id="编组-44">
+                                <rect id="矩形" fill-opacity="0.01" fill="#FFFFFF" x="0" y="0" width="120" height="120"></rect>
+                                <g id="编组-19备份" transform="translate(15.000000, 20.000000)">
+                                    <rect id="矩形-copy-45" fill-opacity="0.01" fill="#FFFFFF" fill-rule="nonzero" x="5" y="0" width="80" height="80"></rect>
+                                    <ellipse id="椭圆形" fill="#1D2121" opacity="0.443289621" filter="url(#filter-29)" cx="45" cy="58.1176471" rx="45" ry="17"></ellipse>
+                                    <g id="编组-4" transform="translate(0.000000, 19.000000)" fill-rule="nonzero">
+                                        <path d="M68.4210526,21.0526316 C76.2259004,21.0526316 83.1876511,24.1392031 87.7192982,28.9473684" id="路径" fill="#AEBCC3"></path>
+                                        <path d="M0,38.0788341 C1.0576257,39.9571061 3.13532825,41.2280702 5.53219596,41.2280702 L82.2569952,41.2280702 C85.7615537,41.2280702 88.5964912,38.5233585 88.5964912,35.1862953 L88.5964912,33.4833287 L85.016835,33.4833287 C84.1712898,33.5008633 83.4699256,32.8327353 83.4460418,31.986972 L83.4460418,24.9622347 C79.0676694,22.1431785 73.9711905,20.6435515 68.7644448,20.6422092 L68.9208983,20.6422092 L63.5388977,20.6171655 C58.2945762,9.3475336 48.1376146,0 34.7702271,0 C21.421614,0 10.2258011,8.7777911 7.17808684,20.6109046 L5.53219596,20.6109046 C2.06518628,20.6109046 0.0438069816,23.2905727 0.0438069816,26.5963314" id="路径" fill="#E8447A"></path>
+                                        <path d="M0,35.0867411 L1.34551599,35.0867411 C2.36137766,35.1091506 3.34494333,34.7457633 4.07970265,34.076571 C4.81446197,33.4073787 5.24018489,32.4872367 5.26315789,31.5186941 L5.26315789,29.8778698 C5.26315789,27.9088807 3.510858,26.3157895 1.34551599,26.3157895 L0.0375492834,26.3157895" id="路径" fill="#F5BB1D"></path>
+                                        <path d="M9.64912281,37.7192982 C9.64912281,43.0483616 14.1655486,47.3684211 19.7368421,47.3684211 C25.3081356,47.3684211 29.8245614,43.0483616 29.8245614,37.7192982 C29.8245614,32.3902349 25.3081356,28.0701754 19.7368421,28.0701754 C14.1655486,28.0701754 9.64912281,32.3902349 9.64912281,37.7192982 Z" id="路径" fill="#455963"></path>
+                                        <path d="M14.9122807,38.1578947 C14.9122807,40.3379661 16.8759441,42.1052632 19.2982456,42.1052632 C21.7205471,42.1052632 23.6842105,40.3379661 23.6842105,38.1578947 C23.6842105,35.9778234 21.7205471,34.2105263 19.2982456,34.2105263 C16.8759441,34.2105263 14.9122807,35.9778234 14.9122807,38.1578947 L14.9122807,38.1578947 Z" id="路径" fill="#AEBCC3"></path>
+                                        <path d="M57.0175439,37.7192982 C57.0175439,43.0483616 61.5339696,47.3684211 67.1052632,47.3684211 C72.6765567,47.3684211 77.1929825,43.0483616 77.1929825,37.7192982 C77.1929825,32.3902349 72.6765567,28.0701754 67.1052632,28.0701754 C61.5339696,28.0701754 57.0175439,32.3902349 57.0175439,37.7192982 Z" id="路径" fill="#455963"></path>
+                                        <path d="M63.1578947,38.1578947 C63.1578947,40.3379661 65.1215581,42.1052632 67.5438596,42.1052632 C69.9661612,42.1052632 71.9298246,40.3379661 71.9298246,38.1578947 C71.9298246,35.9778234 69.9661612,34.2105263 67.5438596,34.2105263 C65.1215581,34.2105263 63.1578947,35.9778234 63.1578947,38.1578947 L63.1578947,38.1578947 Z" id="路径" fill="#AEBCC3"></path>
+                                        <path d="M88.148835,28.6089949 L88.148835,28.5896593 C86.7119874,27.054748 85.0949012,25.7020256 83.3333333,24.5614035 L83.3333333,31.7929283 C83.3333333,32.6436959 84.0559783,33.3333333 84.9385006,33.3333333 L88.5964912,33.3333333 L88.5964912,29.07305 L88.148835,28.6089949 L88.148835,28.6089949 Z" id="路径" fill="#F5BB1D"></path>
+                                        <path d="M33.5559224,3.50877193 C23.2545674,4.126981 14.7696197,11.0022152 12.2807018,20.1754386 L33.5559224,20.1754386 L33.5559224,3.50877193 Z M37.4967092,20.1754386 L58.7719298,20.1754386 C54.7242955,11.7016032 47.2701119,4.60156574 37.4967092,3.58370636 L37.4967092,20.1754386 Z" id="形状" fill="#631536"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

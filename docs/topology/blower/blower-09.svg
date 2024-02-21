@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="51px" height="51px" viewBox="0 0 51 51" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>污水搅拌机-扇叶</title>
+    <defs>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" id="radialGradient-1">
+            <stop stop-color="#9DA7B3" offset="0%"></stop>
+            <stop stop-color="#8C97A6" offset="67.0288975%"></stop>
+            <stop stop-color="#758394" offset="100%"></stop>
+        </radialGradient>
+        <linearGradient x1="59.8199699%" y1="0%" x2="50%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#65717F" offset="0%"></stop>
+            <stop stop-color="#A3B4C8" offset="22.7244497%"></stop>
+            <stop stop-color="#8393A3" offset="64.8650467%"></stop>
+            <stop stop-color="#65717F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="66.6565044%" y1="86.0193365%" x2="17.7234852%" y2="18.5722732%" id="linearGradient-3">
+            <stop stop-color="#65717F" offset="0%"></stop>
+            <stop stop-color="#A3B4C8" offset="22.7244497%"></stop>
+            <stop stop-color="#8393A3" offset="64.8650467%"></stop>
+            <stop stop-color="#65717F" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="5.76020825%" y1="54.5590675%" x2="100%" y2="44.1799079%" id="linearGradient-4">
+            <stop stop-color="#65717F" offset="0%"></stop>
+            <stop stop-color="#A3B4C8" offset="22.7244497%"></stop>
+            <stop stop-color="#8393A3" offset="64.8650467%"></stop>
+            <stop stop-color="#65717F" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="污水搅拌机-扇叶" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组" transform="translate(2.000000, 0.000000)">
+            <circle id="椭圆形备份" fill="url(#radialGradient-1)" cx="23.5" cy="25.5" r="5.5"></circle>
+            <path d="M26.8432667,-1.34834944e-15 C25.5099334,3.5 24.8432667,7 24.8432667,10.5 C24.8432667,13.5552007 25.3512532,16.6104014 26.3672261,19.6656021 C25.5035359,19.2394473 24.5297309,19 23.5,19 C22.0315057,19 20.6767506,19.4869753 19.5884138,20.3082469 C18.4250029,17.0389301 17.8432667,13.7694651 17.8432667,10.5 C17.8432667,7 18.5099334,3.5 19.8432667,-3.06285496e-15 L26.8432667,-1.34834944e-15 Z" id="形状结合" fill="url(#linearGradient-2)"></path>
+            <path d="M38.5932667,27.6028857 C41.6243557,29.3528857 44.3221112,31.680236 46.6865335,34.5849365 L43.1865335,40.6471143 C40.8221112,37.7424138 38.1243557,35.4150635 35.0932667,33.6650635 C32.7526257,32.3136938 30.2132146,31.3066039 27.4750334,30.643794 C29.0105414,29.4553657 30,27.5932331 30,25.5 C30,25.104502 29.9646775,24.7172539 29.8970152,24.3412385 C33.0494259,24.9883326 35.9482591,26.0757898 38.5932667,27.6028857 Z" id="形状结合" fill="url(#linearGradient-3)"></path>
+            <path d="M17.0054414,25.7254205 L17,25.5 C17,28.1376816 18.571112,30.4084102 20.8285672,31.4274171 C18.6753825,33.8654501 16.2636879,35.8553459 13.5932667,37.3971143 C10.5621778,39.1471143 7.19775558,40.319764 3.5,40.9150635 L1.70530257e-13,34.8528857 C3.69775558,34.2575862 7.06217783,33.0849365 10.0932667,31.3349365 C12.6309743,29.8697903 14.9350325,27.9999517 17.0054414,25.7254205 Z" id="形状结合" fill="url(#linearGradient-4)"></path>
+        </g>
+    </g>
+</svg>

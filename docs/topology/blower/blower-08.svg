@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>回流泵-扇叶</title>
+    <defs>
+        <linearGradient x1="0%" y1="58.111459%" x2="91.1409723%" y2="28.7242668%" id="linearGradient-1">
+            <stop stop-color="#65717F" offset="0%"></stop>
+            <stop stop-color="#A3B4C8" offset="22.7244497%"></stop>
+            <stop stop-color="#8393A3" offset="64.8650467%"></stop>
+            <stop stop-color="#65717F" offset="100%"></stop>
+        </linearGradient>
+        <radialGradient cx="50%" cy="50%" fx="50%" fy="50%" r="50%" id="radialGradient-2">
+            <stop stop-color="#404B57" offset="0%"></stop>
+            <stop stop-color="#8593A7" offset="67.0288975%"></stop>
+            <stop stop-color="#8FA2B7" offset="100%"></stop>
+        </radialGradient>
+        <circle id="path-3" cx="9" cy="9" r="9"></circle>
+        <filter x="-52.8%" y="-47.2%" width="205.6%" height="205.6%" filterUnits="objectBoundingBox" id="filter-4">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="3" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.0698350277   0 0 0 0 0.122458213   0 0 0 0 0.162194293  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="回流泵-扇叶" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组-2" transform="translate(-2.000000, 0.000000)">
+            <path d="M23.3579086,18 C17.6931593,14.3034158 16.354151,9.69608215 19.3408837,4.17799911 C22.2945452,-0.340809944 27.6606079,-1.1940542 35.439072,1.61826633 C38.771481,3.12335502 38.567517,4.72991614 34.8271802,6.43794968 C31.0868433,8.14598323 29.2818446,12 29.412184,18 L23.3579086,18 Z" id="路径-54" fill="url(#linearGradient-1)"></path>
+            <path d="M35.3579086,42 C29.6931593,38.3034158 28.354151,33.6960821 31.3408837,28.1779991 C34.2945452,23.6591901 39.6606079,22.8059458 47.439072,25.6182663 C50.771481,27.123355 50.567517,28.7299161 46.8271802,30.4379497 C43.0868433,32.1459832 41.2818446,36 41.412184,42 L35.3579086,42 Z" id="路径-54备份" fill="url(#linearGradient-1)" transform="translate(39.794229, 33.000000) rotate(-240.000000) translate(-39.794229, -33.000000) "></path>
+            <path d="M8.35790856,41 C2.69315929,37.3034158 1.35415099,32.6960821 4.34088367,27.1779991 C7.29454516,22.6591901 12.6606079,21.8059458 20.439072,24.6182663 C23.771481,26.123355 23.567517,27.7299161 19.8271802,29.4379497 C16.0868433,31.1459832 14.2818446,35 14.412184,41 L8.35790856,41 Z" id="路径-54备份-2" fill="url(#linearGradient-1)" transform="translate(12.794229, 32.000000) rotate(-120.000000) translate(-12.794229, -32.000000) "></path>
+            <g id="编组" transform="translate(17.000000, 15.000000)">
+                <g id="蒙版">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
+                    <use fill="url(#radialGradient-2)" fill-rule="evenodd" xlink:href="#path-3"></use>
+                </g>
+                <ellipse id="椭圆形" fill="#434D59" transform="translate(9.000000, 9.000000) scale(1, -1) translate(-9.000000, -9.000000) " cx="9" cy="9" rx="3" ry="3.00729927"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>

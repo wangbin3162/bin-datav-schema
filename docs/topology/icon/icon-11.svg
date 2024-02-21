@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="82px" height="73px" viewBox="0 0 82 73" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 61 (89581) - https://sketch.com -->
+    <title>编组 37</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-36.4%" y="-54.8%" width="172.7%" height="209.5%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.780716086   0 0 0 0 0.288786101   0 0 0 0 0.907297328  0 0 0 0.100251311 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.2266681%" id="linearGradient-2">
+            <stop stop-color="#A0A2FF" offset="0%"></stop>
+            <stop stop-color="#0080FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.2266681%" id="linearGradient-3">
+            <stop stop-color="#686CF4" offset="0.469805743%"></stop>
+            <stop stop-color="#044CF1" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="91.8905188%" y1="67.6899895%" x2="17.9431479%" y2="32.399528%" id="linearGradient-4">
+            <stop stop-color="#0408CF" offset="0%"></stop>
+            <stop stop-color="#4B00FF" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="96.8093455%" y1="32.015495%" x2="3.1906545%" y2="67.4034408%" id="linearGradient-5">
+            <stop stop-color="#122AF8" offset="0%"></stop>
+            <stop stop-color="#0073FF" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-6" points="19.4098488 0 0.165515273 9.60153368 0.165515273 29.9011527 29.0968995 15.8584785"></polygon>
+        <filter x="-118.1%" y="-135.8%" width="336.2%" height="371.6%" filterUnits="objectBoundingBox" id="filter-8">
+            <feGaussianBlur stdDeviation="10.8571429" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <linearGradient x1="50%" y1="17.5660418%" x2="50%" y2="100%" id="linearGradient-9">
+            <stop stop-color="#FEED7E" offset="0%"></stop>
+            <stop stop-color="#FE7800" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="3大数据可视化蓝色科技智慧车辆大屏后台统计" transform="translate(-920.000000, -914.000000)">
+            <g id="原创-icon" transform="translate(574.000000, 901.000000)">
+                <g id="编组-37" transform="translate(353.000000, 13.000000)">
+                    <rect id="矩形备份-8" fill-opacity="0.01" fill="#0B083D" x="0" y="0" width="66.9642857" height="66.9642857"></rect>
+                    <g id="编组-2" filter="url(#filter-1)" transform="translate(1.000000, 19.000000)">
+                        <polygon id="路径-4" stroke="#475EFF" stroke-width="1.01785714" stroke-linejoin="round" points="32.1566975 10.0446429 0 24.9193483 32.1566975 41.2946429 65.8482143 24.9193483"></polygon>
+                        <polygon id="路径-5" fill="#2C34E8" points="32.6564222 10.0446429 4.54125616 22.868456 32.6564222 36.8303571 61.3069581 22.868456"></polygon>
+                        <polygon id="路径-6" fill="url(#linearGradient-2)" opacity="0.885602679" points="32.2535829 0 14.7590825 7.11491266 32.2535829 16.7410714 51.0891318 7.11491266"></polygon>
+                        <polygon id="路径-6" fill="url(#linearGradient-3)" points="32.9679171 2.23214286 19.3003387 7.92407299 32.9679171 15.625 47.6831897 7.92407299"></polygon>
+                        <polygon id="路径-7" fill="url(#linearGradient-4)" opacity="0.697567894" points="15.05491 6.69642857 4.54125616 22.6783629 32.9241071 36.8303571 32.9241071 16.3727087"></polygon>
+                        <g id="椭圆形" transform="translate(31.788793, 7.812500)">
+                            <mask id="mask-7" fill="white">
+                                <use xlink:href="#path-6"></use>
+                            </mask>
+                            <use id="蒙版" fill="url(#linearGradient-5)" opacity="0.697567894" xlink:href="#path-6"></use>
+                            <ellipse fill="#2ACFF6" filter="url(#filter-8)" mask="url(#mask-7)" cx="-0.626803402" cy="21.8203125" rx="13.7896748" ry="11.9918033"></ellipse>
+                        </g>
+                    </g>
+                    <g id="编组-32" transform="translate(20.000000, 5.000000)">
+                        <rect id="矩形" stroke="#979797" stroke-width="1.11607143" fill="#01030B" x="9.48660714" y="10.6026786" width="11.1607143" height="12.2767857"></rect>
+                        <path d="M4.77928085,15.9119707 C4.77928085,10.8234266 8.96927394,6.69642857 14.1416227,6.69642857 C19.3139715,6.69642857 23.5039919,10.8234535 23.5039919,15.9119707 L23.5039919,24.4186994 C23.5039919,25.7259656 22.4442432,26.7857143 21.136977,26.7857143 L5.9627883,26.7857143 C5.30915518,26.7857143 4.77928085,26.25584 4.77928085,25.6022068 C4.77928085,25.6022068 4.77928085,25.6022068 4.77928085,25.6022068 C4.77928085,25.1664609 4.77928085,24.7719584 4.77928085,24.4186994 L4.77928085,15.9119707 Z M14.9289034,10.0446429 L10.0446429,17.6977002 L13.9508784,17.6977002 L12.9728824,23.4375 L17.8571429,15.7844427 L13.9508495,15.7844427 L14.9288745,10.0446429 L14.9289034,10.0446429 L14.9289034,10.0446429 Z M21.8684824,2.35753635 C22.3017382,2.62273808 22.4497684,3.20800792 22.2002404,3.6635336 L20.541505,6.69642857 L18.9732143,5.74213872 L20.6320043,2.70924375 C20.8787213,2.25374677 21.4325519,2.09807677 21.863024,2.35753635 L21.8684824,2.35753635 Z M14.5089131,0 C15.1261961,0 15.625,0.435905313 15.625,0.977130616 L15.625,4.46428571 L13.3928571,4.46428571 L13.3928571,0.9742172 C13.3928261,0.435934447 13.89163,0 14.5089131,0 L14.508882,0 L14.5089131,0 Z M6.03327268,2.35968089 C6.46374122,2.09727582 7.01753998,2.25297294 7.267066,2.70570639 C7.267066,2.70570639 7.267066,2.70857797 7.26979515,2.70857797 L8.92857143,5.74200121 L7.36026641,6.69642857 L5.70149013,3.66300533 C5.45204598,3.2074003 5.60007498,2.62492882 6.03324539,2.35968089 L6.03327268,2.35968089 Z M0.127856779,8.26537401 C0.388202045,7.834167 0.972560688,7.68407206 1.4296695,7.93240948 C1.4296695,7.93240948 1.43254911,7.93240948 1.43254911,7.93515429 L4.46428571,9.5943243 L3.50963841,11.1607143 L0.477873007,9.49877228 C0.020821788,9.25046205 -0.135425686,8.69647232 0.127856779,8.26531966 L0.127856779,8.26537401 Z M27.7739298,8.26641448 C28.0372105,8.69779399 27.8809641,9.25211013 27.4239158,9.50328591 L24.3921411,11.1607143 L23.4375,9.59342856 L26.4692171,7.93325375 C26.9234145,7.68479721 27.5077406,7.83223416 27.7710214,8.26092162 C27.7710214,8.26364086 27.773901,8.26364086 27.773901,8.26636009 L27.773901,8.26641448 L27.7739298,8.26641448 Z" id="形状" fill="url(#linearGradient-9)" fill-rule="nonzero"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
