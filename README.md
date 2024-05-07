@@ -1,3 +1,9 @@
+# 说明
+
+基于 bin-datav 、bin-ui-design 制作的分析大屏 BI 工程，预览地址
+
+[预览地址](https://wangbin3162.github.io/bin-datav-schema/)
+
 # 分析平台配置说明
 
 ## 一、文件目录
