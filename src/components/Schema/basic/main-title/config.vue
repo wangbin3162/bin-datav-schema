@@ -40,6 +40,9 @@
       <g-field tooltip="溢出文本加省略号" label="省略号">
         <b-switch v-model="config.ellipsis" size="small" />
       </g-field>
+      <g-field tooltip="高级样式，直接编辑style对象，可编写高级样式" label="高级样式">
+        <AdvanceStyle v-model="config.textStyle.advanceStyle" />
+      </g-field>
     </g-field-collapse>
 
     <g-field-collapse label="背景样式" v-model="config.backgroundStyle.show" toggle>
@@ -86,6 +89,7 @@
 </template>
 
 <script setup>
+import AdvanceStyle from './../../../Common/AdvanceStyle/index.vue'
 import { computed } from 'vue'
 import {
   FontFamilyOptions,

@@ -13,6 +13,7 @@ export default {
       fontSize: 24,
       color: '#fff',
       fontWeight: 'normal',
+      advanceStyle: '',
     },
     textAlign: 'center',
     writingMode: 'horizontal-tb',

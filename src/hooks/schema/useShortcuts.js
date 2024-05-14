@@ -1,5 +1,5 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
-import { off, on, copyText } from '@/utils/util'
+import { off, on, copyText, hasClass } from '@/utils/util'
 import { useStore } from '@/store'
 import { useRoute } from 'vue-router'
 import { Message } from 'bin-ui-design'
@@ -21,6 +21,9 @@ export default function useShortcuts() {
 
   // 快捷键监听
   const addShortcuts = ev => {
+    // 获取body的class，如果有弹窗则跳过
+    const hasModal = hasClass(document.body, 'bin-popup-parent--hidden')
+    if (hasModal) return
     const target = ev.target
     if (!['input', 'textarea'].includes(target.tagName.toLowerCase())) {
       const key = ev.key.toLowerCase()

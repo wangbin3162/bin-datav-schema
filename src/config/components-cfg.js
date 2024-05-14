@@ -5,7 +5,7 @@ import { getDefaultImageConfig } from '@/components/Schema/basic/image/config'
 import { deepCopy, deepMerge, generateId, isEmpty } from '@/utils/util'
 import { getImagesPath } from '@/utils/env'
 
-const cfgs = import.meta.globEager('../components/Schema/*/*/config.js')
+const cfgs = import.meta.glob('../components/Schema/*/*/config.js', { eager: true })
 const configMap = new Map()
 
 // 便利执行

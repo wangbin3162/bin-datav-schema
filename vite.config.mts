@@ -20,7 +20,7 @@ export default ({ mode }) => {
   const env = loadEnv(mode, dirRoot)
 
   return defineConfig({
-    base: env.VITE_PUBLIC_PATH,
+    base: env.VITE_PUBLIC_PATH + '/',
     plugins: [
       vue(),
       glsl({

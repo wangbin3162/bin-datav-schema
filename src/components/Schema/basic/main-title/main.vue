@@ -11,10 +11,12 @@
 
 <script setup>
 import { computed } from 'vue'
+import { toJson } from '@/utils/util'
 
 defineOptions({
   name: 'VMainTitle',
 })
+
 const props = defineProps({
   data: {
     type: Object,
@@ -24,6 +26,8 @@ const props = defineProps({
 
 // config 配置项
 const config = computed(() => props.data.config)
+
+const advanceStyle = computed(() => toJson(config.value.textStyle.advanceStyle, {}))
 
 const titleStyle = computed(() => {
   const style = {
@@ -51,7 +55,7 @@ const titleStyle = computed(() => {
     style['border-radius'] = `${bgs.borderRadius}px`
   }
 
-  return style
+  return { ...style, ...advanceStyle.value }
 })
 
 const wordStyle = computed(() => {
@@ -71,7 +75,7 @@ const wordStyle = computed(() => {
     style['white-space'] = 'nowrap'
   }
 
-  return style
+  return { ...style, ...advanceStyle.value }
 })
 
 const urlStyle = computed(() => {
@@ -93,7 +97,7 @@ const urlStyle = computed(() => {
     style['white-space'] = 'nowrap'
   }
 
-  return style
+  return { ...style, ...advanceStyle.value }
 })
 
 const titleText = computed(() => config.value.title)

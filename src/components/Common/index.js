@@ -1,4 +1,4 @@
-const comps = import.meta.globEager('./*/*.vue')
+const comps = import.meta.glob('./*/*.vue', { eager: true })
 
 export function registerCommonComps(app) {
   Object.keys(comps).forEach(key => {

@@ -22,7 +22,7 @@
 
 <script setup>
 import { getStyle } from '@/utils/style'
-import { ref } from 'vue '
+import { ref } from 'vue'
 import { useStore } from '@/store'
 import { isEmpty } from '@/utils/util'
 

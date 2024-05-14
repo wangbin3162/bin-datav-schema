@@ -1,4 +1,4 @@
-const comps = import.meta.globEager('./*/*/index.js')
+const comps = import.meta.glob('./*/*/index.js', { eager: true })
 import group from './group'
 
 export function registerVCharts(app) {

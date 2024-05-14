@@ -6,7 +6,7 @@ export const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH
 
 // 拼接publicPath
 export function getPublicPath(path) {
-  return IS_PROD ? `${PUBLIC_PATH}${path}` : path
+  return `${PUBLIC_PATH}${path}`
 }
 
 // 获取images/下的图片路径

@@ -35,6 +35,8 @@ export const addClass = Utils.dom.addClass
 
 export const removeClass = Utils.dom.removeClass
 
+export const hasClass = Utils.dom.hasClass
+
 export const addResizeListener = Utils.resize.addResizeListener
 
 export const removeResizeListener = Utils.resize.removeResizeListener
@@ -86,7 +88,12 @@ export function arraybuffer2Base64(data) {
  * @param log 是否打印到控制台
  */
 export function throwError(callFun, e, title, log = true) {
-  Notice.error({ title: title || '错误', message: e.message || '操作错误！' })
+  console.log('.........................', e)
+  if (e.statusCode === 401 || e.code === '416') {
+    Notice.warning({ title: title || '提示', message: e.message || '操作错误！' })
+  } else {
+    Notice.error({ title: title || '错误', message: e.message || '操作错误！' })
+  }
   if (log) {
     const str = callFun.split('/')
     if (str && str.length >= 2) {

@@ -75,7 +75,7 @@ function change(color) {
     try {
       const colorObj = ColorHelper.toObject(color)
       let formatColor = color
-      if (!colorObj.alpha || colorObj.alpha === 1) {
+      if (colorObj.alpha === 1) {
         // 说明当前的值是没有透明度的，此时需要转换成普通模式的颜色值
         formatColor = ColorHelper.toHex(color)
       }
